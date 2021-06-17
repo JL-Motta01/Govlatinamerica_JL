@@ -9,7 +9,7 @@ class SiteSpider(SitemapSpider):
 
     def parse_noticia(self, response):
         print('parse_noticia url:', response.url)
-        filename = response.url.split("/")[-1] + '.html'
+        filename = response.url.split("/arquivos")[-1] + '.html'
         with open(filename, 'wb') as f:
             f.write(response.body)
         yield {'url': response.url}
@@ -23,7 +23,7 @@ c = CrawlerProcess({
 
     # salva arquivo coo CSV, JSON ou XML
     'FEED_FORMAT': 'csv',     # csv, json, xml
-    'FEED_URI': 'output.csv', # 
+    'FEED_URI': 'lista.csv', # 
 })
 c.crawl(SiteSpider)
 c.start()
