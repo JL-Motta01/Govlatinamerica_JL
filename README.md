@@ -2,7 +2,7 @@
 
 ## Brasil
 
-### habilitar VENV (na pasta raiz GOVLATINAMERICA)
+### Habilitar VENV (na pasta raiz GOVLATINAMERICA)
 ```
 .\venv\bin\activate.ps1
 
@@ -17,3 +17,10 @@ git commit -m "comentário"
 git pull origin main 
 git push origin main
 ```
+
+# Pendencias
+
+- documentar criação do ambiente virtual
+- habilitar ambiente virtual na estação remota
+- instalação do vscode
+- indicar onde colocar os dados coletados
