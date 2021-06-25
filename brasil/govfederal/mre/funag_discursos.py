@@ -47,6 +47,7 @@ texto2 = texto
 #retira strings de lista de lista
 #https://stackoverflow.com/questions/19220554/python-remove-elements-from-nested-lists
 texto2 = [[i for i in texto if i != "'|'"] for texto in texto2]
+texto2 = [[i for i in texto if i != "'-'"] for texto in texto2]
 #retira caracter de lista de lista
 # https://stackoverflow.com/questions/31794610/removing-a-character-from-a-string-in-a-list-of-lists
 texto2 = [[item.replace("'", "") for item in texto] for texto in texto2]
@@ -61,7 +62,7 @@ for ministro in lista_ministros:
     # discursos de posse + link do discurso para posse para bs
     if ministro[2] == 'Discurso de posse':
         lista_ministro_discurso_posse.append(ministro[-1])
-    elif  ministro[2] != 'Discurso de posse':
+    elif ministro[2] != 'Discurso de posse':
         lista_ministro_discurso_posse.append("NA")
     
     if  ministro[2] != 'Discurso de posse':
@@ -69,8 +70,8 @@ for ministro in lista_ministros:
     elif  ministro[2] == 'Discurso de posse':
         lista_ministro_bio.append(ministro[-2])
   
-# pprint(lista_ministro_bio)  
-minstro_bio_paragrafo = []
+pprint(lista_ministro_bio)  
+ministro_bio_paragrafo = []
 for ministro_bio in lista_ministro_bio:
     # print(type(ministro_bio))
     url = ministro_bio
@@ -78,23 +79,86 @@ for ministro_bio in lista_ministro_bio:
     bsBio = BeautifulSoup(html.read(), 'html.parser')
     # pprint(bsBio)
     bio = bsBio.find_all('p')[-2]
-    minstro_bio_paragrafo.append(bio.get_text())
+    ministro_bio_paragrafo.append(bio.get_text(strip=True))
+
+ministro_bio_paragrafo = [el.replace('\xad','') for el in ministro_bio_paragrafo]
+pprint(ministro_bio_paragrafo)
 
 ministro_discurso_posse_paragrafos = []
-for ministro_discurso_posse in lista_ministro_discurso_posse[:2]:
-    pprint(ministro_discurso_posse)
-    url = ministro_discurso_posse
-    html = urlopen(url)
-    bsPosse = BeautifulSoup(html.read(), 'html.parser')
-    tmp=[]
-    #extrai textos dos paragrafos
-    for string in bsPosse.stripped_strings:
-        palavras = repr(string)
-        tmp.append(palavras)
-    pprint(tmp)
+for ministro_discurso_posse in lista_ministro_discurso_posse:
+    try:
+        url = ministro_discurso_posse
+        html = urlopen(url)
+        bsPosse = BeautifulSoup(html.read(), 'html.parser')
+        d_posse = bsPosse.find('div',attrs={"class":"item-page"})
+        
+        p_d_posse = []
+        for p in d_posse.find_all('p'):
+            
+            if p.find('strong'):
+                pass
+            else:
+                #https://stackoverflow.com/questions/10993612/
+                p_d_posse.append(p.get_text(strip=True))
+        p_d_posse = [el.replace('\xa0',' ') for el in p_d_posse]
+        p_d_posse = [string for string in p_d_posse if string != ""]
+        ministro_discurso_posse_paragrafos.append(p_d_posse)
     
+    except:
+        ministro_discurso_posse_paragrafos.append(ministro_discurso_posse)
+        
+# print(ministro_discurso_posse_paragrafos)
+elemento = "Discurso de posse"
+insert_na = "NA"
+#https://stackoverflow.com/questions/66671363/find-an-element-in-a-sub-list-and-when-this-element-is-found-append-all-other
+nova_lista_ministros = []
+for sublista in lista_ministros:
     
-    
+    if elemento in sublista:
+        sublista[2] = "YES"
+        nova_lista_ministros.append(sublista)     
+    else:
+        sublista[2:2] = ["NA"]
+        sublista[4:4] = ["NA"]
+        nova_lista_ministros.append(sublista)
+        
+
+print(nova_lista_ministros)
+
+
+
+def Extract(lst, i):
+    x = i
+    return [item[x] for item in lst]
+
+
+
+
+
+data = Extract(lista_ministros, 0)
+ministro = Extract(lista_ministros, 1)
+discurso_posse = Extract(nova_lista_ministros, 2)
+link_bio = Extract(nova_lista_ministros, 3)
+link_discurso = Extract(nova_lista_ministros, 4)
+
+
+df = pd.DataFrame({
+    # 'discurso_posse': ministro_discurso_posse_paragrafos,
+    # 'bio': ministro_bio_paragrafo,
+    'data': data,
+    'ministro': ministro,
+    'discurso_posse': discurso_posse,
+    'ministro_discurso_posse_paragrafos':ministro_discurso_posse_paragrafos,
+    'ministro_bio_paragrafo': ministro_bio_paragrafo,
+    'link_bio': link_bio,
+    'link_discurso': link_discurso,
+    })
+df.to_csv('discursos.csv')
+print(df.head())
+print(df.to_string())
+
+
+
     
     
 
