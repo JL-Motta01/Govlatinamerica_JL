@@ -11,7 +11,7 @@ writer = csv.writer(csvFile)
 with open(url,"r") as page:
     bs=BeautifulSoup(page,"lxml")
     sitemap = bs.find_all("url")
-    for link in sitemap:
+    for link in sitemap.find_all("noticias", recursive=True):
         print (link.find("loc").get_text())
         csvRow = []
         csvRow.append(link.find("loc").get_text())
