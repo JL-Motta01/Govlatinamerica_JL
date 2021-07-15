@@ -1,5 +1,16 @@
 # Coleta de Dados de sites governamentais da América Latina
 
+## Informações Importantes
+
+
+|Conteúdo|Link de Acesso|
+|---|---|
+|Código das Coletas|[Repositório GitLab](https://gitlab.com/unesp-labri/projeto/govlatinamerica)|
+|Informações gerais|[Pasta Google Drive](https://drive.google.com/drive/u/1/folders/1_g01RcccLl2PpTupxQyCoXEJka30VXeG)|
+|Tarefas do projeto|[Notion](https://www.notion.so/Projeto-GovLatinAmerica-9219a9b60ae24cb98a197f7bdab42209)|
+|Documentação|[Site](https://apoio.labriunesp.org/docs/projetos/dados/gov-latin-america/intro/)|
+
+
 ## Brasil
 
 ### Habilitar VENV (na pasta raiz GOVLATINAMERICA)
