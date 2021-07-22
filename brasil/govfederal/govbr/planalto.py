@@ -16,3 +16,7 @@ with open(url,"r") as page:
         csvRow = []
         csvRow.append(link.find("loc").get_text())
         writer.writerow(csvRow)
+        filename = page.url.split("/arquivos")[-1] + '.html'
+        with open(filename, 'wb') as f:
+            f.write(page.body)
+        yield {'url': page.url}
