@@ -5,7 +5,9 @@ from bs4 import BeautifulSoup
 import pandas as pd
 import csv
 
-csvFile = open("C:/Users/Pichau/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/testecsv.txt",'wt')
+## dir_txt = "C:/Users/Pichau/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/testecsv.txt"
+dir_txt = "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/testecsv.txt"
+csvFile = open(dir_txt,'wt')
 url = 'https://www.gov.br/sitemap.xml'
 writer = csv.writer(csvFile)
 with open(url,"r") as page:
@@ -19,4 +21,4 @@ with open(url,"r") as page:
         filename = page.url.split("/arquivos")[-1] + '.html'
         with open(filename, 'wb') as f:
             f.write(page.body)
-        yield {'url': page.url}
+            
