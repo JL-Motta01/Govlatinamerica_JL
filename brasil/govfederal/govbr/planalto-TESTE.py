@@ -1,10 +1,16 @@
+from urllib.request import urlopen
+import urllib
 import urllib.request #realizar requisição da página html
 import os #para especificar o caminho do download
-from urllib.parse import urlparse #realizar pareamento do html
-from bs4 import BeautifulSoup
-from pprint import pprint
-
+import wget
+from urllib.parse import urlparse #realizar parseamento do html
+from bs4 import BeautifulSoup #importa o beautifulsoup para extrair as infos das tags
+from pprint import pprint #organizar estéticamente os prints
 from requests.models import DecodeError 
+
+def download_sitemap_xml():
+    url = "https://www.gov.br/sitemap.xml"
+    wget.download(url)
 
 def mapa_do_site (url):
     response = urllib.request.urlopen(url)
@@ -26,14 +32,15 @@ def parse_mapa (xml):
         print (titulo.text)
         print (link.text)
         print (data.text)
-        download_pagina(link.text, titulo.text)
+        #download_pagina(link.text, titulo.text)
     return lista_de_titulos
 
 
 def main ():
-    url_site = "https://www.gov.br/sitemap.xml"
-    xml = mapa_do_site(url_site)
-    parse_mapa(xml)
+    download_sitemap_xml()
+    #url_site = "https://www.gov.br/sitemap.xml"
+    #xml = mapa_do_site(url_site)
+    #parse_mapa(xml)
 
 
 if __name__ == "__main__":
