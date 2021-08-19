@@ -18,6 +18,10 @@ def mapa_do_site (url):
 
     return xml
 
+def mapa_do_site_2 (url):
+    conteudo = BeautifulSoup(open(url, 'r'), 'lxml')
+    return conteudo
+
 def download_pagina (url_pg,titulo):
     mypath = "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/html_noticia"
     filename = ( titulo + ".html")
@@ -37,10 +41,10 @@ def parse_mapa (xml):
 
 
 def main ():
-    download_sitemap_xml()
-    #url_site = "https://www.gov.br/sitemap.xml"
-    #xml = mapa_do_site(url_site)
-    #parse_mapa(xml)
+    #download_sitemap_xml()
+    url_site = "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/sitemap.xml"
+    xml = mapa_do_site_2(url_site)
+    parse_mapa(xml)
 
 
 if __name__ == "__main__":
