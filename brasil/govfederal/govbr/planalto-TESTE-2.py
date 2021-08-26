@@ -1,9 +1,11 @@
+from io import DEFAULT_BUFFER_SIZE
 from urllib.request import urlopen
 import urllib
 import urllib.request #realizar requisição da página html
 import os #para especificar o caminho do download
 import wget
 import csv
+from tinydb import TinyDB,Query
 from urllib.parse import urlparse #realizar parseamento do html
 from bs4 import BeautifulSoup #importa o beautifulsoup para extrair as infos das tags
 from pprint import pprint #organizar estéticamente os prints
@@ -14,12 +16,13 @@ def download_sitemap_xml():
     wget.download(url)
 
 def mapa_do_site (url):
+    """Analisa o mapa do site a partir do link"""
     response = urllib.request.urlopen(url)
     xml = BeautifulSoup(response, 'lxml-xml', from_encoding = response.info().get_param("charset"))
-
     return xml
 
 def mapa_do_site_2 (url):
+    """Analisa o mapa do site a partir do arquivo xml baixado"""
     conteudo = BeautifulSoup(open(url, 'r'), 'lxml')
     return conteudo
 
@@ -29,46 +32,49 @@ def download_pagina (url_pg,titulo):
     fullfilename = os.path.join(mypath, filename)
     urllib.request.urlretrieve(url_pg, fullfilename)
 
-def lista_csv ():
-    titulo = []
-    filename = open('listas.csv','r')
-    file = csv.DictReader(filename)
-    for col in file:
-        titulo.append(col['lista_titulo'])
-    return titulo
+
 
 def parse_mapa (xml):
     lista_de_titulos = xml.find_all("news:title")
     lista_de_links = xml.find_all("loc")
-    lista_de_datas = xml.find_all("news:publication_date")
-    compara_titulos = []   
+    lista_de_datas = xml.find_all("news:publication_date") 
+    lista_geral = []
     for titulo,link,data in zip (lista_de_titulos, lista_de_links, lista_de_datas):
-        print (titulo.text)
-        print (link.text)
-        print (data.text)
-        compara_titulos.append(titulo.text)
-        #download_pagina(link.text, titulo.text)
-    return compara_titulos
+        lista_tmp = [] 
+        lista_tmp.append(data.text)
+        lista_tmp.append(titulo.text)
+        lista_tmp.append(link.text)
+        lista_geral.append(lista_tmp)
+    return lista_geral
+    
 
-def compara_listas (lista1,lista2):
-    lista_resultante = []
-    for elemento in lista1:
-        if elemento not in lista2:
-            lista_resultante.append(elemento)
-        else:
-            print("já coletado")
-    return lista_resultante
+def base_dados(xml,db,User):
+    lista_geral = parse_mapa(xml)
+    db_planalto = db.contains(User.titulo==sublista[0])
+    for sublista in lista_geral:
+        if not db_planalto:
+            print("não está na base")
+            db.insert({
+                "data": sublista[0],
+                "título":sublista[1],
+                "link": sublista[2],
+                "atualizado em": "N/A",
+                "conteúdo": "N/A",
+                "categoria": "N/A",
+                "tag": "N/A",
+            })
+        if db_planalto:
+            print("está na base")
+
+DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
 def main ():
     #download_sitemap_xml()
-    #armazenamento_csv()
-    url_site = "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/sitemap.xml"
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/db.json")
+    User = Query()
+    url_site = f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap.xml"
     xml = mapa_do_site_2(url_site)
-    lista2 = lista_csv()
-    lista1 = parse_mapa(xml)
-    lista3 = compara_listas(lista1, lista2)
-    print(lista3)
-
+    base_dados(xml,db,User)
 
 if __name__ == "__main__":
     main()
