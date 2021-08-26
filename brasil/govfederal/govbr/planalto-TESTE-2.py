@@ -50,21 +50,24 @@ def parse_mapa (xml):
 
 def base_dados(xml,db,User):
     lista_geral = parse_mapa(xml)
-    db_planalto = db.contains(User.titulo==sublista[0])
     for sublista in lista_geral:
+        db_planalto = db.contains(User.titulo==sublista[0])
         if not db_planalto:
             print("não está na base")
             db.insert({
                 "data": sublista[0],
                 "título":sublista[1],
                 "link": sublista[2],
-                "atualizado em": "N/A",
-                "conteúdo": "N/A",
-                "categoria": "N/A",
-                "tag": "N/A",
+                "atualizado em": [],
+                "conteúdo": [],
+                "categoria": [],
+                "tag": [],
             })
         if db_planalto:
             print("está na base")
+
+#def extração_conteudo():
+    #
 
 DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
