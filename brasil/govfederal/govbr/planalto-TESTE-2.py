@@ -58,16 +58,36 @@ def base_dados(xml,db,User):
                 "data": sublista[0],
                 "título":sublista[1],
                 "link": sublista[2],
-                "atualizado em": [],
-                "conteúdo": [],
-                "categoria": [],
-                "tag": [],
             })
+            lista_geral2 = extracao_conteudo(sublista[2])
+            for sublista2 in lista_geral2:
+                db.insert({
+                    "atualizado em": sublista2[0],
+                    "conteúdo": sublista2[1],
+                    "categoria": sublista2[2],
+                    "tag": sublista2[3],
+                })
         if db_planalto:
             print("está na base")
 
-#def extração_conteudo():
-    #
+def extracao_conteudo(link):
+    response = urllib.request.urlopen(link)
+    html = BeautifulSoup(response, 'lxml', from_encoding = response.info().get_param("charset"))
+    lista_att = html.find("span", {"class" : "documentmodified"}).getText
+    print(lista_att)
+    lista_conteudo = html.find("div",{"id" : "content-core"}).getText
+    lista_categoria = html.find("div",{"id" : "formfield-form-widgets-categoria"}).getText
+    lista_tag = html.find("div",{"id" : "category"}).getText
+    lista_geral2 = []
+    for atualizado_em, conteudo, categoria, tag in zip (lista_att, lista_conteudo, lista_categoria, lista_tag):
+        lista_tmp2 = [] 
+        lista_tmp2.append(atualizado_em.text)
+        lista_tmp2.append(conteudo.text)
+        lista_tmp2.append(categoria.text)
+        lista_tmp2.append(tag.text)
+        lista_geral2.append(lista_tmp2)
+    return lista_geral2
+
 
 DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
