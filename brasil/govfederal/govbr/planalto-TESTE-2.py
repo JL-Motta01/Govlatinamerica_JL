@@ -41,63 +41,65 @@ def parse_mapa (xml):
     lista_geral = []
     for titulo,link,data in zip (lista_de_titulos, lista_de_links, lista_de_datas):
         lista_tmp = [] 
-        lista_tmp.append(data.text)
-        lista_tmp.append(titulo.text)
         lista_tmp.append(link.text)
+        lista_tmp.append(data.text)
+        lista_tmp.append("atualiza")
+        lista_tmp.append("categoria")
+        lista_tmp.append("tags")
+        lista_tmp.append(titulo.text)
+        lista_tmp.append("conteudo")
         lista_geral.append(lista_tmp)
     return lista_geral
     
 
-def base_dados(xml,db,User):
+def base_dados(xml):
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/db.json")
+    User = Query()
     lista_geral = parse_mapa(xml)
     for sublista in lista_geral:
         db_planalto = db.contains(User.titulo==sublista[0])
         if not db_planalto:
             print("não está na base")
             db.insert({
-                "data": sublista[0],
-                "título":sublista[1],
-                "link": sublista[2],
+                "link": sublista[0],
+                "data":sublista[1],
+                "atualizado em": sublista[2],
+                "categoria": sublista[3],
+                "tags": sublista[4],
+                "titulo": sublista[5],
+                "conteudo": sublista[6],
             })
-            lista_geral2 = extracao_conteudo(sublista[2])
-            for sublista2 in lista_geral2:
-                db.insert({
-                    "atualizado em": sublista2[0],
-                    "conteúdo": sublista2[1],
-                    "categoria": sublista2[2],
-                    "tag": sublista2[3],
-                })
+            link_news = sublista[0]
+            return link_news
         if db_planalto:
             print("está na base")
 
-def extracao_conteudo(link):
+def extracao_conteudo(xml):
+    link = base_dados(xml)
     response = urllib.request.urlopen(link)
     html = BeautifulSoup(response, 'lxml', from_encoding = response.info().get_param("charset"))
-    lista_att = html.find("span", {"class" : "documentmodified"}).getText
+    lista_att =html.find('span', class_='documentModified').find('span', class_='value').get_text()
     print(lista_att)
-    lista_conteudo = html.find("div",{"id" : "content-core"}).getText
-    lista_categoria = html.find("div",{"id" : "formfield-form-widgets-categoria"}).getText
-    lista_tag = html.find("div",{"id" : "category"}).getText
+    lista_conteudo = []
+    for p in html.find('div', {'id' : 'content-core'}).find_all('p'):
+        texto = p.text
+        lista_conteudo.append(texto)
+    print(lista_conteudo)
+    #lista_categoria = html.find('div',{"id" : "formfield-form-widgets-categoria"}).getText()
+    #print(lista_categoria)
+    #lista_tag = html.find("div",{"id" : "category"}).getText()
+    #print(lista_tag)
     lista_geral2 = []
-    for atualizado_em, conteudo, categoria, tag in zip (lista_att, lista_conteudo, lista_categoria, lista_tag):
-        lista_tmp2 = [] 
-        lista_tmp2.append(atualizado_em.text)
-        lista_tmp2.append(conteudo.text)
-        lista_tmp2.append(categoria.text)
-        lista_tmp2.append(tag.text)
-        lista_geral2.append(lista_tmp2)
-    return lista_geral2
+    
 
 
 DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
 def main ():
     #download_sitemap_xml()
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/db.json")
-    User = Query()
     url_site = f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap.xml"
     xml = mapa_do_site_2(url_site)
-    base_dados(xml,db,User)
+    extracao_conteudo(xml)
 
 if __name__ == "__main__":
     main()
