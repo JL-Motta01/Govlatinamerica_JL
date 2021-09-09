@@ -83,7 +83,7 @@ def base_dados(xml):
 
 def extracao_conteudo(xml):
     lista_update = []
-    link = xml
+    link = base_dados(xml)
     response = urllib.request.urlopen(link)
     html = BeautifulSoup(response, 'lxml', from_encoding = response.info().get_param("charset"))
     try:
