@@ -43,11 +43,11 @@ def parse_mapa (xml):
         lista_tmp = [] 
         lista_tmp.append(link.text)
         lista_tmp.append(data.text)
-        lista_tmp.append("atualiza")
-        lista_tmp.append("categoria")
-        lista_tmp.append("tags")
+        lista_tmp.append("NA")
+        lista_tmp.append("NA")
+        lista_tmp.append("NA")
         lista_tmp.append(titulo.text)
-        lista_tmp.append("conteudo")
+        lista_tmp.append("NA")
         lista_geral.append(lista_tmp)
     return lista_geral
     
@@ -70,20 +70,26 @@ def base_dados(xml):
                 "conteudo": sublista[6],
             })
             link_news = sublista[0]
-            return link_news
-        if db_planalto:
+            lista_update = extracao_conteudo(link_news)
             print("está na base")
+            if db.search(User.conteudo == "NA"):
+                db.update({"conteudo":lista_update[1]})
+        if db_planalto:
+            link_news = sublista[0]
+            lista_update = extracao_conteudo(link_news)
+            print("está na base")
+            if db.search(User.conteudo == "NA"):
+                db.update({"conteudo":lista_update[1]})
 
 def extracao_conteudo(xml):
     lista_update = []
-    link = base_dados(xml)
+    link = xml
     response = urllib.request.urlopen(link)
     html = BeautifulSoup(response, 'lxml', from_encoding = response.info().get_param("charset"))
     try:
         lista_att = html.find('span', class_='documentModified').find('span', class_='value').get_text()
     except:
         lista_att = "notícia não modificada"
-    #print(lista_att)
     lista_conteudo = []
     linhas = html.find('div', {'id' : 'content-core'}).find_all(['p','h3'])
     for conteudo in linhas:
@@ -93,14 +99,11 @@ def extracao_conteudo(xml):
         else:
             texto = conteudo.text 
         lista_conteudo.append(texto)
-    #print(lista_conteudo)
     lista_categoria = html.find('span', {'id' : 'form-widgets-categoria'}).find('a').get_text()
-    #print(lista_categoria)
     lista_tag = []
     for spt in html.find('div', {'id' : 'category'}).find_all('span'):
         tag = spt.text
         lista_tag.append(tag)
-    #print(lista_tag)
     lista_update = [lista_att,lista_conteudo,lista_categoria,lista_tag]
     return lista_update
     
