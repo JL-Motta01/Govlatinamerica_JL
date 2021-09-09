@@ -75,6 +75,7 @@ def base_dados(xml):
             print("está na base")
 
 def extracao_conteudo(xml):
+    lista_update = []
     link = base_dados(xml)
     response = urllib.request.urlopen(link)
     html = BeautifulSoup(response, 'lxml', from_encoding = response.info().get_param("charset"))
@@ -82,20 +83,26 @@ def extracao_conteudo(xml):
         lista_att = html.find('span', class_='documentModified').find('span', class_='value').get_text()
     except:
         lista_att = "notícia não modificada"
-    print(lista_att)
+    #print(lista_att)
     lista_conteudo = []
-    for p in html.find('div', {'id' : 'content-core'}).find_all(['p','h3']):
-        texto = p.text
+    linhas = html.find('div', {'id' : 'content-core'}).find_all(['p','h3'])
+    for conteudo in linhas:
+        if conteudo.name == 'h3':
+            texto = conteudo.text
+            texto = texto.upper()
+        else:
+            texto = conteudo.text 
         lista_conteudo.append(texto)
-    print(lista_conteudo)
+    #print(lista_conteudo)
     lista_categoria = html.find('span', {'id' : 'form-widgets-categoria'}).find('a').get_text()
-    print(lista_categoria)
+    #print(lista_categoria)
     lista_tag = []
     for spt in html.find('div', {'id' : 'category'}).find_all('span'):
         tag = spt.text
         lista_tag.append(tag)
-    print(lista_tag)
-    lista_geral2 = []
+    #print(lista_tag)
+    lista_update = [lista_att,lista_conteudo,lista_categoria,lista_tag]
+    return lista_update
     
 
 
