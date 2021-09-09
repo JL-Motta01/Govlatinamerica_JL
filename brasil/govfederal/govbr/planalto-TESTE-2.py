@@ -78,17 +78,23 @@ def extracao_conteudo(xml):
     link = base_dados(xml)
     response = urllib.request.urlopen(link)
     html = BeautifulSoup(response, 'lxml', from_encoding = response.info().get_param("charset"))
-    lista_att =html.find('span', class_='documentModified').find('span', class_='value').get_text()
+    try:
+        lista_att = html.find('span', class_='documentModified').find('span', class_='value').get_text()
+    except:
+        lista_att = "notícia não modificada"
     print(lista_att)
     lista_conteudo = []
-    for p in html.find('div', {'id' : 'content-core'}).find_all('p'):
+    for p in html.find('div', {'id' : 'content-core'}).find_all(['p','h3']):
         texto = p.text
         lista_conteudo.append(texto)
     print(lista_conteudo)
-    #lista_categoria = html.find('div',{"id" : "formfield-form-widgets-categoria"}).getText()
-    #print(lista_categoria)
-    #lista_tag = html.find("div",{"id" : "category"}).getText()
-    #print(lista_tag)
+    lista_categoria = html.find('span', {'id' : 'form-widgets-categoria'}).find('a').get_text()
+    print(lista_categoria)
+    lista_tag = []
+    for spt in html.find('div', {'id' : 'category'}).find_all('span'):
+        tag = spt.text
+        lista_tag.append(tag)
+    print(lista_tag)
     lista_geral2 = []
     
 
