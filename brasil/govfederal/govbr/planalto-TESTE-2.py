@@ -58,6 +58,7 @@ def base_dados(xml):
     lista_geral = parse_mapa(xml)
     for sublista in lista_geral:
         db_planalto = db.contains(User.titulo==sublista[0])
+        print(sublista)
         if not db_planalto:
             print("não está na base")
             db.insert({
@@ -73,17 +74,22 @@ def base_dados(xml):
             lista_update = extracao_conteudo(link_news)
             print("está na base")
             if db.search(User.conteudo == "NA"):
+                db.update({"atualizado em":lista_update[0]})
                 db.update({"conteudo":lista_update[1]})
+                db.update({"categoria":lista_update[2]})
+                db.update({"tags":lista_update[3]})
         if db_planalto:
             link_news = sublista[0]
             lista_update = extracao_conteudo(link_news)
             print("está na base")
             if db.search(User.conteudo == "NA"):
+                db.update({"atualizado em":lista_update[0]})
                 db.update({"conteudo":lista_update[1]})
+                db.update({"categoria":lista_update[2]})
+                db.update({"tags":lista_update[3]})
 
-def extracao_conteudo(xml):
+def extracao_conteudo(link):
     lista_update = []
-    link = base_dados(xml)
     response = urllib.request.urlopen(link)
     html = BeautifulSoup(response, 'lxml', from_encoding = response.info().get_param("charset"))
     try:
@@ -113,9 +119,10 @@ DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
 def main ():
     #download_sitemap_xml()
-    url_site = f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap.xml"
-    xml = mapa_do_site_2(url_site)
-    extracao_conteudo(xml)
+    url_site = [f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap.xml",f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap2.xml"]
+    for url in url_site:
+        xml = mapa_do_site_2(url)
+        base_dados(xml)
 
 if __name__ == "__main__":
     main()
