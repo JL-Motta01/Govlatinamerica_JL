@@ -12,8 +12,10 @@ from pprint import pprint #organizar estéticamente os prints
 from requests.models import DecodeError 
 
 def download_sitemap_xml():
-    url = "https://www.gov.br/sitemap.xml"
-    wget.download(url)
+    url1 = "https://www.gov.br/sitemap.xml"
+    url2 = "https://www.gov.br/planalto/sitemap.xml"
+    wget.download(url1, "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/map_noticias.xml")
+    wget.download(url2, "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/map_planalto.xml")
 
 def mapa_do_site (url):
     """Analisa o mapa do site a partir do link"""
@@ -92,24 +94,38 @@ def extracao_conteudo(link):
     lista_update = []
     response = urllib.request.urlopen(link)
     html = BeautifulSoup(response, 'lxml', from_encoding = response.info().get_param("charset"))
+
     try:
         lista_att = html.find('span', class_='documentModified').find('span', class_='value').get_text()
     except:
         lista_att = "notícia não modificada"
-    lista_conteudo = []
-    linhas = html.find('div', {'id' : 'content-core'}).find_all(['p','h3'])
-    for conteudo in linhas:
-        if conteudo.name == 'h3':
-            texto = conteudo.text
-            texto = texto.upper()
-        else:
-            texto = conteudo.text 
-        lista_conteudo.append(texto)
-    lista_categoria = html.find('span', {'id' : 'form-widgets-categoria'}).find('a').get_text()
-    lista_tag = []
-    for spt in html.find('div', {'id' : 'category'}).find_all('span'):
-        tag = spt.text
-        lista_tag.append(tag)
+
+    try:
+        lista_conteudo = []
+        linhas = html.find('div', {'id' : 'content-core'}).find_all(['p','h3'])
+        for conteudo in linhas:
+            if conteudo.name == 'h3':
+                texto = conteudo.text
+                texto = texto.upper()
+            else:
+                texto = conteudo.text 
+            lista_conteudo.append(texto)
+    except:
+        lista_conteudo= "notícia sem conteúdo"
+
+    try:
+        lista_categoria = html.find('span', {'id' : 'form-widgets-categoria'}).find('a').get_text()
+    except:
+        lista_categoria= "notícia sem categoria"
+
+    try:
+        lista_tag = []
+        for spt in html.find('div', {'id' : 'category'}).find_all('span'):
+            tag = spt.text
+            lista_tag.append(tag)
+    except:
+        lista_tag= "notícia sem tags"
+
     lista_update = [lista_att,lista_conteudo,lista_categoria,lista_tag]
     return lista_update
     
@@ -118,8 +134,9 @@ def extracao_conteudo(link):
 DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
 def main ():
-    #download_sitemap_xml()
-    url_site = [f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap.xml",f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap2.xml"]
+    if not os.path.exists(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/arquivos/map_noticias.xml"):
+        download_sitemap_xml()
+    url_site = [f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/arquivos/map_noticias.xml",f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/arquivos/map_planalto.xml"]
     for url in url_site:
         xml = mapa_do_site_2(url)
         base_dados(xml)
