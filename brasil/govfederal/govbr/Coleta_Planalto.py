@@ -11,11 +11,15 @@ from bs4 import BeautifulSoup #importa o beautifulsoup para extrair as infos das
 from pprint import pprint #organizar estéticamente os prints
 from requests.models import DecodeError 
 
+DIR_LOCAL= "/home/labri_joaomotta/codigo"
+
+DIR_DADOS= "/media/hdvm10/bd/003/001/001/001/001-b"
+
 def download_sitemap_xml():
     url1 = "https://www.gov.br/sitemap.xml"
     url2 = "https://www.gov.br/planalto/sitemap.xml"
-    wget.download(url1, "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/map_noticias.xml")
-    wget.download(url2, "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/map_planalto.xml")
+    wget.download(url1, f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap/map_noticias.xml")
+    wget.download(url2, f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap/map_planalto.xml")
 
 def mapa_do_site (url):
     """Analisa o mapa do site a partir do link"""
@@ -29,7 +33,7 @@ def mapa_do_site_2 (url):
     return conteudo
 
 def download_pagina (url_pg,titulo):
-    mypath = "/home/labri_joaomotta/codigo/govlatinamerica/brasil/govfederal/govbr/arquivos/html_noticia"
+    mypath = f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/arquivos/html_noticia"
     filename = ( titulo + ".html")
     fullfilename = os.path.join(mypath, filename)
     urllib.request.urlretrieve(url_pg, fullfilename)
@@ -55,12 +59,11 @@ def parse_mapa (xml):
     
 
 def base_dados(xml):
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/db.json")
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db.json")
     User = Query()
     lista_geral = parse_mapa(xml)
     for sublista in lista_geral:
         db_planalto = db.contains(User.titulo==sublista[0])
-        print(sublista)
         if not db_planalto:
             print("não está na base")
             db.insert({
@@ -128,15 +131,11 @@ def extracao_conteudo(link):
 
     lista_update = [lista_att,lista_conteudo,lista_categoria,lista_tag]
     return lista_update
-    
-
-
-DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
 def main ():
-    if not os.path.exists(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/arquivos/map_noticias.xml"):
+    if not os.path.exists(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap/map_noticias.xml"):
         download_sitemap_xml()
-    url_site = [f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/arquivos/map_noticias.xml",f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/arquivos/map_planalto.xml"]
+    url_site = [f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap/map_noticias.xml",f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/sitemap/map_planalto.xml"]
     for url in url_site:
         xml = mapa_do_site_2(url)
         base_dados(xml)

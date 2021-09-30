@@ -29,6 +29,11 @@ git pull origin main
 git push origin main
 ```
 
+# verificar atualizações do ambiente virtual
+
+```
+git pull origin master && conda activate env_govlatinamerica && conda env update
+```
 # Pendencias
 
 - documentar criação do ambiente virtual
