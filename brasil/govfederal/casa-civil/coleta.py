@@ -62,7 +62,8 @@ def conselho_solidariedade():
     cc_pagina = pagina(url) # passando o link para pagina url, parciando as noticias
     tag_tr = cc_pagina.find("tr").find_all("td").a
     for tag_td in tag_tr : 
-        print(tag_td)
+        for tag_a in tag_td :
+            print(a["href"])
 
 def main():
     url = "https://www.gov.br/casacivil/pt-br/assuntos"
