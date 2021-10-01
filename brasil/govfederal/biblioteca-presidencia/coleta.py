@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 # ativa a biblioteca de terceiros que percorre a página, extraindo infos que queremos 
 
 def pagina():
-    html = urlopen("https://biblioteca.presidencia.gov.br/")
+    html = urlopen("http://biblioteca.presidencia.gov.br/")
     ## chama a página
     bs = BeautifulSoup(html, "html.parser")
     ## percorre os elementos que queremos
@@ -15,8 +15,8 @@ def links_noticias(bs):
 
 def main():
     bs = pagina()
-    links = links_noticias(bs)
-    print(bs, links)
+    ## links = links_noticias(bs)
+    print(bs)
 
 
 if __name__ == "__main__" :
