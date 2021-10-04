@@ -7,15 +7,13 @@ from bs4 import BeautifulSoup
 def pagina(url):
     html = urlopen(url)  # irá retornar a página da função links_cards
     # chama a página
-    global bs
     bs = BeautifulSoup(html, "html.parser")
     # percorre os elementos que queremos
     return bs
 
 
 def links_cards(bs):
-    cards = bs.find("div", class_="wrapper").find_all(
-        "div", class_="card")  # passa em lista
+    cards = bs.find("div", class_="wrapper").find_all("div", class_="card")  # passa em lista
     lista_cards = []  # cria uma lista vazia
     for card in cards:
         lista_cards.append(card.a["href"])  # coloca dentro da lista vazia
@@ -66,39 +64,70 @@ def ci_planejamento_infraestrutura(bs):
     ci_planejamento_infraestrutura = links_cards(bs)[10]
 
 
-def cf_assistencia_emergencial(bs):
-    cf_assistencia_emergencial = links_cards(bs)[11]
+def cf_assistencia_emergencial():
+    url = links_cards(bs)[11]
+    cc_pagina = pagina(url)
+    lista_conteudo_assistencia = cc_pagina.find("div", id="content-core").find("p", class_="Paragrafo_Numerado_Nivel1").text
+    ## print(lista_conteudo_assistencia)
+    lista_links_assistencia = []
+    lista_tag_span = lista_conteudo_orgaos.find("span", class_="summary").find_all("a")
 
-
-def orgaos_vinculados(bs):
-    orgaos_vinculados = links_cards(bs)[12]
-
+def orgaos_vinculados():
+    url = links_cards(bs)[12]
+    cc_pagina = pagina(url)
+    # pegando todo conteúdo da página 
+    lista_conteudo_orgaos = cc_pagina.find("div", class_="entries").find("article", class_="entry")
+    # pegando os links da página
+    
+    """
+    lista_links_orgaos = []
+    lista_tag_ul = lista_conteudo_orgaos.find("span", class_="summary").find_all("a")
+    for a in lista_tag_ul:
+            tag_a = a["href"]
+            lista_links_orgaos.append(tag_a)
+            ## print(lista_links_orgaos)
+    """
+    
+    # pegando datas da página 
+    lista_data_orgaos = cc_pagina.find("div", class_="documentByLine")
+    data_post = lista_data_orgaos.find("span", class_="documentPublished").find("span", class_="value").text
+    data_update = lista_data_orgaos.find("span", class_="documentModified").find("span", class_="value").text
 
 def conselho_solidariedade():
     # pega o link do solidariedade, indicado pelo numero 13
     url = links_cards(bs)[13]
     # passando o link para pagina url, parciando as noticias
     cc_pagina = pagina(url)
-    lista_links = []
-    lista_tag_td = cc_pagina.find("tr").find_all("td")
+    lista_links_solidariedade = [] # cria uma lista vazia
+    # chamando os links das subpáginas
+    lista_tag_td = cc_pagina.find("tr").find_all("td") # a lista td percorrida foi atribuída a tag
     for tag_td in lista_tag_td:
-        lista_tag_a = tag_td.find_all("a")
+        lista_tag_a = tag_td.find_all("a") 
         for a in lista_tag_a:
             tag_a = a["href"]
-            lista_links.append(tag_a)
-    for link in lista_links:
-        paginas_links = pagina(link)
-        pags_solidaridade = paginas_links
-        print(pags_solidaridade.h1.text)
+            lista_links_solidariedade.append(tag_a) # coloca dentro da lista vazia
+    for link in lista_links_solidariedade:
+        paginas_links = pagina(link) # chamou a variável link criada 
+        pags_solidariedade = paginas_links
+    # pegando datas da página 
+    lista_data_solidariedade = cc_pagina.find("div", class_="documentByLine")
+    data_post = lista_data_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
+    data_update = lista_data_solidariedade.find("span", class_="documentModified").find("span", class_="value").text
+    # clicando nas subpáginas
 
 
 def main():
+    global bs
     url = "https://www.gov.br/casacivil/pt-br/assuntos"
     bs = pagina(url)  # chamando a funcao responsavel por chamar a pag
     cards = links_cards(bs)
-    ## bs = pagina(url)
+    cc_cf_assistencia_emergencial = cf_assistencia_emergencial()
+    cc_orgaos_vinculados = orgaos_vinculados()
+    cc_conselho_solidariedade = conselho_solidariedade()
+
     """
     cc_noticias = noticias(bs)
+    cc_notas_oficiais = notas_oficiais(bs)
     cc_comunicados_interministeriais = comunicados_interministeriais(bs)
     cc_boletins_cc = boletins_cc(bs)
     cc_periodicos_mensais= periodicos_mensais(bs)
@@ -108,11 +137,7 @@ def main():
     cc_conselho_superior_cinema= conselho_superior_cinema(bs)
     cc_ci_mudanca_clima= ci_mudanca_clima(bs)
     cc_ci_planejamento_infraestrutura= ci_planejamento_infraestrutura(bs)
-    cc_cf_assistencia_emergencial= cf_assistencia_emergencial(bs)
-    cc_orgaos_vinculados= orgaos_vinculados(bs)
-    """
-    cc_conselho_solidariedade = conselho_solidariedade()
-
+    """  
 
 if __name__ == "__main__":
     main()
