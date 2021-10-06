@@ -4,7 +4,8 @@ channels:
 dependencies:
   - python
   - pip
-  - geckodriver=0.29.1=h3146498_0
+  - conda:
+    - geckodriver
   - pip:
     - beautifulsoup4==4.9.3
     - charset-normalizer==2.0.3
