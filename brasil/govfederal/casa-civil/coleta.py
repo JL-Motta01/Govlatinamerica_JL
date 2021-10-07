@@ -4,12 +4,13 @@ from bs4 import BeautifulSoup
 # ativa a biblioteca de terceiros que percorre a página, extraindo infos que queremos
 
 
-def pagina(url):
+def acessar_pagina(url):
     html = urlopen(url)  # irá retornar a página da função links_cards
     # chama a página
-    bs = BeautifulSoup(html, "html.parser")
+    global bsoup
+    bsoup = BeautifulSoup(html, "html.parser")
     # percorre os elementos que queremos
-    return bs
+    return bsoup
 
 
 def links_cards(bs):
@@ -52,9 +53,9 @@ def governanca(bs):
     governanca = links_cards(bs)[7]
 
 
-def conselho_superior_cinema(): # em andamento
+def conselho_superior_cinema(): # in progress
     url = links_cards(bs)[8]
-    cc_pagina = pagina(url)
+    cc_pagina = acessar_pagina(url)
     # conteúdo da página
     lista_conteudo_cinema = cc_pagina.find("div", id="content-core")
     # datas da página
@@ -63,26 +64,50 @@ def conselho_superior_cinema(): # em andamento
     data_update_cinema = lista_data_cinema.find("span", class_="documentModified").find("span", class_="value").text
 
 
-def ci_mudanca_clima(): # em andamento
+def ci_mudanca_clima(): # in progress
     url = links_cards(bs)[9]
-    cc_pagina = pagina(url)
+    cc_pagina = acessar_pagina(url)
     cards_clima = cc_pagina.find("div", class_="wrapper").find_all("div", class_="card")
     lista_cards_clima = []
     for card in cards_clima:
         lista_cards_clima.append(card.a["href"])
-    return lista_cards_clima
+    if lista_cards_clima[0]: # check
+        sobre_cim = acessar_pagina(lista_cards_clima[0])
+        lista_conteudo_sobre = sobre_cim.find("div", id="content-core") # conteúdo
+        data_post_sobre = sobre_cim.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    if lista_cards_clima[1]: # check
+        atas_cim = acessar_pagina(lista_cards_clima[1])
+        lista_links_atas = []
+        lista_conteudo_atas = atas_cim.find("div", id="content-core").find_all("p")
+        for tag_p in lista_conteudo_atas:
+            lista_tag_a = tag_p.find_all("a")
+            for a in lista_tag_a:
+                tag_a = a["href"]
+                lista_links_atas.append(tag_a)
+        # datas
+        lista_data_atas = atas_cim.find("div", class_="documentByLine")
+        data_post_atas = atas_cim.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_atas = atas_cim.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    if lista_cards_clima[3] # in progress
+        regime_cim = acessar_pagina(lista_cards_clima[3])
+    
+    """    
+    
+    if lista_cards_clima[-1]
+        arquivos_cim = lista_cards_clima[-1]
+    """
 
 
 def ci_planejamento_infraestrutura(): # check
     url = links_cards(bs)[10]
-    cc_pagina = pagina(url)
+    cc_pagina = acessar_pagina(url)
     lista_links_planejamento = []
     lista_conteudo_planejamento = cc_pagina.find("div", id="content-core").find_all("p")
-    for tag_p in lista_conteudo_planejamento:
+    for tag_p in lista_conteudo_planejamento: 
         lista_tag_a = tag_p.find_all("a")
         for a in lista_tag_a:
             tag_a = a["href"]
-            lista_links_planejamento.append(tag_a)
+            lista_links_planejamento.append(tag_a) 
     lista_data_planejamento = cc_pagina.find("div", class_="documentByLine")
     data_post_planejamento = lista_data_planejamento.find("span", class_="documentPublished").find("span", class_="value").text
     data_update_planejamento = lista_data_planejamento.find("span", class_="documentModified").find("span", class_="value").text
@@ -90,7 +115,7 @@ def ci_planejamento_infraestrutura(): # check
 
 def cf_assistencia_emergencial(): # check
     url = links_cards(bs)[11]
-    cc_pagina = pagina(url)
+    cc_pagina = acessar_pagina(url)
     # pegando toodo conteúdo da página
     lista_conteudo_assistencia = cc_pagina.find("div", id="content-core").find("p", class_="Paragrafo_Numerado_Nivel1").text
     # pegando os links da página
@@ -107,7 +132,7 @@ def cf_assistencia_emergencial(): # check
 
 def orgaos_vinculados(): # check
     url = links_cards(bs)[12]
-    cc_pagina = pagina(url)
+    cc_pagina = acessar_pagina(url)
     # pegando todo conteúdo da página 
     lista_conteudo_orgaos = cc_pagina.find("div", class_="entries").find("article", class_="entry")
     # pegando os links da página
@@ -126,7 +151,7 @@ def conselho_solidariedade(): # em andamento
     # pega o link do solidariedade, indicado pelo numero 13
     url = links_cards(bs)[13]
     # passando o link para pagina url, parciando as noticias
-    cc_pagina = pagina(url)
+    cc_pagina = acessar_pagina(url)
     lista_links_solidariedade = [] # cria uma lista vazia
     # chamando os links das subpáginas
     lista_tag_td = cc_pagina.find("tr").find_all("td") # a lista td percorrida foi atribuída a tag
@@ -136,7 +161,7 @@ def conselho_solidariedade(): # em andamento
             tag_a = a["href"]
             lista_links_solidariedade.append(tag_a) # coloca dentro da lista vazia
     for link in lista_links_solidariedade:
-        paginas_links = pagina(link) # chamou a variável link criada 
+        paginas_links = acessar_pagina(link) # chamou a variável link criada 
         pags_solidariedade = paginas_links
     # pegando datas da página 
     lista_data_solidariedade = cc_pagina.find("div", class_="documentByLine")
@@ -147,7 +172,7 @@ def conselho_solidariedade(): # em andamento
 def main():
     global bs
     url = "https://www.gov.br/casacivil/pt-br/assuntos"
-    bs = pagina(url)  # chamando a funcao responsavel por chamar a pag
+    bs = acessar_pagina(url)  # chamando a funcao responsavel por chamar a pag
     cards = links_cards(bs)
     cc_cf_assistencia_emergencial = cf_assistencia_emergencial()
     cc_orgaos_vinculados = orgaos_vinculados()
