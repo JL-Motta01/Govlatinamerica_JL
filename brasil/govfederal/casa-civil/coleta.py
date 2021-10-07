@@ -64,7 +64,7 @@ def conselho_superior_cinema(): # in progress
     data_update_cinema = lista_data_cinema.find("span", class_="documentModified").find("span", class_="value").text
 
 
-def ci_mudanca_clima(): # in progress
+def ci_mudanca_clima(): # check
     url = links_cards(bs)[9]
     cc_pagina = acessar_pagina(url)
     cards_clima = cc_pagina.find("div", class_="wrapper").find_all("div", class_="card")
@@ -170,14 +170,27 @@ def orgaos_vinculados(): # check
     data_update_orgaos = lista_data_orgaos.find("span", class_="documentModified").find("span", class_="value").text
 
 
-def conselho_solidariedade(): # em andamento
-    # pega o link do solidariedade, indicado pelo numero 13
+def conselho_solidariedade(): # in progress - pegar títulos
     url = links_cards(bs)[13]
-    # passando o link para pagina url, parciando as noticias
-    cc_pagina = acessar_pagina(url)
-    lista_links_solidariedade = [] # cria uma lista vazia
+    cc_pagina = acessar_pagina(url) # passando o link para pagina url, parciando as noticias
+    lista_links_solidariedade = []
+
+    """
+    lista_td_solidariedade = cc_pagina.find("div", id="content-core").find_all("td")
+    for td in lista_td_solidariedade:
+        lista_links_solidariedade.append(td.a["href"])
+    if lista_td_solidariedade[0]: # in progress
+        td_conselho = acessar_pagina(lista_td_solidariedade[0])
+        # pegando datas da página 
+        lista_data_conselho = td_conselho.find("div", class_="documentByLine")
+        data_post_conselho = lista_data_conselho.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_conselho = lista_data_conselho.find("span", class_="documentModified").find("span", class_="value").text
+        print(data_post_conselho)
+    
+    if lista_td_solidariedade[1]: # in progress
+        td_composicao = acessar_pagina(lista_td_solidariedade[1])
+
     # chamando os links das subpáginas
-    lista_tag_td = cc_pagina.find("tr").find_all("td") # a lista td percorrida foi atribuída a tag
     for tag_td in lista_tag_td:
         lista_tag_a = tag_td.find_all("a") 
         for a in lista_tag_a:
@@ -191,6 +204,8 @@ def conselho_solidariedade(): # em andamento
     data_post_solidariedade = lista_data_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
     data_update_solidariedade = lista_data_solidariedade.find("span", class_="documentModified").find("span", class_="value").text
     # clicando nas subpáginas
+    """
+
 
 def main():
     global bs
