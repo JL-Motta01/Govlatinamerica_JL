@@ -88,14 +88,37 @@ def ci_mudanca_clima(): # in progress
         lista_data_atas = atas_cim.find("div", class_="documentByLine")
         data_post_atas = atas_cim.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_atas = atas_cim.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
-    if lista_cards_clima[3] # in progress
+    if lista_cards_clima[3]: # check / conferir o retorno de várias vezes os mesmos links
         regime_cim = acessar_pagina(lista_cards_clima[3])
-    
-    """    
-    
-    if lista_cards_clima[-1]
-        arquivos_cim = lista_cards_clima[-1]
-    """
+        lista_links_regime = []
+        lista_conteudo_regime = regime_cim.find("div", id="content-core").find_all("p")
+        for tag_p in lista_conteudo_regime:
+            lista_tag_a = tag_p.find_all("a")
+            for a in lista_tag_a:
+                tag_a = a["href"]
+                lista_links_regime.append(tag_a)
+        # datas
+        lista_data_regime = regime_cim.find("div", class_="documentByLine")
+        data_post_regime = regime_cim.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_regime = regime_cim.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    if lista_cards_clima[4]: # check
+        arquivos_cim = acessar_pagina(lista_cards_clima[-1])
+        # conteúdo da página 
+        lista_conteudo_arquivos = [] 
+        lista_links_arquivos = []
+        conteudo_arquivos = arquivos_cim.find("div", id="content-core").find_all("article")
+        for tag_article in conteudo_arquivos: 
+            lista_tag_article_arquivos = tag_article.find("span", class_="documentByLine")
+            lista_conteudo_arquivos.append(lista_tag_article_arquivos)
+            # links da página
+            links_arquivos = tag_article.find("span", class_="summary").find_all("a")
+            for a in links_arquivos:
+                    tag_a = a["href"]
+                    lista_links_arquivos.append(tag_a)
+        # datas 
+        lista_data_arquivos = arquivos_cim.find("div", class_="documentByLine")
+        data_post_arquivos = lista_data_arquivos.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_arquivos = lista_data_arquivos.find("span", class_="documentModified").find("span", class_="value").text
 
 
 def ci_planejamento_infraestrutura(): # check
