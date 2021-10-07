@@ -68,26 +68,18 @@ def cf_assistencia_emergencial():
     url = links_cards(bs)[11]
     cc_pagina = pagina(url)
     lista_conteudo_assistencia = cc_pagina.find("div", id="content-core").find("p", class_="Paragrafo_Numerado_Nivel1").text
-    ## print(lista_conteudo_assistencia)
     lista_links_assistencia = []
-    lista_tag_span = lista_conteudo_orgaos.find("span", class_="summary").find_all("a")
+    lista_tag_ul = cc_pagina.find("div", id="content-core").find("ul").find_all("a")
+    for a in lista_tag_ul:
+        tag_a = a["href"]
+        lista_links_assistencia.append(tag_a)
+        print(paginas_links_assistencia)
 
 def orgaos_vinculados():
     url = links_cards(bs)[12]
     cc_pagina = pagina(url)
     # pegando todo conteúdo da página 
-    lista_conteudo_orgaos = cc_pagina.find("div", class_="entries").find("article", class_="entry")
-    # pegando os links da página
-    
-    """
-    lista_links_orgaos = []
-    lista_tag_ul = lista_conteudo_orgaos.find("span", class_="summary").find_all("a")
-    for a in lista_tag_ul:
-            tag_a = a["href"]
-            lista_links_orgaos.append(tag_a)
-            ## print(lista_links_orgaos)
-    """
-    
+    lista_conteudo_orgaos = cc_pagina.find("div", class_="entries").find("article", class_="entry") 
     # pegando datas da página 
     lista_data_orgaos = cc_pagina.find("div", class_="documentByLine")
     data_post = lista_data_orgaos.find("span", class_="documentPublished").find("span", class_="value").text
@@ -114,7 +106,6 @@ def conselho_solidariedade():
     data_post = lista_data_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
     data_update = lista_data_solidariedade.find("span", class_="documentModified").find("span", class_="value").text
     # clicando nas subpáginas
-
 
 def main():
     global bs
