@@ -93,14 +93,6 @@ def cf_assistencia_emergencial(): # check
     cc_pagina = pagina(url)
     # pegando toodo conteúdo da página
     lista_conteudo_assistencia = cc_pagina.find("div", id="content-core").find("p", class_="Paragrafo_Numerado_Nivel1").text
-<<<<<<< HEAD
-    lista_links_assistencia = []
-    lista_tag_ul = cc_pagina.find("div", id="content-core").find("ul").find_all("a")
-    for a in lista_tag_ul:
-        tag_a = a["href"]
-        lista_links_assistencia.append(tag_a)
-        print(paginas_links_assistencia)
-=======
     # pegando os links da página
     lista_links_assistencia = []
     lista_tag_ul_assistencia = cc_pagina.find("div", id="content-core").find("ul").find_all("a", class_="internal-link")
@@ -112,15 +104,11 @@ def cf_assistencia_emergencial(): # check
     data_post_assistencia = lista_data_assistencia.find("span", class_="documentPublished").find("span", class_="value").text
     data_update_assistencia = lista_data_assistencia.find("span", class_="documentModified").find("span", class_="value").text
 
->>>>>>> f84dc05fd68307f04994a3cf98152e3d5a737d2d
 
 def orgaos_vinculados(): # check
     url = links_cards(bs)[12]
     cc_pagina = pagina(url)
     # pegando todo conteúdo da página 
-<<<<<<< HEAD
-    lista_conteudo_orgaos = cc_pagina.find("div", class_="entries").find("article", class_="entry") 
-=======
     lista_conteudo_orgaos = cc_pagina.find("div", class_="entries").find("article", class_="entry")
     # pegando os links da página
     lista_links_orgaos = []
@@ -128,7 +116,6 @@ def orgaos_vinculados(): # check
     for a in lista_tag_ul_orgaos:
             tag_a = a["href"]
             lista_links_orgaos.append(tag_a)
->>>>>>> f84dc05fd68307f04994a3cf98152e3d5a737d2d
     # pegando datas da página 
     lista_data_orgaos = cc_pagina.find("div", class_="documentByLine")
     data_post_orgaos = lista_data_orgaos.find("span", class_="documentPublished").find("span", class_="value").text
