@@ -174,21 +174,32 @@ def conselho_solidariedade(): # in progress - pegar títulos
     url = links_cards(bs)[13]
     cc_pagina = acessar_pagina(url) # passando o link para pagina url, parciando as noticias
     lista_links_solidariedade = []
-
-    """
     lista_td_solidariedade = cc_pagina.find("div", id="content-core").find_all("td")
-    for td in lista_td_solidariedade:
-        lista_links_solidariedade.append(td.a["href"])
-    if lista_td_solidariedade[0]: # in progress
-        td_conselho = acessar_pagina(lista_td_solidariedade[0])
+    for td_solidariedade in lista_td_solidariedade:
+        lista_a_solidariedade = td_solidariedade.find_all("a")
+        for a_solidariedade in lista_a_solidariedade:
+            tag_a_solidariedade = a_solidariedade["href"]
+            lista_links_solidariedade.append(tag_a_solidariedade)
+    if lista_links_solidariedade[0]: # in progress
+        td_conselho = acessar_pagina(lista_links_solidariedade[0])
+        # pegando conteúdo e seus links
+        # pegando tags
         # pegando datas da página 
         lista_data_conselho = td_conselho.find("div", class_="documentByLine")
         data_post_conselho = lista_data_conselho.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_conselho = lista_data_conselho.find("span", class_="documentModified").find("span", class_="value").text
-        print(data_post_conselho)
+    if lista_links_solidariedade[1]: # in progress
+        td_composicao = acessar_pagina(lista_links_solidariedade[1])
+        # pegando conteúdo e seus links
+        # pegando tags
+        # pegando datas da página 
+        lista_data_composicao = td_composicao.find("div", class_="documentByLine")
+        data_post_composicao = lista_data_composicao.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_composicao = lista_data_composicao.find("span", class_="documentModified").find("span", class_="value").text
+        print(data_update_composicao)
+
+    """
     
-    if lista_td_solidariedade[1]: # in progress
-        td_composicao = acessar_pagina(lista_td_solidariedade[1])
 
     # chamando os links das subpáginas
     for tag_td in lista_tag_td:
@@ -217,7 +228,7 @@ def main():
     cc_conselho_solidariedade = conselho_solidariedade()
     cc_ci_planejamento_infraestrutura = ci_planejamento_infraestrutura()
     cc_ci_mudanca_clima = ci_mudanca_clima()
-    cc_conselho_superior_cinema= conselho_superior_cinema()
+    cc_conselho_superior_cinema = conselho_superior_cinema()
 
     """
     cc_noticias = noticias(bs)
