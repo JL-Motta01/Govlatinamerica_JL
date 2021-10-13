@@ -173,6 +173,11 @@ def orgaos_vinculados(): # check
 def conselho_solidariedade(): # in progress - pegar títulos
     url = links_cards(bs)[13]
     cc_pagina = acessar_pagina(url) # passando o link para pagina url, parciando as noticias
+    # pegando datas da página 
+    lista_data_solidariedade = cc_pagina.find("div", class_="documentByLine")
+    data_post_solidariedade = lista_data_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_solidariedade = lista_data_solidariedade.find("span", class_="documentModified").find("span", class_="value").text
+    # acessando subpáginas por lista
     lista_links_solidariedade = []
     lista_td_solidariedade = cc_pagina.find("div", id="content-core").find_all("td")
     for td_solidariedade in lista_td_solidariedade:
@@ -180,42 +185,49 @@ def conselho_solidariedade(): # in progress - pegar títulos
         for a_solidariedade in lista_a_solidariedade:
             tag_a_solidariedade = a_solidariedade["href"]
             lista_links_solidariedade.append(tag_a_solidariedade)
+    # acessando subpágina conselho
     if lista_links_solidariedade[0]: # in progress
         td_conselho = acessar_pagina(lista_links_solidariedade[0])
-        # pegando conteúdo e seus links
-        # pegando tags
+        # pegando conteúdo
+        conteudo_conselho = td_conselho.find("div", id="content-core")
+        # colocando links e tags da página em lista 
+        lista_links_conselho = []
+        lista_a_conselho = td_conselho.find("div", class_="visualClear").find_all("a")
+        for a in lista_a_conselho:
+            links_conselho = a["href"]
+            lista_links_conselho.append(links_conselho)
+        lista_tag_conselho = td_conselho.find("div", id="category").find_all("a")
+        for a in lista_tag_conselho:
+            tag_conselho = a["href"]
+            lista_links_conselho.append(tag_conselho)
+       
+        """
+        # acessando links da lista
+        if lista_links_conselho[0]:
+            a_conselho = acessar_pagina(lista_links_conselho[0])
+            # pegando conteudo dos links
+            conteudo_a_conselho = []
+            conteudo_decreto = a_conselho.find("font", face="Arial").find_all("p")
+            for p in conteudo_decreto:
+                conteudo_a_conselho.append(p)
+            print(conteudo_a_conselho)
+        if lista_links_conselho[1]:
+            a_conselho = acessar_pagina(lista_links_conselho[1])
+        """
+
         # pegando datas da página 
         lista_data_conselho = td_conselho.find("div", class_="documentByLine")
         data_post_conselho = lista_data_conselho.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_conselho = lista_data_conselho.find("span", class_="documentModified").find("span", class_="value").text
-    if lista_links_solidariedade[1]: # in progress
+    # acessando subpágina composição 
+    if lista_links_solidariedade[1]: # check
         td_composicao = acessar_pagina(lista_links_solidariedade[1])
-        # pegando conteúdo e seus links
-        # pegando tags
+        # pegando conteúdo 
+        lista_conteudo_composicao = td_composicao.find("div", id="content-core").text
         # pegando datas da página 
         lista_data_composicao = td_composicao.find("div", class_="documentByLine")
         data_post_composicao = lista_data_composicao.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_composicao = lista_data_composicao.find("span", class_="documentModified").find("span", class_="value").text
-        print(data_update_composicao)
-
-    """
-    
-
-    # chamando os links das subpáginas
-    for tag_td in lista_tag_td:
-        lista_tag_a = tag_td.find_all("a") 
-        for a in lista_tag_a:
-            tag_a = a["href"]
-            lista_links_solidariedade.append(tag_a) # coloca dentro da lista vazia
-    for link in lista_links_solidariedade:
-        paginas_links = acessar_pagina(link) # chamou a variável link criada 
-        pags_solidariedade = paginas_links
-    # pegando datas da página 
-    lista_data_solidariedade = cc_pagina.find("div", class_="documentByLine")
-    data_post_solidariedade = lista_data_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
-    data_update_solidariedade = lista_data_solidariedade.find("span", class_="documentModified").find("span", class_="value").text
-    # clicando nas subpáginas
-    """
 
 
 def main():
