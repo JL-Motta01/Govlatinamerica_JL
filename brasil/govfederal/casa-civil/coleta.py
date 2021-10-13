@@ -49,13 +49,76 @@ def agenda_mais_brasil(bs):
     agenda_mais_brasil = links_cards(bs)[6]
 
 
-def governanca(bs):
-    governanca = links_cards(bs)[7]
+def governanca(): # in progress
+    url = links_cards(bs)[7]
+    cc_pagina = acessar_pagina(url)
+    # pegando título da página 
+    titulo_governanca = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # coletando subpáginas em lista
+    cards_governanca = cc_pagina.find("div", class_="wrapper").find_all("div", class_="card")
+    lista_cards_governanca = []
+    for card in cards_governanca:
+        lista_cards_governanca.append(card.a["href"])
+    # não é necessário coletar o primeiro card
+    if lista_cards_governanca[1]: # in progress
+        ci_governanca = acessar_pagina(lista_cards_governanca[1])
+        # título da página 
+        titulo_ci_governanca = ci_governanca.find("h1", class_="documentFirstHeading").text
+        # conteúdo da página - in progress (coletar subpáginas)
+        # datas da página
+        lista_data_ci_governanca = ci_governanca.find("div", class_="documentByLine")
+        data_post_ci_governanca = lista_data_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_ci_governanca = lista_data_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+    if lista_cards_governanca[2]: # in progress
+        politica_governanca = acessar_pagina(lista_cards_governanca[2])
+        # título da página 
+        titulo_politica_governanca = politica_governanca.find("h1", class_="documentFirstHeading").text
+        # conteúdo da página - in progress (coletar vídeos - a href)
+        conteudo_politica_governanca = politica_governanca.find("div", id="content-core").text # texto
+        # datas da página
+        lista_data_politica_governanca = politica_governanca.find("div", class_="documentByLine")
+        data_post_politica_governanca = lista_data_politica_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_politica_governanca = lista_data_politica_governanca.find("span", class_="documentModified").find("span", class_="value").text
+    if lista_cards_governanca[3]: # in progress
+        biblioteca_governanca = acessar_pagina(lista_cards_governanca[3])
+        # título da página 
+        titulo_biblioteca_governanca = biblioteca_governanca.find("h1", class_="documentFirstHeading").text
+        # conteúdo da página - in progress (acessar links coletados)
+        conteudo_biblioteca_governanca = biblioteca_governanca.find("div", id="content-core").text # texto
+        lista_links_biblioteca = []
+        links_biblioteca = biblioteca_governanca.find("div", id="content-core").find_all("a")
+        for a in links_biblioteca:
+            a_biblioteca = a["href"]
+            lista_links_biblioteca.append(a_biblioteca)
+            print(lista_links_biblioteca)
+        # datas da página
+        lista_data_biblioteca_governanca = biblioteca_governanca.find("div", class_="documentByLine")
+        data_post_biblioteca_governanca = lista_data_biblioteca_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_biblioteca_governanca = lista_data_biblioteca_governanca.find("span", class_="documentModified").find("span", class_="value").text
+
+    """
+    if lista_cards_governanca[4]: # in progress
+        pass
+    if lista_cards_governanca[5]: # in progress
+        pass
+    if lista_cards_governanca[6]: # in progress
+        pass
+    if lista_cards_governanca[7]: # in progress
+        pass
+    if lista_cards_governanca[8]: # in progress
+        pass
+    if lista_cards_governanca[9]: # in progress
+        pass
+    if lista_cards_governanca[-1]: # in progress
+        pass
+    """
 
 
 def conselho_superior_cinema(): # in progress
     url = links_cards(bs)[8]
     cc_pagina = acessar_pagina(url)
+    # pegando título da página 
+    titulo_cinema = cc_pagina.find("h1", class_="documentFirstHeading").text
     # conteúdo da página
     lista_conteudo_cinema = cc_pagina.find("div", id="content-core")
     # datas da página
@@ -67,6 +130,9 @@ def conselho_superior_cinema(): # in progress
 def ci_mudanca_clima(): # check
     url = links_cards(bs)[9]
     cc_pagina = acessar_pagina(url)
+    # pegando título da página 
+    titulo_clima = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # acessando subpáginas
     cards_clima = cc_pagina.find("div", class_="wrapper").find_all("div", class_="card")
     lista_cards_clima = []
     for card in cards_clima:
@@ -124,6 +190,9 @@ def ci_mudanca_clima(): # check
 def ci_planejamento_infraestrutura(): # check
     url = links_cards(bs)[10]
     cc_pagina = acessar_pagina(url)
+    # pegando título da página 
+    titulo_planejamento = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # coletando conteudo
     lista_links_planejamento = []
     lista_conteudo_planejamento = cc_pagina.find("div", id="content-core").find_all("p")
     for tag_p in lista_conteudo_planejamento: 
@@ -139,7 +208,9 @@ def ci_planejamento_infraestrutura(): # check
 def cf_assistencia_emergencial(): # check
     url = links_cards(bs)[11]
     cc_pagina = acessar_pagina(url)
-    # pegando toodo conteúdo da página
+    # pegando título da página 
+    titulo_assistencia = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # pegando todo conteúdo da página
     lista_conteudo_assistencia = cc_pagina.find("div", id="content-core").find("p", class_="Paragrafo_Numerado_Nivel1").text
     # pegando os links da página
     lista_links_assistencia = []
@@ -156,6 +227,8 @@ def cf_assistencia_emergencial(): # check
 def orgaos_vinculados(): # check
     url = links_cards(bs)[12]
     cc_pagina = acessar_pagina(url)
+    # pegando título da página 
+    titulo_orgaos = cc_pagina.find("h1", class_="documentFirstHeading").text
     # pegando todo conteúdo da página 
     lista_conteudo_orgaos = cc_pagina.find("div", class_="entries").find("article", class_="entry")
     # pegando os links da página
@@ -173,6 +246,8 @@ def orgaos_vinculados(): # check
 def conselho_solidariedade(): # in progress - pegar títulos
     url = links_cards(bs)[13]
     cc_pagina = acessar_pagina(url) # passando o link para pagina url, parciando as noticias
+    # pegando título da página 
+    titulo_solidariedade = cc_pagina.find("h1", class_="documentFirstHeading").text
     # pegando datas da página 
     lista_data_solidariedade = cc_pagina.find("div", class_="documentByLine")
     data_post_solidariedade = lista_data_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
@@ -241,6 +316,7 @@ def main():
     cc_ci_planejamento_infraestrutura = ci_planejamento_infraestrutura()
     cc_ci_mudanca_clima = ci_mudanca_clima()
     cc_conselho_superior_cinema = conselho_superior_cinema()
+    cc_governanca = governanca()
 
     """
     cc_noticias = noticias(bs)
@@ -250,7 +326,6 @@ def main():
     cc_periodicos_mensais= periodicos_mensais(bs)
     cc_relacionamento_externo= relacionamento_externo(bs)
     cc_agenda_mais_brasil= agenda_mais_brasil(bs)
-    cc_governanca= governanca(bs)
     """  
 
 if __name__ == "__main__":
