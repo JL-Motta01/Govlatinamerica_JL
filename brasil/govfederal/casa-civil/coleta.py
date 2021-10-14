@@ -66,9 +66,8 @@ def governanca(): # in progress
         titulo_ci_governanca = ci_governanca.find("h1", class_="documentFirstHeading").text
         # conteúdo da página - in progress (coletar subpáginas)
         # datas da página
-        lista_data_ci_governanca = ci_governanca.find("div", class_="documentByLine")
-        data_post_ci_governanca = lista_data_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_ci_governanca = lista_data_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        data_post_ci_governanca = ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_ci_governanca = ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
     if lista_cards_governanca[2]: # in progress
         politica_governanca = acessar_pagina(lista_cards_governanca[2])
         # título da página 
@@ -76,9 +75,8 @@ def governanca(): # in progress
         # conteúdo da página - in progress (coletar vídeos - a href)
         conteudo_politica_governanca = politica_governanca.find("div", id="content-core").text # texto
         # datas da página
-        lista_data_politica_governanca = politica_governanca.find("div", class_="documentByLine")
-        data_post_politica_governanca = lista_data_politica_governanca.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_politica_governanca = lista_data_politica_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        data_post_politica_governanca = politica_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_politica_governanca = politica_governanca.find("span", class_="documentModified").find("span", class_="value").text
     if lista_cards_governanca[3]: # in progress
         biblioteca_governanca = acessar_pagina(lista_cards_governanca[3])
         # título da página 
@@ -90,11 +88,9 @@ def governanca(): # in progress
         for a in links_biblioteca:
             a_biblioteca = a["href"]
             lista_links_biblioteca.append(a_biblioteca)
-            print(lista_links_biblioteca)
         # datas da página
-        lista_data_biblioteca_governanca = biblioteca_governanca.find("div", class_="documentByLine")
-        data_post_biblioteca_governanca = lista_data_biblioteca_governanca.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_biblioteca_governanca = lista_data_biblioteca_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        data_post_biblioteca_governanca = biblioteca_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_biblioteca_governanca = biblioteca_governanca.find("span", class_="documentModified").find("span", class_="value").text
 
     """
     if lista_cards_governanca[4]: # in progress
@@ -119,12 +115,212 @@ def conselho_superior_cinema(): # in progress
     cc_pagina = acessar_pagina(url)
     # pegando título da página 
     titulo_cinema = cc_pagina.find("h1", class_="documentFirstHeading").text
-    # conteúdo da página
-    lista_conteudo_cinema = cc_pagina.find("div", id="content-core")
     # datas da página
-    lista_data_cinema = cc_pagina.find("div", class_="documentByLine")
-    data_post_cinema = lista_data_cinema.find("span", class_="documentPublished").find("span", class_="value").text
-    data_update_cinema = lista_data_cinema.find("span", class_="documentModified").find("span", class_="value").text
+    data_post_cinema = cc_pagina.find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_cinema = cc_pagina.find("span", class_="documentModified").find("span", class_="value").text
+    # coletando subáginas em lista
+    lista_tabs_cinema = []
+    tabs_cinema = cc_pagina.find_all("div", class_="tab-content")
+    for tab in tabs_cinema:
+        lista_tabs_cinema.append(tab["data-url"])
+    if lista_tabs_cinema[0]: # check
+        informes_cinema = acessar_pagina(lista_tabs_cinema[0])
+        # título
+        titulo_informes_cinema = informes_cinema.find("h1", class_="documentFirstHeading").text
+        # conteúdo
+        conteudo_informes_cinema = informes_cinema.find("div", id="content-core")
+        # datas
+        data_post_informes_cinema = informes_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_informes_cinema = informes_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    if lista_tabs_cinema[1]: # in progress - coletar links
+        competencias_cinema = acessar_pagina(lista_tabs_cinema[1])
+        # título
+        titulo_competencias_cinema = competencias_cinema.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_competencias_cinema = competencias_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_competencias_cinema = competencias_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
+        # conteúdo e links
+        lista_links_competencias_cinema = []
+        conteudo_competencias_cinema = competencias_cinema.find("div", id="content-core")
+        links_competencias_cinema = conteudo_competencias_cinema.find_all("a")
+        for a in links_competencias_cinema:
+            lista_links_competencias_cinema.append(a["href"])
+        """
+        if lista_links_competencias_cinema[0]: # PERGUNTAR PARA RAFAEL: como percorrer dois(todos) links juntos
+            link0_competencias = acessar_pagina(lista_links_competencias_cinema[0])
+            # coletar conteúdo
+        """
+    if lista_tabs_cinema[2]: # in progress - coletar links de decretos (possui PDF)
+        composicao_cinema = acessar_pagina(lista_tabs_cinema[2])
+        # título
+        titulo_composicao_cinema = composicao_cinema.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_composicao_cinema = composicao_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_composicao_cinema = composicao_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
+        # conteúdo e links
+        lista_links_composicao_cinema = []
+        conteudo_composicao_cinema = composicao_cinema.find("div", id="content-core")
+        links_composicao_cinema = conteudo_composicao_cinema.find_all("a")
+        for a in links_composicao_cinema:
+            lista_links_composicao_cinema.append(a["href"])
+        """ 
+        if lista_links_composicao_cinema[0]: 
+            link0_composicao = acessar_pagina(lista_links_composicao_cinema[0])
+            conteudo_link1_composicao = link0_composicao.find()
+        if lista_links_composicao_cinema[1]: 
+            link1_composicao = acessar_pagina(lista_links_composicao_cinema[1])
+            conteudo_link1_composicao = link1_composicao.find()
+        if lista_links_composicao_cinema[2]: 
+            link2_composicao = acessar_pagina(lista_links_composicao_cinema[2])
+            conteudo_link2_composicao = link1_composicao.find()
+        if lista_links_composicao_cinema[3]: 
+            link3_composicao = acessar_pagina(lista_links_composicao_cinema[3])
+            conteudo_link3_composicao = link3_composicao.find()
+        if lista_links_composicao_cinema[4]: 
+            link4_composicao = acessar_pagina(lista_links_composicao_cinema[4])
+            conteudo_link4_composicao = link4_composicao.find()
+        """
+    if lista_tabs_cinema[3]: # in progress
+        regimento_cinema = acessar_pagina(lista_tabs_cinema[3])
+        # título
+        titulo_regimento_cinema = regimento_cinema.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_regimento_cinema = regimento_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_regimento_cinema = regimento_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
+        # conteúdo e links
+        lista_links_regimento_cinema = []
+        conteudo_regimento_cinema = regimento_cinema.find("div", id="content-core")
+        links_regimento_cinema = conteudo_regimento_cinema.find_all("a")
+        for a in links_regimento_cinema:
+            lista_links_regimento_cinema.append(a["href"])
+        """
+        if lista_links_regimento_cinema[0]: 
+            link0_regimento = acessar_pagina(lista_links_regimento_cinema[0])
+            # PDF
+        """
+    if lista_tabs_cinema[4]: # in progress
+        reunioes_cinema = acessar_pagina(lista_tabs_cinema[4])
+        # título
+        titulo_reunioes_cinema = reunioes_cinema.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_reunioes_cinema = reunioes_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_reunioes_cinema = reunioes_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
+        # conteúdo e links
+        lista_links_reunioes_cinema = []
+        conteudo_reunioes_cinema = reunioes_cinema.find("div", id="content-core")
+        links_reunioes_cinema = conteudo_reunioes_cinema.find_all("a")
+        for a in links_reunioes_cinema:
+            lista_links_reunioes_cinema.append(a["href"])
+        """
+        if lista_links_reunioes_cinema[0]: 
+            link0_regimento = acessar_pagina(lista_links_reunioes_cinema[0])
+        if lista_links_reunioes_cinema[1]: 
+            link1_regimento = acessar_pagina(lista_links_reunioes_cinema[1])
+        if lista_links_reunioes_cinema[2]: 
+            link2_regimento = acessar_pagina(lista_links_reunioes_cinema[2])
+        if lista_links_reunioes_cinema[3]: 
+            link3_regimento = acessar_pagina(lista_links_reunioes_cinema[3])
+        if lista_links_reunioes_cinema[4]: 
+            link4_regimento = acessar_pagina(lista_links_reunioes_cinema[4])
+        if lista_links_reunioes_cinema[5]: 
+            link5_regimento = acessar_pagina(lista_links_reunioes_cinema[5])
+        if lista_links_reunioes_cinema[6]: 
+            link6_regimento = acessar_pagina(lista_links_reunioes_cinema[6])
+        if lista_links_reunioes_cinema[7]: 
+            link7_regimento = acessar_pagina(lista_links_reunioes_cinema[7])
+        if lista_links_reunioes_cinema[8]: 
+            link8_regimento = acessar_pagina(lista_links_reunioes_cinema[8])
+        if lista_links_reunioes_cinema[9]: 
+            link9_regimento = acessar_pagina(lista_links_reunioes_cinema[9])
+        if lista_links_reunioes_cinema[10]: 
+            link10_regimento = acessar_pagina(lista_links_reunioes_cinema[10])
+        if lista_links_reunioes_cinema[11]: 
+            link11_regimento = acessar_pagina(lista_links_reunioes_cinema[11])
+        if lista_links_reunioes_cinema[12]: 
+            link12_regimento = acessar_pagina(lista_links_reunioes_cinema[12])
+        if lista_links_reunioes_cinema[13]: 
+            link13_regimento = acessar_pagina(lista_links_reunioes_cinema[13])
+        if lista_links_reunioes_cinema[14]: 
+            link14_regimento = acessar_pagina(lista_links_reunioes_cinema[14])
+        if lista_links_reunioes_cinema[15]: 
+            link15_regimento = acessar_pagina(lista_links_reunioes_cinema[15])
+        if lista_links_reunioes_cinema[16]: 
+            link16_regimento = acessar_pagina(lista_links_reunioes_cinema[16])
+        if lista_links_reunioes_cinema[17]: 
+            link17_regimento = acessar_pagina(lista_links_reunioes_cinema[17])
+        if lista_links_reunioes_cinema[18]: 
+            link18_regimento = acessar_pagina(lista_links_reunioes_cinema[18])
+        if lista_links_reunioes_cinema[19]: 
+            link19_regimento = acessar_pagina(lista_links_reunioes_cinema[19])
+        if lista_links_reunioes_cinema[20]: 
+            link20_regimento = acessar_pagina(lista_links_reunioes_cinema[20])
+        if lista_links_reunioes_cinema[21]: 
+            link21_regimento = acessar_pagina(lista_links_reunioes_cinema[21])
+        if lista_links_reunioes_cinema[22]: 
+            link22_regimento = acessar_pagina(lista_links_reunioes_cinema[22])
+        if lista_links_reunioes_cinema[23]: 
+            link23_regimento = acessar_pagina(lista_links_reunioes_cinema[23])
+        if lista_links_reunioes_cinema[24]: 
+            link24_regimento = acessar_pagina(lista_links_reunioes_cinema[24])
+        if lista_links_reunioes_cinema[25]: 
+            link25_regimento = acessar_pagina(lista_links_reunioes_cinema[25])
+        if lista_links_reunioes_cinema[26]: 
+            link26_regimento = acessar_pagina(lista_links_reunioes_cinema[26])
+        if lista_links_reunioes_cinema[27]: 
+            link27_regimento = acessar_pagina(lista_links_reunioes_cinema[27])
+        if lista_links_reunioes_cinema[28]: 
+            link28_regimento = acessar_pagina(lista_links_reunioes_cinema[28])
+        if lista_links_reunioes_cinema[29]: 
+            link29_regimento = acessar_pagina(lista_links_reunioes_cinema[29])
+        if lista_links_reunioes_cinema[30]: 
+            link30_regimento = acessar_pagina(lista_links_reunioes_cinema[30])
+        if lista_links_reunioes_cinema[31]: 
+            link31_regimento = acessar_pagina(lista_links_reunioes_cinema[31])
+        if lista_links_reunioes_cinema[32]: 
+            link32_regimento = acessar_pagina(lista_links_reunioes_cinema[32])
+        if lista_links_reunioes_cinema[33]: 
+            link33_regimento = acessar_pagina(lista_links_reunioes_cinema[33])
+        """
+    if lista_tabs_cinema[5]: # in progress
+        legislacao_cinema = acessar_pagina(lista_tabs_cinema[5])
+        # título
+        titulo_legislacao_cinema = legislacao_cinema.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_legislacao_cinema = legislacao_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_legislacao_cinema = legislacao_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
+        # conteúdo e links
+        lista_links_legislacao_cinema = []
+        conteudo_legislacao_cinema = legislacao_cinema.find("div", id="content-core")
+        links_legislacao_cinema = conteudo_legislacao_cinema.find_all("a")
+        for a in links_legislacao_cinema:
+            lista_links_legislacao_cinema.append(a["href"])
+        """
+        if lista_links_legislacao_cinema[0]: 
+            link0_legislacao = acessar_pagina(lista_links_legislacao_cinema[0])
+        if lista_linkslegislacao_cinema[1]: 
+            link1_legislacao = acessar_pagina(lista_links_legislacao_cinema[1])
+        if lista_links_legislacao_cinema[2]: 
+            link2_legislacao = acessar_pagina(lista_links_legislacao_cinema[2])
+        if lista_links_legislacao_cinema[3]: 
+            link3_legislacao = acessar_pagina(lista_links_legislacao_cinema[3])
+        if lista_links_legislacao_cinema[4]: 
+            link4_legislacao = acessar_pagina(lista_links_legislacao_cinema[4])
+        if lista_links_legislacao_cinema[5]: 
+            link5_legislacao = acessar_pagina(lista_links_legislacao_cinema[5])
+        if lista_links_legislacao_cinema[6]: 
+            link6_legislacao = acessar_pagina(lista_links_legislacao_cinema[6])
+        if lista_links_legislacao_cinema[7]: 
+            link7_legislacao = acessar_pagina(lista_links_legislacao_cinema[7])
+        if lista_links_legislacao_cinema[8]: 
+            link8_legislacao = acessar_pagina(lista_links_legislacao_cinema[8])
+        if lista_links_legislacao_cinema[9]: 
+            link9_legislacao = acessar_pagina(lista_links_legislacao_cinema[9])
+        """
+
+    """
+    if lista_tabs_cinema[6]: # in progress
+        contato_cinema = acessar_pagina(lista_tabs_cinema[6])
+    """
 
 
 def ci_mudanca_clima(): # check
@@ -151,10 +347,9 @@ def ci_mudanca_clima(): # check
                 tag_a = a["href"]
                 lista_links_atas.append(tag_a)
         # datas
-        lista_data_atas = atas_cim.find("div", class_="documentByLine")
         data_post_atas = atas_cim.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_atas = atas_cim.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
-    if lista_cards_clima[3]: # check / conferir o retorno de várias vezes os mesmos links
+    if lista_cards_clima[3]: # check 
         regime_cim = acessar_pagina(lista_cards_clima[3])
         lista_links_regime = []
         lista_conteudo_regime = regime_cim.find("div", id="content-core").find_all("p")
@@ -164,7 +359,6 @@ def ci_mudanca_clima(): # check
                 tag_a = a["href"]
                 lista_links_regime.append(tag_a)
         # datas
-        lista_data_regime = regime_cim.find("div", class_="documentByLine")
         data_post_regime = regime_cim.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_regime = regime_cim.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
     if lista_cards_clima[4]: # check
@@ -182,9 +376,8 @@ def ci_mudanca_clima(): # check
                     tag_a = a["href"]
                     lista_links_arquivos.append(tag_a)
         # datas 
-        lista_data_arquivos = arquivos_cim.find("div", class_="documentByLine")
-        data_post_arquivos = lista_data_arquivos.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_arquivos = lista_data_arquivos.find("span", class_="documentModified").find("span", class_="value").text
+        data_post_arquivos_cim = arquivos_cim.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_arquivos_cim = arquivos_cim.find("span", class_="documentModified").find("span", class_="value").text
 
 
 def ci_planejamento_infraestrutura(): # check
@@ -219,9 +412,8 @@ def cf_assistencia_emergencial(): # check
         tag_a = a["href"]
         lista_links_assistencia.append(tag_a) 
     # pegando datas da página
-    lista_data_assistencia = cc_pagina.find("div", class_="documentByLine")
-    data_post_assistencia = lista_data_assistencia.find("span", class_="documentPublished").find("span", class_="value").text
-    data_update_assistencia = lista_data_assistencia.find("span", class_="documentModified").find("span", class_="value").text
+    data_post_assistencia = cc_pagina.find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_assistencia = cc_pagina.find("span", class_="documentModified").find("span", class_="value").text
 
 
 def orgaos_vinculados(): # check
@@ -238,9 +430,8 @@ def orgaos_vinculados(): # check
             tag_a = a["href"]
             lista_links_orgaos.append(tag_a)
     # pegando datas da página 
-    lista_data_orgaos = cc_pagina.find("div", class_="documentByLine")
-    data_post_orgaos = lista_data_orgaos.find("span", class_="documentPublished").find("span", class_="value").text
-    data_update_orgaos = lista_data_orgaos.find("span", class_="documentModified").find("span", class_="value").text
+    data_post_orgaos = cc_pagina.find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_orgaos = cc_pagina.find("span", class_="documentModified").find("span", class_="value").text
 
 
 def conselho_solidariedade(): # in progress - pegar títulos
@@ -249,9 +440,8 @@ def conselho_solidariedade(): # in progress - pegar títulos
     # pegando título da página 
     titulo_solidariedade = cc_pagina.find("h1", class_="documentFirstHeading").text
     # pegando datas da página 
-    lista_data_solidariedade = cc_pagina.find("div", class_="documentByLine")
-    data_post_solidariedade = lista_data_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
-    data_update_solidariedade = lista_data_solidariedade.find("span", class_="documentModified").find("span", class_="value").text
+    data_post_solidariedade = cc_pagina.find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_solidariedade = cc_pagina.find("span", class_="documentModified").find("span", class_="value").text
     # acessando subpáginas por lista
     lista_links_solidariedade = []
     lista_td_solidariedade = cc_pagina.find("div", id="content-core").find_all("td")
@@ -291,18 +481,16 @@ def conselho_solidariedade(): # in progress - pegar títulos
         """
 
         # pegando datas da página 
-        lista_data_conselho = td_conselho.find("div", class_="documentByLine")
-        data_post_conselho = lista_data_conselho.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_conselho = lista_data_conselho.find("span", class_="documentModified").find("span", class_="value").text
+        data_post_conselho = td_conselho.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_conselho = td_conselho.find("span", class_="documentModified").find("span", class_="value").text
     # acessando subpágina composição 
     if lista_links_solidariedade[1]: # check
         td_composicao = acessar_pagina(lista_links_solidariedade[1])
         # pegando conteúdo 
         lista_conteudo_composicao = td_composicao.find("div", id="content-core").text
         # pegando datas da página 
-        lista_data_composicao = td_composicao.find("div", class_="documentByLine")
-        data_post_composicao = lista_data_composicao.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_composicao = lista_data_composicao.find("span", class_="documentModified").find("span", class_="value").text
+        data_post_composicao = td_composicao.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_composicao = td_composicao.find("span", class_="documentModified").find("span", class_="value").text
 
 
 def main():
