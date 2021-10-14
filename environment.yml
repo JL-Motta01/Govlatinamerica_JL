@@ -20,4 +20,5 @@ dependencies:
     - tinydb==4.5.1
     - urllib3==1.26.6
     - wget==3.2
+    - domonic
 prefix: /home/rafael/.conda/envs/env_govlatinamerica
