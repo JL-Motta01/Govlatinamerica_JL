@@ -1,5 +1,4 @@
 from io import DEFAULT_BUFFER_SIZE
-from urllib import parse
 from urllib.request import urlopen
 import urllib
 import urllib.request #realizar requisição da página html
@@ -68,10 +67,10 @@ def base_dados():
 
 def coleta_conteudo_discursos ():
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos discursos"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_discursos.json")
-    User = Query()
+    lista_geral=[]
     for link in coleta_link_discursos():
         discursos = acesso_discursos(link)
+        lista_temp=[]
         url = link
         publicado_em = discursos.find("span", class_="documentPublished").find("span", class_="value").text
         try:
@@ -99,24 +98,19 @@ def coleta_conteudo_discursos ():
                 lista_conteudo.append(texto)
         except:
             lista_conteudo= "notícia sem conteúdo"
-        db_planalto = db.contains(User.titulo==titulo)
-        if not db_planalto:
-            print("não está na base")
-            db.insert({
-                "link":url,
-                "data":publicado_em,
-                "atualizado em":atualizado_em,           
-                "tags":lista_tags,
-                "titulo":titulo,
-                "conteudo":lista_conteudo,
-            })
-        else:
-            print("está na base")
-
+        lista_temp.append(url)
+        lista_temp.append(publicado_em)
+        lista_temp.append(atualizado_em)
+        lista_temp.append(lista_tags)
+        lista_temp.append(titulo)
+        lista_temp.append(lista_conteudo)
+        lista_geral.append(lista_temp)
+        
+    return lista_geral
 
 def main ():
     """Função principal"""
-    coleta_conteudo_discursos()
+    base_dados()
 
 if __name__ == "__main__":
     main()
