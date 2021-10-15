@@ -91,12 +91,29 @@ def governanca(): # in progress
         # datas da página
         data_post_biblioteca_governanca = biblioteca_governanca.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_biblioteca_governanca = biblioteca_governanca.find("span", class_="documentModified").find("span", class_="value").text
+    if lista_cards_governanca[4]: # in progress
+        regulacao_governanca = acessar_pagina(lista_cards_governanca[4])
+        # há 3 blocos de conteúdo
+        # conteúdo 1 
+        conteudo1_regulacao_governanca = regulacao_governanca.find("div", id="cff0d1b2bca4404ea3551ec20813f6bf")
+        # links 1
+        # conteúdo 2
+        conteudo2_regulacao_governanca = regulacao_governanca.find("div", id="c265f16cd95b48d5b694188908adf602")
+        # links 2
+        # conteúdo 3 
+        conteudo3_regulacao_governanca = regulacao_governanca.find("div", id="e7c9a747e5294faba7ef776eb3686e94")
+        # links 3
+    if lista_cards_governanca[5]: # in progress
+        avaliacao_governanca = acessar_pagina(lista_cards_governanca[5])
+        # título da página 
+        titulo_avaliacao_governanca = avaliacao_governanca.find("h1", class_="documentFirstHeading").text
+        # datas da página
+        data_post_avaliacao_governanca = avaliacao_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_avaliacao_governanca = avaliacao_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo da página 
+        conteudo_avaliacao_governanca = avaliacao_governanca.find("div", id="content-core").text
 
     """
-    if lista_cards_governanca[4]: # in progress
-        pass
-    if lista_cards_governanca[5]: # in progress
-        pass
     if lista_cards_governanca[6]: # in progress
         pass
     if lista_cards_governanca[7]: # in progress
@@ -316,11 +333,19 @@ def conselho_superior_cinema(): # in progress
         if lista_links_legislacao_cinema[9]: 
             link9_legislacao = acessar_pagina(lista_links_legislacao_cinema[9])
         """
-
-    """
     if lista_tabs_cinema[6]: # in progress
         contato_cinema = acessar_pagina(lista_tabs_cinema[6])
-    """
+        # título
+        titulo_contato_cinema = contato_cinema.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_contato_cinema = contato_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_contato_cinema = contato_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
+        # conteúdo e links
+        lista_links_contato_cinema = []
+        conteudo_contato_cinema = contato_cinema.find("div", id="content-core")
+        links_contato_cinema = conteudo_contato_cinema.find_all("a")
+        for a in links_contato_cinema:
+            lista_links_contato_cinema.append(a["href"])
 
 
 def ci_mudanca_clima(): # check
