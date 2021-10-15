@@ -25,28 +25,82 @@ def noticias(bs):
     noticias = links_cards(bs)[0]
 
 
-def notas_oficiais(bs):
-    notas_oficiais = links_cards(bs)[1]
+def notas_oficiais():
+    url = links_cards(bs)[1]
+    cc_pagina = acessar_pagina(url)
 
 
-def comunicados_interministeriais(bs):
-    comunicados_interministeriais = links_cards(bs)[2]
+def comunicados_interministeriais():
+    url = links_cards(bs)[2]
+    cc_pagina = acessar_pagina(url)
 
 
-def boletins_cc(bs):
-    boletins_cc = links_cards(bs)[3]
+def boletins_cc():
+    url = links_cards(bs)[3]
+    cc_pagina = acessar_pagina(url)
 
 
-def periodicos_mensais(bs):
-    periodicos_mensais = links_cards(bs)[4]
+def periodicos_mensais():
+    url = links_cards(bs)[4]
+    cc_pagina = acessar_pagina(url)
 
 
-def relacionamento_externo(bs):
-    relacionamento_externo = links_cards(bs)[5]
+def relacionamento_externo(): # in progress
+    url = links_cards(bs)[5]
+    cc_pagina = acessar_pagina(url)
+    # imagens da página
+    lista_imagens_rexterno = []
+    imagens_rexterno = cc_pagina.find("div", id="content").find_all("img")
+    for img in imagens_rexterno:
+        lista_imagens_rexterno.append(img["src"])
+    # links 
+    lista_links_rexterno = []
+    links_rexterno = cc_pagina.find("div", id="content").find_all("a")
+    for a in links_rexterno:
+        lista_links_rexterno.append(a["href"])
+    if lista_links_rexterno[0]: # in progress - almost done
+        sobre_rexterno = acessar_pagina(lista_links_rexterno[0])
+        # título
+        titulo_sobre_rexterno = sobre_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_sobre_rexterno = sobre_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_sobre_rexterno = sobre_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        lista_conteudo_sobre_rexterno = []
+        conteudo_sobre_rexterno = sobre_rexterno.find("div", id="content-core").find_all("p")
+        for p in conteudo_sobre_rexterno:
+            lista_conteudo_sobre_rexterno.append(p)
+        # links
+        lista_links_sobre_rexterno = []
+        links_sobre_rexterno = sobre_rexterno.find("div", id="content-core").find("span", class_="discreet").find_all("a")
+        for a in links_sobre_rexterno:
+            lista_links_sobre_rexterno.append(a["href"])
+    if lista_links_rexterno[1]: # in progress
+        brasil_rexterno = acessar_pagina(lista_links_rexterno[1])
+        # título
+        titulo_brasil_rexterno = brasil_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_brasil_rexterno = brasil_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_brasil_rexterno = brasil_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        lista_conteudo_brasil_rexterno = []
+        conteudo_brasil_rexterno = brasil_rexterno.find("div", id="content-core").find_all("p")
+        for p in conteudo_brasil_rexterno:
+            lista_conteudo_brasil_rexterno.append(p)
+            
+            """
+            # links
+            lista_links_brasil_rexterno = []
+            links_brasil_rexterno = lista_conteudo_brasil_rexterno.find_all("a")
+            for a in links_brasil_rexterno:
+                lista_links_brasil_rexterno.append(a["href"])
+            print(lista_links_brasil_rexterno)
+            """
+        
 
-
-def agenda_mais_brasil(bs):
-    agenda_mais_brasil = links_cards(bs)[6]
+def agenda_mais_brasil(): # página em manutenção
+    url = links_cards(bs)[6]
+    cc_pagina = acessar_pagina(url)
 
 
 def governanca(): # in progress
@@ -137,6 +191,18 @@ def governanca(): # in progress
             # datas da página
             data_post_mapa_governanca = mapa_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_mapa_governanca = mapa_governanca.find("span", class_="documentModified").find("span", class_="value").text
+            # conteúdo da página
+            conteudo_mapa_governanca = mapa_governanca.find("div", id="content-core")
+            # imagens da página
+            lista_imagens_mapa_governanca = []
+            imagens_mapa_governanca = mapa_governanca.find_all("img")
+            for img in imagens_mapa_governanca:
+                lista_imagens_mapa_governanca.append(img["src"])
+            # links 
+            lista_links_mapa_governanca = []
+            links_mapa_governanca = conteudo_mapa_governanca.find_all("a")
+            for a in links_mapa_governanca:
+                lista_links_mapa_governanca.append(a["href"])
 
 
 def conselho_superior_cinema(): # in progress
@@ -542,6 +608,8 @@ def main():
     cc_ci_mudanca_clima = ci_mudanca_clima()
     cc_conselho_superior_cinema = conselho_superior_cinema()
     cc_governanca = governanca()
+    cc_relacionamento_externo = relacionamento_externo()
+    cc_agenda_mais_brasil = agenda_mais_brasil()
 
     """
     cc_noticias = noticias(bs)
@@ -549,8 +617,7 @@ def main():
     cc_comunicados_interministeriais = comunicados_interministeriais(bs)
     cc_boletins_cc = boletins_cc(bs)
     cc_periodicos_mensais= periodicos_mensais(bs)
-    cc_relacionamento_externo= relacionamento_externo(bs)
-    cc_agenda_mais_brasil= agenda_mais_brasil(bs)
+
     """  
 
 if __name__ == "__main__":
