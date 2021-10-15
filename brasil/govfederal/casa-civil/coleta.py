@@ -111,20 +111,32 @@ def governanca(): # in progress
         data_post_avaliacao_governanca = avaliacao_governanca.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_avaliacao_governanca = avaliacao_governanca.find("span", class_="documentModified").find("span", class_="value").text
         # conteúdo da página 
-        conteudo_avaliacao_governanca = avaliacao_governanca.find("div", id="content-core").text
-
-    """
-    if lista_cards_governanca[6]: # in progress
-        pass
-    if lista_cards_governanca[7]: # in progress
-        pass
-    if lista_cards_governanca[8]: # in progress
-        pass
-    if lista_cards_governanca[9]: # in progress
-        pass
+        conteudo_avaliacao_governanca = avaliacao_governanca.find("div", id="content-core")
+        # links
+        lista_links_avaliacao_governanca = []
+        links_avaliacao_governanca = conteudo_avaliacao_governanca.find_all("a")
+        for a in links_avaliacao_governanca:
+            lista_links_avaliacao_governanca.append(a["href"])
+    # cards 6(legislacao), 7(recomendacoes), 8(boas práticas), 9(guias e cartilhas) estão com a página vazia/em branco
     if lista_cards_governanca[-1]: # in progress
-        pass
-    """
+        planejamento_governanca = acessar_pagina(lista_cards_governanca[-1])
+        # título da página 
+        titulo_planejamento_governanca = planejamento_governanca.find("h1", class_="documentFirstHeading").text
+        # datas da página
+        data_post_planejamento_governanca = planejamento_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_planejamento_governanca = planejamento_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo da página 
+        lista_tabs_planejamento_governanca = []
+        tabs_planejamento_governanca = planejamento_governanca.find_all("div", class_="tab-content")
+        for tab in tabs_planejamento_governanca:
+            lista_tabs_planejamento_governanca.append(tab["data-url"])
+        if lista_tabs_planejamento_governanca[0]:  # in progress
+            mapa_governanca = acessar_pagina(lista_tabs_planejamento_governanca[0])
+            # título da página 
+            titulo_mapa_governanca = mapa_governanca.find("h1", class_="documentFirstHeading").text
+            # datas da página
+            data_post_mapa_governanca = mapa_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_mapa_governanca = mapa_governanca.find("span", class_="documentModified").find("span", class_="value").text
 
 
 def conselho_superior_cinema(): # in progress
