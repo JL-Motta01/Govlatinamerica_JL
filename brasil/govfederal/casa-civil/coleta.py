@@ -87,16 +87,109 @@ def relacionamento_externo(): # in progress
         conteudo_brasil_rexterno = brasil_rexterno.find("div", id="content-core").find_all("p")
         for p in conteudo_brasil_rexterno:
             lista_conteudo_brasil_rexterno.append(p)
-            
-            """
-            # links
-            lista_links_brasil_rexterno = []
-            links_brasil_rexterno = lista_conteudo_brasil_rexterno.find_all("a")
-            for a in links_brasil_rexterno:
-                lista_links_brasil_rexterno.append(a["href"])
-            print(lista_links_brasil_rexterno)
-            """
-        
+        # links
+        lista_links_brasil_rexterno = []
+        links_brasil_rexterno = brasil_rexterno.find("div", id="content-core").find_all("a")
+        for a in links_brasil_rexterno:
+            lista_links_brasil_rexterno.append(a["href"])
+    if lista_links_rexterno[2]: # in progress
+        conselho_rexterno = acessar_pagina(lista_links_rexterno[2])
+        # título
+        titulo_conselho_rexterno = conselho_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_conselho_rexterno = conselho_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_conselho_rexterno = conselho_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_conselho_rexterno = conselho_rexterno.find("div", id="content-core").text
+        # links
+        lista_links_conselho_rexterno = []
+        links_conselho_rexterno = conselho_rexterno.find("div", id="content-core").find_all("a")
+        for a in links_conselho_rexterno:
+            lista_links_conselho_rexterno.append(a["href"])
+        # imagens
+        lista_imagens_conselho_rexterno = []
+        imagens_conselho_rexterno = conselho_rexterno.find("div", id="content-core").find_all("img")
+        for img in imagens_conselho_rexterno:
+            lista_imagens_conselho_rexterno.append(img["src"])
+    # link/card 3 não precisa ser coletado
+    if lista_links_rexterno[4]: # in progress
+        membros_rexterno = acessar_pagina(lista_links_rexterno[4])
+        # título
+        titulo_membros_rexterno = membros_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_membros_rexterno = membros_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_membros_rexterno = membros_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_membros_rexterno = membros_rexterno.find("div", id="content-core").text
+        # links
+        lista_links_membros_rexterno = []
+        links_membros_rexterno = membros_rexterno.find("div", id="content-core").find_all("a")
+        for a in links_membros_rexterno:
+            lista_links_membros_rexterno.append(a["href"])
+        # imagens
+        lista_imagens_membros_rexterno = []
+        imagens_membros_rexterno = membros_rexterno.find("div", id="content-core").find_all("img")
+        for img in imagens_membros_rexterno:
+            lista_imagens_membros_rexterno.append(img["src"])
+    if lista_links_rexterno[5]: # check
+        caminho_rexterno = acessar_pagina(lista_links_rexterno[5])
+        # título
+        titulo_caminho_rexterno = caminho_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_caminho_rexterno = caminho_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_caminho_rexterno = caminho_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_caminho_rexterno = caminho_rexterno.find("div", id="content-core").text
+        # imagens
+        lista_imagens_caminho_rexterno = []
+        imagens_caminho_rexterno = caminho_rexterno.find("div", id="content-core").find_all("img")
+        for img in imagens_caminho_rexterno:
+            lista_imagens_caminho_rexterno.append(img["src"])
+    if lista_links_rexterno[6]: # check
+        try :
+            comite_rexterno = acessar_pagina(lista_links_rexterno[6])
+            # título
+            titulo_comite_rexterno = comite_rexterno.find("h1", class_="documentFirstHeading").text
+            # datas
+            data_post_comite_rexterno = comite_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_comite_rexterno = comite_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteúdo
+            conteudo_comite_rexterno = comite_rexterno.find("div", id="content-core").text
+            # imagens
+            lista_imagens_comite_rexterno = []
+            imagens_comite_rexterno = comite_rexterno.find("div", id="content-core").find_all("img")
+            for img in imagens_comite_rexterno:
+                lista_imagens_comite_rexterno.append(img["src"])
+        except :
+            pass 
+    if lista_links_rexterno[7]: # in progress
+        noticias_rexterno = acessar_pagina(lista_links_rexterno[7])
+        # título
+        titulo_noticias_rexterno = noticias_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_noticias_rexterno = noticias_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_noticias_rexterno = noticias_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        contador = 0 
+        lista_url_noticias_rexterno = []
+        while contador < 151:
+            dominio = "https://www.gov.br/casacivil/pt-br/assuntos/ocde/noticias/noticias-ocde-1?b_start:int="
+            dominio += str(contador) # montando a url / str, transformando numero em string
+            contador += 10
+            lista_url_noticias_rexterno.append(dominio)
+        for url_noticias_rexterno in lista_url_noticias_rexterno:
+            # conteudo 
+            lista_article_noticias_rexterno = []
+            conteudo_noticias_rexterno = noticias_rexterno.find("div", id="content-core").find_all("article")
+            for link_noticias in conteudo_noticias_rexterno:
+                link_noticias_rexterno = acessar_pagina(link_noticias.h2.a["href"])
+                titulo_noticias_rexterno = link_noticias_rexterno.find("h1").text
+                data_noticias_rexterno = link_noticias_rexterno.find("span", class_="documentPublished").find("span", class_="value").text
+                conteudo_noticias_rexterno = link_noticias_rexterno.find("div", id="content-core").text
+                print(titulo_noticias_rexterno)
+                print(data_noticias_rexterno)
+                print(conteudo_noticias_rexterno)
+                
+
 
 def agenda_mais_brasil(): # página em manutenção
     url = links_cards(bs)[6]
