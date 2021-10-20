@@ -162,7 +162,7 @@ def relacionamento_externo(): # in progress
                 lista_imagens_comite_rexterno.append(img["src"])
         except :
             pass 
-    if lista_links_rexterno[7]: # in progress
+    if lista_links_rexterno[7]: # check
         noticias_rexterno = acessar_pagina(lista_links_rexterno[7])
         # título
         titulo_noticias_rexterno = noticias_rexterno.find("h1", class_="documentFirstHeading").text
@@ -178,18 +178,34 @@ def relacionamento_externo(): # in progress
             lista_url_noticias_rexterno.append(dominio)
         for url_noticias_rexterno in lista_url_noticias_rexterno:
             # conteudo 
-            lista_article_noticias_rexterno = []
             conteudo_noticias_rexterno = noticias_rexterno.find("div", id="content-core").find_all("article")
             for link_noticias in conteudo_noticias_rexterno:
                 link_noticias_rexterno = acessar_pagina(link_noticias.h2.a["href"])
+                # entrando na notícia
                 titulo_noticias_rexterno = link_noticias_rexterno.find("h1").text
                 data_noticias_rexterno = link_noticias_rexterno.find("span", class_="documentPublished").find("span", class_="value").text
                 conteudo_noticias_rexterno = link_noticias_rexterno.find("div", id="content-core").text
-                print(titulo_noticias_rexterno)
-                print(data_noticias_rexterno)
-                print(conteudo_noticias_rexterno)
+                # tags notícias
+                lista_tags_noticias_rexterno = []
+                tags_noticias_rexterno = link_noticias_rexterno.find("div", id="category").find_all("span")
+                for a_noticias in tags_noticias_rexterno:
+                    lista_tags_noticias_rexterno.append(a_noticias.text)
+                del(lista_tags_noticias_rexterno[0])
+    if lista_links_rexterno[8]: # check
+        estrutura_rexterno = acessar_pagina(lista_links_rexterno[8])
+        # título
+        titulo_estrutura_rexterno = estrutura_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_estrutura_rexterno = estrutura_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_estrutura_rexterno = estrutura_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_estrutura_rexterno = estrutura_rexterno.find("div", id="content-core").text
+        # imagens
+        lista_imagens_estrutura_rexterno = []
+        imagens_estrutura_rexterno = estrutura_rexterno.find("div", id="content-core").find_all("img")
+        for img in imagens_estrutura_rexterno:
+            lista_imagens_estrutura_rexterno.append(img["src"])
                 
-
 
 def agenda_mais_brasil(): # página em manutenção
     url = links_cards(bs)[6]
