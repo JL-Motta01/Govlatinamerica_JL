@@ -205,7 +205,80 @@ def relacionamento_externo(): # in progress
         imagens_estrutura_rexterno = estrutura_rexterno.find("div", id="content-core").find_all("img")
         for img in imagens_estrutura_rexterno:
             lista_imagens_estrutura_rexterno.append(img["src"])
-                
+        # links
+        lista_links_estrutura_rexterno = []
+        links_estrutura_rexterno = estrutura_rexterno.find("div", id="content-core").find("span", class_="discreet").find_all("a")
+        for a in links_estrutura_rexterno:
+            lista_links_estrutura_rexterno.append(a["href"])
+    if lista_links_rexterno[9]: # check
+        onde_rexterno = acessar_pagina(lista_links_rexterno[9])
+        # título
+        titulo_onde_rexterno = onde_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_onde_rexterno = onde_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_onde_rexterno = onde_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_onde_rexterno = onde_rexterno.find("div", id="content-core").text
+        # imagens
+        lista_imagens_onde_rexterno = []
+        imagens_onde_rexterno = onde_rexterno.find("div", id="content-core").find_all("img")
+        for img in imagens_onde_rexterno:
+            lista_imagens_onde_rexterno.append(img["src"])
+    if lista_links_rexterno[10]: # check
+        secretaria_rexterno = acessar_pagina(lista_links_rexterno[10])
+        # título
+        titulo_secretaria_rexterno = secretaria_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_secretaria_rexterno = secretaria_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_secretaria_rexterno = secretaria_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_secretaria_rexterno = secretaria_rexterno.find("div", id="content-core").text
+    """
+    if lista_links_rexterno[11]: # check
+        reunioes_rexterno = acessar_pagina(lista_links_rexterno[11])
+        # título
+        titulo_reunioes_rexterno = reunioes_rexterno.find("h1").text
+        # datas
+        data_post_reunioes_rexterno = reunioes_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_reunioes_rexterno = reunioes_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_reunioes_rexterno = reunioes_rexterno.find("div", id="content-core").text
+        # links
+        lista_links_reunioes_rexterno = []
+        links_reunioes_rexterno = reunioes_rexterno.find("div", id="content-core").find_all("a")
+        for a in links_reunioes_rexterno:
+            lista_links_reunioes_rexterno.append(a["href"])    
+    if lista_links_rexterno[12]: # in progress
+        ### coletando item 12 da lista de links como INFOS LEGAIS pois há uma troca de conteúdo na página coletada
+        infoslegais_rexterno = acessar_pagina(lista_links_rexterno[12])
+        # título
+        titulo_infoslegais_rexterno = infoslegais_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_infoslegais_rexterno = infoslegais_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_infoslegais_rexterno = infoslegais_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_infoslegais_rexterno = infoslegais_rexterno.find("div", id="content-core").text
+        # links
+        lista_links_infoslegais_rexterno = []
+        links_infoslegais_rexterno = infoslegais_rexterno.find("div", id="content-core").find_all("a")
+        for a in links_infoslegais_rexterno:
+            lista_links_infoslegais_rexterno.append(a["href"])
+    if lista_links_rexterno[13]: # in progress
+        documentos_rexterno = acessar_pagina(lista_links_rexterno[13])
+        # título
+        titulo_documentos_rexterno = documentos_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_documentos_rexterno = documentos_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_documentos_rexterno = documentos_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_documentos_rexterno = documentos_rexterno.find("div", id="content-core").text
+        # links
+        lista_links_documentos_rexterno = []
+        links_documentos_rexterno = documentos_rexterno.find("div", id="content-core").find_all("a")
+        for a in links_documentos_rexterno:
+            lista_links_documentos_rexterno.append(a["href"])
+    """
+
 
 def agenda_mais_brasil(): # página em manutenção
     url = links_cards(bs)[6]
