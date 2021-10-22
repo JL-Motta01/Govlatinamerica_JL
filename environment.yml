@@ -4,10 +4,10 @@ channels:
 dependencies:
   - python
   - pip
-  - geckodriver
   - pip:
     - beautifulsoup4
     - tinydb
     - wget
     - domonic
+    - yattag
 prefix: /home/rafael/.conda/envs/env_govlatinamerica
