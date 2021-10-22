@@ -11,20 +11,21 @@ def acessar_pagina(url):
     return bsoup
 
 
-def links_presidentes(bs):
-    presidentes = bs.find("div", id="content").find_all("div", class_="banner-tile tile-content")
-    lista_presidentes = []
-    for presidente in presidentes:
-        lista_presidentes.append(presidente.a["href"])
-    print(lista_presidentes)
-    return lista_presidentes
+# def links_presidentes(bs):
+#     presidentes = bs.find("div", id="content").find_all("div", class_="banner-tile tile-content")
+#     lista_presidentes = []
+#     for presidente in presidentes:
+#         lista_presidentes.append(presidente.a["href"])
+#     print(lista_presidentes)
+#     return lista_presidentes
 
+def links_presidentes():
+    url = "http://www.biblioteca.presidencia.gov.br/presidencia/ex-presidentes/capa-inicial"
+    lista_presidentes = acessar_pagina(url)
+    print(lista_presidentes)
 
 def main():
-    global bs
-    url = "http://www.biblioteca.presidencia.gov.br/presidencia/ex-presidentes/capa-inicial"
-    bs = acessar_pagina(url)
-    presidentes = links_presidentes(bs)
+    presidentes = links_presidentes()
 
 
 if __name__ == "__main__":

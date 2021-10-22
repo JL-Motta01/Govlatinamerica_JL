@@ -225,30 +225,35 @@ def relacionamento_externo(): # in progress
         for img in imagens_onde_rexterno:
             lista_imagens_onde_rexterno.append(img["src"])
     if lista_links_rexterno[10]: # check
-        secretaria_rexterno = acessar_pagina(lista_links_rexterno[10])
-        # título
-        titulo_secretaria_rexterno = secretaria_rexterno.find("h1", class_="documentFirstHeading").text
-        # datas
-        data_post_secretaria_rexterno = secretaria_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_secretaria_rexterno = secretaria_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
-        # conteúdo
-        conteudo_secretaria_rexterno = secretaria_rexterno.find("div", id="content-core").text
-    """
+        try:
+            secretaria_rexterno = acessar_pagina(lista_links_rexterno[10])
+            # título
+            titulo_secretaria_rexterno = secretaria_rexterno.find("h1", class_="documentFirstHeading").text
+            # datas
+            data_post_secretaria_rexterno = secretaria_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_secretaria_rexterno = secretaria_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteúdo
+            conteudo_secretaria_rexterno = secretaria_rexterno.find("div", id="content-core").text
+        except:
+            pass
     if lista_links_rexterno[11]: # check
-        reunioes_rexterno = acessar_pagina(lista_links_rexterno[11])
-        # título
-        titulo_reunioes_rexterno = reunioes_rexterno.find("h1").text
-        # datas
-        data_post_reunioes_rexterno = reunioes_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_reunioes_rexterno = reunioes_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
-        # conteúdo
-        conteudo_reunioes_rexterno = reunioes_rexterno.find("div", id="content-core").text
-        # links
-        lista_links_reunioes_rexterno = []
-        links_reunioes_rexterno = reunioes_rexterno.find("div", id="content-core").find_all("a")
-        for a in links_reunioes_rexterno:
-            lista_links_reunioes_rexterno.append(a["href"])    
-    if lista_links_rexterno[12]: # in progress
+        try: 
+            reunioes_rexterno = acessar_pagina(lista_links_rexterno[11])
+            # título
+            titulo_reunioes_rexterno = reunioes_rexterno.find("h1").text
+            # datas
+            data_post_reunioes_rexterno = reunioes_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_reunioes_rexterno = reunioes_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteúdo
+            conteudo_reunioes_rexterno = reunioes_rexterno.find("div", id="content-core").text
+            # links
+            lista_links_reunioes_rexterno = []
+            links_reunioes_rexterno = reunioes_rexterno.find("div", id="content-core").find_all("a")
+            for a in links_reunioes_rexterno:
+                lista_links_reunioes_rexterno.append(a["href"]) 
+        except:
+            pass   
+    if lista_links_rexterno[12]: # check
         ### coletando item 12 da lista de links como INFOS LEGAIS pois há uma troca de conteúdo na página coletada
         infoslegais_rexterno = acessar_pagina(lista_links_rexterno[12])
         # título
@@ -263,13 +268,12 @@ def relacionamento_externo(): # in progress
         links_infoslegais_rexterno = infoslegais_rexterno.find("div", id="content-core").find_all("a")
         for a in links_infoslegais_rexterno:
             lista_links_infoslegais_rexterno.append(a["href"])
-    if lista_links_rexterno[13]: # in progress
+    if lista_links_rexterno[13]: # check
         documentos_rexterno = acessar_pagina(lista_links_rexterno[13])
         # título
         titulo_documentos_rexterno = documentos_rexterno.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_documentos_rexterno = documentos_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_documentos_rexterno = documentos_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
         # conteúdo
         conteudo_documentos_rexterno = documentos_rexterno.find("div", id="content-core").text
         # links
@@ -277,7 +281,21 @@ def relacionamento_externo(): # in progress
         links_documentos_rexterno = documentos_rexterno.find("div", id="content-core").find_all("a")
         for a in links_documentos_rexterno:
             lista_links_documentos_rexterno.append(a["href"])
-    """
+    if lista_links_rexterno[14]: # in progress
+        legislacao_rexterno = acessar_pagina(lista_links_rexterno[14])
+        # título
+        titulo_legislacao_rexterno = legislacao_rexterno.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_legislacao_rexterno = legislacao_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_legislacao_rexterno = legislacao_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_legislacao_rexterno = legislacao_rexterno.find("div", id="content-core").text
+        # links
+        lista_links_legislacao_rexterno = []
+        links_legislacao_rexterno = legislacao_rexterno.find("div", id="content-core").find_all("a")
+        for a in links_legislacao_rexterno:
+            lista_links_legislacao_rexterno.append(a["href"]) 
+        print(lista_links_legislacao_rexterno)    
 
 
 def agenda_mais_brasil(): # página em manutenção
@@ -783,15 +801,15 @@ def main():
     url = "https://www.gov.br/casacivil/pt-br/assuntos"
     bs = acessar_pagina(url)  # chamando a funcao responsavel por chamar a pag
     cards = links_cards(bs)
-    cc_cf_assistencia_emergencial = cf_assistencia_emergencial()
-    cc_orgaos_vinculados = orgaos_vinculados()
-    cc_conselho_solidariedade = conselho_solidariedade()
-    cc_ci_planejamento_infraestrutura = ci_planejamento_infraestrutura()
-    cc_ci_mudanca_clima = ci_mudanca_clima()
-    cc_conselho_superior_cinema = conselho_superior_cinema()
-    cc_governanca = governanca()
+    # cc_cf_assistencia_emergencial = cf_assistencia_emergencial()
+    # cc_orgaos_vinculados = orgaos_vinculados()
+    # cc_conselho_solidariedade = conselho_solidariedade()
+    # cc_ci_planejamento_infraestrutura = ci_planejamento_infraestrutura()
+    # cc_ci_mudanca_clima = ci_mudanca_clima()
+    # cc_conselho_superior_cinema = conselho_superior_cinema()
+    # cc_governanca = governanca()
     cc_relacionamento_externo = relacionamento_externo()
-    cc_agenda_mais_brasil = agenda_mais_brasil()
+    # cc_agenda_mais_brasil = agenda_mais_brasil()
 
     """
     cc_noticias = noticias(bs)
