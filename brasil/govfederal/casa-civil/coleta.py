@@ -233,11 +233,11 @@ def relacionamento_externo(): # in progress
         data_update_secretaria_rexterno = secretaria_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
         # conteúdo
         conteudo_secretaria_rexterno = secretaria_rexterno.find("div", id="content-core").text
+    """
     if lista_links_rexterno[11]: # check
-        """ coletando item 11 da lista de links como REUNIÕES pois há uma troca de conteúdo na página coletada """
         reunioes_rexterno = acessar_pagina(lista_links_rexterno[11])
         # título
-        titulo_reunioes_rexterno = reunioes_rexterno.find("h1", class_="documentFirstHeading").text
+        titulo_reunioes_rexterno = reunioes_rexterno.find("h1").text
         # datas
         data_post_reunioes_rexterno = reunioes_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_reunioes_rexterno = reunioes_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
@@ -247,9 +247,7 @@ def relacionamento_externo(): # in progress
         lista_links_reunioes_rexterno = []
         links_reunioes_rexterno = reunioes_rexterno.find("div", id="content-core").find_all("a")
         for a in links_reunioes_rexterno:
-            lista_links_reunioes_rexterno.append(a["href"])
-        print(lista_links_reunioes_rexterno)  
-    """
+            lista_links_reunioes_rexterno.append(a["href"])    
     if lista_links_rexterno[12]: # in progress
         ### coletando item 12 da lista de links como INFOS LEGAIS pois há uma troca de conteúdo na página coletada
         infoslegais_rexterno = acessar_pagina(lista_links_rexterno[12])
