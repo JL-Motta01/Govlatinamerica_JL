@@ -35,17 +35,34 @@ def comunicados_interministeriais():
     cc_pagina = acessar_pagina(url)
 
 
-def boletins_cc():
+def boletins_cc(): # in progress
     url = links_cards(bs)[3]
     cc_pagina = acessar_pagina(url)
+    # título
+    titulo_boletins = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # datas
+    data_post_boletins = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_boletins = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
 
 
-def periodicos_mensais():
+def periodicos_mensais(): # check
     url = links_cards(bs)[4]
     cc_pagina = acessar_pagina(url)
+    # título
+    titulo_periodicos = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # datas
+    data_post_periodicos = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_periodicos = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    # conteúdo
+    conteudo_periodicos = cc_pagina.find("div", id="content-core").text
+    # links
+    lista_links_periodicos = []
+    links_periodicos = cc_pagina.find("div", id="content-core").find_all("a")
+    for a in links_periodicos:
+        lista_links_periodicos.append(a["href"])
 
 
-def relacionamento_externo(): # in progress
+def relacionamento_externo(): # in progress - almost check
     url = links_cards(bs)[5]
     cc_pagina = acessar_pagina(url)
     # imagens da página
@@ -282,20 +299,22 @@ def relacionamento_externo(): # in progress
         for a in links_documentos_rexterno:
             lista_links_documentos_rexterno.append(a["href"])
     if lista_links_rexterno[14]: # in progress
-        legislacao_rexterno = acessar_pagina(lista_links_rexterno[14])
-        # título
-        titulo_legislacao_rexterno = legislacao_rexterno.find("h1", class_="documentFirstHeading").text
-        # datas
-        data_post_legislacao_rexterno = legislacao_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_legislacao_rexterno = legislacao_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
-        # conteúdo
-        conteudo_legislacao_rexterno = legislacao_rexterno.find("div", id="content-core").text
-        # links
-        lista_links_legislacao_rexterno = []
-        links_legislacao_rexterno = legislacao_rexterno.find("div", id="content-core").find_all("a")
-        for a in links_legislacao_rexterno:
-            lista_links_legislacao_rexterno.append(a["href"]) 
-        print(lista_links_legislacao_rexterno)    
+        try:
+            legislacao_rexterno = acessar_pagina(lista_links_rexterno[14])
+            # título
+            titulo_legislacao_rexterno = legislacao_rexterno.find("h1", class_="documentFirstHeading").text
+            # datas
+            data_post_legislacao_rexterno = legislacao_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_legislacao_rexterno = legislacao_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteúdo
+            conteudo_legislacao_rexterno = legislacao_rexterno.find("div", id="content-core").text
+            # links
+            lista_links_legislacao_rexterno = []
+            links_legislacao_rexterno = legislacao_rexterno.find("div", id="content-core").find_all("a")
+            for a in links_legislacao_rexterno:
+                lista_links_legislacao_rexterno.append(a["href"])
+        except:
+            pass        
 
 
 def agenda_mais_brasil(): # página em manutenção
@@ -769,19 +788,17 @@ def conselho_solidariedade(): # in progress - pegar títulos
             tag_conselho = a["href"]
             lista_links_conselho.append(tag_conselho)
        
-        """
-        # acessando links da lista
-        if lista_links_conselho[0]:
-            a_conselho = acessar_pagina(lista_links_conselho[0])
-            # pegando conteudo dos links
-            conteudo_a_conselho = []
-            conteudo_decreto = a_conselho.find("font", face="Arial").find_all("p")
-            for p in conteudo_decreto:
-                conteudo_a_conselho.append(p)
-            print(conteudo_a_conselho)
-        if lista_links_conselho[1]:
-            a_conselho = acessar_pagina(lista_links_conselho[1])
-        """
+        # # acessando links da lista
+        # if lista_links_conselho[0]:
+        #     a_conselho = acessar_pagina(lista_links_conselho[0])
+        #     # pegando conteudo dos links
+        #     conteudo_a_conselho = []
+        #     conteudo_decreto = a_conselho.find("font", face="Arial").find_all("p")
+        #     for p in conteudo_decreto:
+        #         conteudo_a_conselho.append(p)
+        #     print(conteudo_a_conselho)
+        # if lista_links_conselho[1]:
+        #     a_conselho = acessar_pagina(lista_links_conselho[1])
 
         # pegando datas da página 
         data_post_conselho = td_conselho.find("span", class_="documentPublished").find("span", class_="value").text
@@ -808,17 +825,14 @@ def main():
     # cc_ci_mudanca_clima = ci_mudanca_clima()
     # cc_conselho_superior_cinema = conselho_superior_cinema()
     # cc_governanca = governanca()
-    cc_relacionamento_externo = relacionamento_externo()
+    # cc_relacionamento_externo = relacionamento_externo()
     # cc_agenda_mais_brasil = agenda_mais_brasil()
+    # cc_noticias = noticias()
+    # cc_notas_oficiais = notas_oficiais()
+    # cc_comunicados_interministeriais = comunicados_interministeriais()
+    cc_boletins_cc = boletins_cc()
+    # cc_periodicos_mensais = periodicos_mensais()
 
-    """
-    cc_noticias = noticias(bs)
-    cc_notas_oficiais = notas_oficiais(bs)
-    cc_comunicados_interministeriais = comunicados_interministeriais(bs)
-    cc_boletins_cc = boletins_cc(bs)
-    cc_periodicos_mensais= periodicos_mensais(bs)
-
-    """  
 
 if __name__ == "__main__":
     main()
