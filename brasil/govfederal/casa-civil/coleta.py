@@ -43,6 +43,11 @@ def boletins_cc(): # in progress
     # datas
     data_post_boletins = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
     data_update_boletins = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    # links
+    lista_links_boletins = []
+    links_boletins = cc_pagina.find("div", id="content-core").find_all("a")
+    for a in links_boletins:
+        lista_links_boletins.append(a["href"])
 
 
 def periodicos_mensais(): # check
@@ -338,6 +343,89 @@ def governanca(): # in progress
         # título da página 
         titulo_ci_governanca = ci_governanca.find("h1", class_="documentFirstHeading").text
         # conteúdo da página - in progress (coletar subpáginas)
+        lista_a_ci_governanca = []
+        a_ci_governanca = ci_governanca.find("div", {"id":"parent-fieldname-text"}).find_all("td")
+        for td_ci_governanca in a_ci_governanca:
+            try:
+                lista_a_ci_governanca.append(td_ci_governanca.a["href"])
+            except:
+                pass
+        if lista_a_ci_governanca[0]: # check
+            comite_ci_governanca = acessar_pagina(lista_a_ci_governanca[0])
+            # título da página 
+            titulo_comite_ci_governanca = comite_ci_governanca.find("h1", class_="documentFirstHeading").text
+            # conteúdo da página
+            conteudo_comite_ci_governanca = comite_ci_governanca.find("div", {"id": "content-core"}).text
+            # datas da página
+            data_post_comite_ci_governanca = comite_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_comite_ci_governanca = comite_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        if lista_a_ci_governanca[1]: # check
+            composicao_ci_governanca = acessar_pagina(lista_a_ci_governanca[1])
+            # título da página 
+            titulo_composicao_ci_governanca = composicao_ci_governanca.find("h1", class_="documentFirstHeading").text
+            # conteúdo da página
+            conteudo_composicao_ci_governanca = composicao_ci_governanca.find("div", {"id": "content-core"})
+            # links
+            lista_links_composicao_ci_governanca = []
+            links_composicao_ci_governanca = composicao_ci_governanca.find("div", {"id": "content-core"}).find_all("p")
+            for p_composicao_ci_governanca in links_composicao_ci_governanca:
+                try:
+                    lista_links_composicao_ci_governanca.append(p_composicao_ci_governanca.a["href"])
+                except:
+                    pass
+            # datas da página
+            data_post_composicao_ci_governanca = composicao_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_composicao_ci_governanca = composicao_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        if lista_a_ci_governanca[2]: # check
+            legislacao_ci_governanca = acessar_pagina(lista_a_ci_governanca[2])
+            # título da página 
+            titulo_legislacao_ci_governanca = legislacao_ci_governanca.find("h1", class_="documentFirstHeading").text
+            # conteúdo da página
+            conteudo_legislacao_ci_governanca = legislacao_ci_governanca.find("div", {"id": "content-core"}).text
+            # datas da página
+            data_post_legislacao_ci_governanca = legislacao_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_legislacao_ci_governanca = legislacao_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+            # links da página
+            lista_links_legislacao_ci_governanca = []
+            links_legislacao_ci_governanca = legislacao_ci_governanca.find("div", {"id": "content-core"}).find_all("li")
+            for li_legislacao_ci_governanca in links_legislacao_ci_governanca: 
+                try:
+                    lista_links_legislacao_ci_governanca.append(li_legislacao_ci_governanca.a["href"])
+                except:
+                    pass
+        if lista_a_ci_governanca[3]: # check
+            agenda_ci_governanca = acessar_pagina(lista_a_ci_governanca[3])
+            # título da página 
+            titulo_agenda_ci_governanca = agenda_ci_governanca.find("h1", class_="documentFirstHeading").text
+            # conteúdo da página
+            conteudo_agenda_ci_governanca = agenda_ci_governanca.find("div", {"id": "content-core"}).text
+            # datas da página
+            data_post_agenda_ci_governanca = agenda_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_agenda_ci_governanca = agenda_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        if lista_a_ci_governanca[4]: # in progress
+            atas_ci_governanca = acessar_pagina(lista_a_ci_governanca[4])
+            # título da página 
+            titulo_atas_ci_governanca = atas_ci_governanca.find("h1", class_="documentFirstHeading").text
+            # conteúdo da página
+            conteudo_atas_ci_governanca = atas_ci_governanca.find("div", {"id": "content-core"}).text
+            # datas da página
+            data_post_atas_ci_governanca = atas_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_atas_ci_governanca = atas_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+            # links da página
+            lista_links_atas_ci_governanca = []
+            links_atas_ci_governanca = atas_ci_governanca.find("div", {"id": "content-core"}).find_all("li")
+            for li_atas_ci_governanca in links_atas_ci_governanca: 
+                try:
+                    lista_links_atas_ci_governanca.append(li_atas_ci_governanca.a["href"])
+                except:
+                    pass
+            # print(titulo_atas_ci_governanca)
+        if lista_a_ci_governanca[5]:
+            recomendacoes_ci_governanca = acessar_pagina(lista_a_ci_governanca[5])
+        if lista_a_ci_governanca[6]:
+            guias_ci_governanca = acessar_pagina(lista_a_ci_governanca[6])
+        if lista_a_ci_governanca[7]:
+            grupos_ci_governanca = acessar_pagina(lista_a_ci_governanca[7])   
         # datas da página
         data_post_ci_governanca = ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_ci_governanca = ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
@@ -824,7 +912,7 @@ def main():
     # cc_ci_planejamento_infraestrutura = ci_planejamento_infraestrutura()
     # cc_ci_mudanca_clima = ci_mudanca_clima()
     # cc_conselho_superior_cinema = conselho_superior_cinema()
-    # cc_governanca = governanca()
+    cc_governanca = governanca()
     # cc_relacionamento_externo = relacionamento_externo()
     # cc_agenda_mais_brasil = agenda_mais_brasil()
     # cc_noticias = noticias()
