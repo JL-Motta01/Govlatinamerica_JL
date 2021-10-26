@@ -21,16 +21,34 @@ def links_cards(bs):
     return lista_cards
 
 
-def noticias(bs):
-    noticias = links_cards(bs)[0]
+def noticias(): # in progress
+    url = links_cards(bs)[0]
+    cc_pagina = acessar_pagina(url)
+    # título
+    titulo_noticias = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # datas
+    data_post_noticias = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_noticias = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
 
 
-def notas_oficiais():
+def notas_oficiais(): # check
     url = links_cards(bs)[1]
     cc_pagina = acessar_pagina(url)
+    # título
+    titulo_notas = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # datas
+    data_post_notas = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_notas = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    # conteúdo
+    conteudo_notas = cc_pagina.find("div", id="content-core").text
+    # links
+    lista_links_notas = []
+    links_notas = cc_pagina.find("div", id="content-core").find_all("a")
+    for a in links_notas:
+        lista_links_notas.append(a["href"])
 
 
-def comunicados_interministeriais():
+def comunicados_interministeriais(): # check
     url = links_cards(bs)[2]
     cc_pagina = acessar_pagina(url)
     # título
@@ -993,9 +1011,9 @@ def main():
     # cc_governanca = governanca()
     # cc_relacionamento_externo = relacionamento_externo()
     # cc_agenda_mais_brasil = agenda_mais_brasil()
-    # cc_noticias = noticias()
+    cc_noticias = noticias()
     # cc_notas_oficiais = notas_oficiais()
-    cc_comunicados_interministeriais = comunicados_interministeriais()
+    # cc_comunicados_interministeriais = comunicados_interministeriais()
     # cc_boletins_cc = boletins_cc()
     # cc_periodicos_mensais = periodicos_mensais()
 
