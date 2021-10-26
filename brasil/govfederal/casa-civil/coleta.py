@@ -33,9 +33,35 @@ def notas_oficiais():
 def comunicados_interministeriais():
     url = links_cards(bs)[2]
     cc_pagina = acessar_pagina(url)
+    # título
+    titulo_comunicados = cc_pagina.find("h1", class_="documentFirstHeading").text
+    # datas
+    data_post_comunicados = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_comunicados = cc_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    # links
+    contador = 0 
+    lista_links_comunicados = []
+    while contador < 271:
+        dominio = "https://www.gov.br/casacivil/pt-br/assuntos/comunicados-interministeriais?b_start:int="
+        dominio += str(contador) # montando a url / str, transformando numero em string
+        contador += 30
+        lista_links_comunicados.append(dominio)
+    for links_comunicados in lista_links_comunicados:
+        # links comunicados 
+        conteudo_links_comunicados = cc_pagina.find("div", id="content-core").find_all("article")
+        for article_comunicados in conteudo_links_comunicados:
+            links_article_comunicados = acessar_pagina(article_comunicados.h2.a["href"])
+            # entrando nos comunicados
+            titulo_article_comunicados = links_article_comunicados.find("h1").text
+            data_article_comunicados = links_article_comunicados.find("span", class_="documentModified").find("span", class_="value").text
+            conteudo_article_comunicados = links_article_comunicados.find("div", id="content-core").text
+            lista_link_conteudo_article_comunicados = []
+            link_conteudo_article_comunicados = links_article_comunicados.find("div", id="content-core").find_all("a")
+            for a_conteudo_article_comunicados in link_conteudo_article_comunicados:
+                lista_link_conteudo_article_comunicados.append(a_conteudo_article_comunicados["href"])
 
 
-def boletins_cc(): # in progress
+def boletins_cc(): # in progress - almost check
     url = links_cards(bs)[3]
     cc_pagina = acessar_pagina(url)
     # título
@@ -52,17 +78,18 @@ def boletins_cc(): # in progress
         contador += 30
         lista_links_boletins.append(dominio)
     for links_boletins in lista_links_boletins:
-        # span boletins
-        span_links_boletins = cc_pagina.find("div", id="content-core").find_all("span")
-        for span_boletins in span_links_boletins:
-            print(span_boletins.text)
         # links boletins 
         conteudo_links_boletins = cc_pagina.find("div", id="content-core").find_all("article")
-        lista_article_boletins = []
         for article_boletins in conteudo_links_boletins:
-            lista_article_boletins.append(article_boletins.h2.a["href"])
-            links_article_boletins = acessar_pagina(lista_article_boletins)
-
+            links_article_boletins = acessar_pagina(article_boletins.h2.a["href"])
+            # entrando no boletim
+            titulo_article_boletins = links_article_boletins.find("h1").text
+            data_article_boletins = links_article_boletins.find("span", class_="documentPublished").find("span", class_="value").text
+            conteudo_article_boletins = links_article_boletins.find("div", id="content-core").text
+            # coletando áudios
+            # site externo: https://anchor.fm/casacivilbr/episodes
+            # tag audio
+        
 
 def periodicos_mensais(): # check
     url = links_cards(bs)[4]
@@ -963,13 +990,13 @@ def main():
     # cc_ci_planejamento_infraestrutura = ci_planejamento_infraestrutura()
     # cc_ci_mudanca_clima = ci_mudanca_clima()
     # cc_conselho_superior_cinema = conselho_superior_cinema()
-    cc_governanca = governanca()
+    # cc_governanca = governanca()
     # cc_relacionamento_externo = relacionamento_externo()
     # cc_agenda_mais_brasil = agenda_mais_brasil()
     # cc_noticias = noticias()
     # cc_notas_oficiais = notas_oficiais()
-    # cc_comunicados_interministeriais = comunicados_interministeriais()
-    cc_boletins_cc = boletins_cc()
+    cc_comunicados_interministeriais = comunicados_interministeriais()
+    # cc_boletins_cc = boletins_cc()
     # cc_periodicos_mensais = periodicos_mensais()
 
 
