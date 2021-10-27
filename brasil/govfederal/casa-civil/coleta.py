@@ -389,28 +389,30 @@ def agenda_mais_brasil(): # página em manutenção
 def governanca(): # in progress
     url = links_cards(bs)[7]
     cc_pagina = acessar_pagina(url)
-    # pegando título da página 
+    # título da página 
     titulo_governanca = cc_pagina.find("h1", class_="documentFirstHeading").text
-    # coletando subpáginas em lista
+    # subpáginas em lista
     cards_governanca = cc_pagina.find("div", class_="wrapper").find_all("div", class_="card")
     lista_cards_governanca = []
-    for card in cards_governanca:
-        lista_cards_governanca.append(card.a["href"])
+    for card_governanca in cards_governanca:
+        lista_cards_governanca.append(card_governanca.a["href"])
     # não é necessário coletar o primeiro card
     if lista_cards_governanca[1]: # in progress
         ci_governanca = acessar_pagina(lista_cards_governanca[1])
         # título da página 
         titulo_ci_governanca = ci_governanca.find("h1", class_="documentFirstHeading").text
-        # conteúdo da página - in progress (coletar subpáginas)
-        lista_a_ci_governanca = []
-        a_ci_governanca = ci_governanca.find("div", {"id":"parent-fieldname-text"}).find_all("td")
-        for td_ci_governanca in a_ci_governanca:
-            try:
-                lista_a_ci_governanca.append(td_ci_governanca.a["href"])
-            except:
-                pass
-        if lista_a_ci_governanca[0]: # check
-            comite_ci_governanca = acessar_pagina(lista_a_ci_governanca[0])
+        # datas da página
+        data_post_ci_governanca = ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_ci_governanca = ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        # links da página - CHECK
+        lista_links_ci_governanca = []
+        trs_ci_governanca = ci_governanca.find("table", class_="plain").find_all("tr")
+        for tr_ci_governanca in trs_ci_governanca:
+            a_tr_ci_governanca = tr_ci_governanca.find_all("a")
+            for a_ci_governanca in a_tr_ci_governanca:
+                lista_links_ci_governanca.append(a_ci_governanca["href"])
+        if lista_links_ci_governanca[0]: # check
+            comite_ci_governanca = acessar_pagina(lista_links_ci_governanca[0])
             # título da página 
             titulo_comite_ci_governanca = comite_ci_governanca.find("h1", class_="documentFirstHeading").text
             # conteúdo da página
@@ -418,25 +420,29 @@ def governanca(): # in progress
             # datas da página
             data_post_comite_ci_governanca = comite_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_comite_ci_governanca = comite_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
-        if lista_a_ci_governanca[1]: # check
-            composicao_ci_governanca = acessar_pagina(lista_a_ci_governanca[1])
+            # links
+            lista_links_comite_ci_governanca = []
+            links_comite_ci_governanca = comite_ci_governanca.find("div", {"id": "content-core"}).find_all("a")
+            for a_comite_ci_governanca in links_comite_ci_governanca:
+                lista_links_comite_ci_governanca.append(a_comite_ci_governanca["href"])
+        if lista_links_ci_governanca[1]: # check
+            composicao_ci_governanca = acessar_pagina(lista_links_ci_governanca[1])
             # título da página 
             titulo_composicao_ci_governanca = composicao_ci_governanca.find("h1", class_="documentFirstHeading").text
             # conteúdo da página
-            conteudo_composicao_ci_governanca = composicao_ci_governanca.find("div", {"id": "content-core"})
-            # links
-            lista_links_composicao_ci_governanca = []
-            links_composicao_ci_governanca = composicao_ci_governanca.find("div", {"id": "content-core"}).find_all("p")
-            for p_composicao_ci_governanca in links_composicao_ci_governanca:
-                try:
-                    lista_links_composicao_ci_governanca.append(p_composicao_ci_governanca.a["href"])
-                except:
-                    pass
+            conteudo_composicao_ci_governanca = composicao_ci_governanca.find("div", {"id": "content-core"}).text
             # datas da página
             data_post_composicao_ci_governanca = composicao_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_composicao_ci_governanca = composicao_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
-        if lista_a_ci_governanca[2]: # check
-            legislacao_ci_governanca = acessar_pagina(lista_a_ci_governanca[2])
+            # links
+            lista_links_composicao_ci_governanca = []
+            ps_composicao_ci_governanca = composicao_ci_governanca.find("div", {"id": "content-core"}).find_all("p")
+            for p_composicao_ci_governanca in ps_composicao_ci_governanca:
+                a_p_composicao_ci_governanca = p_composicao_ci_governanca.find_all("a")
+                for a_composicao_ci_governanca in a_p_composicao_ci_governanca:
+                    lista_links_composicao_ci_governanca.append(a_composicao_ci_governanca["href"])
+        if lista_links_ci_governanca[2]: # check
+            legislacao_ci_governanca = acessar_pagina(lista_links_ci_governanca[2])
             # título da página 
             titulo_legislacao_ci_governanca = legislacao_ci_governanca.find("h1", class_="documentFirstHeading").text
             # conteúdo da página
@@ -444,16 +450,15 @@ def governanca(): # in progress
             # datas da página
             data_post_legislacao_ci_governanca = legislacao_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_legislacao_ci_governanca = legislacao_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
-            # links da página
+            # links
             lista_links_legislacao_ci_governanca = []
-            links_legislacao_ci_governanca = legislacao_ci_governanca.find("div", {"id": "content-core"}).find_all("li")
-            for li_legislacao_ci_governanca in links_legislacao_ci_governanca: 
-                try:
-                    lista_links_legislacao_ci_governanca.append(li_legislacao_ci_governanca.a["href"])
-                except:
-                    pass
-        if lista_a_ci_governanca[3]: # check
-            agenda_ci_governanca = acessar_pagina(lista_a_ci_governanca[3])
+            lis_legislacao_ci_governanca = legislacao_ci_governanca.find("div", {"id": "content-core"}).find_all("li")
+            for li_legislacao_ci_governanca in lis_legislacao_ci_governanca:
+                a_li_legislacao_ci_governanca = li_legislacao_ci_governanca.find_all("a")
+                for a_legislacao_ci_governanca in a_li_legislacao_ci_governanca:
+                    lista_links_legislacao_ci_governanca.append(a_legislacao_ci_governanca["href"])
+        if lista_links_ci_governanca[3]: # check
+            agenda_ci_governanca = acessar_pagina(lista_links_ci_governanca[3])
             # título da página 
             titulo_agenda_ci_governanca = agenda_ci_governanca.find("h1", class_="documentFirstHeading").text
             # conteúdo da página
@@ -461,8 +466,8 @@ def governanca(): # in progress
             # datas da página
             data_post_agenda_ci_governanca = agenda_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_agenda_ci_governanca = agenda_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
-        if lista_a_ci_governanca[4]: # check
-            atas_ci_governanca = acessar_pagina(lista_a_ci_governanca[4])
+        if lista_links_ci_governanca[4]: # check
+            atas_ci_governanca = acessar_pagina(lista_links_ci_governanca[4])
             # título da página 
             titulo_atas_ci_governanca = atas_ci_governanca.find("h1", class_="documentFirstHeading").text
             # conteúdo da página
@@ -470,25 +475,31 @@ def governanca(): # in progress
             # datas da página
             data_post_atas_ci_governanca = atas_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_atas_ci_governanca = atas_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
-            # links da página
+            # links
             lista_links_atas_ci_governanca = []
-            links_atas_ci_governanca = atas_ci_governanca.find("div", {"id": "content-core"}).find_all("li")
-            for li_atas_ci_governanca in links_atas_ci_governanca: 
-                try:
-                    lista_links_atas_ci_governanca.append(li_atas_ci_governanca.a["href"])
-                except:
-                    pass
-        if lista_a_ci_governanca[5]: # check
-            recomendacoes_ci_governanca = acessar_pagina(lista_a_ci_governanca[5])
-            # título da página 
+            lis_atas_ci_governanca = atas_ci_governanca.find("div", {"id": "content-core"}).find_all("li")
+            for li_atas_ci_governanca in lis_atas_ci_governanca:
+                a_li_atas_ci_governanca = li_atas_ci_governanca.find_all("a")
+                for a_atas_ci_governanca in a_li_atas_ci_governanca:
+                    lista_links_atas_ci_governanca.append(a_atas_ci_governanca["href"])
+        if lista_links_ci_governanca[5]: # check
+            recomendacoes_ci_governanca = acessar_pagina(lista_links_ci_governanca[5])
+            # título 
             titulo_recomendacoes_ci_governanca = recomendacoes_ci_governanca.find("h1", class_="documentFirstHeading").text
-            # conteúdo da página
+            # conteúdo 
             conteudo_recomendacoes_ci_governanca = recomendacoes_ci_governanca.find("div", {"id": "content-core"}).text
-            # datas da página
+            # datas 
             data_post_recomendacoes_ci_governanca = recomendacoes_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_recomendacoes_ci_governanca = recomendacoes_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
-        if lista_a_ci_governanca[6]: # check
-            guias_ci_governanca = acessar_pagina(lista_a_ci_governanca[6])
+            # links
+            lista_links_recomendacoes_ci_governanca = []
+            trs_recomendacoes_ci_governanca = recomendacoes_ci_governanca.find("div", {"id": "content-core"}).find_all("tr")
+            for tr_recomendacoes_ci_governanca in trs_recomendacoes_ci_governanca:
+                a_tr_recomendacoes_ci_governanca = tr_recomendacoes_ci_governanca.find_all("a")
+                for a_recomendacoes_ci_governanca in a_tr_recomendacoes_ci_governanca:
+                    lista_links_recomendacoes_ci_governanca.append(a_recomendacoes_ci_governanca["href"])
+        if lista_links_ci_governanca[6]: # check
+            guias_ci_governanca = acessar_pagina(lista_links_ci_governanca[6])
             # título da página 
             titulo_guias_ci_governanca = guias_ci_governanca.find("h1", class_="documentFirstHeading").text
             # conteúdo da página
@@ -496,16 +507,15 @@ def governanca(): # in progress
             # datas da página
             data_post_guias_ci_governanca = guias_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_guias_ci_governanca = guias_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
-            # links da página
+            # links
             lista_links_guias_ci_governanca = []
-            links_guias_ci_governanca = guias_ci_governanca.find("div", {"id": "content-core"}).find_all("p")
-            for p_guias_ci_governanca in links_guias_ci_governanca: 
-                try:
-                    lista_links_guias_ci_governanca.append(p_guias_ci_governanca.a["href"])
-                except:
-                    pass
-        if lista_a_ci_governanca[7]: # check
-            grupos_ci_governanca = acessar_pagina(lista_a_ci_governanca[7])  
+            ps_guias_ci_governanca = guias_ci_governanca.find("div", {"id": "content-core"}).find_all("p")
+            for p_guias_ci_governanca in ps_guias_ci_governanca:
+                a_p_guias_ci_governanca = p_guias_ci_governanca.find_all("a")
+                for a_guias_ci_governanca in a_p_guias_ci_governanca:
+                    lista_links_guias_ci_governanca.append(a_guias_ci_governanca["href"])
+        if lista_links_ci_governanca[7]: # check
+            grupos_ci_governanca = acessar_pagina(lista_links_ci_governanca[7])  
             # título da página 
             titulo_grupos_ci_governanca = grupos_ci_governanca.find("h1", class_="documentFirstHeading").text
             # conteúdo da página
@@ -513,17 +523,13 @@ def governanca(): # in progress
             # datas da página
             data_post_grupos_ci_governanca = grupos_ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_grupos_ci_governanca = grupos_ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
-            # links da página
+            # links
             lista_links_grupos_ci_governanca = []
-            links_grupos_ci_governanca = grupos_ci_governanca.find("div", {"id": "content-core"}).find_all("li")
-            for li_grupos_ci_governanca in links_grupos_ci_governanca: 
-                try:
-                    lista_links_grupos_ci_governanca.append(li_grupos_ci_governanca.a["href"])
-                except:
-                    pass 
-        # datas da página
-        data_post_ci_governanca = ci_governanca.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_ci_governanca = ci_governanca.find("span", class_="documentModified").find("span", class_="value").text
+            lis_grupos_ci_governanca = grupos_ci_governanca.find("div", {"id": "content-core"}).find_all("li")
+            for li_grupos_ci_governanca in lis_grupos_ci_governanca:
+                a_li_grupos_ci_governanca = li_grupos_ci_governanca.find_all("a")
+                for a_grupos_ci_governanca in a_li_grupos_ci_governanca:
+                    lista_links_grupos_ci_governanca.append(a_grupos_ci_governanca["href"])
     if lista_cards_governanca[2]: # in progress
         politica_governanca = acessar_pagina(lista_cards_governanca[2])
         # título da página 
@@ -608,10 +614,10 @@ def governanca(): # in progress
                 lista_links_mapa_governanca.append(a["href"])
 
 
-def conselho_superior_cinema(): # in progress
+def conselho_superior_cinema(): # check
     url = links_cards(bs)[8]
     cc_pagina = acessar_pagina(url)
-    # pegando título da página 
+    # título da página 
     titulo_cinema = cc_pagina.find("h1", class_="documentFirstHeading").text
     # datas da página
     data_post_cinema = cc_pagina.find("span", class_="documentPublished").find("span", class_="value").text
@@ -619,8 +625,8 @@ def conselho_superior_cinema(): # in progress
     # coletando subáginas em lista
     lista_tabs_cinema = []
     tabs_cinema = cc_pagina.find_all("div", class_="tab-content")
-    for tab in tabs_cinema:
-        lista_tabs_cinema.append(tab["data-url"])
+    for tab_cinema in tabs_cinema:
+        lista_tabs_cinema.append(tab_cinema["data-url"])
     if lista_tabs_cinema[0]: # check
         informes_cinema = acessar_pagina(lista_tabs_cinema[0])
         # título
@@ -630,203 +636,90 @@ def conselho_superior_cinema(): # in progress
         # datas
         data_post_informes_cinema = informes_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_informes_cinema = informes_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
-    if lista_tabs_cinema[1]: # in progress - coletar links
+    if lista_tabs_cinema[1]: # check
         competencias_cinema = acessar_pagina(lista_tabs_cinema[1])
         # título
         titulo_competencias_cinema = competencias_cinema.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_competencias_cinema = competencias_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_competencias_cinema = competencias_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
-        # conteúdo e links
+        # conteúdo
+        conteudo_competencias_cinema = competencias_cinema.find("div", id="content-core").text
+        # links
         lista_links_competencias_cinema = []
-        conteudo_competencias_cinema = competencias_cinema.find("div", id="content-core")
-        links_competencias_cinema = conteudo_competencias_cinema.find_all("a")
-        for a in links_competencias_cinema:
-            lista_links_competencias_cinema.append(a["href"])
-        """
-        if lista_links_competencias_cinema[0]: # PERGUNTAR PARA RAFAEL: como percorrer dois(todos) links juntos
-            link0_competencias = acessar_pagina(lista_links_competencias_cinema[0])
-            # coletar conteúdo
-        """
-    if lista_tabs_cinema[2]: # in progress - coletar links de decretos (possui PDF)
+        links_competencias_cinema = competencias_cinema.find("div", id="content-core").find_all("a")
+        for a_competencias_cinema in links_competencias_cinema:
+            lista_links_competencias_cinema.append(a_competencias_cinema["href"])
+    if lista_tabs_cinema[2]: # check
         composicao_cinema = acessar_pagina(lista_tabs_cinema[2])
         # título
         titulo_composicao_cinema = composicao_cinema.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_composicao_cinema = composicao_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_composicao_cinema = composicao_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
-        # conteúdo e links
+        # conteúdo 
+        conteudo_composicao_cinema = composicao_cinema.find("div", id="content-core").text
+        # links
         lista_links_composicao_cinema = []
-        conteudo_composicao_cinema = composicao_cinema.find("div", id="content-core")
-        links_composicao_cinema = conteudo_composicao_cinema.find_all("a")
-        for a in links_composicao_cinema:
-            lista_links_composicao_cinema.append(a["href"])
-        """ 
-        if lista_links_composicao_cinema[0]: 
-            link0_composicao = acessar_pagina(lista_links_composicao_cinema[0])
-            conteudo_link1_composicao = link0_composicao.find()
-        if lista_links_composicao_cinema[1]: 
-            link1_composicao = acessar_pagina(lista_links_composicao_cinema[1])
-            conteudo_link1_composicao = link1_composicao.find()
-        if lista_links_composicao_cinema[2]: 
-            link2_composicao = acessar_pagina(lista_links_composicao_cinema[2])
-            conteudo_link2_composicao = link1_composicao.find()
-        if lista_links_composicao_cinema[3]: 
-            link3_composicao = acessar_pagina(lista_links_composicao_cinema[3])
-            conteudo_link3_composicao = link3_composicao.find()
-        if lista_links_composicao_cinema[4]: 
-            link4_composicao = acessar_pagina(lista_links_composicao_cinema[4])
-            conteudo_link4_composicao = link4_composicao.find()
-        """
-    if lista_tabs_cinema[3]: # in progress
+        links_composicao_cinema = composicao_cinema.find("div", id="content-core").find_all("a")
+        for a_composicao_cinema in links_composicao_cinema:
+            lista_links_composicao_cinema.append(a_composicao_cinema["href"])
+    if lista_tabs_cinema[3]: # check
         regimento_cinema = acessar_pagina(lista_tabs_cinema[3])
         # título
         titulo_regimento_cinema = regimento_cinema.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_regimento_cinema = regimento_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_regimento_cinema = regimento_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
-        # conteúdo e links
+        # conteúdo
+        conteudo_regimento_cinema = regimento_cinema.find("div", id="content-core").text
+        # links 
         lista_links_regimento_cinema = []
-        conteudo_regimento_cinema = regimento_cinema.find("div", id="content-core")
-        links_regimento_cinema = conteudo_regimento_cinema.find_all("a")
-        for a in links_regimento_cinema:
-            lista_links_regimento_cinema.append(a["href"])
-        """
-        if lista_links_regimento_cinema[0]: 
-            link0_regimento = acessar_pagina(lista_links_regimento_cinema[0])
-            # PDF
-        """
-    if lista_tabs_cinema[4]: # in progress
+        links_regimento_cinema = regimento_cinema.find("div", id="content-core").find_all("a")
+        for a_regimento_cinema in links_regimento_cinema:
+            lista_links_regimento_cinema.append(a_regimento_cinema["href"])
+    if lista_tabs_cinema[4]: # check
         reunioes_cinema = acessar_pagina(lista_tabs_cinema[4])
         # título
         titulo_reunioes_cinema = reunioes_cinema.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_reunioes_cinema = reunioes_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_reunioes_cinema = reunioes_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
-        # conteúdo e links
+        # conteúdo
+        conteudo_reunioes_cinema = reunioes_cinema.find("div", id="content-core").text
+        # links
         lista_links_reunioes_cinema = []
-        conteudo_reunioes_cinema = reunioes_cinema.find("div", id="content-core")
-        links_reunioes_cinema = conteudo_reunioes_cinema.find_all("a")
-        for a in links_reunioes_cinema:
-            lista_links_reunioes_cinema.append(a["href"])
-        """
-        if lista_links_reunioes_cinema[0]: 
-            link0_regimento = acessar_pagina(lista_links_reunioes_cinema[0])
-        if lista_links_reunioes_cinema[1]: 
-            link1_regimento = acessar_pagina(lista_links_reunioes_cinema[1])
-        if lista_links_reunioes_cinema[2]: 
-            link2_regimento = acessar_pagina(lista_links_reunioes_cinema[2])
-        if lista_links_reunioes_cinema[3]: 
-            link3_regimento = acessar_pagina(lista_links_reunioes_cinema[3])
-        if lista_links_reunioes_cinema[4]: 
-            link4_regimento = acessar_pagina(lista_links_reunioes_cinema[4])
-        if lista_links_reunioes_cinema[5]: 
-            link5_regimento = acessar_pagina(lista_links_reunioes_cinema[5])
-        if lista_links_reunioes_cinema[6]: 
-            link6_regimento = acessar_pagina(lista_links_reunioes_cinema[6])
-        if lista_links_reunioes_cinema[7]: 
-            link7_regimento = acessar_pagina(lista_links_reunioes_cinema[7])
-        if lista_links_reunioes_cinema[8]: 
-            link8_regimento = acessar_pagina(lista_links_reunioes_cinema[8])
-        if lista_links_reunioes_cinema[9]: 
-            link9_regimento = acessar_pagina(lista_links_reunioes_cinema[9])
-        if lista_links_reunioes_cinema[10]: 
-            link10_regimento = acessar_pagina(lista_links_reunioes_cinema[10])
-        if lista_links_reunioes_cinema[11]: 
-            link11_regimento = acessar_pagina(lista_links_reunioes_cinema[11])
-        if lista_links_reunioes_cinema[12]: 
-            link12_regimento = acessar_pagina(lista_links_reunioes_cinema[12])
-        if lista_links_reunioes_cinema[13]: 
-            link13_regimento = acessar_pagina(lista_links_reunioes_cinema[13])
-        if lista_links_reunioes_cinema[14]: 
-            link14_regimento = acessar_pagina(lista_links_reunioes_cinema[14])
-        if lista_links_reunioes_cinema[15]: 
-            link15_regimento = acessar_pagina(lista_links_reunioes_cinema[15])
-        if lista_links_reunioes_cinema[16]: 
-            link16_regimento = acessar_pagina(lista_links_reunioes_cinema[16])
-        if lista_links_reunioes_cinema[17]: 
-            link17_regimento = acessar_pagina(lista_links_reunioes_cinema[17])
-        if lista_links_reunioes_cinema[18]: 
-            link18_regimento = acessar_pagina(lista_links_reunioes_cinema[18])
-        if lista_links_reunioes_cinema[19]: 
-            link19_regimento = acessar_pagina(lista_links_reunioes_cinema[19])
-        if lista_links_reunioes_cinema[20]: 
-            link20_regimento = acessar_pagina(lista_links_reunioes_cinema[20])
-        if lista_links_reunioes_cinema[21]: 
-            link21_regimento = acessar_pagina(lista_links_reunioes_cinema[21])
-        if lista_links_reunioes_cinema[22]: 
-            link22_regimento = acessar_pagina(lista_links_reunioes_cinema[22])
-        if lista_links_reunioes_cinema[23]: 
-            link23_regimento = acessar_pagina(lista_links_reunioes_cinema[23])
-        if lista_links_reunioes_cinema[24]: 
-            link24_regimento = acessar_pagina(lista_links_reunioes_cinema[24])
-        if lista_links_reunioes_cinema[25]: 
-            link25_regimento = acessar_pagina(lista_links_reunioes_cinema[25])
-        if lista_links_reunioes_cinema[26]: 
-            link26_regimento = acessar_pagina(lista_links_reunioes_cinema[26])
-        if lista_links_reunioes_cinema[27]: 
-            link27_regimento = acessar_pagina(lista_links_reunioes_cinema[27])
-        if lista_links_reunioes_cinema[28]: 
-            link28_regimento = acessar_pagina(lista_links_reunioes_cinema[28])
-        if lista_links_reunioes_cinema[29]: 
-            link29_regimento = acessar_pagina(lista_links_reunioes_cinema[29])
-        if lista_links_reunioes_cinema[30]: 
-            link30_regimento = acessar_pagina(lista_links_reunioes_cinema[30])
-        if lista_links_reunioes_cinema[31]: 
-            link31_regimento = acessar_pagina(lista_links_reunioes_cinema[31])
-        if lista_links_reunioes_cinema[32]: 
-            link32_regimento = acessar_pagina(lista_links_reunioes_cinema[32])
-        if lista_links_reunioes_cinema[33]: 
-            link33_regimento = acessar_pagina(lista_links_reunioes_cinema[33])
-        """
-    if lista_tabs_cinema[5]: # in progress
+        links_reunioes_cinema = reunioes_cinema.find("div", id="content-core").find_all("a")
+        for a_reunioes_cinema in links_reunioes_cinema:
+            lista_links_reunioes_cinema.append(a_reunioes_cinema["href"])
+    if lista_tabs_cinema[5]: # check
         legislacao_cinema = acessar_pagina(lista_tabs_cinema[5])
         # título
         titulo_legislacao_cinema = legislacao_cinema.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_legislacao_cinema = legislacao_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_legislacao_cinema = legislacao_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
-        # conteúdo e links
+        # conteúdo
+        conteudo_legislacao_cinema = legislacao_cinema.find("div", id="content-core").text
+        # links
         lista_links_legislacao_cinema = []
-        conteudo_legislacao_cinema = legislacao_cinema.find("div", id="content-core")
-        links_legislacao_cinema = conteudo_legislacao_cinema.find_all("a")
-        for a in links_legislacao_cinema:
-            lista_links_legislacao_cinema.append(a["href"])
-        """
-        if lista_links_legislacao_cinema[0]: 
-            link0_legislacao = acessar_pagina(lista_links_legislacao_cinema[0])
-        if lista_linkslegislacao_cinema[1]: 
-            link1_legislacao = acessar_pagina(lista_links_legislacao_cinema[1])
-        if lista_links_legislacao_cinema[2]: 
-            link2_legislacao = acessar_pagina(lista_links_legislacao_cinema[2])
-        if lista_links_legislacao_cinema[3]: 
-            link3_legislacao = acessar_pagina(lista_links_legislacao_cinema[3])
-        if lista_links_legislacao_cinema[4]: 
-            link4_legislacao = acessar_pagina(lista_links_legislacao_cinema[4])
-        if lista_links_legislacao_cinema[5]: 
-            link5_legislacao = acessar_pagina(lista_links_legislacao_cinema[5])
-        if lista_links_legislacao_cinema[6]: 
-            link6_legislacao = acessar_pagina(lista_links_legislacao_cinema[6])
-        if lista_links_legislacao_cinema[7]: 
-            link7_legislacao = acessar_pagina(lista_links_legislacao_cinema[7])
-        if lista_links_legislacao_cinema[8]: 
-            link8_legislacao = acessar_pagina(lista_links_legislacao_cinema[8])
-        if lista_links_legislacao_cinema[9]: 
-            link9_legislacao = acessar_pagina(lista_links_legislacao_cinema[9])
-        """
-    if lista_tabs_cinema[6]: # in progress
+        links_legislacao_cinema = legislacao_cinema.find("div", id="content-core").find_all("a")
+        for a_legislacao_cinema in links_legislacao_cinema:
+            lista_links_legislacao_cinema.append(a_legislacao_cinema["href"])
+    if lista_tabs_cinema[6]: # check
         contato_cinema = acessar_pagina(lista_tabs_cinema[6])
         # título
         titulo_contato_cinema = contato_cinema.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_contato_cinema = contato_cinema.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_contato_cinema = contato_cinema.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text   
-        # conteúdo e links
+        # conteúdo
+        conteudo_contato_cinema = contato_cinema.find("div", id="content-core").text
+        # links
         lista_links_contato_cinema = []
-        conteudo_contato_cinema = contato_cinema.find("div", id="content-core")
-        links_contato_cinema = conteudo_contato_cinema.find_all("a")
-        for a in links_contato_cinema:
-            lista_links_contato_cinema.append(a["href"])
+        links_contato_cinema = contato_cinema.find("div", id="content-core").find_all("a")
+        for a_contato_cinema in links_contato_cinema:
+            lista_links_contato_cinema.append(a_contato_cinema["href"])  
 
 
 def ci_mudanca_clima(): # check
@@ -940,62 +833,47 @@ def orgaos_vinculados(): # check
     data_update_orgaos = cc_pagina.find("span", class_="documentModified").find("span", class_="value").text
 
 
-def conselho_solidariedade(): # in progress - pegar títulos
+def conselho_solidariedade(): # check
     url = links_cards(bs)[13]
     cc_pagina = acessar_pagina(url) # passando o link para pagina url, parciando as noticias
-    # pegando título da página 
+    # título da página 
     titulo_solidariedade = cc_pagina.find("h1", class_="documentFirstHeading").text
-    # pegando datas da página 
+    # datas da página 
     data_post_solidariedade = cc_pagina.find("span", class_="documentPublished").find("span", class_="value").text
     data_update_solidariedade = cc_pagina.find("span", class_="documentModified").find("span", class_="value").text
     # acessando subpáginas por lista
     lista_links_solidariedade = []
-    lista_td_solidariedade = cc_pagina.find("div", id="content-core").find_all("td")
-    for td_solidariedade in lista_td_solidariedade:
-        lista_a_solidariedade = td_solidariedade.find_all("a")
-        for a_solidariedade in lista_a_solidariedade:
-            tag_a_solidariedade = a_solidariedade["href"]
-            lista_links_solidariedade.append(tag_a_solidariedade)
+    a_solidariedade = cc_pagina.find("div", {"id": "parent-fieldname-text"}).find_all("a")
+    for links_solidariedade in a_solidariedade:
+        lista_links_solidariedade.append(links_solidariedade["href"])
     # acessando subpágina conselho
-    if lista_links_solidariedade[0]: # in progress
-        td_conselho = acessar_pagina(lista_links_solidariedade[0])
+    if lista_links_solidariedade[0]: # check
+        conselho_solidariedade = acessar_pagina(lista_links_solidariedade[0])
+        # título 
+        titulo_conselho_solidariedade = conselho_solidariedade.find("h1", class_="documentFirstHeading").text
+        # datas 
+        data_post_conselho_solidariedade = conselho_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_conselho_solidariedade = conselho_solidariedade.find("span", class_="documentModified").find("span", class_="value").text
         # pegando conteúdo
-        conteudo_conselho = td_conselho.find("div", id="content-core")
+        conteudo_conselho_solidariedade = conselho_solidariedade.find("div", id="content-core").text
         # colocando links e tags da página em lista 
         lista_links_conselho = []
-        lista_a_conselho = td_conselho.find("div", class_="visualClear").find_all("a")
-        for a in lista_a_conselho:
-            links_conselho = a["href"]
-            lista_links_conselho.append(links_conselho)
-        lista_tag_conselho = td_conselho.find("div", id="category").find_all("a")
-        for a in lista_tag_conselho:
-            tag_conselho = a["href"]
-            lista_links_conselho.append(tag_conselho)
-       
-        # # acessando links da lista
-        # if lista_links_conselho[0]:
-        #     a_conselho = acessar_pagina(lista_links_conselho[0])
-        #     # pegando conteudo dos links
-        #     conteudo_a_conselho = []
-        #     conteudo_decreto = a_conselho.find("font", face="Arial").find_all("p")
-        #     for p in conteudo_decreto:
-        #         conteudo_a_conselho.append(p)
-        #     print(conteudo_a_conselho)
-        # if lista_links_conselho[1]:
-        #     a_conselho = acessar_pagina(lista_links_conselho[1])
-
-        # pegando datas da página 
-        data_post_conselho = td_conselho.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_conselho = td_conselho.find("span", class_="documentModified").find("span", class_="value").text
+        a_conselho_solidariedade = conselho_solidariedade.find("div", class_="visualClear").find_all("a")
+        for links_conselho_solidariedade in a_conselho_solidariedade:
+            lista_links_conselho.append(links_conselho_solidariedade["href"])
+        tag_conselho_solidariedade = conselho_solidariedade.find("div", id="category").find_all("a")
+        for tags_conselho_solidariedade in tag_conselho_solidariedade:
+            lista_links_conselho.append(tags_conselho_solidariedade["href"])
     # acessando subpágina composição 
     if lista_links_solidariedade[1]: # check
-        td_composicao = acessar_pagina(lista_links_solidariedade[1])
+        composicao_solidariedade = acessar_pagina(lista_links_solidariedade[1])
+        # título 
+        titulo_composicao_solidariedade = composicao_solidariedade.find("h1", class_="documentFirstHeading").text
+        # datas 
+        data_post_composicao_solidariedade = composicao_solidariedade.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_composicao_solidariedade = composicao_solidariedade.find("span", class_="documentModified").find("span", class_="value").text
         # pegando conteúdo 
-        lista_conteudo_composicao = td_composicao.find("div", id="content-core").text
-        # pegando datas da página 
-        data_post_composicao = td_composicao.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_composicao = td_composicao.find("span", class_="documentModified").find("span", class_="value").text
-
+        conteudo_composicao_solidariedade = composicao_solidariedade.find("div", id="content-core").text
 
 def main():
     global bs
@@ -1008,10 +886,10 @@ def main():
     # cc_ci_planejamento_infraestrutura = ci_planejamento_infraestrutura()
     # cc_ci_mudanca_clima = ci_mudanca_clima()
     # cc_conselho_superior_cinema = conselho_superior_cinema()
-    # cc_governanca = governanca()
+    cc_governanca = governanca()
     # cc_relacionamento_externo = relacionamento_externo()
     # cc_agenda_mais_brasil = agenda_mais_brasil()
-    cc_noticias = noticias()
+    # cc_noticias = noticias()
     # cc_notas_oficiais = notas_oficiais()
     # cc_comunicados_interministeriais = comunicados_interministeriais()
     # cc_boletins_cc = boletins_cc()
