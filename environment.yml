@@ -4,10 +4,12 @@ channels:
   - defaults
 dependencies:
   - python
-  - pip
   - tinydb
   - beautifulsoup4
+  - yattag
+  - pip
   - pip:
-    - domonic
+    - wget
+  
   
 prefix: ~/.conda/envs/env_govlatinamerica

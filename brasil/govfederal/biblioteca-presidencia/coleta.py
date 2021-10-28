@@ -20,9 +20,12 @@ def acessar_pagina(url):
 #     return lista_presidentes
 
 def links_presidentes():
-    url = "http://www.biblioteca.presidencia.gov.br/presidencia/ex-presidentes/capa-inicial"
-    lista_presidentes = acessar_pagina(url)
-    print(lista_presidentes)
+    print("Iniciando coleta...")
+    url = "http://www.biblioteca.presidencia.gov.br/presidencia/ex-presidentes"
+    pagina = acessar_pagina(url)
+    print(pagina)
+    presidentes = pagina.find_all("span")
+    # return print(presidentes)
 
 def main():
     presidentes = links_presidentes()
