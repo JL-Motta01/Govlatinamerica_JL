@@ -79,7 +79,7 @@ def comunicados_interministeriais(): # check
                 lista_link_conteudo_article_comunicados.append(a_conteudo_article_comunicados["href"])
 
 
-def boletins_cc(): # in progress - almost check
+def boletins_cc(): # check
     url = links_cards(bs)[3]
     cc_pagina = acessar_pagina(url)
     # título
@@ -105,8 +105,10 @@ def boletins_cc(): # in progress - almost check
             data_article_boletins = links_article_boletins.find("span", class_="documentPublished").find("span", class_="value").text
             conteudo_article_boletins = links_article_boletins.find("div", id="content-core").text
             # coletando áudios
-            # site externo: https://anchor.fm/casacivilbr/episodes
-            # tag audio
+            lista_audios_article_boletins = []
+            audios_article_boletins = links_article_boletins.find("div", {"id": "parent-fieldname-text"}).find_all("iframe")
+            for iframe_article_boletins in audios_article_boletins:
+                lista_audios_article_boletins.append(iframe_article_boletins["src"])
         
 
 def periodicos_mensais(): # check
@@ -243,7 +245,7 @@ def relacionamento_externo(): # in progress - almost check
                 lista_imagens_comite_rexterno.append(img_comite_rexterno["src"])
         except :
             pass 
-    if lista_links_rexterno[7]: # IN PROGRESS 
+    if lista_links_rexterno[7]: # check 
         noticias_rexterno = acessar_pagina(lista_links_rexterno[7])
         # título
         titulo_noticias_rexterno = noticias_rexterno.find("h1", class_="documentFirstHeading").text
@@ -266,17 +268,16 @@ def relacionamento_externo(): # in progress - almost check
                 titulo_noticias_rexterno = link_noticias_rexterno.find("h1").text
                 data_noticias_rexterno = link_noticias_rexterno.find("span", class_="documentPublished").find("span", class_="value").text
                 conteudo_noticias_rexterno = link_noticias_rexterno.find("div", id="content-core").text
+                # tags notícias
+                lista_tags_noticias_rexterno = []
                 try: 
-                    # tags notícias
-                    lista_tags_noticias_rexterno = []
-                    tags_noticias_rexterno = link_noticias_rexterno.find("div", id="category").find_all("span")
+                    tags_noticias_rexterno = link_noticias_rexterno.find("div", {"id":"category"}).find_all("span")
                     for span_noticias_rexterno in tags_noticias_rexterno:
-                        tags_a_noticias_rexterno = tags_noticias_rexterno.find_all("a")
-                        for a_noticias_rexterno in tags_a_noticias_rexterno:
-                            lista_tags_noticias_rexterno.append(a_noticias_rexterno["href"])
-                    print(lista_tags_noticias_rexterno)
+                        lista_tags_noticias_rexterno.append(span_noticias_rexterno.text)
                 except:
-                    pass
+                    lista_tags_noticias_rexterno.append("notícia sem tag")
+                if lista_tags_noticias_rexterno[0] != 'notícia sem tag' :
+                    del lista_tags_noticias_rexterno[0]
     if lista_links_rexterno[8]: # check
         estrutura_rexterno = acessar_pagina(lista_links_rexterno[8])
         # título
@@ -367,7 +368,7 @@ def relacionamento_externo(): # in progress - almost check
         links_documentos_rexterno = documentos_rexterno.find("div", id="content-core").find_all("a")
         for a in links_documentos_rexterno:
             lista_links_documentos_rexterno.append(a["href"])
-    if lista_links_rexterno[14]: # in progress
+    if lista_links_rexterno[14]: # IN PROGRESS
         try:
             legislacao_rexterno = acessar_pagina(lista_links_rexterno[14])
             # título
@@ -376,14 +377,14 @@ def relacionamento_externo(): # in progress - almost check
             data_post_legislacao_rexterno = legislacao_rexterno.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
             data_update_legislacao_rexterno = legislacao_rexterno.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
             # conteúdo
-            conteudo_legislacao_rexterno = legislacao_rexterno.find("div", id="content-core").text
+            conteudo_legislacao_rexterno = legislacao_rexterno.find("div", {"id":"content-core"}).text
             # links
             lista_links_legislacao_rexterno = []
-            links_legislacao_rexterno = legislacao_rexterno.find("div", id="content-core").find_all("a")
-            for a_legislacao_rexterno in links_legislacao_rexterno:
-                lista_links_legislacao_rexterno.append(a_legislacao_rexterno["href"])
+            links_legislacao_rexterno = legislacao_rexterno.find("div", {"id":"content-core"}).find_all("p")
+            for p_legislacao_rexterno in links_legislacao_rexterno:
+                lista_links_legislacao_rexterno.append(p_legislacao_rexterno.a.text)
         except:
-            pass        
+            return f'parte do código que temporariamente não está funcionando'
 
 
 def agenda_mais_brasil(): # página em manutenção
@@ -898,12 +899,12 @@ def main():
     # cc_ci_mudanca_clima = ci_mudanca_clima()
     # cc_conselho_superior_cinema = conselho_superior_cinema()
     # cc_governanca = governanca()
-    cc_relacionamento_externo = relacionamento_externo()
+    # cc_relacionamento_externo = relacionamento_externo()
     # cc_agenda_mais_brasil = agenda_mais_brasil()
     # cc_noticias = noticias()
     # cc_notas_oficiais = notas_oficiais()
     # cc_comunicados_interministeriais = comunicados_interministeriais()
-    # cc_boletins_cc = boletins_cc()
+    cc_boletins_cc = boletins_cc()
     # cc_periodicos_mensais = periodicos_mensais()
 
 
