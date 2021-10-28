@@ -2,13 +2,14 @@ from yattag import Doc, indent
 from tinydb import TinyDB, Query
 
 doc, tag, text = Doc().tagtext()
-
+links = ["stylesheet", ]
 doc.asis('<!DOCTYPE html>')
 with tag('html'):
     with tag('head'):
         doc.asis('<meta charset="utf-8" />')
-        with tag('link', rel="stylesheet", type="https://gl.githack.com/unesp-labri/sites/host-css-js/-/raw/master/fsp-css/reset.css"):
-            text('some value1')
+        for link in links:
+            with tag('link', rel="stylesheet", type="https://gl.githack.com/unesp-labri/sites/host-css-js/-/raw/master/fsp-css/reset.css"):
+            text(link)
         for i in ['a', 'b', 'c']:
             with tag('field2', name='asdfasd'):
                 text(i)
