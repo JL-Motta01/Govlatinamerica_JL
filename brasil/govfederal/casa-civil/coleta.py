@@ -386,7 +386,7 @@ def agenda_mais_brasil(): # página em manutenção
     cc_pagina = acessar_pagina(url)
 
 
-def governanca(): # in progress
+def governanca(): # check
     url = links_cards(bs)[7]
     cc_pagina = acessar_pagina(url)
     # título da página 
@@ -397,7 +397,7 @@ def governanca(): # in progress
     for card_governanca in cards_governanca:
         lista_cards_governanca.append(card_governanca.a["href"])
     # não é necessário coletar o primeiro card
-    if lista_cards_governanca[1]: # in progress
+    if lista_cards_governanca[1]: # check
         ci_governanca = acessar_pagina(lista_cards_governanca[1])
         # título da página 
         titulo_ci_governanca = ci_governanca.find("h1", class_="documentFirstHeading").text
@@ -530,15 +530,22 @@ def governanca(): # in progress
                 a_li_grupos_ci_governanca = li_grupos_ci_governanca.find_all("a")
                 for a_grupos_ci_governanca in a_li_grupos_ci_governanca:
                     lista_links_grupos_ci_governanca.append(a_grupos_ci_governanca["href"])
-    if lista_cards_governanca[2]: # in progress
+    if lista_cards_governanca[2]: # check
         politica_governanca = acessar_pagina(lista_cards_governanca[2])
         # título da página 
         titulo_politica_governanca = politica_governanca.find("h1", class_="documentFirstHeading").text
         # conteúdo da página - in progress (coletar vídeos - a href)
-        conteudo_politica_governanca = politica_governanca.find("div", id="content-core").text # texto
+        conteudo_politica_governanca = politica_governanca.find("div", id="content-core").text 
         # datas da página
         data_post_politica_governanca = politica_governanca.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_politica_governanca = politica_governanca.find("span", class_="documentModified").find("span", class_="value").text
+        # vídeos
+        lista_links_politica_governanca = []
+        links_politica_governanca = politica_governanca.find("div", {"id": "parent-fieldname-text"}).find_all("p")
+        for p_politica_governanca in links_politica_governanca:
+            video_p_politica_governanca = p_politica_governanca.find_all("iframe")
+            for video_politica_governanca in video_p_politica_governanca:
+                lista_links_politica_governanca.append(video_politica_governanca["src"])   
     if lista_cards_governanca[3]: # check
         biblioteca_governanca = acessar_pagina(lista_cards_governanca[3])
         # título da página 
@@ -548,25 +555,21 @@ def governanca(): # in progress
         # links da página
         lista_links_biblioteca = []
         links_biblioteca = biblioteca_governanca.find("div", id="content-core").find_all("a")
-        for a in links_biblioteca:
-            a_biblioteca = a["href"]
-            lista_links_biblioteca.append(a_biblioteca)
+        for a_biblioteca in links_biblioteca:
+            lista_links_biblioteca.append(a_biblioteca["href"])
         # datas da página
         data_post_biblioteca_governanca = biblioteca_governanca.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_biblioteca_governanca = biblioteca_governanca.find("span", class_="documentModified").find("span", class_="value").text
-    if lista_cards_governanca[4]: # in progress
+    if lista_cards_governanca[4]: # check
         regulacao_governanca = acessar_pagina(lista_cards_governanca[4])
-        # há 3 blocos de conteúdo
-        # conteúdo 1 
-        conteudo1_regulacao_governanca = regulacao_governanca.find("div", id="cff0d1b2bca4404ea3551ec20813f6bf")
-        # links 1
-        # conteúdo 2
-        conteudo2_regulacao_governanca = regulacao_governanca.find("div", id="c265f16cd95b48d5b694188908adf602")
-        # links 2
-        # conteúdo 3 
-        conteudo3_regulacao_governanca = regulacao_governanca.find("div", id="e7c9a747e5294faba7ef776eb3686e94")
-        # links 3
-    if lista_cards_governanca[5]: # in progress
+        # título e conteúdo da página 
+        conteudo_regulacao_governanca = regulacao_governanca.find("div", id="content").text 
+        # links da página
+        lista_links_regulacao_governanca = []
+        links_regulacao_governanca = regulacao_governanca.find("div", id="content").find_all("a")
+        for a_regulacao_governanca in links_regulacao_governanca:
+            lista_links_regulacao_governanca.append(a_regulacao_governanca["href"])
+    if lista_cards_governanca[5]: # check
         avaliacao_governanca = acessar_pagina(lista_cards_governanca[5])
         # título da página 
         titulo_avaliacao_governanca = avaliacao_governanca.find("h1", class_="documentFirstHeading").text
@@ -574,14 +577,17 @@ def governanca(): # in progress
         data_post_avaliacao_governanca = avaliacao_governanca.find("span", class_="documentPublished").find("span", class_="value").text
         data_update_avaliacao_governanca = avaliacao_governanca.find("span", class_="documentModified").find("span", class_="value").text
         # conteúdo da página 
-        conteudo_avaliacao_governanca = avaliacao_governanca.find("div", id="content-core")
+        conteudo_avaliacao_governanca = avaliacao_governanca.find("div", id="content-core").text
         # links
         lista_links_avaliacao_governanca = []
-        links_avaliacao_governanca = conteudo_avaliacao_governanca.find_all("a")
-        for a in links_avaliacao_governanca:
-            lista_links_avaliacao_governanca.append(a["href"])
+        links_avaliacao_governanca = avaliacao_governanca.find("div", id="content-core").find_all("a")
+        for a_avaliacao_governanca in links_avaliacao_governanca:
+            lista_links_avaliacao_governanca.append(a_avaliacao_governanca["href"])
+        imagens_avaliacao_governanca = avaliacao_governanca.find("div", id="content-core").find_all("img")
+        for img_avaliacao_governanca in imagens_avaliacao_governanca:
+            lista_links_avaliacao_governanca.append(img_avaliacao_governanca["src"])
     # cards 6(legislacao), 7(recomendacoes), 8(boas práticas), 9(guias e cartilhas) estão com a página vazia/em branco
-    if lista_cards_governanca[-1]: # in progress
+    if lista_cards_governanca[-1]: # check
         planejamento_governanca = acessar_pagina(lista_cards_governanca[-1])
         # título da página 
         titulo_planejamento_governanca = planejamento_governanca.find("h1", class_="documentFirstHeading").text
@@ -593,7 +599,7 @@ def governanca(): # in progress
         tabs_planejamento_governanca = planejamento_governanca.find_all("div", class_="tab-content")
         for tab in tabs_planejamento_governanca:
             lista_tabs_planejamento_governanca.append(tab["data-url"])
-        if lista_tabs_planejamento_governanca[0]:  # in progress
+        if lista_tabs_planejamento_governanca[0]:  # check
             mapa_governanca = acessar_pagina(lista_tabs_planejamento_governanca[0])
             # título da página 
             titulo_mapa_governanca = mapa_governanca.find("h1", class_="documentFirstHeading").text
@@ -601,17 +607,17 @@ def governanca(): # in progress
             data_post_mapa_governanca = mapa_governanca.find("span", class_="documentPublished").find("span", class_="value").text
             data_update_mapa_governanca = mapa_governanca.find("span", class_="documentModified").find("span", class_="value").text
             # conteúdo da página
-            conteudo_mapa_governanca = mapa_governanca.find("div", id="content-core")
+            conteudo_mapa_governanca = mapa_governanca.find("div", id="content-core").text
             # imagens da página
             lista_imagens_mapa_governanca = []
-            imagens_mapa_governanca = mapa_governanca.find_all("img")
+            imagens_mapa_governanca = mapa_governanca.find("div", id="content-core").find_all("img")
             for img in imagens_mapa_governanca:
                 lista_imagens_mapa_governanca.append(img["src"])
             # links 
             lista_links_mapa_governanca = []
-            links_mapa_governanca = conteudo_mapa_governanca.find_all("a")
-            for a in links_mapa_governanca:
-                lista_links_mapa_governanca.append(a["href"])
+            links_mapa_governanca = mapa_governanca.find("div", id="content-core").find_all("a")
+            for a_mapa_governanca in links_mapa_governanca:
+                lista_links_mapa_governanca.append(a_mapa_governanca["href"])
 
 
 def conselho_superior_cinema(): # check
