@@ -183,6 +183,232 @@ def boletins(): # in progress
         for row_boletins in conteudo_boletins_estrangeiros:
             lista_conteudo_boletins_estrangeiros.append(row_boletins.text)
         # TODOS OS ROWS ESTÃO COMO ITEM ÚNICO DA LISTA - SEPARAR
+    if lista_links_boletins[6]: # check
+        boletins_custeio = acessar_pagina(lista_links_boletins[6])
+        # links 
+        lista_links_boletins_custeio = []
+        links_boletins_custeio = boletins_custeio.find("div", class_="wrapper").find_all("div", class_="card")
+        for card_boletins_custeio in links_boletins_custeio:
+            lista_links_boletins_custeio.append(card_boletins_custeio.a["href"])
+        if lista_links_boletins_custeio[0]: # check
+            boletins_custeio_notas = acessar_pagina(lista_links_boletins_custeio[0])
+            # título
+            titulo_boletins_custeio_notas = boletins_custeio_notas.find("h1", class_="documentFirstHeading").text
+            # datas
+            data_post_boletins_custeio_notas = boletins_custeio_notas.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_boletins_custeio_notas = boletins_custeio_notas.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteúdo
+            conteudo_boletins_custeio_notas = boletins_custeio_notas.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_custeio_notas = []
+            links_boletins_custeio_notas = boletins_custeio_notas.find("div", {"id" : "content-core"}).find_all("h2")
+            for h2_boletins_custeio_notas in links_boletins_custeio_notas:
+                lista_links_boletins_custeio_notas.append(h2_boletins_custeio_notas.a["href"])
+        if lista_links_boletins_custeio[1]: # check
+            boletins_custeio_tri = acessar_pagina(lista_links_boletins_custeio[1])
+            # links 
+            lista_links_boletins_custeio_tri = []
+            links_boletins_custeio_tri = boletins_custeio_tri.find("div", class_="wrapper").find_all("div", class_="card")
+            for card_boletins_custeio_tri in links_boletins_custeio_tri:
+                lista_links_boletins_custeio_tri.append(card_boletins_custeio_tri.a["href"])
+            if lista_links_boletins_custeio_tri[0]: # check
+                boletins_custeio_tri2021 = acessar_pagina(lista_links_boletins_custeio_tri[0])
+                # título
+                titulo_boletins_custeio_tri2021 = boletins_custeio_tri2021.find("h1", class_="documentFirstHeading").text
+                # datas
+                data_post_boletins_custeio_tri2021 = boletins_custeio_tri2021.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                data_update_boletins_custeio_tri2021 = boletins_custeio_tri2021.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                # conteúdo
+                conteudo_boletins_custeio_tri2021 = boletins_custeio_tri2021.find("div", {"id" : "content-core"}).text
+                # links
+                lista_links_boletins_custeio_tri2021 = []
+                links_boletins_custeio_tri2021 = boletins_custeio_tri2021.find("div", {"id" : "content-core"}).find_all("h2")
+                for h2_boletins_custeio_tri2021 in links_boletins_custeio_tri2021:
+                    lista_links_boletins_custeio_tri2021.append(h2_boletins_custeio_tri2021.a["href"])
+            if lista_links_boletins_custeio_tri[1]: # check
+                boletins_custeio_tri2020 = acessar_pagina(lista_links_boletins_custeio_tri[1])
+                # título
+                titulo_boletins_custeio_tri2020 = boletins_custeio_tri2020.find("h1", class_="documentFirstHeading").text
+                # datas
+                data_post_boletins_custeio_tri2020 = boletins_custeio_tri2020.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                data_update_boletins_custeio_tri2020 = boletins_custeio_tri2020.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                # conteúdo
+                conteudo_boletins_custeio_tri2020 = boletins_custeio_tri2020.find("div", {"id" : "content-core"}).text
+                # links
+                lista_links_boletins_custeio_tri2020 = []
+                links_boletins_custeio_tri2020 = boletins_custeio_tri2020.find("div", {"id" : "content-core"}).find_all("h2")
+                for h2_boletins_custeio_tri2020 in links_boletins_custeio_tri2020:
+                    lista_links_boletins_custeio_tri2020.append(h2_boletins_custeio_tri2020.a["href"])
+            if lista_links_boletins_custeio_tri[2]: # check
+                boletins_custeio_tri2019 = acessar_pagina(lista_links_boletins_custeio_tri[2])
+                # título
+                titulo_boletins_custeio_tri2019 = boletins_custeio_tri2019.find("h1", class_="documentFirstHeading").text
+                # datas
+                data_post_boletins_custeio_tri2019 = boletins_custeio_tri2019.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                data_update_boletins_custeio_tri2019 = boletins_custeio_tri2019.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                # conteúdo
+                conteudo_boletins_custeio_tri2019 = boletins_custeio_tri2019.find("div", {"id" : "content-core"}).text
+                # links
+                lista_links_boletins_custeio_tri2019 = []
+                links_boletins_custeio_tri2019 = boletins_custeio_tri2019.find("div", {"id" : "content-core"}).find_all("h2")
+                for h2_boletins_custeio_tri2019 in links_boletins_custeio_tri2019:
+                    lista_links_boletins_custeio_tri2019.append(h2_boletins_custeio_tri2019.a["href"])
+            if lista_links_boletins_custeio_tri[3]: # check
+                boletins_custeio_tri2018 = acessar_pagina(lista_links_boletins_custeio_tri[3])
+                # título
+                titulo_boletins_custeio_tri2018 = boletins_custeio_tri2018.find("h1", class_="documentFirstHeading").text
+                # datas
+                data_post_boletins_custeio_tri2018 = boletins_custeio_tri2018.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                data_update_boletins_custeio_tri2018 = boletins_custeio_tri2018.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                # conteúdo
+                conteudo_boletins_custeio_tri2018 = boletins_custeio_tri2018.find("div", {"id" : "content-core"}).text
+                # links
+                lista_links_boletins_custeio_tri2018 = []
+                links_boletins_custeio_tri2018 = boletins_custeio_tri2018.find("div", {"id" : "content-core"}).find_all("h2")
+                for h2_boletins_custeio_tri2018 in links_boletins_custeio_tri2018:
+                    lista_links_boletins_custeio_tri2018.append(h2_boletins_custeio_tri2018.a["href"])
+            if lista_links_boletins_custeio_tri[4]: # check
+                boletins_custeio_tri2017 = acessar_pagina(lista_links_boletins_custeio_tri[4])
+                # título
+                titulo_boletins_custeio_tri2017 = boletins_custeio_tri2017.find("h1", class_="documentFirstHeading").text
+                # datas
+                data_post_boletins_custeio_tri2017 = boletins_custeio_tri2017.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                data_update_boletins_custeio_tri2017 = boletins_custeio_tri2017.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                # conteúdo
+                conteudo_boletins_custeio_tri2017 = boletins_custeio_tri2017.find("div", {"id" : "content-core"}).text
+                # links
+                lista_links_boletins_custeio_tri2017 = []
+                links_boletins_custeio_tri2017 = boletins_custeio_tri2017.find("div", {"id" : "content-core"}).find_all("h2")
+                for h2_boletins_custeio_tri2017 in links_boletins_custeio_tri2017:
+                    lista_links_boletins_custeio_tri2017.append(h2_boletins_custeio_tri2017.a["href"])
+            if lista_links_boletins_custeio_tri[5]: # check
+                boletins_custeio_tri2016 = acessar_pagina(lista_links_boletins_custeio_tri[5])
+                # título
+                titulo_boletins_custeio_tri2016 = boletins_custeio_tri2016.find("h1", class_="documentFirstHeading").text
+                # datas
+                data_post_boletins_custeio_tri2016 = boletins_custeio_tri2016.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                data_update_boletins_custeio_tri2016 = boletins_custeio_tri2016.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                # conteúdo
+                conteudo_boletins_custeio_tri2016 = boletins_custeio_tri2016.find("div", {"id" : "content-core"}).text
+                # links
+                lista_links_boletins_custeio_tri2016 = []
+                links_boletins_custeio_tri2016 = boletins_custeio_tri2016.find("div", {"id" : "content-core"}).find_all("h2")
+                for h2_boletins_custeio_tri2016 in links_boletins_custeio_tri2016:
+                    lista_links_boletins_custeio_tri2016.append(h2_boletins_custeio_tri2016.a["href"])
+        if lista_links_boletins_custeio[2]: # check
+            boletins_custeio_despesa = acessar_pagina(lista_links_boletins_custeio[2])
+            # links 
+            lista_links_boletins_custeio_despesa = []
+            links_boletins_custeio_despesa = boletins_custeio_despesa.find("div", class_="wrapper").find_all("div", class_="card")
+            for card_boletins_custeio_despesa in links_boletins_custeio_despesa:
+                lista_links_boletins_custeio_despesa.append(card_boletins_custeio_despesa.a["href"])
+            if lista_links_boletins_custeio_despesa[0]: # check
+                boletins_custeio_despesa_atualizada = acessar_pagina(lista_links_boletins_custeio_despesa[0])
+                # título
+                titulo_boletins_custeio_despesa_atualizada = boletins_custeio_despesa_atualizada.find("h1", class_="documentFirstHeading").text
+                # datas
+                data_post_boletins_custeio_despesa_atualizada = boletins_custeio_despesa_atualizada.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                data_update_boletins_custeio_despesa_atualizada = boletins_custeio_despesa_atualizada.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                # conteúdo
+                conteudo_boletins_custeio_despesa_atualizada = boletins_custeio_despesa_atualizada.find("div", {"id" : "content-core"}).text
+                # links
+                lista_links_boletins_custeio_despesa_atualizada = []
+                links_boletins_custeio_despesa_atualizada = boletins_custeio_despesa_atualizada.find("div", {"id" : "content-core"}).find_all("h2")
+                for h2_boletins_custeio_despesa_atualizada in links_boletins_custeio_despesa_atualizada:
+                    lista_links_boletins_custeio_despesa_atualizada.append(h2_boletins_custeio_despesa_atualizada.a["href"])
+            if lista_links_boletins_custeio_despesa[1]: # check
+                boletins_custeio_despesa_anterior = acessar_pagina(lista_links_boletins_custeio_despesa[1])
+                # links 
+                lista_links_boletins_custeio_despesa_anterior = []
+                links_boletins_custeio_despesa_anterior = boletins_custeio_despesa_anterior.find("div", class_="wrapper").find_all("div", class_="card")
+                for card_boletins_custeio_despesa_anterior in links_boletins_custeio_despesa_anterior:
+                    lista_links_boletins_custeio_despesa_anterior.append(card_boletins_custeio_despesa_anterior.a["href"])
+                if lista_links_boletins_custeio_despesa_anterior[0]: # check
+                    boletins_custeio_despesa_anterior_2021 = acessar_pagina(lista_links_boletins_custeio_despesa_anterior[0])
+                    # título
+                    titulo_boletins_custeio_despesa_anterior_2021 = boletins_custeio_despesa_anterior_2021.find("h1", class_="documentFirstHeading").text
+                    # datas
+                    data_post_boletins_custeio_despesa_anterior_2021 = boletins_custeio_despesa_anterior_2021.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                    data_update_boletins_custeio_despesa_anterior_2021 = boletins_custeio_despesa_anterior_2021.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                    # conteúdo
+                    conteudo_boletins_custeio_despesa_anterior_2021 = boletins_custeio_despesa_anterior_2021.find("div", {"id" : "content-core"}).text
+                    # links
+                    lista_links_boletins_custeio_despesa_anterior_2021 = []
+                    links_boletins_custeio_despesa_anterior_2021 = boletins_custeio_despesa_anterior_2021.find("div", {"id" : "content-core"}).find_all("h2")
+                    for h2_boletins_custeio_despesa_anterior_2021 in links_boletins_custeio_despesa_anterior_2021:
+                        lista_links_boletins_custeio_despesa_anterior_2021.append(h2_boletins_custeio_despesa_anterior_2021.a["href"])
+                if lista_links_boletins_custeio_despesa_anterior[1]: # check
+                    boletins_custeio_despesa_anterior_2020 = acessar_pagina(lista_links_boletins_custeio_despesa_anterior[1])
+                    # título
+                    titulo_boletins_custeio_despesa_anterior_2020 = boletins_custeio_despesa_anterior_2020.find("h1", class_="documentFirstHeading").text
+                    # datas
+                    data_post_boletins_custeio_despesa_anterior_2020 = boletins_custeio_despesa_anterior_2020.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                    data_update_boletins_custeio_despesa_anterior_2020 = boletins_custeio_despesa_anterior_2020.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                    # conteúdo
+                    conteudo_boletins_custeio_despesa_anterior_2020 = boletins_custeio_despesa_anterior_2020.find("div", {"id" : "content-core"}).text
+                    # links
+                    lista_links_boletins_custeio_despesa_anterior_2020 = []
+                    links_boletins_custeio_despesa_anterior_2020 = boletins_custeio_despesa_anterior_2020.find("div", {"id" : "content-core"}).find_all("h2")
+                    for h2_boletins_custeio_despesa_anterior_2020 in links_boletins_custeio_despesa_anterior_2020:
+                        lista_links_boletins_custeio_despesa_anterior_2020.append(h2_boletins_custeio_despesa_anterior_2020.a["href"])
+                if lista_links_boletins_custeio_despesa_anterior[2]: # check
+                    boletins_custeio_despesa_anterior_2019 = acessar_pagina(lista_links_boletins_custeio_despesa_anterior[2])
+                    # título
+                    titulo_boletins_custeio_despesa_anterior_2019 = boletins_custeio_despesa_anterior_2019.find("h1", class_="documentFirstHeading").text
+                    # datas
+                    data_post_boletins_custeio_despesa_anterior_2019 = boletins_custeio_despesa_anterior_2019.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                    data_update_boletins_custeio_despesa_anterior_2019 = boletins_custeio_despesa_anterior_2019.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                    # conteúdo
+                    conteudo_boletins_custeio_despesa_anterior_2019 = boletins_custeio_despesa_anterior_2019.find("div", {"id" : "content-core"}).text
+                    # links
+                    lista_links_boletins_custeio_despesa_anterior_2019 = []
+                    links_boletins_custeio_despesa_anterior_2019 = boletins_custeio_despesa_anterior_2019.find("div", {"id" : "content-core"}).find_all("h2")
+                    for h2_boletins_custeio_despesa_anterior_2019 in links_boletins_custeio_despesa_anterior_2019:
+                        lista_links_boletins_custeio_despesa_anterior_2019.append(h2_boletins_custeio_despesa_anterior_2019.a["href"])
+                if lista_links_boletins_custeio_despesa_anterior[3]: # check
+                    boletins_custeio_despesa_anterior_2018 = acessar_pagina(lista_links_boletins_custeio_despesa_anterior[3])
+                    # título
+                    titulo_boletins_custeio_despesa_anterior_2018 = boletins_custeio_despesa_anterior_2018.find("h1", class_="documentFirstHeading").text
+                    # datas
+                    data_post_boletins_custeio_despesa_anterior_2018 = boletins_custeio_despesa_anterior_2018.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                    data_update_boletins_custeio_despesa_anterior_2018 = boletins_custeio_despesa_anterior_2018.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                    # conteúdo
+                    conteudo_boletins_custeio_despesa_anterior_2018 = boletins_custeio_despesa_anterior_2018.find("div", {"id" : "content-core"}).text
+                    # links
+                    lista_links_boletins_custeio_despesa_anterior_2018 = []
+                    links_boletins_custeio_despesa_anterior_2018 = boletins_custeio_despesa_anterior_2018.find("div", {"id" : "content-core"}).find_all("h2")
+                    for h2_boletins_custeio_despesa_anterior_2018 in links_boletins_custeio_despesa_anterior_2018:
+                        lista_links_boletins_custeio_despesa_anterior_2018.append(h2_boletins_custeio_despesa_anterior_2018.a["href"])
+                if lista_links_boletins_custeio_despesa_anterior[4]: # check
+                    boletins_custeio_despesa_anterior_2017 = acessar_pagina(lista_links_boletins_custeio_despesa_anterior[4])
+                    # título
+                    titulo_boletins_custeio_despesa_anterior_2017 = boletins_custeio_despesa_anterior_2017.find("h1", class_="documentFirstHeading").text
+                    # datas
+                    data_post_boletins_custeio_despesa_anterior_2017 = boletins_custeio_despesa_anterior_2017.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                    data_update_boletins_custeio_despesa_anterior_2017 = boletins_custeio_despesa_anterior_2017.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                    # conteúdo
+                    conteudo_boletins_custeio_despesa_anterior_2017 = boletins_custeio_despesa_anterior_2017.find("div", {"id" : "content-core"}).text
+                    # links
+                    lista_links_boletins_custeio_despesa_anterior_2017 = []
+                    links_boletins_custeio_despesa_anterior_2017 = boletins_custeio_despesa_anterior_2017.find("div", {"id" : "content-core"}).find_all("h2")
+                    for h2_boletins_custeio_despesa_anterior_2017 in links_boletins_custeio_despesa_anterior_2017:
+                        lista_links_boletins_custeio_despesa_anterior_2017.append(h2_boletins_custeio_despesa_anterior_2017.a["href"])
+                if lista_links_boletins_custeio_despesa_anterior[5]: # check
+                    boletins_custeio_despesa_anterior_2016 = acessar_pagina(lista_links_boletins_custeio_despesa_anterior[5])
+                    # título
+                    titulo_boletins_custeio_despesa_anterior_2016 = boletins_custeio_despesa_anterior_2016.find("h1", class_="documentFirstHeading").text
+                    # datas
+                    data_post_boletins_custeio_despesa_anterior_2016 = boletins_custeio_despesa_anterior_2016.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                    data_update_boletins_custeio_despesa_anterior_2016 = boletins_custeio_despesa_anterior_2016.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                    # conteúdo
+                    conteudo_boletins_custeio_despesa_anterior_2016 = boletins_custeio_despesa_anterior_2016.find("div", {"id" : "content-core"}).text
+                    # links
+                    lista_links_boletins_custeio_despesa_anterior_2016 = []
+                    links_boletins_custeio_despesa_anterior_2016 = boletins_custeio_despesa_anterior_2016.find("div", {"id" : "content-core"}).find_all("h2")
+                    for h2_boletins_custeio_despesa_anterior_2016 in links_boletins_custeio_despesa_anterior_2016:
+                        lista_links_boletins_custeio_despesa_anterior_2016.append(h2_boletins_custeio_despesa_anterior_2016.a["href"])
+    if lista_links_boletins[7]: # in progress
+        boletins_incentivado = acessar_pagina(lista_links_boletins[7])
 
 
 """
