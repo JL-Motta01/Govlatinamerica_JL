@@ -104,6 +104,7 @@ def boletins(): # in progress
     links_boletins = me_pagina.find("div", class_="wrapper").find_all("div", class_="card")
     for card_boletins in links_boletins:
         lista_links_boletins.append(card_boletins.a["href"])
+    """
     if lista_links_boletins[0]: # check
         boletins_admin = acessar_pagina(lista_links_boletins[0])
         # título
@@ -407,9 +408,47 @@ def boletins(): # in progress
                     links_boletins_custeio_despesa_anterior_2016 = boletins_custeio_despesa_anterior_2016.find("div", {"id" : "content-core"}).find_all("h2")
                     for h2_boletins_custeio_despesa_anterior_2016 in links_boletins_custeio_despesa_anterior_2016:
                         lista_links_boletins_custeio_despesa_anterior_2016.append(h2_boletins_custeio_despesa_anterior_2016.a["href"])
-    if lista_links_boletins[7]: # in progress
+    if lista_links_boletins[7]: # in progress - coletar edições por ano
         boletins_incentivado = acessar_pagina(lista_links_boletins[7])
-
+        # título
+        titulo_boletins_incentivado = boletins_incentivado.find("div", class_="row-content").text        
+        # conteúdo
+        lista_conteudo_boletins_incentivado = []
+        conteudo_boletins_incentivado = boletins_incentivado.find("div", {"id" : "main"}).find_all("p")
+        for p_boletins_incentivado in conteudo_boletins_incentivado:
+            lista_conteudo_boletins_incentivado.append(p_boletins_incentivado.text)
+        # links
+        lista_links_boletins_incentivado = []
+        links_boletins_incentivado = boletins_incentivado.find("div", {"id" : "ce3ce3af-095d-4469-9d65-fb9aab660723"}).find_all("div", class_="collection-item")
+        for edicoes_boletins_incentivado in links_boletins_incentivado:
+            lista_links_boletins_incentivado.append(edicoes_boletins_incentivado.h2.a["href"])
+    if lista_links_boletins[8]: # almost check
+        boletins_subsidios = acessar_pagina(lista_links_boletins[8])
+        # título
+        titulo_boletins_subsidios = boletins_subsidios.find("h2", class_="outstanding-title").text
+        # conteúdo
+        conteudo_boletins_subsidios = boletins_subsidios.find("div", {"id": "main"}).text # ARRUMAR
+        # links
+        lista_links_boletins_subsidios = []
+        links_boletins_subsidios = boletins_subsidios.find("div", {"id": "b3bf50a7-f738-42a0-b5b7-3e5a33b26865"}).find_all("h3")
+        for h3_boletins in links_boletins_subsidios:
+            lista_links_boletins_subsidios.append(h3_boletins.a["href"])
+    """
+    if lista_links_boletins[9]:
+        boletins_mapa = acessar_pagina(lista_links_boletins[9])
+        # título
+        titulo_boletins_mapa = boletins_mapa.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_boletins_mapa = boletins_mapa.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_boletins_mapa = boletins_mapa.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_boletins_mapa = boletins_mapa.find("div", {"id" : "content-core"}).text
+        # links
+        lista_links_boletins_mapa = []
+        links_boletins_mapa = boletins_mapa.find("div", {"id" : "content-core"}).find_all("article")
+        for article_boletins_mapa in links_boletins_mapa:
+            lista_links_boletins_mapa.append(article_boletins_mapa.span.a["href"])
+        print(lista_links_boletins_mapa)
 
 """
 def cartilhas():
