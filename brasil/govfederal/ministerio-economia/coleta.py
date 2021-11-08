@@ -8,7 +8,6 @@ def acessar_pagina(url):
     bsoup = BeautifulSoup(html, "html.parser")
     return bsoup
 
-
 """
 def notas_imprensa(): # check
     url = "https://www.gov.br/economia/pt-br/canais_atendimento/imprensa/notas-a-imprensa" 
@@ -483,32 +482,83 @@ def boletins(): # in progress
                 links_macrofiscal = link_boletins_macrofiscal.find("div", {"id" : "content-core"}).find_all("p")
                 for p_macrofiscal in links_macrofiscal:
                     lista_links_macrofiscal.append(p_macrofiscal.a["href"])
+
+
+def cartilhas(): # check
+    url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/cartilhas"
+    me_pagina = acessar_pagina(url)
+    # título
+    titulo_cartilhas = me_pagina.find("h1", class_="documentFirstHeading").text
+    # datas
+    data_post_cartilhas = me_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_cartilhas = me_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    # conteúdo
+    conteudo_cartilhas = me_pagina.find("div", {"id" : "content-core"}).text
+    # links
+    lista_links_cartilhas = []
+    links_cartilhas = me_pagina.find("div", {"id" : "content-core"}).find_all("article")
+    for article_cartilhas in links_cartilhas:
+        lista_links_cartilhas.append(article_cartilhas.h2.a["href"])
+
+
+def estudos_notas(): # check
+    url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/notas-informativas"
+    me_pagina = acessar_pagina(url)
+    # título
+    titulo_estudos = me_pagina.find("h1", class_="documentFirstHeading").text
+    # datas
+    data_post_estudos = me_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_estudos = me_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    contador = 0 
+    lista_url_estudos = []
+    while contador < 91:
+        dominio = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/notas-informativas?b_start:int="
+        dominio += str(contador) 
+        contador += 30
+        lista_url_estudos.append(dominio)
+    for url_estudos in lista_url_estudos:
+        # conteudo
+        conteudo_estudos = me_pagina.find("div", {"id" : "content-core"}).find_all("article")
+        for article_estudos in conteudo_estudos:
+            link_estudos_notas = acessar_pagina(article_estudos.h2.a["href"])
+            # título 
+            titulo_estudos_notas = link_estudos_notas.find("h1").text
+            # data
+            data_post_estudos_notas = me_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_estudos_notas = link_estudos_notas.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # link
+            lista_links_estudos_notas = []
+            links_estudos_notas = link_estudos_notas.find("div", {"id" : "content-core"}).find_all("p")
+            for p_estudos_notas in links_estudos_notas:
+                lista_links_estudos_notas.append(p_estudos_notas.a["href"])
+
+
+def planilhas(): # check
+    url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/planilhas"
+    me_pagina = acessar_pagina(url)
+    # título
+    titulo_planilhas = me_pagina.find("h1", class_="documentFirstHeading").text
+    # datas
+    data_post_planilhas = me_pagina.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+    data_update_planilhas = me_pagina.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+    # conteúdo
+    conteudo_planilhas = me_pagina.find("div", {"id" : "content-core"}).text
+    # links
+    lista_links_planilhas = []
+    links_planilhas = me_pagina.find("div", {"id" : "content-core"}).find_all("a")
+    for a_planilhas in links_planilhas:
+        lista_links_planilhas.append(a_planilhas["href"])
 """
-
-def cartilhas():
-    url = links_navigation(bs)[6]
-    me_pagina = acessar_pagina(url)
-
-"""
-def estudos_notas():
-    url = links_navigation(bs)[6]
-    me_pagina = acessar_pagina(url)
-
-
-def planilhas():
-    url = links_navigation(bs)[6]
-    me_pagina = acessar_pagina(url)
-
 
 def relatorios():
-    url = links_navigation(bs)[6]
+    url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/relatorios"
     me_pagina = acessar_pagina(url)
 
 
 def auditorias():
-    url = links_navigation(bs)[4]
+    url = "https://www.gov.br/economia/pt-br/acesso-a-informacao/auditorias"
     me_pagina = acessar_pagina(url)
-"""
+    
 
 
 def main():
@@ -519,7 +569,11 @@ def main():
     # me_notas_imprensa = notas_imprensa()
     # me_noticias = noticias()
     # me_boletins = boletins()
-    me_cartilhas = cartilhas()
+    # me_cartilhas = cartilhas()
+    # me_estudos_notas = estudos_notas()
+    # me_planilhas = planilhas()
+    me_relatorios = relatorios()
+    # me_auditorias = auditorias()
 
 
 if __name__ == "__main__":
