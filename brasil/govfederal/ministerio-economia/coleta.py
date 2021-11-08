@@ -9,13 +9,6 @@ def acessar_pagina(url):
     return bsoup
 
 
-# def links_navigation(bs): # analisar 
-#     navigation = bs.find("div", class_="navigation-content").find_all("a", class_="plain") 
-#     lista_a = []  # cria uma lista vazia
-#     for a_menu in navigation:
-#         lista_a.append(a_menu["href"])  
-#     return lista_a
-
 """
 def notas_imprensa(): # check
     url = "https://www.gov.br/economia/pt-br/canais_atendimento/imprensa/notas-a-imprensa" 
@@ -93,7 +86,6 @@ def noticias(): # almost check
                     lista_href_noticias.append(a_noticias.text)
             except:
                 lista_href_noticias.append("notícia sem links")
-"""
 
 
 def boletins(): # in progress
@@ -104,7 +96,6 @@ def boletins(): # in progress
     links_boletins = me_pagina.find("div", class_="wrapper").find_all("div", class_="card")
     for card_boletins in links_boletins:
         lista_links_boletins.append(card_boletins.a["href"])
-    """
     if lista_links_boletins[0]: # check
         boletins_admin = acessar_pagina(lista_links_boletins[0])
         # título
@@ -433,8 +424,7 @@ def boletins(): # in progress
         links_boletins_subsidios = boletins_subsidios.find("div", {"id": "b3bf50a7-f738-42a0-b5b7-3e5a33b26865"}).find_all("h3")
         for h3_boletins in links_boletins_subsidios:
             lista_links_boletins_subsidios.append(h3_boletins.a["href"])
-    """
-    if lista_links_boletins[9]:
+    if lista_links_boletins[9]: # check
         boletins_mapa = acessar_pagina(lista_links_boletins[9])
         # título
         titulo_boletins_mapa = boletins_mapa.find("h1", class_="documentFirstHeading").text
@@ -448,14 +438,58 @@ def boletins(): # in progress
         links_boletins_mapa = boletins_mapa.find("div", {"id" : "content-core"}).find_all("article")
         for article_boletins_mapa in links_boletins_mapa:
             lista_links_boletins_mapa.append(article_boletins_mapa.span.a["href"])
-        print(lista_links_boletins_mapa)
-
+    if lista_links_boletins[10]: # check
+        boletins_prisma = acessar_pagina(lista_links_boletins[10])
+        # título
+        titulo_boletins_prisma = boletins_prisma.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_boletins_prisma = boletins_prisma.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_boletins_prisma = boletins_prisma.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_boletins_prisma = boletins_prisma.find("div", {"id" : "content-core"}).text
+        # links
+        lista_links_boletins_prisma = []
+        links_boletins_prisma = boletins_prisma.find("div", {"id" : "content-core"}).find_all("article")
+        for article_boletins_prisma in links_boletins_prisma:
+            lista_links_boletins_prisma.append(article_boletins_prisma.span.a["href"])
+    if lista_links_boletins[11]: # check
+        boletins_macrofiscal = acessar_pagina(lista_links_boletins[11])
+        # título
+        titulo_boletins_macrofiscal = boletins_macrofiscal.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_boletins_macrofiscal = boletins_macrofiscal.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_boletins_macrofiscal = boletins_macrofiscal.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_boletins_macrofiscal = boletins_macrofiscal.find("div", {"id" : "content-core"}).text
+        # links
+        contador = 0 
+        lista_url_boletins_macrofiscal = []
+        while contador < 31:
+            dominio = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/boletins/boletim-macrofiscal?b_start:int="
+            dominio += str(contador) 
+            contador += 30
+            lista_url_boletins_macrofiscal.append(dominio)
+        for url_boletins_macrofiscal in lista_url_boletins_macrofiscal:
+            # conteudo dos boletins_macrofiscal
+            conteudo_boletins_macrofiscal = boletins_macrofiscal.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_macrofiscal in conteudo_boletins_macrofiscal:
+                link_boletins_macrofiscal = acessar_pagina(article_boletins_macrofiscal.h2.a["href"])
+                # título 
+                titulo_macrofiscal = link_boletins_macrofiscal.find("h1").text
+                # data
+                data_update_macrofiscal = link_boletins_macrofiscal.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+                # link
+                lista_links_macrofiscal = []
+                links_macrofiscal = link_boletins_macrofiscal.find("div", {"id" : "content-core"}).find_all("p")
+                for p_macrofiscal in links_macrofiscal:
+                    lista_links_macrofiscal.append(p_macrofiscal.a["href"])
 """
+
 def cartilhas():
     url = links_navigation(bs)[6]
     me_pagina = acessar_pagina(url)
 
-
+"""
 def estudos_notas():
     url = links_navigation(bs)[6]
     me_pagina = acessar_pagina(url)
@@ -484,7 +518,8 @@ def main():
     # navigation = links_navigation(bs)
     # me_notas_imprensa = notas_imprensa()
     # me_noticias = noticias()
-    me_boletins = boletins()
+    # me_boletins = boletins()
+    me_cartilhas = cartilhas()
 
 
 if __name__ == "__main__":
