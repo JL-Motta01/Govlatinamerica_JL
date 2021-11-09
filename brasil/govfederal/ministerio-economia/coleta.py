@@ -553,13 +553,114 @@ def planilhas(): # check
 def relatorios():
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/relatorios"
     me_pagina = acessar_pagina(url)
+    # links 
+    lista_links_relatorios = []
+    links_relatorios = me_pagina.find("div", class_="wrapper").find_all("div", class_="card great-cards")
+    for card_relatorios in links_relatorios:
+        lista_links_relatorios.append(card_relatorios.a["href"])
+    """
+    if lista_links_relatorios[0]: # check
+        relatorios_seriados = acessar_pagina(lista_links_relatorios[0])
+        # título
+        titulo_relatorios_seriados = relatorios_seriados.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_relatorios_seriados = relatorios_seriados.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_relatorios_seriados = relatorios_seriados.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_relatorios_seriados = relatorios_seriados.find("div", {"id" : "content-core"}).text
+        # links
+        lista_links_relatorios_seriados = []
+        links_relatorios_seriados = relatorios_seriados.find("div", {"id" : "content-core"}).find_all("a")
+        for a_relatorios_seriados in links_relatorios_seriados:
+            lista_links_relatorios_seriados.append(a_relatorios_seriados["href"]) 
+    if lista_links_relatorios[1]: # check - !!!!
+        relatorios_avaliacao = acessar_pagina(lista_links_relatorios[1])
+        # título
+        titulo_relatorios_avaliacao = relatorios_avaliacao.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_relatorios_avaliacao = relatorios_avaliacao.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_relatorios_avaliacao = relatorios_avaliacao.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_relatorios_avaliacao = relatorios_avaliacao.find("div", {"id" : "content-core"}).text
+        # links
+        lista_links_relatorios_avaliacao = []
+        # LINKS1 ESTÃO COM MÁSCARA
+        links1_relatorios_avaliacao = relatorios_avaliacao.find("div", {"id" : "parent-fieldname-text"}).find("p", class_="callout").find_all("a")
+        for a_relatorios_avaliacao in links1_relatorios_avaliacao:
+            lista_links_relatorios_avaliacao.append(a_relatorios_avaliacao["href"])
+        links2_relatorios_avaliacao = relatorios_avaliacao.find("div", {"id" : "parent-fieldname-text"}).find_all("ul")
+        for ul_relatorios_avaliacao in links2_relatorios_avaliacao:
+            lista_links_relatorios_avaliacao.append(ul_relatorios_avaliacao.li.a["href"])
+        print(lista_links_relatorios_avaliacao)
+    if lista_links_relatorios[2]: # check
+        relatorios_auditorias = acessar_pagina(lista_links_relatorios[2])
+        # título
+        titulo_relatorios_auditorias = relatorios_auditorias.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_update_relatorios_auditorias = relatorios_auditorias.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # links
+        links_relatorios_auditorias = relatorios_auditorias.find("div", {"id" : "content-core"}).find_all("article")
+        for article_relatorios_auditorias in links_relatorios_auditorias:
+            conteudo_relatorios_auditorias = acessar_pagina(article_relatorios_auditorias.div.h2.a["href"])
+            # entrando nos links
+            data_update_relatorios_auditorias_pdf = conteudo_relatorios_auditorias.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # links
+            lista_links_relatorios_auditorias_pdf = []
+            links_relatorios_auditorias_pdf = conteudo_relatorios_auditorias.find("div", {"id" : "content-core"}).find_all("p")
+            for p_relatorios_auditorias_pdf in links_relatorios_auditorias_pdf:
+                lista_links_relatorios_auditorias_pdf.append(p_relatorios_auditorias_pdf.a["href"])
+    """
 
-
-def auditorias():
+"""
+def auditorias(): # check
     url = "https://www.gov.br/economia/pt-br/acesso-a-informacao/auditorias"
     me_pagina = acessar_pagina(url)
-    
-
+    # título
+    titulo_auditorias = me_pagina.find("span", {"id" : "breadcrumbs-current"}).text
+    # conteúdo
+    conteudo_auditorias = me_pagina.find("div", class_="column col-md-12").text
+    # links
+    lista_links_auditorias = []
+    links_auditorias = me_pagina.find("div", class_="column col-md-12").find_all("a")
+    for a_auditorias in links_auditorias:
+        lista_links_auditorias.append(a_auditorias["href"])
+    # guias 
+    lista_guias_auditorias = []
+    guias_auditorias = me_pagina.find("div", class_="wrapper").find_all("div", class_="card little-cards")
+    for card_auditorias in guias_auditorias:
+        lista_guias_auditorias.append(card_auditorias.a["href"])
+    if lista_guias_auditorias[0]: # check
+        auditorias_contas = acessar_pagina(lista_guias_auditorias[0])
+        # título
+        titulo_auditorias_contas = auditorias_contas.find("h2", class_="outstanding-title").text
+        # links
+        lista_links_auditorias_contas = []
+        links_auditorias_contas = auditorias_contas.find("div", {"id" : "f84ddcf9-4209-489f-b6f1-574ae2318bbc"}).find_all("li")
+        for li_auditorias_contas in links_auditorias_contas:
+            lista_links_auditorias_contas.append(li_auditorias_contas.a["href"])
+        print(lista_links_auditorias_contas)
+    if lista_guias_auditorias[1]: # check
+        auditorias_pareceres = acessar_pagina(lista_guias_auditorias[1])
+        # título
+        titulo_auditorias_pareceres = auditorias_pareceres.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_auditorias_pareceres = auditorias_pareceres.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_auditorias_pareceres = auditorias_pareceres.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # páginas 
+        contador = 0 
+        lista_url_auditorias_pareceres = []
+        while contador < 21:
+            dominio = "https://www.gov.br/economia/pt-br/acesso-a-informacao/auditorias/pareceres?b_start:int="
+            dominio += str(contador) 
+            contador += 20
+            lista_url_auditorias_pareceres.append(dominio)
+        for url_auditorias_pareceres in lista_url_auditorias_pareceres:
+            # links 
+            lista_links_auditorias_pareceres = []
+            links_auditorias_pareceres = auditorias_pareceres.find("div", {"id" : "content-core"}).find_all("article")
+            for article_auditorias_pareceres in links_auditorias_pareceres:
+                lista_links_auditorias_pareceres.append(article_auditorias_pareceres.div.h2.a["href"])
+"""
 
 def main():
     global bs
