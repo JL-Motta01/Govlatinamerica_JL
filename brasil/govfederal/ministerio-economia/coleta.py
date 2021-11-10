@@ -8,7 +8,7 @@ def acessar_pagina(url):
     bsoup = BeautifulSoup(html, "html.parser")
     return bsoup
 
-"""
+
 def notas_imprensa(): # check
     url = "https://www.gov.br/economia/pt-br/canais_atendimento/imprensa/notas-a-imprensa" 
     me_pagina = acessar_pagina(url)
@@ -548,7 +548,7 @@ def planilhas(): # check
     links_planilhas = me_pagina.find("div", {"id" : "content-core"}).find_all("a")
     for a_planilhas in links_planilhas:
         lista_links_planilhas.append(a_planilhas["href"])
-"""
+
 
 def relatorios():
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/relatorios"
@@ -558,7 +558,6 @@ def relatorios():
     links_relatorios = me_pagina.find("div", class_="wrapper").find_all("div", class_="card great-cards")
     for card_relatorios in links_relatorios:
         lista_links_relatorios.append(card_relatorios.a["href"])
-    """
     if lista_links_relatorios[0]: # check
         relatorios_seriados = acessar_pagina(lista_links_relatorios[0])
         # título
@@ -664,7 +663,6 @@ def relatorios():
         links_relatorios_sepec = relatorios_sepec.find("div", {"id" : "content-core"}).find_all("h2")
         for h2_relatorios_sepec in links_relatorios_sepec:
             lista_links_relatorios_sepec.append(h2_relatorios_sepec.a["href"])
-    """
     if lista_links_relatorios[7]: # CONFERIR COMO COLETAR COM RAFAEL
         relatorios_tesouro = acessar_pagina(lista_links_relatorios[7])
         # título
@@ -676,7 +674,6 @@ def relatorios():
         conteudo_relatorios_tesouro = relatorios_tesouro.find("div", {"id" : "content-core"}).text
 
 
-"""
 def auditorias(): # check
     url = "https://www.gov.br/economia/pt-br/acesso-a-informacao/auditorias"
     me_pagina = acessar_pagina(url)
@@ -725,7 +722,7 @@ def auditorias(): # check
             links_auditorias_pareceres = auditorias_pareceres.find("div", {"id" : "content-core"}).find_all("article")
             for article_auditorias_pareceres in links_auditorias_pareceres:
                 lista_links_auditorias_pareceres.append(article_auditorias_pareceres.div.h2.a["href"])
-"""
+
 
 def main():
     global bs
