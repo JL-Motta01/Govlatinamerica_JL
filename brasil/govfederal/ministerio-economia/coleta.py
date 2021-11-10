@@ -609,7 +609,72 @@ def relatorios():
             links_relatorios_auditorias_pdf = conteudo_relatorios_auditorias.find("div", {"id" : "content-core"}).find_all("p")
             for p_relatorios_auditorias_pdf in links_relatorios_auditorias_pdf:
                 lista_links_relatorios_auditorias_pdf.append(p_relatorios_auditorias_pdf.a["href"])
+    if lista_links_relatorios[3]: # check
+        relatorios_arrecadacao = acessar_pagina(lista_links_relatorios[3])
+        # título
+        titulo_relatorios_arrecadacao = relatorios_arrecadacao.find("h2", class_="outstanding-title").text
+        # links
+        lista_links_relatorios_arrecadacao = []
+        links_relatorios_arrecadacao = relatorios_arrecadacao.find("div", {"id" : "content"}).find_all("a")
+        for a_relatorios_arrecadacao in links_relatorios_arrecadacao:
+            lista_links_relatorios_arrecadacao.append(a_relatorios_arrecadacao["href"])
+    if lista_links_relatorios[4]: # check
+        relatorios_empresas = acessar_pagina(lista_links_relatorios[4])
+        # links
+        lista_links_relatorios_empresas = []
+        links_relatorios_empresas = relatorios_empresas.find("div", class_="wrapper").find_all("a")
+        for a_relatorios_empresas in links_relatorios_empresas:
+            lista_links_relatorios_empresas.append(a_relatorios_empresas["href"])
+        if lista_links_relatorios_empresas[0]: # check
+            relatorios_empresas_agregado = acessar_pagina(lista_links_relatorios_empresas[0])
+            # título
+            titulo_relatorios_empresas_agregado = relatorios_empresas_agregado.find("h2", class_="outstanding-title").text
+            # conteúdo
+            conteudo_relatorios_empresas_agregado = relatorios_empresas_agregado.find("div", {"id" : "cc3ee900-4b6a-49d1-bba0-dd478a23c1fc"}).text
+            # links
+            lista_links_relatorios_empresas_agregado = []
+            links_relatorios_empresas_agregado = relatorios_empresas_agregado.find("div", {"id" : "f9d95ff3-5ee0-4a57-ba11-84b962d61f9f"}).find_all("a")
+            for a_relatorios_empresas_agregado in links_relatorios_empresas_agregado:
+                lista_links_relatorios_empresas_agregado.append(a_relatorios_empresas_agregado["href"])
+        if lista_links_relatorios_empresas[1]: # check
+            relatorios_empresas_beneficios = acessar_pagina(lista_links_relatorios_empresas[1])
+            # título
+            titulo_relatorios_empresas_beneficios = relatorios_empresas_beneficios.find("h1", class_="documentFirstHeading").text
+            # datas
+            data_post_relatorios_empresas_beneficios = relatorios_empresas_beneficios.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_relatorios_empresas_beneficios = relatorios_empresas_beneficios.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteúdo
+            conteudo_relatorios_empresas_beneficios = relatorios_empresas_beneficios.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_relatorios_empresas_beneficios = []
+            links_relatorios_empresas_beneficios = relatorios_empresas_beneficios.find("div", {"id" : "content-core"}).find_all("article")
+            for article_empresas_beneficios in links_relatorios_empresas_beneficios:
+                lista_links_relatorios_empresas_beneficios.append(article_empresas_beneficios.a["href"])
+    if lista_links_relatorios[6]: # check
+        relatorios_sepec = acessar_pagina(lista_links_relatorios[6])
+        # título
+        titulo_relatorios_sepec = relatorios_sepec.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_relatorios_sepec = relatorios_sepec.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_relatorios_sepec = relatorios_sepec.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_relatorios_sepec = relatorios_sepec.find("div", {"id" : "content-core"}).text
+        # links
+        lista_links_relatorios_sepec = []
+        links_relatorios_sepec = relatorios_sepec.find("div", {"id" : "content-core"}).find_all("h2")
+        for h2_relatorios_sepec in links_relatorios_sepec:
+            lista_links_relatorios_sepec.append(h2_relatorios_sepec.a["href"])
     """
+    if lista_links_relatorios[7]: # CONFERIR COMO COLETAR COM RAFAEL
+        relatorios_tesouro = acessar_pagina(lista_links_relatorios[7])
+        # título
+        titulo_relatorios_tesouro = relatorios_tesouro.find("h1", class_="documentFirstHeading").text
+        # datas
+        data_post_relatorios_tesouro = relatorios_tesouro.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_relatorios_tesouro = relatorios_tesouro.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+        # conteúdo
+        conteudo_relatorios_tesouro = relatorios_tesouro.find("div", {"id" : "content-core"}).text
+
 
 """
 def auditorias(): # check
