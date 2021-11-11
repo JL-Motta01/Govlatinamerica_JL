@@ -10,7 +10,7 @@ from tinydb import TinyDB,Query
 from urllib.parse import urlparse #realizar parseamento do html
 from bs4 import BeautifulSoup #importa o beautifulsoup para extrair as infos das tags
 from pprint import pprint #organizar estéticamente os prints
-from requests.models import DecodeError 
+
 
 DIR_LOCAL= "/home/labri_joaomotta/codigo"
 

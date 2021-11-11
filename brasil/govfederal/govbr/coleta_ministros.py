@@ -26,15 +26,18 @@ def acessar_pagina(url):
 def paginas_com_url_Ministro ():
     """Percorre as páginas onde fical os links"""
     pagina_inicio = acessar_pagina("https://www.gov.br/planalto/pt-br/conheca-a-presidencia/ministros")
-    lista_url_Ministro = pagina_inicio.find_all("div", class_="column col-md-4 ")
+    lista_url_Ministro = pagina_inicio.find_all("div", class_="column col-md-4")
     return lista_url_Ministro
 
 def coleta_link():
     """Coleta os links de cada página que contém Ministro"""
     lista_links=[]
     for url in paginas_com_url_Ministro():
-        Ministro = url.a["href"]
-        lista_links.append(Ministro)
+        try:
+            Ministro = url.a["href"]
+            lista_links.append(Ministro)
+        except:
+            pass
     return lista_links
 
 def coleta_conteudo():
@@ -50,6 +53,22 @@ def coleta_conteudo():
         except:
            atualizado_em = "Ministro não modificado"
         titulo = Ministro.find("h1", class_="documentFirstHeading").text
+        try:
+            nome_ministro = Ministro.find("div",class_="documentDescription description").text
+        except:
+            nome_ministro = "Nome não inserido, verificar biografia"
+        try:
+            lista_conteudo=[]
+            paragrafos = Ministro.find('div', {'id' : 'content-core'}).find_all(['p','h3','h2','h1'])
+            for conteudo in paragrafos:
+                if conteudo.name == 'h3' or conteudo.name == 'h2' or conteudo.name == 'h1':
+                    texto = conteudo.text
+                    texto = texto.upper()
+                else:
+                    texto = conteudo.text 
+                lista_conteudo.append(texto)
+        except:
+            lista_conteudo= "biografia sem conteúdo"
         db_planalto = db.contains(User.titulo==titulo,User.data==publicado_em)
         if not db_planalto:
             print("não está na base")
@@ -58,6 +77,8 @@ def coleta_conteudo():
                 "data":publicado_em,
                 "atualizado em":atualizado_em,  
                 "titulo":titulo,
+                "nome": nome_ministro,
+                "Conteudo": lista_conteudo
             })
         else:
             print("está na base")
