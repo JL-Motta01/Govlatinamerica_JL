@@ -8,7 +8,7 @@ def acessar_pagina(url):
     bsoup = BeautifulSoup(html, "html.parser")
     return bsoup
 
-
+"""
 def notas_imprensa(): # check
     url = "https://www.gov.br/economia/pt-br/canais_atendimento/imprensa/notas-a-imprensa" 
     me_pagina = acessar_pagina(url)
@@ -53,7 +53,7 @@ def notas_imprensa(): # check
                 del lista_tags_notas[0]
 
 
-def noticias(): # almost check
+def noticias(): # check
     url = "https://www.gov.br/economia/pt-br/assuntos/noticias"
     me_pagina = acessar_pagina(url)
     # título
@@ -77,15 +77,17 @@ def noticias(): # almost check
             titulo_noticias = link_noticias.find("h1").text
             data_noticias = link_noticias.find("span", class_="documentPublished").find("span", class_="value").text
             corpo_noticias = link_noticias.find("div", id="content-core").text
-            # links noticias
-            lista_href_noticias = [] # ajustar EXCEPT
+            # tags noticias
+            lista_tags_noticias = []
             try: 
-                href_noticias = link_noticias.find("div", {"id":"content-core"}).find_all("a")
-                for a_noticias in href_noticias:
-                    lista_href_noticias.append(a_noticias.text)
+                tags_noticias = link_noticias.find("div", {"id":"category"}).find_all("span")
+                for span_noticias in tags_noticias:
+                    lista_tags_noticias.append(span_noticias.text)
             except:
-                lista_href_noticias.append("notícia sem links")
-
+                lista_tags_noticias.append("notícia sem tag")
+            if lista_tags_noticias[0] != 'notícia sem tag' :
+                del lista_tags_noticias[0]
+"""
 
 def boletins(): # in progress
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/boletins"
@@ -95,6 +97,7 @@ def boletins(): # in progress
     links_boletins = me_pagina.find("div", class_="wrapper").find_all("div", class_="card")
     for card_boletins in links_boletins:
         lista_links_boletins.append(card_boletins.a["href"])
+    """
     if lista_links_boletins[0]: # check
         boletins_admin = acessar_pagina(lista_links_boletins[0])
         # título
@@ -131,6 +134,7 @@ def boletins(): # in progress
         links_boletins_empresas_dep = boletins_empresas_dep.find("div", class_="cover-collection-tile tile-content").find_all("h2")
         for h2_boletins in links_boletins_empresas_dep:
             lista_links_boletins_empresas_dep.append(h2_boletins.a["href"])
+    """
     if lista_links_boletins[3]: # almost check
         boletins_covid = acessar_pagina(lista_links_boletins[3])
         # título
@@ -142,17 +146,20 @@ def boletins(): # in progress
         lista_url_boletins_covid = []
         while contador < 331:
             dominio = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/boletins/covid-19?b_start:int="
-            dominio += str(contador) 
+            dominio += str(contador) # montando a url / str, transformando numero em string
             contador += 30
             lista_url_boletins_covid.append(dominio)
-        for url_boletins_covid in lista_url_boletins_covid: # SÓ COLETA DA PRIMEIRA PÁGINA 
-            # conteúdo
-            conteudo_boletins_covid = boletins_covid.find("div", id="content-core").text
+        for url_boletins_covid in lista_url_boletins_covid:
+            # conteudo 
+            conteudo_boletins_covid = boletins_covid.find("div", {"id" : "content-core"}).text
             # links
-            lista_links_boletins_covid = []
-            links_boletins_covid = boletins_covid.find("div", id="content-core").find_all("article")
-            for article_boletins in links_boletins_covid:
-                lista_links_boletins_covid.append(article_boletins.h2.a["href"])
+            lista_links_boletins_covid = boletins_covid.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_covid in lista_links_boletins_covid:
+                links_boletins_covid = acessar_pagina(article_boletins_covid.h2.a["href"])
+                # entrando na notícia
+                titulo_boletim_covid = links_boletins_covid.find("h1").text
+                # CONTINUAÇÃO DAQUI
+    """
     if lista_links_boletins[4]: # check
         boletins_loterias = acessar_pagina(lista_links_boletins[4])
         # título
@@ -482,8 +489,9 @@ def boletins(): # in progress
                 links_macrofiscal = link_boletins_macrofiscal.find("div", {"id" : "content-core"}).find_all("p")
                 for p_macrofiscal in links_macrofiscal:
                     lista_links_macrofiscal.append(p_macrofiscal.a["href"])
+    """
 
-
+"""
 def cartilhas(): # check
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/cartilhas"
     me_pagina = acessar_pagina(url)
@@ -550,7 +558,7 @@ def planilhas(): # check
         lista_links_planilhas.append(a_planilhas["href"])
 
 
-def relatorios():
+def relatorios(): # check
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/relatorios"
     me_pagina = acessar_pagina(url)
     # links 
@@ -572,7 +580,7 @@ def relatorios():
         links_relatorios_seriados = relatorios_seriados.find("div", {"id" : "content-core"}).find_all("a")
         for a_relatorios_seriados in links_relatorios_seriados:
             lista_links_relatorios_seriados.append(a_relatorios_seriados["href"]) 
-    if lista_links_relatorios[1]: # check - !!!!
+    if lista_links_relatorios[1]: # check 
         relatorios_avaliacao = acessar_pagina(lista_links_relatorios[1])
         # título
         titulo_relatorios_avaliacao = relatorios_avaliacao.find("h1", class_="documentFirstHeading").text
@@ -583,14 +591,9 @@ def relatorios():
         conteudo_relatorios_avaliacao = relatorios_avaliacao.find("div", {"id" : "content-core"}).text
         # links
         lista_links_relatorios_avaliacao = []
-        # LINKS1 ESTÃO COM MÁSCARA
-        links1_relatorios_avaliacao = relatorios_avaliacao.find("div", {"id" : "parent-fieldname-text"}).find("p", class_="callout").find_all("a")
-        for a_relatorios_avaliacao in links1_relatorios_avaliacao:
-            lista_links_relatorios_avaliacao.append(a_relatorios_avaliacao["href"])
-        links2_relatorios_avaliacao = relatorios_avaliacao.find("div", {"id" : "parent-fieldname-text"}).find_all("ul")
-        for ul_relatorios_avaliacao in links2_relatorios_avaliacao:
+        links_relatorios_avaliacao = relatorios_avaliacao.find("div", {"id" : "parent-fieldname-text"}).find_all("ul")
+        for ul_relatorios_avaliacao in links_relatorios_avaliacao:
             lista_links_relatorios_avaliacao.append(ul_relatorios_avaliacao.li.a["href"])
-        print(lista_links_relatorios_avaliacao)
     if lista_links_relatorios[2]: # check
         relatorios_auditorias = acessar_pagina(lista_links_relatorios[2])
         # título
@@ -663,15 +666,15 @@ def relatorios():
         links_relatorios_sepec = relatorios_sepec.find("div", {"id" : "content-core"}).find_all("h2")
         for h2_relatorios_sepec in links_relatorios_sepec:
             lista_links_relatorios_sepec.append(h2_relatorios_sepec.a["href"])
-    if lista_links_relatorios[7]: # CONFERIR COMO COLETAR COM RAFAEL
+    if lista_links_relatorios[7]: # CONFERIR COMO COLETAR 
         relatorios_tesouro = acessar_pagina(lista_links_relatorios[7])
         # título
         titulo_relatorios_tesouro = relatorios_tesouro.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_relatorios_tesouro = relatorios_tesouro.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_relatorios_tesouro = relatorios_tesouro.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
-        # conteúdo
-        conteudo_relatorios_tesouro = relatorios_tesouro.find("div", {"id" : "content-core"}).text
+        # selection
+        # conteudo >> selenium 
 
 
 def auditorias(): # check
@@ -722,7 +725,7 @@ def auditorias(): # check
             links_auditorias_pareceres = auditorias_pareceres.find("div", {"id" : "content-core"}).find_all("article")
             for article_auditorias_pareceres in links_auditorias_pareceres:
                 lista_links_auditorias_pareceres.append(article_auditorias_pareceres.div.h2.a["href"])
-
+"""
 
 def main():
     global bs
@@ -731,11 +734,11 @@ def main():
     # navigation = links_navigation(bs)
     # me_notas_imprensa = notas_imprensa()
     # me_noticias = noticias()
-    # me_boletins = boletins()
+    me_boletins = boletins()
     # me_cartilhas = cartilhas()
     # me_estudos_notas = estudos_notas()
     # me_planilhas = planilhas()
-    me_relatorios = relatorios()
+    # me_relatorios = relatorios()
     # me_auditorias = auditorias()
 
 
