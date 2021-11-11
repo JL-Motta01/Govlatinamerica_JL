@@ -8,7 +8,7 @@ def acessar_pagina(url):
     bsoup = BeautifulSoup(html, "html.parser")
     return bsoup
 
-
+"""
 def notas_imprensa(): # check
     url = "https://www.gov.br/economia/pt-br/canais_atendimento/imprensa/notas-a-imprensa" 
     me_pagina = acessar_pagina(url)
@@ -53,7 +53,7 @@ def notas_imprensa(): # check
                 del lista_tags_notas[0]
 
 
-def noticias(): # almost check
+def noticias(): # check
     url = "https://www.gov.br/economia/pt-br/assuntos/noticias"
     me_pagina = acessar_pagina(url)
     # título
@@ -77,14 +77,16 @@ def noticias(): # almost check
             titulo_noticias = link_noticias.find("h1").text
             data_noticias = link_noticias.find("span", class_="documentPublished").find("span", class_="value").text
             corpo_noticias = link_noticias.find("div", id="content-core").text
-            # links noticias
-            lista_href_noticias = [] # ajustar EXCEPT
+            # tags noticias
+            lista_tags_noticias = []
             try: 
-                href_noticias = link_noticias.find("div", {"id":"content-core"}).find_all("a")
-                for a_noticias in href_noticias:
-                    lista_href_noticias.append(a_noticias.text)
+                tags_noticias = link_noticias.find("div", {"id":"category"}).find_all("span")
+                for span_noticias in tags_noticias:
+                    lista_tags_noticias.append(span_noticias.text)
             except:
-                lista_href_noticias.append("notícia sem links")
+                lista_tags_noticias.append("notícia sem tag")
+            if lista_tags_noticias[0] != 'notícia sem tag' :
+                del lista_tags_noticias[0]
 
 
 def boletins(): # in progress
@@ -548,7 +550,7 @@ def planilhas(): # check
     links_planilhas = me_pagina.find("div", {"id" : "content-core"}).find_all("a")
     for a_planilhas in links_planilhas:
         lista_links_planilhas.append(a_planilhas["href"])
-
+"""
 
 def relatorios():
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/relatorios"
@@ -558,6 +560,7 @@ def relatorios():
     links_relatorios = me_pagina.find("div", class_="wrapper").find_all("div", class_="card great-cards")
     for card_relatorios in links_relatorios:
         lista_links_relatorios.append(card_relatorios.a["href"])
+    """
     if lista_links_relatorios[0]: # check
         relatorios_seriados = acessar_pagina(lista_links_relatorios[0])
         # título
@@ -572,6 +575,7 @@ def relatorios():
         links_relatorios_seriados = relatorios_seriados.find("div", {"id" : "content-core"}).find_all("a")
         for a_relatorios_seriados in links_relatorios_seriados:
             lista_links_relatorios_seriados.append(a_relatorios_seriados["href"]) 
+    """
     if lista_links_relatorios[1]: # check - !!!!
         relatorios_avaliacao = acessar_pagina(lista_links_relatorios[1])
         # título
@@ -591,6 +595,7 @@ def relatorios():
         for ul_relatorios_avaliacao in links2_relatorios_avaliacao:
             lista_links_relatorios_avaliacao.append(ul_relatorios_avaliacao.li.a["href"])
         print(lista_links_relatorios_avaliacao)
+    """
     if lista_links_relatorios[2]: # check
         relatorios_auditorias = acessar_pagina(lista_links_relatorios[2])
         # título
@@ -663,15 +668,15 @@ def relatorios():
         links_relatorios_sepec = relatorios_sepec.find("div", {"id" : "content-core"}).find_all("h2")
         for h2_relatorios_sepec in links_relatorios_sepec:
             lista_links_relatorios_sepec.append(h2_relatorios_sepec.a["href"])
-    if lista_links_relatorios[7]: # CONFERIR COMO COLETAR COM RAFAEL
+    if lista_links_relatorios[7]: # CONFERIR COMO COLETAR 
         relatorios_tesouro = acessar_pagina(lista_links_relatorios[7])
         # título
         titulo_relatorios_tesouro = relatorios_tesouro.find("h1", class_="documentFirstHeading").text
         # datas
         data_post_relatorios_tesouro = relatorios_tesouro.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
         data_update_relatorios_tesouro = relatorios_tesouro.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
-        # conteúdo
-        conteudo_relatorios_tesouro = relatorios_tesouro.find("div", {"id" : "content-core"}).text
+        # selection
+        # conteudo >> selenium 
 
 
 def auditorias(): # check
@@ -722,7 +727,7 @@ def auditorias(): # check
             links_auditorias_pareceres = auditorias_pareceres.find("div", {"id" : "content-core"}).find_all("article")
             for article_auditorias_pareceres in links_auditorias_pareceres:
                 lista_links_auditorias_pareceres.append(article_auditorias_pareceres.div.h2.a["href"])
-
+"""
 
 def main():
     global bs
