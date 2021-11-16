@@ -709,7 +709,7 @@ def planilhas(): # check
         lista_links_planilhas.append(a_planilhas["href"])
 
 
-def relatorios(): # check
+def relatorios(): # check - coletar selenium no IF 7
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/relatorios"
     me_pagina = acessar_pagina(url)
     # links 
