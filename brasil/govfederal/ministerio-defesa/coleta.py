@@ -196,7 +196,7 @@ def corona(): # check
             pass
 
 
-def noticias(): # in progress
+def noticias(): # check
     url = "https://www.gov.br/defesa/pt-br/centrais-de-conteudo/noticias" 
     md_page = page_access(url)
     # título
@@ -224,30 +224,20 @@ def noticias(): # in progress
             except:
                 pass
             content_link_noticias = link_noticias.find("div", {"id":"parent-fieldname-text"}).text
-            # tags
-            list_tags_noticias = []
-            try: 
-                tags_noticias = link_noticias.find("div", {"id":"category"}).find_all("span")
-                for span_noticias in tags_noticias:
-                    list_tags_noticias.append(span_noticias.text)
-            except:
-                list_tags_noticias.append("Notícia sem tag")
-            if list_tags_noticias[0] != 'Notícia sem tag' :
-                del list_tags_noticias[0]
 
 
 def main():
     global bs
     url = "https://www.gov.br/economia/pt-br"
     bs = page_access(url)  
-    # md_notas = notas()
-    # md_artigos = artigos()
-    # md_planejamento = planejamento()
-    # md_receitas = receitas()
-    # md_infos = infos()
-    # md_base_dados = base_dados()
-    # md_infograficos = infograficos()
-    # md_corona = corona()
+    md_notas = notas()
+    md_artigos = artigos()
+    md_planejamento = planejamento()
+    md_receitas = receitas()
+    md_infos = infos()
+    md_base_dados = base_dados()
+    md_infograficos = infograficos()
+    md_corona = corona()
     md_noticias = noticias()   
 
 
