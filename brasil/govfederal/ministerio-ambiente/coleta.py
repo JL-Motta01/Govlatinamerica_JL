@@ -49,9 +49,68 @@ def noticias(): # check
                 del lista_tags_noticias[0]
 
 
-def acoes():
+def acoes(): # in progress
     url = "https://www.gov.br/mma/pt-br/acesso-a-informacao/acoes-e-programas" 
     ma_page = page_access(url)
+    list_cards = []  
+    cards = ma_page.find("div", class_="wrapper").find_all("div", class_="card")  
+    for card in cards:
+        list_cards.append(card.a["href"]) 
+    if list_cards[0]: # check
+        acoes_metas = page_access(list_cards[0])
+        title_acoes_metas = acoes_metas.find("h1", class_="documentFirstHeading").text
+        post_acoes_metas = acoes_metas.find("span", class_="documentPublished").find("span", class_="value").text
+        update_acoes_metas = acoes_metas.find("span", class_="documentModified").find("span", class_="value").text
+        content_acoes_metas = acoes_metas.find("div", {"id":"parent-fieldname-text"}).text
+        # links
+        list_links_acoes_metas = []
+        links_acoes_metas = acoes_metas.find("div", {"id":"content-core"}).find_all("ul")
+        for ul_acoes_metas in links_acoes_metas:
+            list_links_acoes_metas.append(ul_acoes_metas.li.a["href"])
+    if list_cards[1]: # check
+        acoes_ti = page_access(list_cards[1])
+        title_acoes_ti = acoes_ti.find("h1", class_="documentFirstHeading").text
+        post_acoes_ti = acoes_ti.find("span", class_="documentPublished").find("span", class_="value").text
+        update_acoes_ti = acoes_ti.find("span", class_="documentModified").find("span", class_="value").text
+        content_acoes_ti = acoes_ti.find("div", {"id":"parent-fieldname-text"}).text
+        # links
+        list_links_acoes_ti = []
+        links_acoes_ti = acoes_ti.find("div", {"id":"content-core"}).find_all("a")
+        for a_acoes_ti in links_acoes_ti:
+            list_links_acoes_ti.append(a_acoes_ti["href"])  
+    if list_cards[2]: # check
+        acoes_planejamento = page_access(list_cards[2])
+        title_acoes_planejamento = acoes_planejamento.find("h1", class_="documentFirstHeading").text
+        post_acoes_planejamento = acoes_planejamento.find("span", class_="documentPublished").find("span", class_="value").text
+        update_acoes_planejamento = acoes_planejamento.find("span", class_="documentModified").find("span", class_="value").text
+        content_acoes_planejamento = acoes_planejamento.find("div", {"id":"parent-fieldname-text"}).text
+        # links
+        list_links_acoes_planejamento = []
+        links_acoes_planejamento = acoes_planejamento.find("div", {"id":"content-core"}).find_all("li")
+        for li_acoes_planejamento in links_acoes_planejamento:
+            list_links_acoes_planejamento.append(li_acoes_planejamento.a["href"])
+    if list_cards[3]: # check
+        acoes_plano = page_access(list_cards[3])
+        title_acoes_plano = acoes_plano.find("h1", class_="documentFirstHeading").text
+        post_acoes_plano = acoes_plano.find("span", class_="documentPublished").find("span", class_="value").text
+        update_acoes_plano = acoes_plano.find("span", class_="documentModified").find("span", class_="value").text
+        content_acoes_plano = acoes_plano.find("div", {"id":"parent-fieldname-text"}).text
+        # links
+        list_links_acoes_plano = []
+        links_acoes_plano = acoes_plano.find("div", {"id":"content-core"}).find_all("a")
+        for a_acoes_plano in links_acoes_plano:
+            list_links_acoes_plano.append(a_acoes_plano["href"])
+    if list_cards[4]: # in progress !!!!
+        acoes_plano = page_access(list_cards[3])
+        title_acoes_plano = acoes_plano.find("h1", class_="documentFirstHeading").text
+        post_acoes_plano = acoes_plano.find("span", class_="documentPublished").find("span", class_="value").text
+        update_acoes_plano = acoes_plano.find("span", class_="documentModified").find("span", class_="value").text
+        content_acoes_plano = acoes_plano.find("div", {"id":"parent-fieldname-text"}).text
+        # links
+        list_links_acoes_plano = []
+        links_acoes_plano = acoes_plano.find("div", {"id":"content-core"}).find_all("a")
+        for a_acoes_plano in links_acoes_plano:
+            list_links_acoes_plano.append(a_acoes_plano["href"])
 
 
 def infos(): # check
