@@ -9,9 +9,44 @@ def page_access(url):
     return bsoup
 
 
-def noticias():
+def noticias(): # check
     url = "https://www.gov.br/mma/pt-br/assuntos/noticias" 
     ma_page = page_access(url)
+    # título
+    title_noticias = ma_page.find("h1", class_="documentFirstHeading").text
+    # datas
+    post_noticias = ma_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_noticias = ma_page.find("span", class_="documentModified").find("span", class_="value").text
+    counter = 0 
+    list_url_noticias = []
+    while counter < 991:
+        domain = "https://www.gov.br/mma/pt-br/assuntos/noticias?b_start:int="
+        domain += str(counter) 
+        counter += 30
+        list_url_noticias.append(domain)
+    for url_noticias in list_url_noticias:
+        # conteúdo
+        content_noticias = ma_page.find("div", {"id":"content-core"}).find_all("article")
+        for article_noticias in content_noticias:
+            link_noticias = page_access(article_noticias.div.h2.a["href"]) 
+            # entrando
+            title_link_noticias = link_noticias.find("h1", class_="documentFirstHeading").text
+            try:
+                post_link_noticias = link_noticias.find("span", class_="documentPublished").find("span", class_="value").text
+                update_link_noticias = link_noticias.find("span", class_="documentModified").find("span", class_="value").text
+            except:
+                pass
+            content_link_noticias = link_noticias.find("div", {"id":"parent-fieldname-text"}).text
+            # tags notícias
+            lista_tags_noticias = []
+            try: 
+                tags_noticias = link_noticias.find("div", {"id":"category"}).find_all("span")
+                for span_noticias in tags_noticias:
+                    lista_tags_noticias.append(span_noticias.text)
+            except:
+                lista_tags_noticias.append("notícia sem tag")
+            if lista_tags_noticias[0] != 'notícia sem tag' :
+                del lista_tags_noticias[0]
 
 
 def acoes():
@@ -19,10 +54,20 @@ def acoes():
     ma_page = page_access(url)
 
 
-def infos():
+def infos(): # check
     url = "https://www.gov.br/mma/pt-br/acesso-a-informacao/informacoes-classificadas" 
     ma_page = page_access(url)
-    
+    # título
+    title_infos = ma_page.find("h1", class_="documentFirstHeading").text
+    # datas
+    post_infos = ma_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_infos = ma_page.find("span", class_="documentModified").find("span", class_="value").text
+    # conteúdo
+    content_infos = ma_page.find("div", {"id":"parent-fieldname-text"}).text
+    list_links_infos = []
+    links_infos = ma_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_infos in links_infos:
+        list_links_infos.append(a_infos["href"])
 
 
 def dados(): # check
@@ -89,9 +134,9 @@ def main():
     url = "https://www.gov.br/mma/pt-br"
     bs = page_access(url) 
     # ma_noticias = noticias()   
-    # ma_acoes = acoes() 
+    ma_acoes = acoes() 
     # ma_infos = infos() 
-    ma_dados = dados() 
+    # ma_dados = dados() 
     # ma_relatorios = relatorios() 
 
 
