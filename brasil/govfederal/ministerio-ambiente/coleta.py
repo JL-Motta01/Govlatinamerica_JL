@@ -49,7 +49,7 @@ def noticias(): # check
                 del lista_tags_noticias[0]
 
 
-def acoes(): # in progress
+def acoes(): # check
     url = "https://www.gov.br/mma/pt-br/acesso-a-informacao/acoes-e-programas" 
     ma_page = page_access(url)
     list_cards = []  
@@ -100,18 +100,50 @@ def acoes(): # in progress
         links_acoes_plano = acoes_plano.find("div", {"id":"content-core"}).find_all("a")
         for a_acoes_plano in links_acoes_plano:
             list_links_acoes_plano.append(a_acoes_plano["href"])
-    if list_cards[4]: # in progress !!!!
-        acoes_plano = page_access(list_cards[3])
-        title_acoes_plano = acoes_plano.find("h1", class_="documentFirstHeading").text
-        post_acoes_plano = acoes_plano.find("span", class_="documentPublished").find("span", class_="value").text
-        update_acoes_plano = acoes_plano.find("span", class_="documentModified").find("span", class_="value").text
-        content_acoes_plano = acoes_plano.find("div", {"id":"parent-fieldname-text"}).text
+    if list_cards[4]: # check
+        acoes_gestao = page_access(list_cards[4])
+        title_acoes_gestao = acoes_gestao.find("h1", class_="documentFirstHeading").text
+        post_acoes_gestao = acoes_gestao.find("span", class_="documentPublished").find("span", class_="value").text
+        update_acoes_gestao = acoes_gestao.find("span", class_="documentModified").find("span", class_="value").text
+        content_acoes_gestao = acoes_gestao.find("div", {"id":"parent-fieldname-text"}).text
         # links
-        list_links_acoes_plano = []
-        links_acoes_plano = acoes_plano.find("div", {"id":"content-core"}).find_all("a")
-        for a_acoes_plano in links_acoes_plano:
-            list_links_acoes_plano.append(a_acoes_plano["href"])
-
+        list_links_acoes_gestao = []
+        links_acoes_gestao = acoes_gestao.find("div", {"id":"content-core"}).find_all("a")
+        for a_acoes_gestao in links_acoes_gestao:
+            list_links_acoes_gestao.append(a_acoes_gestao["href"])
+    if list_cards[5]: # check
+        acoes_geopro = page_access(list_cards[5])
+        title_acoes_geopro = acoes_geopro.find("h1", class_="documentFirstHeading").text
+        post_acoes_geopro = acoes_geopro.find("span", class_="documentPublished").find("span", class_="value").text
+        update_acoes_geopro = acoes_geopro.find("span", class_="documentModified").find("span", class_="value").text
+        content_acoes_geopro = acoes_geopro.find("div", {"id":"parent-fieldname-text"}).text
+        # links
+        list_links_acoes_geopro = []
+        links_acoes_geopro = acoes_geopro.find("div", {"id":"parent-fieldname-text"}).find_all("a")
+        for a_acoes_geopro in links_acoes_geopro:
+            list_links_acoes_geopro.append(a_acoes_geopro["href"])
+    if list_cards[6]: # check
+        acoes_carta = []
+        acoes_carta.append(list_cards[6])
+    if list_cards[7]: # check
+        acoes_fat = page_access(list_cards[7])
+        title_acoes_fat = acoes_fat.find("h1", class_="documentFirstHeading").text
+        post_acoes_fat = acoes_fat.find("span", class_="documentPublished").find("span", class_="value").text
+        try:
+            update_acoes_fat = acoes_fat.find("span", class_="documentModified").find("span", class_="value").text
+        except:
+            print("Sem atualizações")
+        content_acoes_fat = acoes_fat.find("div", {"id":"parent-fieldname-text"}).text
+    if list_cards[8]: # check
+        acoes_renuncias = page_access(list_cards[8])
+        title_acoes_renuncias = acoes_renuncias.find("h1", class_="documentFirstHeading").text
+        post_acoes_renuncias = acoes_renuncias.find("span", class_="documentPublished").find("span", class_="value").text
+        try:
+            update_acoes_renuncias = acoes_renuncias.find("span", class_="documentModified").find("span", class_="value").text
+        except:
+            print("Sem atualizações")
+        content_acoes_renuncias = acoes_renuncias.find("div", {"id":"parent-fieldname-text"}).text
+    
 
 def infos(): # check
     url = "https://www.gov.br/mma/pt-br/acesso-a-informacao/informacoes-classificadas" 
@@ -169,14 +201,21 @@ def relatorios(): # almost check
     post_relatorios = ma_page.find("span", class_="documentPublished").find("span", class_="value").text
     update_relatorios = ma_page.find("span", class_="documentModified").find("span", class_="value").text
     # conteúdo
+    list_links_relatorios = []
     content_relatorios = ma_page.find("div", class_="entries").find_all("article")
     for article_relatorios in content_relatorios:
-        link_relatorios = page_access(article_relatorios.span.a["href"]) 
-        # entrando
+        link_relatorios = page_access(article_relatorios.span.a["href"]) # 2 links p paginas c pdf
+        # entrando -TESTAR
         try:
             title_link_relatorios = link_relatorios.find("h1", class_="documentFirstHeading").text
-            post_link_relatorios = link_relatorios.find("span", class_="documentPublished").find("span", class_="value").text # ARRUMAR
-            update_link_relatorios = link_relatorios.find("span", class_="documentModified").find("span", class_="value").text # ARRUMAR
+        except:
+            pass
+        try:
+            post_link_relatorios = link_relatorios.find("span", class_="documentPublished").find("span", class_="value").text
+        except:
+            pass
+        try:
+            update_link_relatorios = link_relatorios.find("span", class_="documentModified").find("span", class_="value").text 
         except:
             pass
         list_links_relatorios = []
@@ -193,10 +232,10 @@ def main():
     url = "https://www.gov.br/mma/pt-br"
     bs = page_access(url) 
     # ma_noticias = noticias()   
-    ma_acoes = acoes() 
+    # ma_acoes = acoes() 
     # ma_infos = infos() 
     # ma_dados = dados() 
-    # ma_relatorios = relatorios() 
+    ma_relatorios = relatorios() 
 
 
 if __name__ == "__main__":
