@@ -192,7 +192,7 @@ def dados(): # check
             list_links_dados_integridade.append(ul_dados_integridade.li.a["href"])
 
 
-def relatorios(): # almost check
+def relatorios(): # check
     url = "https://www.gov.br/mma/pt-br/acesso-a-informacao/relatorios" 
     ma_page = page_access(url)
     # título
@@ -204,20 +204,7 @@ def relatorios(): # almost check
     list_links_relatorios = []
     content_relatorios = ma_page.find("div", class_="entries").find_all("article")
     for article_relatorios in content_relatorios:
-        link_relatorios = page_access(article_relatorios.span.a["href"]) # 2 links p paginas c pdf
-        # entrando -TESTAR
-        try:
-            title_link_relatorios = link_relatorios.find("h1", class_="documentFirstHeading").text
-        except:
-            pass
-        try:
-            post_link_relatorios = link_relatorios.find("span", class_="documentPublished").find("span", class_="value").text
-        except:
-            pass
-        try:
-            update_link_relatorios = link_relatorios.find("span", class_="documentModified").find("span", class_="value").text 
-        except:
-            pass
+        link_relatorios = page_access(article_relatorios.span.a["href"])
         list_links_relatorios = []
         try:
             links_relatorios = link_relatorios.find("div", {"id":"content-core"}).find_all("a")
@@ -231,10 +218,10 @@ def main():
     global bs
     url = "https://www.gov.br/mma/pt-br"
     bs = page_access(url) 
-    # ma_noticias = noticias()   
-    # ma_acoes = acoes() 
-    # ma_infos = infos() 
-    # ma_dados = dados() 
+    ma_noticias = noticias()   
+    ma_acoes = acoes() 
+    ma_infos = infos() 
+    ma_dados = dados() 
     ma_relatorios = relatorios() 
 
 
