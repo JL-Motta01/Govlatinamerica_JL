@@ -112,38 +112,62 @@ def planos(): # check
         list_links_planos.append(a_planos["href"])
 
 
-def rel_orc(): # in progress
+def rel_orc(): # check
     url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/relatorios-orcamentarios" 
     mi_page = page_access(url)
     title_rel_orc = mi_page.find("h1", class_="documentFirstHeading").text
     post_rel_orc = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
     update_rel_orc = mi_page.find("span", class_="documentModified").find("span", class_="value").text
     content_rel_orc = mi_page.find("div", {"id":"parent-fieldname-text"}).text
-    """
     # links
     list_links_rel_orc = []
     links_rel_orc = mi_page.find("div", {"id":"parent-fieldname-text"}).find_all("a")
     for a_rel_orc in links_rel_orc:
-        list_links_rel_orc.append(a_rel_orc["href"])
-    """
-    print(title_rel_orc, post_rel_orc, update_rel_orc)
-    print(content_rel_orc)
-    # print(list_links_rel_orc)
+        try:
+            list_links_rel_orc.append(a_rel_orc["href"])
+        except:
+            pass
 
 
-def ppa():
-    url = "" 
+def ppa(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/plano-plurianual-2013-ppa-2020-2023-minfra" 
     mi_page = page_access(url)
+    title_ppa = mi_page.find("h1", class_="documentFirstHeading").text
+    post_ppa = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_ppa = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    # links
+    list_links_ppa = []
+    links_ppa = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_ppa in links_ppa:
+        list_links_ppa.append(a_ppa["href"])
 
 
-def arq_ppa():
-    url = "" 
+def arq_ppa(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/arquivos-plano-plurianual" 
     mi_page = page_access(url)
+    title_arq_ppa = mi_page.find("h1", class_="documentFirstHeading").text
+    post_arq_ppa = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_arq_ppa = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_arq_ppa = mi_page.find("div", class_="entries").text
+    # links
+    list_links_arq_ppa = []
+    links_arq_ppa = mi_page.find("div", {"id":"content-core"}).find_all("article")
+    for article_arq_ppa in links_arq_ppa:
+        list_links_arq_ppa.append(article_arq_ppa.span.a["href"])
 
 
-def pdtic():
-    url = "" 
+def pdtic(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/governanca-de-tic/pdtic" 
     mi_page = page_access(url)
+    title_pdtic = mi_page.find("h1", class_="documentFirstHeading").text
+    post_pdtic = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_pdtic = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_pdtic = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_pdtic = []
+    links_pdtic = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_pdtic in links_pdtic:
+        list_links_pdtic.append(a_pdtic["href"])
 
 
 def cgd():
@@ -194,11 +218,11 @@ def main():
     # mi_arq_rel = arq_rel() 
     # mi_ri = ri() 
     # mi_planos = planos() 
-    mi_rel_orc = rel_orc() 
+    # mi_rel_orc = rel_orc() 
     # mi_ppa = ppa() 
     # mi_arq_ppa = arq_ppa() 
     # mi_pdtic = pdtic() 
-    # mi_cgd = cgd() 
+    mi_cgd = cgd() 
     # mi_auditorias = auditorias() 
     # mi_dados = dados() 
     # mi_demonstracoes = demonstracoes() 
