@@ -170,39 +170,110 @@ def pdtic(): # check
         list_links_pdtic.append(a_pdtic["href"])
 
 
-def cgd():
-    url = "" 
+def cgd(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/governanca-de-tic/comite-de-governanca-digital-cgd" 
     mi_page = page_access(url)
+    title_cgd = mi_page.find("h1", class_="documentFirstHeading").text
+    post_cgd = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_cgd = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_cgd = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_cgd = []
+    links_cgd = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_cgd in links_cgd:
+        list_links_cgd.append(a_cgd["href"])
 
 
-def auditorias():
-    url = "" 
+def auditorias(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/auditorias" 
     mi_page = page_access(url)
+    title_auditorias = mi_page.find("h1", class_="documentFirstHeading").text
+    post_auditorias = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_auditorias = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_auditorias = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_auditorias = []
+    links_auditorias = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_auditorias in links_auditorias:
+        list_links_auditorias.append(a_auditorias["href"])
 
 
-def dados():
-    url = "" 
+def dados(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/dados-abertos-1" 
     mi_page = page_access(url)
+    title_dados = mi_page.find("h1", class_="documentFirstHeading").text
+    post_dados = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_dados = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_dados = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_dados = []
+    links_dados = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_dados in links_dados:
+        list_links_dados.append(a_dados["href"])
 
 
-def demonstracoes():
-    url = "" 
+def demonstracoes(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/transparencia-e-prestacao-de-contas/demonstracoes-contabeis" 
     mi_page = page_access(url)
+    title_demonstracoes = mi_page.find("h1", class_="documentFirstHeading").text
+    post_demonstracoes = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_demonstracoes = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_demonstracoes = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_demonstracoes = []
+    links_demonstracoes = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_demonstracoes in links_demonstracoes:
+        list_links_demonstracoes.append(a_demonstracoes["href"])
 
 
-def rel_gestao():
-    url = "" 
+def rel_gestao(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/transparencia-e-prestacao-de-contas/relatorio-de-gestao" 
     mi_page = page_access(url)
+    title_rel_gestao = mi_page.find("h1", class_="documentFirstHeading").text
+    post_rel_gestao = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_rel_gestao = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_rel_gestao = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_rel_gestao = []
+    links_rel_gestao = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_rel_gestao in links_rel_gestao:
+        list_links_rel_gestao.append(a_rel_gestao["href"])
 
 
-def responsaveis():
-    url = "" 
+def responsaveis(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/transparencia-e-prestacao-de-contas/rol-de-responsaveis" 
     mi_page = page_access(url)
+    title_responsaveis = mi_page.find("h1", class_="documentFirstHeading").text
+    post_responsaveis = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_responsaveis = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_responsaveis = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_responsaveis = []
+    links_responsaveis = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_responsaveis in links_responsaveis:
+        list_links_responsaveis.append(a_responsaveis["href"])
 
 
-def cronologia():
-    url = "" 
+def cronologia(): # in progress
+    url = "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/cronologia-de-pagamentos" 
     mi_page = page_access(url)
+    title_cronologia = mi_page.find("h1", class_="documentFirstHeading").text
+    post_cronologia = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_cronologia = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    # links
+    list_links_cronologia = []
+    links_cronologia = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_cronologia in links_cronologia:
+        list_links_cronologia.append(a_cronologia["href"])
+    print(list_links_cronologia)
+    if list_links_cronologia[0]: # in progress
+        cronologia_1 = page_access(list_links_cronologia[0])
+    if list_links_cronologia[1]: # in progress
+        cronologia_2 = page_access(list_links_cronologia[1])
+    if list_links_cronologia[2]: # in progress
+        cronologia_3 = page_access(list_links_cronologia[2])
+    if list_links_cronologia[3]: # in progress
+        cronologia_4 = page_access(list_links_cronologia[3])
 
 
 def convenios():
@@ -222,13 +293,13 @@ def main():
     # mi_ppa = ppa() 
     # mi_arq_ppa = arq_ppa() 
     # mi_pdtic = pdtic() 
-    mi_cgd = cgd() 
+    # mi_cgd = cgd() 
     # mi_auditorias = auditorias() 
     # mi_dados = dados() 
     # mi_demonstracoes = demonstracoes() 
     # mi_rel_gestao = rel_gestao() 
     # mi_responsaveis = responsaveis() 
-    # mi_cronologia = cronologia() 
+    mi_cronologia = cronologia() 
     # mi_convenios = convenios() 
 
 
