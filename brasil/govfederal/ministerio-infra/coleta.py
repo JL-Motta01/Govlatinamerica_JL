@@ -84,20 +84,51 @@ def arq_rel(): # almost check
                 pass
 
 
-
-def ri():
-    url = "" 
+def ri(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/relacoes-internacionais-portos" 
     mi_page = page_access(url)
+    title_ri = mi_page.find("h1", class_="documentFirstHeading").text
+    post_ri = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_ri = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_ri = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_ri = []
+    links_ri = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_ri in links_ri:
+        list_links_ri.append(a_ri["href"])
 
 
-def planos():
-    url = "" 
+def planos(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/planos-mestres-portos" 
     mi_page = page_access(url)
+    title_planos = mi_page.find("h1", class_="documentFirstHeading").text
+    post_planos = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_planos = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_planos = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_planos = []
+    links_planos = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_planos in links_planos:
+        list_links_planos.append(a_planos["href"])
 
 
-def rel_orc():
-    url = "" 
+def rel_orc(): # in progress
+    url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/relatorios-orcamentarios" 
     mi_page = page_access(url)
+    title_rel_orc = mi_page.find("h1", class_="documentFirstHeading").text
+    post_rel_orc = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_rel_orc = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_rel_orc = mi_page.find("div", {"id":"parent-fieldname-text"}).text
+    """
+    # links
+    list_links_rel_orc = []
+    links_rel_orc = mi_page.find("div", {"id":"parent-fieldname-text"}).find_all("a")
+    for a_rel_orc in links_rel_orc:
+        list_links_rel_orc.append(a_rel_orc["href"])
+    """
+    print(title_rel_orc, post_rel_orc, update_rel_orc)
+    print(content_rel_orc)
+    # print(list_links_rel_orc)
 
 
 def ppa():
@@ -160,10 +191,10 @@ def main():
     url = "https://www.gov.br/infraestrutura/pt-br"
     bs = page_access(url) 
     # mi_noticias = noticias() 
-    mi_arq_rel = arq_rel() 
+    # mi_arq_rel = arq_rel() 
     # mi_ri = ri() 
     # mi_planos = planos() 
-    # mi_rel_orc = rel_orc() 
+    mi_rel_orc = rel_orc() 
     # mi_ppa = ppa() 
     # mi_arq_ppa = arq_ppa() 
     # mi_pdtic = pdtic() 
