@@ -24,8 +24,9 @@ def noticias(): # check
         counter += 30
         list_url_noticias.append(domain)
     for url_noticias in list_url_noticias:
+        page = page_access(url_noticias)
         # conteúdo
-        content_noticias = mi_page.find("div", {"id":"content-core"}).find_all("article")
+        content_noticias = page.find("div", {"id":"content-core"}).find_all("article")
         for article_noticias in content_noticias:
             link_noticias = page_access(article_noticias.div.h2.a["href"]) 
             # entrando
@@ -35,6 +36,7 @@ def noticias(): # check
                 update_link_noticias = link_noticias.find("span", class_="documentModified").find("span", class_="value").text
             except:
                 pass
+            print(title_link_noticias)
             content_link_noticias = link_noticias.find("div", {"id":"parent-fieldname-text"}).text
             # tags notícias
             lista_tags_noticias = []
@@ -46,6 +48,9 @@ def noticias(): # check
                 lista_tags_noticias.append("notícia sem tag")
             if lista_tags_noticias[0] != 'notícia sem tag' :
                 del lista_tags_noticias[0]
+
+
+# AJUSTAR COLETAS >> page = page_access(url_noticias)
 
 
 def arq_rel(): # almost check
@@ -62,8 +67,9 @@ def arq_rel(): # almost check
         counter += 20
         list_url_arq_rel.append(domain)
     for url_arq_rel in list_url_arq_rel:
+        page = page_access(url_arq_rel)
         # conteúdo
-        content_arq_rel = mi_page.find("div", {"id":"content-core"}).find_all("article")
+        content_arq_rel = page.find("div", {"id":"content-core"}).find_all("article")
         for article_arq_rel in content_arq_rel:
             link_arq_rel = page_access(article_arq_rel.a["href"]) 
             # entrando
@@ -74,7 +80,7 @@ def arq_rel(): # almost check
                 content_link_arq_rel = link_arq_rel.find("div", {"id":"parent-fieldname-text"}).text
             except:
                 pass
-            # links
+            # links 
             list_links_arq_rel = [] # AJUSTAR - COLETAR TODOS OS LINKS
             try: 
                 links_arq_rel = link_arq_rel.find("div", {"id":"content-core"}).find_all("p")
@@ -340,7 +346,7 @@ def main():
     global bs
     url = "https://www.gov.br/infraestrutura/pt-br"
     bs = page_access(url) 
-    # mi_noticias = noticias() 
+    mi_noticias = noticias() 
     # mi_arq_rel = arq_rel() 
     # mi_ri = ri() 
     # mi_planos = planos() 
@@ -354,7 +360,7 @@ def main():
     # mi_demonstracoes = demonstracoes() 
     # mi_rel_gestao = rel_gestao() 
     # mi_responsaveis = responsaveis() 
-    mi_cronologia = cronologia() 
+    # mi_cronologia = cronologia() 
     # mi_convenios = convenios() 
 
 
