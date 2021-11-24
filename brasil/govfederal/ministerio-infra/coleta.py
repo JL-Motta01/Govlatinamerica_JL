@@ -254,7 +254,7 @@ def responsaveis(): # check
         list_links_responsaveis.append(a_responsaveis["href"])
 
 
-def cronologia(): # in progress
+def cronologia(): # check
     url = "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/cronologia-de-pagamentos" 
     mi_page = page_access(url)
     title_cronologia = mi_page.find("h1", class_="documentFirstHeading").text
@@ -265,21 +265,76 @@ def cronologia(): # in progress
     links_cronologia = mi_page.find("div", {"id":"content-core"}).find_all("a")
     for a_cronologia in links_cronologia:
         list_links_cronologia.append(a_cronologia["href"])
-    print(list_links_cronologia)
-    if list_links_cronologia[0]: # in progress
-        cronologia_1 = page_access(list_links_cronologia[0])
-    if list_links_cronologia[1]: # in progress
-        cronologia_2 = page_access(list_links_cronologia[1])
-    if list_links_cronologia[2]: # in progress
-        cronologia_3 = page_access(list_links_cronologia[2])
-    if list_links_cronologia[3]: # in progress
-        cronologia_4 = page_access(list_links_cronologia[3])
+    if list_links_cronologia[0]: # check
+        cronologia_0 = page_access(list_links_cronologia[0])
+        title_cronologia0 = cronologia_0.find("h1", class_="documentFirstHeading").text
+        update_cronologia0 = cronologia_0.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_cronologia0 = []
+        link_cronologia0 = cronologia_0.find("div", {"id":"content-core"}).find_all("a")
+        for a_cronologia0 in link_cronologia0:
+            list_link_cronologia0.append(a_cronologia0["href"]) 
+    if list_links_cronologia[1]: # check
+        cronologia_1 = page_access(list_links_cronologia[1])
+        title_cronologia1 = cronologia_1.find("h1", class_="documentFirstHeading").text
+        update_cronologia1 = cronologia_1.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_cronologia1 = []
+        link_cronologia1 = cronologia_1.find("div", {"id":"content-core"}).find_all("a")
+        for a_cronologia1 in link_cronologia1:
+            list_link_cronologia1.append(a_cronologia1["href"])
+    if list_links_cronologia[2]: # check
+        cronologia_2 = page_access(list_links_cronologia[2])
+        title_cronologia2 = cronologia_2.find("h1", class_="documentFirstHeading").text
+        update_cronologia2 = cronologia_2.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_cronologia2 = []
+        link_cronologia2 = cronologia_2.find("div", {"id":"content-core"}).find_all("a")
+        for a_cronologia2 in link_cronologia2:
+            list_link_cronologia2.append(a_cronologia2["href"])
+    if list_links_cronologia[3]: # check
+        cronologia_3 = page_access(list_links_cronologia[3])
+        title_cronologia3 = cronologia_3.find("h1", class_="documentFirstHeading").text
+        update_cronologia3 = cronologia_3.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_cronologia3 = []
+        link_cronologia3 = cronologia_3.find("div", {"id":"content-core"}).find_all("a")
+        for a_cronologia3 in link_cronologia3:
+            list_link_cronologia3.append(a_cronologia3["href"])
 
 
-def convenios():
-    url = "" 
+def convenios(): # check
+    url = "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/conteudo-convenios-e-transferencias" 
     mi_page = page_access(url)
-
+    title_convenios = mi_page.find("h1", class_="documentFirstHeading").text
+    post_convenios = mi_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_convenios = mi_page.find("span", class_="documentModified").find("span", class_="value").text
+    # links
+    list_links_convenios = []
+    links_convenios = mi_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_convenios in links_convenios:
+        list_links_convenios.append(a_convenios["href"])
+    if list_links_convenios[0]: # check
+        convenios_0 = page_access(list_links_convenios[0])
+        title_convenios0 = convenios_0.find("h1", class_="documentFirstHeading").text
+        update_convenios0 = convenios_0.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_convenio0 = []
+        link_convenio0 = convenios_0.find("div", {"id":"content-core"}).find_all("a")
+        for a_convenio0 in link_convenio0:
+            list_link_convenio0.append(a_convenio0["href"])
+    if list_links_convenios[1]: # check
+        convenios_1 = page_access(list_links_convenios[1])
+        title_convenios1 = convenios_1.find("h1", class_="documentFirstHeading").text
+        update_convenios1 = convenios_1.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_convenio1 = []
+        link_convenio1 = convenios_1.find("div", {"id":"content-core"}).find_all("a")
+        for a_convenio1 in link_convenio1:
+            list_link_convenio1.append(a_convenio1["href"])
+    if list_links_convenios[2]: # check
+        convenios_2 = page_access(list_links_convenios[1])
+        title_convenios2 = convenios_2.find("h1", class_="documentFirstHeading").text
+        update_convenios2 = convenios_2.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_convenio2 = []
+        link_convenio2 = convenios_2.find("div", {"id":"content-core"}).find_all("a")
+        for a_convenio2 in link_convenio2:
+            list_link_convenio2.append(a_convenio2["href"])
+        
 
 def main():
     global bs
