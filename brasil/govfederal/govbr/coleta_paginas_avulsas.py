@@ -50,7 +50,7 @@ def coleta_avulsa ():
 
 def coleta_conteudo(pg,numero):
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos discursos"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_avulso.json")
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_avulso.json", ensure_ascii=False)
     User = Query()
     pagina = pg
     url = numero

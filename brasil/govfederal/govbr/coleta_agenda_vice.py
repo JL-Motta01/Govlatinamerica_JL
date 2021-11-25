@@ -39,9 +39,9 @@ def datas():
 
 def agenda():
     """Percorre as datas da agenda"""
-    #lista_data = datas()
-    lista_data = ["2021-11-10","2021-11-11"]
-    url_base = "https://www.gov.br/planalto/pt-br/acompanhe-o-planalto/agenda-do-presidente-da-republica/"
+    lista_data = datas()
+    #lista_data = ["2021-11-22","2021-11-25"]
+    url_base = "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/agenda-vice-presidente/"
     lista_url_data = []
     for data in lista_data:
         url= url_base+data
@@ -51,7 +51,7 @@ def agenda():
 def coleta_compromissos():
     """coleta os compromissos de cada dia"""
     for dia in agenda():
-        db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_agenda.json", ensure_ascii=False)
+        db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_agenda_vice.json", ensure_ascii=False)
         User = Query()
         try:
             pagina_dia = acessar_pagina(dia)
@@ -60,6 +60,7 @@ def coleta_compromissos():
             try:
                 lista_conteudo=[]
                 compromissos = pagina_dia.find("ul", class_="list-compromissos").find_all("div", class_="item-compromisso")
+                
                 for conteudo in compromissos:
                     detalhes=[]
                     titulo=conteudo.find("h2", class_="compromisso-titulo").text
@@ -73,7 +74,8 @@ def coleta_compromissos():
                     detalhes.append(url)
                     lista_conteudo.append(detalhes)
             except:
-                lista_conteudo= "data sem compromissos" 
+                lista_conteudo= "data sem compromissos"
+            print(lista_conteudo,type(lista_conteudo)) 
             for detalhe in lista_conteudo:
                 db_planalto = db.contains((User.compromisso==detalhe[0])&(User.data==detalhe[3][-10:])&(User.horario==detalhe[1]))
                 if not db_planalto:
