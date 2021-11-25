@@ -25,8 +25,9 @@ def notas_imprensa(): # check
         contador += 30
         lista_url_notas.append(dominio)
     for url_notas in lista_url_notas:
+        page = acessar_pagina(url_notas)
         # conteudo das notas
-        conteudo_notas = me_pagina.find("div", id="content-core").find_all("article")
+        conteudo_notas = page.find("div", id="content-core").find_all("article")
         for article_notas in conteudo_notas:
             link_notas = acessar_pagina(article_notas.h2.a["href"])
             # entrando nas notas
@@ -69,8 +70,9 @@ def noticias(): # check
         contador += 60
         lista_url_noticias.append(dominio)
     for url_noticias in lista_url_noticias:
+        page = acessar_pagina(url_noticias)
         # conteudo das noticias
-        conteudo_noticias = me_pagina.find("ul", class_="noticias listagem-noticias-com-foto").find_all("li")
+        conteudo_noticias = page.find("ul", class_="noticias listagem-noticias-com-foto").find_all("li")
         for li_noticias in conteudo_noticias:
             link_noticias = acessar_pagina(li_noticias.div.h2.a["href"])
             # entrando nas noticias
@@ -676,8 +678,9 @@ def estudos_notas(): # check
         contador += 30
         lista_url_estudos.append(dominio)
     for url_estudos in lista_url_estudos:
+        page = acessar_pagina(url_estudos)
         # conteudo
-        conteudo_estudos = me_pagina.find("div", {"id" : "content-core"}).find_all("article")
+        conteudo_estudos = page.find("div", {"id" : "content-core"}).find_all("article")
         for article_estudos in conteudo_estudos:
             link_estudos_notas = acessar_pagina(article_estudos.h2.a["href"])
             # título 

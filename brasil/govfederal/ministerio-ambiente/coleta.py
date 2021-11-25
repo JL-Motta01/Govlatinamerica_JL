@@ -25,8 +25,9 @@ def noticias(): # check
         counter += 30
         list_url_noticias.append(domain)
     for url_noticias in list_url_noticias:
+        page = page_access(url_noticias)
         # conteúdo
-        content_noticias = ma_page.find("div", {"id":"content-core"}).find_all("article")
+        content_noticias = page.find("div", {"id":"content-core"}).find_all("article")
         for article_noticias in content_noticias:
             link_noticias = page_access(article_noticias.div.h2.a["href"]) 
             # entrando

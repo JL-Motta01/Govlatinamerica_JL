@@ -50,10 +50,7 @@ def noticias(): # check
                 del lista_tags_noticias[0]
 
 
-# AJUSTAR COLETAS >> page = page_access(url_noticias)
-
-
-def arq_rel(): # almost check
+def arq_rel(): # check
     url = "https://www.gov.br/infraestrutura/pt-br/assuntos/planejamento-e-gestao/arquivos-relatorios-orcamentarios" 
     mi_page = page_access(url)
     title_arq_rel = mi_page.find("h1", class_="documentFirstHeading").text
@@ -81,11 +78,11 @@ def arq_rel(): # almost check
             except:
                 pass
             # links 
-            list_links_arq_rel = [] # AJUSTAR - COLETAR TODOS OS LINKS
+            list_links_arq_rel = [] 
             try: 
-                links_arq_rel = link_arq_rel.find("div", {"id":"content-core"}).find_all("p")
-                for p_arq_rel in links_arq_rel:
-                    list_links_arq_rel.append(p_arq_rel.a["href"])
+                links_arq_rel = link_arq_rel.find("div", {"id":"content-core"}).find_all("a")
+                for a_arq_rel in links_arq_rel:
+                    list_links_arq_rel.append(a_arq_rel["href"])
             except:
                 pass
 
@@ -347,21 +344,21 @@ def main():
     url = "https://www.gov.br/infraestrutura/pt-br"
     bs = page_access(url) 
     mi_noticias = noticias() 
-    # mi_arq_rel = arq_rel() 
-    # mi_ri = ri() 
-    # mi_planos = planos() 
-    # mi_rel_orc = rel_orc() 
-    # mi_ppa = ppa() 
-    # mi_arq_ppa = arq_ppa() 
-    # mi_pdtic = pdtic() 
-    # mi_cgd = cgd() 
-    # mi_auditorias = auditorias() 
-    # mi_dados = dados() 
-    # mi_demonstracoes = demonstracoes() 
-    # mi_rel_gestao = rel_gestao() 
-    # mi_responsaveis = responsaveis() 
-    # mi_cronologia = cronologia() 
-    # mi_convenios = convenios() 
+    mi_arq_rel = arq_rel() 
+    mi_ri = ri() 
+    mi_planos = planos() 
+    mi_rel_orc = rel_orc() 
+    mi_ppa = ppa() 
+    mi_arq_ppa = arq_ppa() 
+    mi_pdtic = pdtic() 
+    mi_cgd = cgd() 
+    mi_auditorias = auditorias() 
+    mi_dados = dados() 
+    mi_demonstracoes = demonstracoes() 
+    mi_rel_gestao = rel_gestao() 
+    mi_responsaveis = responsaveis() 
+    mi_cronologia = cronologia() 
+    mi_convenios = convenios() 
 
 
 if __name__ == "__main__":

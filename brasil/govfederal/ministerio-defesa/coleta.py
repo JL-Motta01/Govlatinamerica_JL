@@ -42,8 +42,9 @@ def artigos(): # check
         counter += 20
         list_url_artigos.append(domain)
     for url_artigos in list_url_artigos:
+        page = page_access(url_artigos)
         # conteúdo
-        content_artigos = md_page.find("div", class_="entries").find_all("article")
+        content_artigos = page.find("div", class_="entries").find_all("article")
         for article_artigos in content_artigos:
             link_artigos = page_access(article_artigos.span.a["href"]) 
             # entrando
@@ -150,8 +151,9 @@ def infograficos(): # check
         counter += 20
         list_url_infograficos.append(domain)
     for url_infograficos in list_url_infograficos:
+        page = page_access(url_infograficos)
         # conteúdo
-        content_infograficos = md_page.find("div", class_="entries").find_all("article")
+        content_infograficos = page.find("div", class_="entries").find_all("article")
         for article_infograficos in content_infograficos:
             link_infograficos = page_access(article_infograficos.span.a["href"]) 
             # entrando
@@ -212,8 +214,9 @@ def noticias(): # check
         counter += 60
         list_url_noticias.append(domain)
     for url_noticias in list_url_noticias:
+        page = page_access(url_noticias)
         # conteúdo
-        content_noticias = md_page.find("ul", class_="noticias listagem-noticias-com-foto").find_all("li")
+        content_noticias = page.find("ul", class_="noticias listagem-noticias-com-foto").find_all("li")
         for li_noticias in content_noticias:
             link_noticias = page_access(li_noticias.div.h2.a["href"]) 
             # entrando
