@@ -8,7 +8,7 @@ def acessar_pagina(url):
     bsoup = BeautifulSoup(html, "html.parser")
     return bsoup
 
-"""
+
 def notas_imprensa(): # check
     url = "https://www.gov.br/economia/pt-br/canais_atendimento/imprensa/notas-a-imprensa" 
     me_pagina = acessar_pagina(url)
@@ -25,8 +25,9 @@ def notas_imprensa(): # check
         contador += 30
         lista_url_notas.append(dominio)
     for url_notas in lista_url_notas:
+        page = acessar_pagina(url_notas)
         # conteudo das notas
-        conteudo_notas = me_pagina.find("div", id="content-core").find_all("article")
+        conteudo_notas = page.find("div", id="content-core").find_all("article")
         for article_notas in conteudo_notas:
             link_notas = acessar_pagina(article_notas.h2.a["href"])
             # entrando nas notas
@@ -69,8 +70,9 @@ def noticias(): # check
         contador += 60
         lista_url_noticias.append(dominio)
     for url_noticias in lista_url_noticias:
+        page = acessar_pagina(url_noticias)
         # conteudo das noticias
-        conteudo_noticias = me_pagina.find("ul", class_="noticias listagem-noticias-com-foto").find_all("li")
+        conteudo_noticias = page.find("ul", class_="noticias listagem-noticias-com-foto").find_all("li")
         for li_noticias in conteudo_noticias:
             link_noticias = acessar_pagina(li_noticias.div.h2.a["href"])
             # entrando nas noticias
@@ -87,9 +89,9 @@ def noticias(): # check
                 lista_tags_noticias.append("notícia sem tag")
             if lista_tags_noticias[0] != 'notícia sem tag' :
                 del lista_tags_noticias[0]
-"""
 
-def boletins(): # in progress
+
+def boletins(): # check
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/boletins"
     me_pagina = acessar_pagina(url)
     # links 
@@ -97,7 +99,6 @@ def boletins(): # in progress
     links_boletins = me_pagina.find("div", class_="wrapper").find_all("div", class_="card")
     for card_boletins in links_boletins:
         lista_links_boletins.append(card_boletins.a["href"])
-    """
     if lista_links_boletins[0]: # check
         boletins_admin = acessar_pagina(lista_links_boletins[0])
         # título
@@ -134,8 +135,7 @@ def boletins(): # in progress
         links_boletins_empresas_dep = boletins_empresas_dep.find("div", class_="cover-collection-tile tile-content").find_all("h2")
         for h2_boletins in links_boletins_empresas_dep:
             lista_links_boletins_empresas_dep.append(h2_boletins.a["href"])
-    """
-    if lista_links_boletins[3]: # almost check
+    if lista_links_boletins[3]: # check
         boletins_covid = acessar_pagina(lista_links_boletins[3])
         # título
         titulo_boletins_covid = boletins_covid.find("h1", class_="documentFirstHeading").text
@@ -156,10 +156,11 @@ def boletins(): # in progress
             lista_links_boletins_covid = boletins_covid.find("div", {"id" : "content-core"}).find_all("article")
             for article_boletins_covid in lista_links_boletins_covid:
                 links_boletins_covid = acessar_pagina(article_boletins_covid.h2.a["href"])
-                # entrando na notícia
+                # entrando no boletim
                 titulo_boletim_covid = links_boletins_covid.find("h1").text
-                # CONTINUAÇÃO DAQUI
-    """
+                descricao_boletim_covid = links_boletins_covid.find("div", class_="documentDescription description").text
+                data_post_boletim_covid = links_boletins_covid.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+                conteudo_boletim_covid = links_boletins_covid.find("div", {"id" : "content-core"}).text
     if lista_links_boletins[4]: # check
         boletins_loterias = acessar_pagina(lista_links_boletins[4])
         # título
@@ -171,16 +172,20 @@ def boletins(): # in progress
         links_boletins_loterias = boletins_loterias.find("div", class_="cover-collection-tile tile-content").find_all("h2")
         for h2_boletins in links_boletins_loterias:
             lista_links_boletins_loterias.append(h2_boletins.a["href"])
-    if lista_links_boletins[5]: # in progress
+    if lista_links_boletins[5]: # check
         boletins_estrangeiros = acessar_pagina(lista_links_boletins[5])
         # título
         titulo_boletins_estrangeiros = boletins_estrangeiros.find("div", class_="cover-richtext-tile tile-content").find("strong").text
         # conteúdo
-        lista_conteudo_boletins_estrangeiros = []
-        conteudo_boletins_estrangeiros = boletins_estrangeiros.find("div", {"id":"content"}).find_all("div", class_="row")
-        for row_boletins in conteudo_boletins_estrangeiros:
-            lista_conteudo_boletins_estrangeiros.append(row_boletins.text)
-        # TODOS OS ROWS ESTÃO COMO ITEM ÚNICO DA LISTA - SEPARAR
+        conteudo_boletins_estrangeiros = boletins_estrangeiros.find("div", {"id":"content"}).text
+        # links
+        lista_links_boletins_estrangeiros = []
+        links1_boletins_estrangeiros = boletins_estrangeiros.find("div", {"id":"e1fb8bab50194e5cbd8a9305eb5ec2e9"}).find_all("div", class_="cover-collection-tile tile-content")
+        for href1_boletins_estrangeiros in links1_boletins_estrangeiros:
+            lista_links_boletins_estrangeiros.append(href1_boletins_estrangeiros.a["href"])
+        links2_boletins_estrangeiros = boletins_estrangeiros.find("div", {"id":"f0a1cadbe1e14afe9bc7ee74fdd273e2"}).find_all("li")
+        for li_boletins_estrangeiros in links2_boletins_estrangeiros:
+            lista_links_boletins_estrangeiros.append(li_boletins_estrangeiros.span.a["href"])
     if lista_links_boletins[6]: # check
         boletins_custeio = acessar_pagina(lista_links_boletins[6])
         # links 
@@ -405,7 +410,7 @@ def boletins(): # in progress
                     links_boletins_custeio_despesa_anterior_2016 = boletins_custeio_despesa_anterior_2016.find("div", {"id" : "content-core"}).find_all("h2")
                     for h2_boletins_custeio_despesa_anterior_2016 in links_boletins_custeio_despesa_anterior_2016:
                         lista_links_boletins_custeio_despesa_anterior_2016.append(h2_boletins_custeio_despesa_anterior_2016.a["href"])
-    if lista_links_boletins[7]: # in progress - coletar edições por ano
+    if lista_links_boletins[7]: # check
         boletins_incentivado = acessar_pagina(lista_links_boletins[7])
         # título
         titulo_boletins_incentivado = boletins_incentivado.find("div", class_="row-content").text        
@@ -419,12 +424,161 @@ def boletins(): # in progress
         links_boletins_incentivado = boletins_incentivado.find("div", {"id" : "ce3ce3af-095d-4469-9d65-fb9aab660723"}).find_all("div", class_="collection-item")
         for edicoes_boletins_incentivado in links_boletins_incentivado:
             lista_links_boletins_incentivado.append(edicoes_boletins_incentivado.h2.a["href"])
-    if lista_links_boletins[8]: # almost check
+        lista_cards_boletins_incentivado = []
+        cards_boletins_incentivado = boletins_incentivado.find("div", class_="wrapper").find_all("div", class_="card little-cards")
+        for card_boletim_incentivado in cards_boletins_incentivado:
+            lista_cards_boletins_incentivado.append(card_boletim_incentivado.a["href"])
+        if lista_cards_boletins_incentivado[0]: # check
+            boletins_incentivado_2021 = acessar_pagina(lista_cards_boletins_incentivado[0])
+            # datas
+            data_post_boletins_incentivado_2021 = boletins_incentivado_2021.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_boletins_incentivado_2021 = boletins_incentivado_2021.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2021 = boletins_incentivado_2021.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2021 = boletins_incentivado_2021.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2021 in lista_links_boletins_incentivado_2021:
+                links_boletins_incentivado_2021 = acessar_pagina(article_boletins_incentivado_2021.h2.a["href"])
+                # entrando no boletim 
+                lista_link_boletins_incentivado_2021 = []
+                link_boletins_incentivado_2021 = links_boletins_incentivado_2021.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2021 in link_boletins_incentivado_2021:
+                    lista_link_boletins_incentivado_2021.append(a_boletins_incentivado_2021["href"])
+        if lista_cards_boletins_incentivado[1]: # check
+            boletins_incentivado_2020 = acessar_pagina(lista_cards_boletins_incentivado[1])
+            # datas
+            data_post_boletins_incentivado_2020 = boletins_incentivado_2020.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_boletins_incentivado_2020 = boletins_incentivado_2020.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2020 = boletins_incentivado_2020.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2020 = boletins_incentivado_2020.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2020 in lista_links_boletins_incentivado_2020:
+                links_boletins_incentivado_2020 = acessar_pagina(article_boletins_incentivado_2020.h2.a["href"])
+                # entrando no boletim 
+                lista_link_boletins_incentivado_2020 = []
+                link_boletins_incentivado_2020 = links_boletins_incentivado_2020.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2020 in link_boletins_incentivado_2020:
+                    lista_link_boletins_incentivado_2020.append(a_boletins_incentivado_2020["href"])
+        if lista_cards_boletins_incentivado[2]: # check
+            boletins_incentivado_2019 = acessar_pagina(lista_cards_boletins_incentivado[2])
+            # datas
+            data_post_boletins_incentivado_2019 = boletins_incentivado_2019.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_boletins_incentivado_2019 = boletins_incentivado_2019.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2019 = boletins_incentivado_2019.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2019 = boletins_incentivado_2019.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2019 in lista_links_boletins_incentivado_2019:
+                links_boletins_incentivado_2019 = acessar_pagina(article_boletins_incentivado_2019.h2.a["href"])
+                # entrando no boletim   
+                lista_link_boletins_incentivado_2019 = []
+                link_boletins_incentivado_2019 = links_boletins_incentivado_2019.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2019 in link_boletins_incentivado_2019:
+                    lista_link_boletins_incentivado_2019.append(a_boletins_incentivado_2019["href"])
+        if lista_cards_boletins_incentivado[3]: # check
+            boletins_incentivado_2018 = acessar_pagina(lista_cards_boletins_incentivado[3])
+            # datas
+            data_post_boletins_incentivado_2018 = boletins_incentivado_2018.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2018 = boletins_incentivado_2018.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2018 = boletins_incentivado_2018.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2018 in lista_links_boletins_incentivado_2018:
+                links_boletins_incentivado_2018 = acessar_pagina(article_boletins_incentivado_2018.h2.a["href"])
+                # entrando no boletim   
+                lista_link_boletins_incentivado_2018 = []
+                link_boletins_incentivado_2018 = links_boletins_incentivado_2018.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2018 in link_boletins_incentivado_2018:
+                    lista_link_boletins_incentivado_2018.append(a_boletins_incentivado_2018["href"])
+        if lista_cards_boletins_incentivado[4]: # check
+            boletins_incentivado_2017 = acessar_pagina(lista_cards_boletins_incentivado[4])
+            # datas
+            data_post_boletins_incentivado_2017 = boletins_incentivado_2017.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2017 = boletins_incentivado_2017.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2017 = boletins_incentivado_2017.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2017 in lista_links_boletins_incentivado_2017:
+                links_boletins_incentivado_2017 = acessar_pagina(article_boletins_incentivado_2017.h2.a["href"])
+                # entrando no boletim   
+                lista_link_boletins_incentivado_2017 = []
+                link_boletins_incentivado_2017 = links_boletins_incentivado_2017.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2017 in link_boletins_incentivado_2017:
+                    lista_link_boletins_incentivado_2017.append(a_boletins_incentivado_2017["href"])
+        if lista_cards_boletins_incentivado[5]: # check
+            boletins_incentivado_2016 = acessar_pagina(lista_cards_boletins_incentivado[5])
+            # datas
+            data_post_boletins_incentivado_2016 = boletins_incentivado_2016.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2016 = boletins_incentivado_2016.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2016 = boletins_incentivado_2016.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2016 in lista_links_boletins_incentivado_2016:
+                links_boletins_incentivado_2016 = acessar_pagina(article_boletins_incentivado_2016.h2.a["href"])
+                # entrando no boletim   
+                lista_link_boletins_incentivado_2016 = []
+                link_boletins_incentivado_2016 = links_boletins_incentivado_2016.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2016 in link_boletins_incentivado_2016:
+                    lista_link_boletins_incentivado_2016.append(a_boletins_incentivado_2016["href"])
+        if lista_cards_boletins_incentivado[6]: # check
+            boletins_incentivado_2015 = acessar_pagina(lista_cards_boletins_incentivado[6])
+            # datas
+            data_post_boletins_incentivado_2015 = boletins_incentivado_2015.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2015 = boletins_incentivado_2015.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2015 = boletins_incentivado_2015.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2015 in lista_links_boletins_incentivado_2015:
+                links_boletins_incentivado_2015 = acessar_pagina(article_boletins_incentivado_2015.h2.a["href"])
+                # entrando no boletim   
+                lista_link_boletins_incentivado_2015 = []
+                link_boletins_incentivado_2015 = links_boletins_incentivado_2015.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2015 in link_boletins_incentivado_2015:
+                    lista_link_boletins_incentivado_2015.append(a_boletins_incentivado_2015["href"])
+        if lista_cards_boletins_incentivado[7]: # check
+            boletins_incentivado_2014 = acessar_pagina(lista_cards_boletins_incentivado[7])
+            # datas
+            data_post_boletins_incentivado_2014 = boletins_incentivado_2014.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_boletins_incentivado_2014 = boletins_incentivado_2014.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2014 = boletins_incentivado_2014.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2014 = boletins_incentivado_2014.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2014 in lista_links_boletins_incentivado_2014:
+                links_boletins_incentivado_2014 = acessar_pagina(article_boletins_incentivado_2014.h2.a["href"])
+                # entrando no boletim   
+                lista_link_boletins_incentivado_2014 = []
+                link_boletins_incentivado_2014 = links_boletins_incentivado_2014.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2014 in link_boletins_incentivado_2014:
+                    lista_link_boletins_incentivado_2014.append(a_boletins_incentivado_2014["href"])
+        if lista_cards_boletins_incentivado[8]: # check
+            boletins_incentivado_2013 = acessar_pagina(lista_cards_boletins_incentivado[8])
+            # datas
+            data_post_boletins_incentivado_2013 = boletins_incentivado_2013.find("div", class_="documentByLine").find("span", class_="documentPublished").find("span", class_="value").text
+            data_update_boletins_incentivado_2013 = boletins_incentivado_2013.find("div", class_="documentByLine").find("span", class_="documentModified").find("span", class_="value").text
+            # conteudo 
+            conteudo_boletins_incentivado_2013 = boletins_incentivado_2013.find("div", {"id" : "content-core"}).text
+            # links
+            lista_links_boletins_incentivado_2013 = boletins_incentivado_2013.find("div", {"id" : "content-core"}).find_all("article")
+            for article_boletins_incentivado_2013 in lista_links_boletins_incentivado_2013:
+                links_boletins_incentivado_2013 = acessar_pagina(article_boletins_incentivado_2013.h2.a["href"])
+                # entrando no boletim   
+                lista_link_boletins_incentivado_2013 = []
+                link_boletins_incentivado_2013 = links_boletins_incentivado_2013.find("div", {"id" : "content-core"}).find_all("a")
+                for a_boletins_incentivado_2013 in link_boletins_incentivado_2013:
+                    lista_link_boletins_incentivado_2013.append(a_boletins_incentivado_2013["href"])
+    if lista_links_boletins[8]: # check
         boletins_subsidios = acessar_pagina(lista_links_boletins[8])
         # título
         titulo_boletins_subsidios = boletins_subsidios.find("h2", class_="outstanding-title").text
         # conteúdo
-        conteudo_boletins_subsidios = boletins_subsidios.find("div", {"id": "main"}).text # ARRUMAR
+        lista_conteudo_boletins_subsidios = []
+        conteudo1_boletins_subsidios = boletins_subsidios.find("div", {"id": "b9ff306f-1184-4932-a1b0-be9e29dc5685"}).text
+        lista_conteudo_boletins_subsidios.append(conteudo1_boletins_subsidios)
+        conteudo2_boletins_subsidios = boletins_subsidios.find("div", {"id": "b3bf50a7-f738-42a0-b5b7-3e5a33b26865"}).text 
+        lista_conteudo_boletins_subsidios.append(conteudo2_boletins_subsidios)
+        print(lista_conteudo_boletins_subsidios)
         # links
         lista_links_boletins_subsidios = []
         links_boletins_subsidios = boletins_subsidios.find("div", {"id": "b3bf50a7-f738-42a0-b5b7-3e5a33b26865"}).find_all("h3")
@@ -489,9 +643,8 @@ def boletins(): # in progress
                 links_macrofiscal = link_boletins_macrofiscal.find("div", {"id" : "content-core"}).find_all("p")
                 for p_macrofiscal in links_macrofiscal:
                     lista_links_macrofiscal.append(p_macrofiscal.a["href"])
-    """
 
-"""
+
 def cartilhas(): # check
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/cartilhas"
     me_pagina = acessar_pagina(url)
@@ -525,8 +678,9 @@ def estudos_notas(): # check
         contador += 30
         lista_url_estudos.append(dominio)
     for url_estudos in lista_url_estudos:
+        page = acessar_pagina(url_estudos)
         # conteudo
-        conteudo_estudos = me_pagina.find("div", {"id" : "content-core"}).find_all("article")
+        conteudo_estudos = page.find("div", {"id" : "content-core"}).find_all("article")
         for article_estudos in conteudo_estudos:
             link_estudos_notas = acessar_pagina(article_estudos.h2.a["href"])
             # título 
@@ -558,7 +712,7 @@ def planilhas(): # check
         lista_links_planilhas.append(a_planilhas["href"])
 
 
-def relatorios(): # check
+def relatorios(): # check - coletar selenium no IF 7
     url = "https://www.gov.br/economia/pt-br/centrais-de-conteudo/publicacoes/relatorios"
     me_pagina = acessar_pagina(url)
     # links 
@@ -725,21 +879,20 @@ def auditorias(): # check
             links_auditorias_pareceres = auditorias_pareceres.find("div", {"id" : "content-core"}).find_all("article")
             for article_auditorias_pareceres in links_auditorias_pareceres:
                 lista_links_auditorias_pareceres.append(article_auditorias_pareceres.div.h2.a["href"])
-"""
+
 
 def main():
     global bs
     url = "https://www.gov.br/economia/pt-br"
     bs = acessar_pagina(url)  
-    # navigation = links_navigation(bs)
-    # me_notas_imprensa = notas_imprensa()
-    # me_noticias = noticias()
+    me_notas_imprensa = notas_imprensa()
+    me_noticias = noticias()
     me_boletins = boletins()
-    # me_cartilhas = cartilhas()
-    # me_estudos_notas = estudos_notas()
-    # me_planilhas = planilhas()
-    # me_relatorios = relatorios()
-    # me_auditorias = auditorias()
+    me_cartilhas = cartilhas()
+    me_estudos_notas = estudos_notas()
+    me_planilhas = planilhas()
+    me_relatorios = relatorios()
+    me_auditorias = auditorias()
 
 
 if __name__ == "__main__":
