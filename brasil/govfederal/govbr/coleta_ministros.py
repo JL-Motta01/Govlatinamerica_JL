@@ -42,7 +42,7 @@ def coleta_link():
 
 def coleta_conteudo():
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos Ministro"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_Ministro.json")
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_Ministro.json", ensure_ascii=False)
     User = Query()
     for link in coleta_link():
         Ministro = acessar_pagina(link)

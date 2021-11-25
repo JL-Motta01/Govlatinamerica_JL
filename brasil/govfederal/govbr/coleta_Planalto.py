@@ -58,7 +58,7 @@ def parse_mapa (xml):
     
 
 def base_dados(xml):
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db.json")
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db.json", ensure_ascii=False)
     User = Query()
     lista_geral = parse_mapa(xml)
     for sublista in lista_geral:

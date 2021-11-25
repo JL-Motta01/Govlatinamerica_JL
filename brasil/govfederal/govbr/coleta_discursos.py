@@ -48,7 +48,7 @@ def coleta_link_discursos ():
 
 def coleta_conteudo_discursos ():
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos discursos"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_discursos.json")
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_discursos.json", ensure_ascii=False)
     User = Query()
     for link in coleta_link_discursos():
         discursos = acessar_pagina(link)
