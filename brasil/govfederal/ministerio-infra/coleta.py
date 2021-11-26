@@ -36,7 +36,6 @@ def noticias(): # check
                 update_link_noticias = link_noticias.find("span", class_="documentModified").find("span", class_="value").text
             except:
                 pass
-            print(title_link_noticias)
             content_link_noticias = link_noticias.find("div", {"id":"parent-fieldname-text"}).text
             # tags notícias
             lista_tags_noticias = []
