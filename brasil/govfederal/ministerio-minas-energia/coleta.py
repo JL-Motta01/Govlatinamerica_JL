@@ -230,10 +230,40 @@ def contasanuais(): # check
             list_link_contas_2005.append(a_contas_2005["href"])
 
 
-def contratacoes(): # in progress
+def contratacoes(): # check
     url = "https://www.gov.br/mme/pt-br/acesso-a-informacao/licitacoes-e-contratos/plano-anual-de-contratacoes" 
     mme_page = page_access(url)
-    
+    contratacao = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
+    list_contratacoes = []  
+    for card in contratacao:
+        list_contratacoes.append(card.a["href"])  
+    if list_contratacoes[0]: # check
+        contratacoes_2022 = page_access(list_contratacoes[0])
+        title_contratacoes_2022 = contratacoes_2022.find("h1", class_="documentFirstHeading").text
+        post_contratacoes_2022 = contratacoes_2022.find("span", class_="documentPublished").find("span", class_="value").text
+        update_contratacoes_2022 = contratacoes_2022.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_contratacoes_2022 = []
+        link_contratacoes_2022 = contratacoes_2022.find("div", {"id":"content-core"}).find_all("a")
+        for a_contratacoes_2022 in link_contratacoes_2022:
+            list_link_contratacoes_2022.append(a_contratacoes_2022["href"])
+    if list_contratacoes[1]: # check
+        contratacoes_2021 = page_access(list_contratacoes[1])
+        title_contratacoes_2021 = contratacoes_2021.find("h1", class_="documentFirstHeading").text
+        post_contratacoes_2021 = contratacoes_2021.find("span", class_="documentPublished").find("span", class_="value").text
+        update_contratacoes_2021 = contratacoes_2021.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_contratacoes_2021 = []
+        link_contratacoes_2021 = contratacoes_2021.find("div", {"id":"content-core"}).find_all("a")
+        for a_contratacoes_2021 in link_contratacoes_2021:
+            list_link_contratacoes_2021.append(a_contratacoes_2021["href"])
+    if list_contratacoes[2]: # check
+        contratacoes_2020 = page_access(list_contratacoes[2])
+        title_contratacoes_2020 = contratacoes_2020.find("h1", class_="documentFirstHeading").text
+        post_contratacoes_2020 = contratacoes_2020.find("span", class_="documentPublished").find("span", class_="value").text
+        update_contratacoes_2020 = contratacoes_2020.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_contratacoes_2020 = []
+        link_contratacoes_2020 = contratacoes_2020.find("div", {"id":"content-core"}).find_all("a")
+        for a_contratacoes_2020 in link_contratacoes_2020:
+            list_link_contratacoes_2020.append(a_contratacoes_2020["href"])
 
 
 def contratos():
@@ -303,9 +333,9 @@ def main():
     # mme_noticias = noticias()
     # mme_pdp21 = pdp21()
     # mme_pdp20 = pdp20()
-    mme_contasanuais = contasanuais()
+    # mme_contasanuais = contasanuais()
     # mme_contratacoes = contratacoes()
-    # mme_contratos = contratos()
+    mme_contratos = contratos()
     # mme_luz_amaz = luz_amaz()
     # mme_metas_inst = metas_inst()
     # mme_discursos = discursos()
