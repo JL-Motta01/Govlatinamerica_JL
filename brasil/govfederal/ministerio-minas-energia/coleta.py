@@ -74,7 +74,7 @@ def pdp20(): # check
     list_links_pdp20 = []
     links_pdp20 = mme_page.find("div", {"id":"content-core"}).find_all("a")
     for a_pdp20 in links_pdp20:
-        list_links_pdp21.append(a_pdp20["href"])
+        list_links_pdp20.append(a_pdp20["href"])
 
 
 def contasanuais(): # check
@@ -266,44 +266,390 @@ def contratacoes(): # check
             list_link_contratacoes_2020.append(a_contratacoes_2020["href"])
 
 
-def contratos():
+def contratos(): # in progress - analisar
     url = "https://www.gov.br/mme/pt-br/acesso-a-informacao/licitacoes-e-contratos/contratos-1" 
     mme_page = page_access(url)
+    contrato = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
+    list_contratos = []  
+    for card in contrato:
+        list_contratos.append(card.a["href"])  
+    if list_contratos[0]: # in progress
+        contrato_2021 = page_access(list_contratos[0])
+        contrato2021 = contrato_2021.find("div", class_="wrapper").find_all("div", class_="card")  
+        list_contratos_2021 = []  
+        for card in contrato2021:
+            list_contratos_2021.append(card.a["href"]) 
+        if list_contratos_2021[0]: # check
+            contrato_mme1 = page_access(list_contratos_2021[0])
+            title_contrato_mme1 = contrato_mme1.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme1 = contrato_mme1.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme1 = contrato_mme1.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme1 = []
+            link_contrato_mme1 = contrato_mme1.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme1 in link_contrato_mme1:
+                list_link_contrato_mme1.append(a_contrato_mme1["href"])
+        if list_contratos_2021[1]: # check
+            contrato_mme2 = page_access(list_contratos_2021[1])
+            title_contrato_mme2 = contrato_mme2.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme2 = contrato_mme2.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme2 = contrato_mme2.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme2 = []
+            link_contrato_mme2 = contrato_mme2.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme2 in link_contrato_mme2:
+                list_link_contrato_mme2.append(a_contrato_mme2["href"])
+        if list_contratos_2021[2]: # check
+            contrato_mme3 = page_access(list_contratos_2021[2])
+            title_contrato_mme3 = contrato_mme3.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme3 = contrato_mme3.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme3 = contrato_mme3.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme3 = []
+            link_contrato_mme3 = contrato_mme3.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme3 in link_contrato_mme3:
+                list_link_contrato_mme3.append(a_contrato_mme3["href"])
+        if list_contratos_2021[3]: # check
+            contrato_mme4 = page_access(list_contratos_2021[3])
+            title_contrato_mme4 = contrato_mme4.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme4 = contrato_mme4.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme4 = contrato_mme4.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme4 = []
+            link_contrato_mme4 = contrato_mme4.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme4 in link_contrato_mme4:
+                list_link_contrato_mme4.append(a_contrato_mme4["href"])
+        if list_contratos_2021[4]: # check
+            contrato_mme5 = page_access(list_contratos_2021[4])
+            title_contrato_mme5 = contrato_mme5.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme5 = contrato_mme5.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme5 = contrato_mme5.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme5 = []
+            link_contrato_mme5 = contrato_mme5.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme5 in link_contrato_mme5:
+                list_link_contrato_mme5.append(a_contrato_mme5["href"])
+        if list_contratos_2021[5]: # check
+            contrato_mme6 = page_access(list_contratos_2021[5])
+            title_contrato_mme6 = contrato_mme6.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme6 = contrato_mme6.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme6 = contrato_mme6.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme6 = []
+            link_contrato_mme6 = contrato_mme6.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme6 in link_contrato_mme6:
+                list_link_contrato_mme6.append(a_contrato_mme6["href"])
+        if list_contratos_2021[6]: # check
+            contrato_mme7 = page_access(list_contratos_2021[6])
+            title_contrato_mme7 = contrato_mme7.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme7 = contrato_mme7.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme7 = contrato_mme7.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme7 = []
+            link_contrato_mme7 = contrato_mme7.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme7 in link_contrato_mme7:
+                list_link_contrato_mme7.append(a_contrato_mme7["href"])
+        if list_contratos_2021[7]: # check
+            contrato_mme8 = page_access(list_contratos_2021[7])
+            title_contrato_mme8 = contrato_mme8.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme8 = contrato_mme8.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme8 = contrato_mme8.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme8 = []
+            link_contrato_mme8 = contrato_mme8.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme8 in link_contrato_mme8:
+                list_link_contrato_mme8.append(a_contrato_mme8["href"])
+        if list_contratos_2021[8]: # check
+            contrato_mme9 = page_access(list_contratos_2021[8])
+            title_contrato_mme9 = contrato_mme9.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme9 = contrato_mme9.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme9 = contrato_mme9.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme9 = []
+            link_contrato_mme9 = contrato_mme9.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme9 in link_contrato_mme9:
+                list_link_contrato_mme9.append(a_contrato_mme9["href"])
+        if list_contratos_2021[9]: # check
+            contrato_mme10 = page_access(list_contratos_2021[9])
+            title_contrato_mme10 = contrato_mme10.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme10 = contrato_mme10.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme10 = contrato_mme10.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme10 = []
+            link_contrato_mme10 = contrato_mme10.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme10 in link_contrato_mme10:
+                list_link_contrato_mme10.append(a_contrato_mme10["href"])
+        if list_contratos_2021[10]: # check
+            contrato_mme11 = page_access(list_contratos_2021[10])
+            title_contrato_mme11 = contrato_mme11.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme11 = contrato_mme11.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme11 = contrato_mme11.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme11 = []
+            link_contrato_mme11 = contrato_mme11.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme11 in link_contrato_mme11:
+                list_link_contrato_mme11.append(a_contrato_mme11["href"])
+        if list_contratos_2021[11]: # check
+            contrato_mme12 = page_access(list_contratos_2021[11])
+            title_contrato_mme12 = contrato_mme12.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme12 = contrato_mme12.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme12 = contrato_mme12.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme12 = []
+            link_contrato_mme12 = contrato_mme12.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme12 in link_contrato_mme12:
+                list_link_contrato_mme12.append(a_contrato_mme1["href"])
+        if list_contratos_2021[12]: # check
+            contrato_mme13 = page_access(list_contratos_2021[12])
+            title_contrato_mme13 = contrato_mme13.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme13 = contrato_mme13.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme13 = contrato_mme13.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme13 = []
+            link_contrato_mme13 = contrato_mme13.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme13 in link_contrato_mme13:
+                list_link_contrato_mme13.append(a_contrato_mme13["href"])
+        if list_contratos_2021[13]: # check
+            contrato_mme14 = page_access(list_contratos_2021[13])
+            title_contrato_mme14 = contrato_mme14.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme14 = contrato_mme14.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme14 = contrato_mme14.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme14 = []
+            link_contrato_mme14 = contrato_mme1.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme14 in link_contrato_mme14:
+                list_link_contrato_mme14.append(a_contrato_mme14["href"])
+        if list_contratos_2021[14]: # check
+            contrato_mme15 = page_access(list_contratos_2021[14])
+            title_contrato_mme15 = contrato_mme15.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme15 = contrato_mme15.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme15 = contrato_mme15.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme15 = []
+            link_contrato_mme15 = contrato_mme15.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme15 in link_contrato_mme15:
+                list_link_contrato_mme15.append(a_contrato_mme15["href"])
+        if list_contratos_2021[15]: # check
+            contrato_mme16 = page_access(list_contratos_2021[15])
+            title_contrato_mme16 = contrato_mme16.find("h1", class_="documentFirstHeading").text
+            post_contrato_mme16 = contrato_mme16.find("span", class_="documentPublished").find("span", class_="value").text
+            update_contrato_mme16 = contrato_mme16.find("span", class_="documentModified").find("span", class_="value").text
+            list_link_contrato_mme16 = []
+            link_contrato_mme16 = contrato_mme16.find("div", {"id":"content-core"}).find_all("a")
+            for a_contrato_mme16 in link_contrato_mme16:
+                list_link_contrato_mme16.append(a_contrato_mme16["href"])
 
 
-def luz_amaz():
+def luz_amaz(): # check
     url = "https://www.gov.br/mme/pt-br/acesso-a-informacao/dados-abertos/programas-luz-para-todos-e-mais-luz-para-amazonia" 
     mme_page = page_access(url)
+    title_luz_amaz = mme_page.find("h1", class_="documentFirstHeading").text
+    post_luz_amaz = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_luz_amaz = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_luz_amaz = mme_page.find("div", {"id":"parent-fieldname-text"}).text
+    # links
+    list_links_luz_amaz = []
+    links_luz_amaz = mme_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_luz_amaz in links_luz_amaz:
+        list_links_luz_amaz.append(a_luz_amaz["href"])
 
 
-def metas_inst():
+def metas_inst(): # check
     url = "https://www.gov.br/mme/pt-br/acesso-a-informacao/metas-de-desempenho-institucional" 
     mme_page = page_access(url)
+    metasinst = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
+    list_metas_inst = []  
+    for card in metasinst:
+        list_metas_inst.append(card.a["href"])  
+    if list_metas_inst[0]: # check
+        metas_inst1 = page_access(list_metas_inst[0])
+        title_metas_inst1 = metas_inst1.find("h1", class_="documentFirstHeading").text
+        post_metas_inst1 = metas_inst1.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst1 = metas_inst1.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst1 = []
+        link_metas_inst1 = metas_inst1.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst1 in link_metas_inst1:
+            list_link_metas_inst1.append(a_metas_inst1["href"])
+    if list_metas_inst[1]: # check
+        metas_inst2 = page_access(list_metas_inst[1])
+        title_metas_inst2 = metas_inst2.find("h1", class_="documentFirstHeading").text
+        post_metas_inst2 = metas_inst2.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst2 = metas_inst2.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst2 = []
+        link_metas_inst2 = metas_inst2.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst2 in link_metas_inst2:
+            list_link_metas_inst2.append(a_metas_inst2["href"])
+    if list_metas_inst[2]: # check
+        metas_inst3 = page_access(list_metas_inst[2])
+        title_metas_inst3 = metas_inst3.find("h1", class_="documentFirstHeading").text
+        post_metas_inst3 = metas_inst3.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst3 = metas_inst3.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst3 = []
+        link_metas_inst3 = metas_inst3.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst3 in link_metas_inst3:
+            list_link_metas_inst3.append(a_metas_inst3["href"])
+    if list_metas_inst[3]: # check
+        metas_inst4 = page_access(list_metas_inst[3])
+        title_metas_inst4 = metas_inst4.find("h1", class_="documentFirstHeading").text
+        post_metas_inst4 = metas_inst4.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst4 = metas_inst4.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst4 = []
+        link_metas_inst4 = metas_inst4.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst4 in link_metas_inst4:
+            list_link_metas_inst4.append(a_metas_inst4["href"])
+    if list_metas_inst[4]: # check
+        metas_inst5 = page_access(list_metas_inst[4])
+        title_metas_inst5 = metas_inst5.find("h1", class_="documentFirstHeading").text
+        post_metas_inst5 = metas_inst5.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst5 = metas_inst5.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst5 = []
+        link_metas_inst5 = metas_inst5.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst5 in link_metas_inst5:
+            list_link_metas_inst5.append(a_metas_inst5["href"])
+    if list_metas_inst[5]: # check
+        metas_inst6 = page_access(list_metas_inst[5])
+        title_metas_inst6 = metas_inst6.find("h1", class_="documentFirstHeading").text
+        post_metas_inst6 = metas_inst6.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst6 = metas_inst6.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst6 = []
+        link_metas_inst6 = metas_inst6.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst6 in link_metas_inst6:
+            list_link_metas_inst6.append(a_metas_inst6["href"])
+    if list_metas_inst[6]: # check
+        metas_inst7 = page_access(list_metas_inst[6])
+        title_metas_inst7 = metas_inst7.find("h1", class_="documentFirstHeading").text
+        post_metas_inst7 = metas_inst7.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst7 = metas_inst7.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst7 = []
+        link_metas_inst7 = metas_inst7.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst7 in link_metas_inst7:
+            list_link_metas_inst7.append(a_metas_inst7["href"])
+    if list_metas_inst[7]: # check
+        metas_inst8 = page_access(list_metas_inst[7])
+        title_metas_inst8 = metas_inst8.find("h1", class_="documentFirstHeading").text
+        post_metas_inst8 = metas_inst8.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst8 = metas_inst8.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst8 = []
+        link_metas_inst8 = metas_inst8.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst8 in link_metas_inst8:
+            list_link_metas_inst8.append(a_metas_inst8["href"])
+    if list_metas_inst[8]: # check
+        metas_inst9 = page_access(list_metas_inst[8])
+        title_metas_inst9 = metas_inst9.find("h1", class_="documentFirstHeading").text
+        post_metas_inst9 = metas_inst9.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst9 = metas_inst9.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst9 = []
+        link_metas_inst9 = metas_inst9.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst9 in link_metas_inst9:
+            list_link_metas_inst9.append(a_metas_inst9["href"])
+    if list_metas_inst[9]: # check
+        metas_inst10 = page_access(list_metas_inst[9])
+        title_metas_inst10 = metas_inst10.find("h1", class_="documentFirstHeading").text
+        post_metas_inst10 = metas_inst10.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst10 = metas_inst10.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst10 = []
+        link_metas_inst10 = metas_inst10.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst10 in link_metas_inst10:
+            list_link_metas_inst10.append(a_metas_inst10["href"])
+    if list_metas_inst[10]: # check
+        metas_inst11 = page_access(list_metas_inst[10])
+        title_metas_inst11 = metas_inst11.find("h1", class_="documentFirstHeading").text
+        post_metas_inst11 = metas_inst11.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst11 = metas_inst11.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst11 = []
+        link_metas_inst11 = metas_inst11.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst11 in link_metas_inst11:
+            list_link_metas_inst11.append(a_metas_inst11["href"])
+    if list_metas_inst[11]: # check
+        metas_inst12 = page_access(list_metas_inst[11])
+        title_metas_inst12 = metas_inst12.find("h1", class_="documentFirstHeading").text
+        post_metas_inst12 = metas_inst12.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst12 = metas_inst12.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_inst12 = []
+        link_metas_inst12 = metas_inst12.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst12 in link_metas_inst12:
+            list_link_metas_inst12.append(a_metas_inst12["href"])  
+    if list_metas_inst[12]: # check
+        metas_atos = page_access(list_metas_inst[12])
+        title_metas_atos = metas_atos.find("h1", class_="documentFirstHeading").text
+        post_metas_atos = metas_atos.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_atos = metas_atos.find("span", class_="documentModified").find("span", class_="value").text
+        list_link_metas_atos = []
+        link_metas_atos = metas_atos.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_atos in link_metas_atos:
+            list_link_metas_atos.append(a_metas_atos["href"]) 
+ 
 
-
-def discursos():
+def discursos(): # check - conferir a partir de cima
     url = "https://www.gov.br/mme/pt-br/centrais-de-conteudo/publicacoes/discursos-do-ministro" 
     mme_page = page_access(url)
+    discurso = mme_page.find("div", class_="tabs-content").find_all("div")  
+    list_discursos = []  
+    for divs_discursos in discurso:
+        list_discursos.append(divs_discursos["data-url"]) 
+    if list_discursos[0]: # check
+        discursos_2021 = page_access(list_discursos[0])
+        list_links_discursos_2021 = []
+        links_discursos_2021 = discursos_2021.find("tbody").find_all("a")
+        for a_discursos_2021 in links_discursos_2021:
+            list_links_discursos_2021.append(a_discursos_2021["href"])
+    if list_discursos[1]: # check
+        discursos_2020 = page_access(list_discursos[1])
+        list_links_discursos_2020 = []
+        links_discursos_2020 = discursos_2020.find("tbody").find_all("a")
+        for a_discursos_2020 in links_discursos_2020:
+            list_links_discursos_2020.append(a_discursos_2020["href"])
+    if list_discursos[2]: # check
+        discursos_2019 = page_access(list_discursos[2])
+        list_links_discursos_2019 = []
+        links_discursos_2019 = discursos_2019.find("tbody").find_all("a")
+        for a_discursos_2019 in links_discursos_2019:
+            list_links_discursos_2019.append(a_discursos_2019["href"])
 
 
-def apresentacoes():
+def apresentacoes(): # check
     url = "https://www.gov.br/mme/pt-br/centrais-de-conteudo/publicacoes/apresentacoes-do-ministro" 
     mme_page = page_access(url)
+    title_apresentacoes = mme_page.find("h1", class_="documentFirstHeading").text
+    post_apresentacoes = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+    content_apresentacoes = mme_page.find("div", {"id":"content-core"}).text
+    # links
+    list_links_apresentacoes = []
+    links_apresentacoes = mme_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_apresentacoes in links_apresentacoes:
+        list_links_apresentacoes.append(a_apresentacoes["href"])
 
 
-def boletins_covid():
+def boletins_covid(): # check
     url = "https://www.gov.br/mme/pt-br/centrais-de-conteudo/publicacoes/boletins-covid-19" 
     mme_page = page_access(url)
+    title_boletins_covid = mme_page.find("h1", class_="documentFirstHeading").text
+    post_boletins_covid = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_boletins_covid = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_boletins_covid = mme_page.find("div", {"id":"content-core"}).text
+    # links
+    list_links_boletins_covid = []
+    links_boletins_covid = mme_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_boletins_covid in links_boletins_covid:
+        list_links_boletins_covid.append(a_boletins_covid["href"])
 
 
-def informativo():
+def informativo(): # check
     url = "https://www.gov.br/mme/pt-br/centrais-de-conteudo/publicacoes/informativo-mme-em-pauta" 
     mme_page = page_access(url)
+    title_informativo = mme_page.find("h1", class_="documentFirstHeading").text
+    post_informativo = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_informativo = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_informativo = mme_page.find("div", {"id":"content-core"}).text
+    # links
+    list_links_informativo = []
+    links_informativo = mme_page.find("table", class_="plain").find_all("a")
+    for a_informativo in links_informativo:
+        list_links_informativo.append(a_informativo["href"])
 
 
-def boletins_mensais():
+def boletins_mensais(): # in progress
     url = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/boletins-mensais-de-energia" 
     mme_page = page_access(url)
+    boletinsmensais = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
+    list_boletins_mensais = []  
+    for card_boletins_mensais in boletinsmensais:
+        list_boletins_mensais.append(card_boletins_mensais.a["href"]) 
+    if list_boletins_mensais[0]: # check
+        boletins_2021 = page_access(list_boletins_mensais[0])
+        post_boletins_2021 = boletins_2021.find("span", class_="documentPublished").find("span", class_="value").text
+        update_boletins_2021 = boletins_2021.find("span", class_="documentModified").find("span", class_="value").text
+        """
+        list_links_boletins_2021 = []
+        links_boletins_2021 = boletins_2021.find("div", class_="entries").find_all("article", class_="entry")
+        for article_boletins_2021 in links_boletins_2021:
+            list_links_boletins_2021.append(article_boletins_2021.span.a["href"])
+        """
 
 
 def resenha():
@@ -335,14 +681,14 @@ def main():
     # mme_pdp20 = pdp20()
     # mme_contasanuais = contasanuais()
     # mme_contratacoes = contratacoes()
-    mme_contratos = contratos()
+    # mme_contratos = contratos()
     # mme_luz_amaz = luz_amaz()
     # mme_metas_inst = metas_inst()
     # mme_discursos = discursos()
     # mme_apresentacoes = apresentacoes()
     # mme_boletins_covid = boletins_covid()
     # mme_informativo = informativo()
-    # mme_boletins_mensais = boletins_mensais()
+    mme_boletins_mensais = boletins_mensais()
     # mme_resenha = resenha()
     # mme_doc_potee = doc_potee()
     # mme_doc_30 = doc_30()
