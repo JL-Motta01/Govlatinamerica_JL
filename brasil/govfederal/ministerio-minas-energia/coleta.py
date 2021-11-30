@@ -634,22 +634,22 @@ def informativo(): # check
 
 
 def boletins_mensais(): # in progress
-    url = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/boletins-mensais-de-energia" 
-    mme_page = page_access(url)
-    boletinsmensais = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
-    list_boletins_mensais = []  
-    for card_boletins_mensais in boletinsmensais:
-        list_boletins_mensais.append(card_boletins_mensais.a["href"]) 
-    if list_boletins_mensais[0]: # check
-        boletins_2021 = page_access(list_boletins_mensais[0])
-        post_boletins_2021 = boletins_2021.find("span", class_="documentPublished").find("span", class_="value").text
-        update_boletins_2021 = boletins_2021.find("span", class_="documentModified").find("span", class_="value").text
-        """
-        list_links_boletins_2021 = []
-        links_boletins_2021 = boletins_2021.find("div", class_="entries").find_all("article", class_="entry")
-        for article_boletins_2021 in links_boletins_2021:
-            list_links_boletins_2021.append(article_boletins_2021.span.a["href"])
-        """
+    url_base = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/boletins-mensais-de-energia/"
+    anos = ["2021/portugues", "2010-1/portugues", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009"]
+    for ano in anos:
+        url = url_base + ano
+        print(ano)
+        mme_page = page_access(url)
+        post_boletins = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+        update_boletins = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+        list_links_boletins = []
+        links_boletins = mme_page.find("div", {"id" : "content-core"}).find_all("a")
+        for a_boletins in links_boletins:
+            list_links_boletins.append(a_boletins["href"])
+        if list_links_boletins[0] == url_base + ano + "?b_start:int=20" :
+            mme_page2 = page_access(list_links_boletins[0])
+            # extrair links
+            # fzr del 
 
 
 def resenha():
