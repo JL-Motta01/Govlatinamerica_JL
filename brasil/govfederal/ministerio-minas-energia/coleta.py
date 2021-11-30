@@ -633,12 +633,13 @@ def informativo(): # check
         list_links_informativo.append(a_informativo["href"])
 
 
-def boletins_mensais(): # in progress
+def boletins_mensais(): # almost check - otimizar se possível
     url_base = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/boletins-mensais-de-energia/"
     anos = ["2021/portugues", "2010-1/portugues", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009"]
     for ano in anos:
         url = url_base + ano
-        print(ano)
+        # print(f'O ano é:')
+        # print(ano)
         mme_page = page_access(url)
         post_boletins = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
         update_boletins = mme_page.find("span", class_="documentModified").find("span", class_="value").text
@@ -648,28 +649,90 @@ def boletins_mensais(): # in progress
             list_links_boletins.append(a_boletins["href"])
         if list_links_boletins[0] == url_base + ano + "?b_start:int=20" :
             mme_page2 = page_access(list_links_boletins[0])
-            # extrair links
-            # fzr del 
+            links_boletins2 = mme_page2.find("tbody").find_all("a")
+            for a_boletins2 in links_boletins2:
+                list_links_boletins.append(a_boletins2["href"])
+            ## SINTETIZAR
+            del list_links_boletins[0]
+            del list_links_boletins[0]
+            del list_links_boletins[21]
+            del list_links_boletins[20]
+        ## APAGAR
+        # del list_links_boletins >> "/view" 
+        # print(list_links_boletins)
 
 
-def resenha():
+def resenha(): # check
     url = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/resenha-energetica-brasileira/resenhas" 
     mme_page = page_access(url)
+    title_resenha = mme_page.find("h1", class_="documentFirstHeading").text
+    post_resenha = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_resenha = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_resenha = mme_page.find("div", class_="has-table").text
+    links_resenha = mme_page.find("tbody").find_all("a")
+    for a_resenha in links_resenha:
+        resenha_pages = page_access(a_resenha["href"])
+        link_resenha_pages = resenha_pages.find("div", {"id" : "content-core"}).find_all("a")
+        list_link_resenha_pages = []
+        for a_resenha_pages in link_resenha_pages:
+            list_link_resenha_pages.append(a_resenha_pages["href"])
 
 
-def doc_potee():
-    url = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/plano-de-outorgas-de-transmissao-de-energia-eletrica-potee/documentos" 
-    mme_page = page_access(url)
+def doc_potee(): # check - usar lógica em BOLETINS MENSAIS
+    url_base = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/plano-de-outorgas-de-transmissao-de-energia-eletrica-potee/documentos/" 
+    anos = ["2021", "2020", "2019", "2018", "2017", "2016", "2015"]
+    for ano in anos:
+        url = url_base + ano
+        mme_page = page_access(url)
+        title_doc_potee = mme_page.find("h1", class_="documentFirstHeading").text
+        post_doc_potee = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+        update_doc_potee = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+        link_doc_potee = mme_page.find("div", {"id":"content-core"}).find_all("a")
+        for a_doc_potee in link_doc_potee:
+            doc_potee_pages = page_access(a_doc_potee["href"])
+            link_doc_potee_pages = doc_potee_pages.find("div", {"id" : "content-core"}).find_all("a")
+            list_link_doc_potee = []
+            for a_doc_potee_pages in link_doc_potee_pages:
+                list_link_doc_potee.append(a_doc_potee_pages["href"])
+    
 
-
-def doc_30():
+def doc_30(): # check
     url = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/plano-nacional-de-energia-2030/documentos" 
     mme_page = page_access(url)
+    title_doc_30 = mme_page.find("h1", class_="documentFirstHeading").text
+    post_doc_30 = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_doc_30 = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_doc_30 = mme_page.find("div", class_="has-table").text
+    links_doc_30 = mme_page.find("tbody").find_all("a")
+    for a_doc_30 in links_doc_30:
+        doc_30_pages = page_access(a_doc_30["href"])
+        link_doc_30_pages = doc_30_pages.find("div", {"id" : "content-core"}).find_all("a")
+        list_link_doc_30_pages = []
+        for a_doc_30_pages in link_doc_30_pages:
+            list_link_doc_30_pages.append(a_doc_30_pages["href"])
 
 
-def relatorios():
+def relatorios(): # almost check - otimizar se possível
     url = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/estudos-do-pne-2050/02-relatorios-epe" 
     mme_page = page_access(url)
+    title_relatorios = mme_page.find("h1", class_="documentFirstHeading").text
+    post_relatorios = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_relatorios = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+    list_links_relatorios = []
+    links_relatorios = mme_page.find("div", {"id" : "content-core"}).find_all("a")
+    for a_relatorios in links_relatorios:
+        list_links_relatorios.append(a_relatorios["href"])
+    if list_links_relatorios[0] == url + "?b_start:int=20" :
+        mme_page2 = page_access(list_links_relatorios[0])
+        links_relatorios2 = mme_page2.find("tbody").find_all("a")
+        for a_relatorios2 in links_relatorios2:
+            list_links_relatorios.append(a_relatorios2["href"])
+        ## SINTETIZAR
+        del list_links_relatorios[0]
+        del list_links_relatorios[0]
+        del list_links_relatorios[21]
+        del list_links_relatorios[20]
+        ## ENTRAR NOS LINKS
 
 
 def main():
@@ -688,7 +751,7 @@ def main():
     # mme_apresentacoes = apresentacoes()
     # mme_boletins_covid = boletins_covid()
     # mme_informativo = informativo()
-    mme_boletins_mensais = boletins_mensais()
+    # mme_boletins_mensais = boletins_mensais()
     # mme_resenha = resenha()
     # mme_doc_potee = doc_potee()
     # mme_doc_30 = doc_30()
