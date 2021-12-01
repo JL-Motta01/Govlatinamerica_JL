@@ -457,31 +457,33 @@ def metas_inst(): # check
                 list_link_metas_inst.append(a_metas_inst_pages["href"]) 
  
 
-def discursos(): # check - otimizar
-    url = "https://www.gov.br/mme/pt-br/centrais-de-conteudo/publicacoes/discursos-do-ministro" 
-    mme_page = page_access(url)
-    discurso = mme_page.find("div", class_="tabs-content").find_all("div")  
-    list_discursos = []  
-    for divs_discursos in discurso:
-        list_discursos.append(divs_discursos["data-url"]) 
-    if list_discursos[0]: # check
-        discursos_2021 = page_access(list_discursos[0])
-        list_links_discursos_2021 = []
-        links_discursos_2021 = discursos_2021.find("tbody").find_all("a")
-        for a_discursos_2021 in links_discursos_2021:
-            list_links_discursos_2021.append(a_discursos_2021["href"])
-    if list_discursos[1]: # check
-        discursos_2020 = page_access(list_discursos[1])
-        list_links_discursos_2020 = []
-        links_discursos_2020 = discursos_2020.find("tbody").find_all("a")
-        for a_discursos_2020 in links_discursos_2020:
-            list_links_discursos_2020.append(a_discursos_2020["href"])
-    if list_discursos[2]: # check
-        discursos_2019 = page_access(list_discursos[2])
-        list_links_discursos_2019 = []
-        links_discursos_2019 = discursos_2019.find("tbody").find_all("a")
-        for a_discursos_2019 in links_discursos_2019:
-            list_links_discursos_2019.append(a_discursos_2019["href"])
+def discursos(): # check - otimizar - remove todos aqueles itens especificados da lista (tirar outras ocorrências)
+    url_base = "https://www.gov.br/mme/pt-br/centrais-de-conteudo/publicacoes/discursos-do-ministro" 
+    mme_page = page_access(url_base)
+    # infos gerais da página
+    title_discursos = mme_page.find("h1", class_="documentFirstHeading").text
+    post_discursos = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_discursos = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+    # entrando nas subpáginas
+    anos = ["/2021", "/2020", "/2019"]
+    for ano in anos:
+        url = url_base + ano
+        print(f'O ano é:')
+        print(ano)
+        mme_pages = page_access(url)
+        list_links_discursos = []
+        links_discursos = mme_pages.find("div", {"id" : "content-core"}).find_all("a")
+        for a_discursos in links_discursos:
+            list_links_discursos.append(a_discursos["href"])
+        if list_links_discursos[0] == ("http://antigo.mme.gov.br/web/guest/comunicacao/discursos-do-ministro#collapse-2020-2") or ("http://antigo.mme.gov.br/web/guest/comunicacao/discursos-do-ministro#collapse-2019-0"):
+            print("ajustar")
+            link_remove1 = ("http://antigo.mme.gov.br/web/guest/comunicacao/discursos-do-ministro#collapse-2020-2") 
+            link_remove2 = ("http://antigo.mme.gov.br/web/guest/comunicacao/discursos-do-ministro#collapse-2019-0")
+            while link_remove1 in list_links_discursos:
+                list_links_discursos.remove(link_remove1)
+            while link_remove2 in list_links_discursos:
+                list_links_discursos.remove(link_remove2)
+        print(list_links_discursos)
 
 
 def apresentacoes(): # check
@@ -525,13 +527,11 @@ def informativo(): # check
         list_links_informativo.append(a_informativo["href"])
 
 
-def boletins_mensais(): # almost check - otimizar 
+def boletins_mensais(): # check
     url_base = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/boletins-mensais-de-energia/"
     anos = ["2021/portugues", "2010-1/portugues", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009"]
     for ano in anos:
         url = url_base + ano
-        # print(f'O ano é:')
-        # print(ano)
         mme_page = page_access(url)
         post_boletins = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
         update_boletins = mme_page.find("span", class_="documentModified").find("span", class_="value").text
@@ -543,15 +543,16 @@ def boletins_mensais(): # almost check - otimizar
             mme_page2 = page_access(list_links_boletins[0])
             links_boletins2 = mme_page2.find("tbody").find_all("a")
             for a_boletins2 in links_boletins2:
-                list_links_boletins.append(a_boletins2["href"])
-            ## SINTETIZAR
-            del list_links_boletins[0]
-            del list_links_boletins[0]
-            del list_links_boletins[21]
-            del list_links_boletins[20]
-        ## APAGAR
-        # del list_links_boletins >> "/view" 
-        # print(list_links_boletins)
+                list_links_boletins.append(a_boletins2["href"]) 
+            del (list_links_boletins[0:2])
+            del (list_links_boletins[20:22])
+        # entra nos links
+        for pages_boletins in list_links_boletins:
+            boletins_pages = page_access(pages_boletins)
+            link_boletins_pages = boletins_pages.find("div", {"id" : "content-core"}).find_all("a")
+            list_link_boletins = []
+            for a_boletins_pages in link_boletins_pages:
+                list_link_boletins.append(a_boletins_pages["href"])
 
 
 def resenha(): # check
@@ -604,7 +605,7 @@ def doc_30(): # check
             list_link_doc_30_pages.append(a_doc_30_pages["href"])
 
 
-def relatorios(): # check - boletins mensais (mesma lógica)
+def relatorios(): # check
     url = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/estudos-do-pne-2050/02-relatorios-epe" 
     mme_page = page_access(url)
     title_relatorios = mme_page.find("h1", class_="documentFirstHeading").text
@@ -642,9 +643,9 @@ def main():
     # mme_contratos = contratos()
     # mme_luz_amaz = luz_amaz()
     # mme_metas_inst = metas_inst()
-    # mme_discursos = discursos()
+    mme_discursos = discursos()
     # mme_apresentacoes = apresentacoes()
-    mme_boletins_covid = boletins_covid()
+    # mme_boletins_covid = boletins_covid()
     # mme_informativo = informativo()
     # mme_boletins_mensais = boletins_mensais()
     # mme_resenha = resenha()
