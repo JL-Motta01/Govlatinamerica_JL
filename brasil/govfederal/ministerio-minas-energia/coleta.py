@@ -77,7 +77,7 @@ def pdp20(): # check
         list_links_pdp20.append(a_pdp20["href"])
 
 
-def contasanuais(): # check
+def contasanuais(): # check - otimizar
     url = "https://www.gov.br/mme/pt-br/acesso-a-informacao/auditorias/processos-de-contas-anuais" 
     mme_page = page_access(url)
     contas_anuais = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
@@ -230,7 +230,7 @@ def contasanuais(): # check
             list_link_contas_2005.append(a_contas_2005["href"])
 
 
-def contratacoes(): # check
+def contratacoes(): # check - otimizar
     url = "https://www.gov.br/mme/pt-br/acesso-a-informacao/licitacoes-e-contratos/plano-anual-de-contratacoes" 
     mme_page = page_access(url)
     contratacao = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
@@ -266,7 +266,7 @@ def contratacoes(): # check
             list_link_contratacoes_2020.append(a_contratacoes_2020["href"])
 
 
-def contratos(): # in progress - analisar
+def contratos(): # in progress - analisar - possível otimizar
     url = "https://www.gov.br/mme/pt-br/acesso-a-informacao/licitacoes-e-contratos/contratos-1" 
     mme_page = page_access(url)
     contrato = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
@@ -440,132 +440,24 @@ def luz_amaz(): # check
 
 
 def metas_inst(): # check
-    url = "https://www.gov.br/mme/pt-br/acesso-a-informacao/metas-de-desempenho-institucional" 
-    mme_page = page_access(url)
-    metasinst = mme_page.find("div", class_="wrapper").find_all("div", class_="card")  
-    list_metas_inst = []  
-    for card in metasinst:
-        list_metas_inst.append(card.a["href"])  
-    if list_metas_inst[0]: # check
-        metas_inst1 = page_access(list_metas_inst[0])
-        title_metas_inst1 = metas_inst1.find("h1", class_="documentFirstHeading").text
-        post_metas_inst1 = metas_inst1.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst1 = metas_inst1.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst1 = []
-        link_metas_inst1 = metas_inst1.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst1 in link_metas_inst1:
-            list_link_metas_inst1.append(a_metas_inst1["href"])
-    if list_metas_inst[1]: # check
-        metas_inst2 = page_access(list_metas_inst[1])
-        title_metas_inst2 = metas_inst2.find("h1", class_="documentFirstHeading").text
-        post_metas_inst2 = metas_inst2.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst2 = metas_inst2.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst2 = []
-        link_metas_inst2 = metas_inst2.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst2 in link_metas_inst2:
-            list_link_metas_inst2.append(a_metas_inst2["href"])
-    if list_metas_inst[2]: # check
-        metas_inst3 = page_access(list_metas_inst[2])
-        title_metas_inst3 = metas_inst3.find("h1", class_="documentFirstHeading").text
-        post_metas_inst3 = metas_inst3.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst3 = metas_inst3.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst3 = []
-        link_metas_inst3 = metas_inst3.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst3 in link_metas_inst3:
-            list_link_metas_inst3.append(a_metas_inst3["href"])
-    if list_metas_inst[3]: # check
-        metas_inst4 = page_access(list_metas_inst[3])
-        title_metas_inst4 = metas_inst4.find("h1", class_="documentFirstHeading").text
-        post_metas_inst4 = metas_inst4.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst4 = metas_inst4.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst4 = []
-        link_metas_inst4 = metas_inst4.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst4 in link_metas_inst4:
-            list_link_metas_inst4.append(a_metas_inst4["href"])
-    if list_metas_inst[4]: # check
-        metas_inst5 = page_access(list_metas_inst[4])
-        title_metas_inst5 = metas_inst5.find("h1", class_="documentFirstHeading").text
-        post_metas_inst5 = metas_inst5.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst5 = metas_inst5.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst5 = []
-        link_metas_inst5 = metas_inst5.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst5 in link_metas_inst5:
-            list_link_metas_inst5.append(a_metas_inst5["href"])
-    if list_metas_inst[5]: # check
-        metas_inst6 = page_access(list_metas_inst[5])
-        title_metas_inst6 = metas_inst6.find("h1", class_="documentFirstHeading").text
-        post_metas_inst6 = metas_inst6.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst6 = metas_inst6.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst6 = []
-        link_metas_inst6 = metas_inst6.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst6 in link_metas_inst6:
-            list_link_metas_inst6.append(a_metas_inst6["href"])
-    if list_metas_inst[6]: # check
-        metas_inst7 = page_access(list_metas_inst[6])
-        title_metas_inst7 = metas_inst7.find("h1", class_="documentFirstHeading").text
-        post_metas_inst7 = metas_inst7.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst7 = metas_inst7.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst7 = []
-        link_metas_inst7 = metas_inst7.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst7 in link_metas_inst7:
-            list_link_metas_inst7.append(a_metas_inst7["href"])
-    if list_metas_inst[7]: # check
-        metas_inst8 = page_access(list_metas_inst[7])
-        title_metas_inst8 = metas_inst8.find("h1", class_="documentFirstHeading").text
-        post_metas_inst8 = metas_inst8.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst8 = metas_inst8.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst8 = []
-        link_metas_inst8 = metas_inst8.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst8 in link_metas_inst8:
-            list_link_metas_inst8.append(a_metas_inst8["href"])
-    if list_metas_inst[8]: # check
-        metas_inst9 = page_access(list_metas_inst[8])
-        title_metas_inst9 = metas_inst9.find("h1", class_="documentFirstHeading").text
-        post_metas_inst9 = metas_inst9.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst9 = metas_inst9.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst9 = []
-        link_metas_inst9 = metas_inst9.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst9 in link_metas_inst9:
-            list_link_metas_inst9.append(a_metas_inst9["href"])
-    if list_metas_inst[9]: # check
-        metas_inst10 = page_access(list_metas_inst[9])
-        title_metas_inst10 = metas_inst10.find("h1", class_="documentFirstHeading").text
-        post_metas_inst10 = metas_inst10.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst10 = metas_inst10.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst10 = []
-        link_metas_inst10 = metas_inst10.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst10 in link_metas_inst10:
-            list_link_metas_inst10.append(a_metas_inst10["href"])
-    if list_metas_inst[10]: # check
-        metas_inst11 = page_access(list_metas_inst[10])
-        title_metas_inst11 = metas_inst11.find("h1", class_="documentFirstHeading").text
-        post_metas_inst11 = metas_inst11.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst11 = metas_inst11.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst11 = []
-        link_metas_inst11 = metas_inst11.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst11 in link_metas_inst11:
-            list_link_metas_inst11.append(a_metas_inst11["href"])
-    if list_metas_inst[11]: # check
-        metas_inst12 = page_access(list_metas_inst[11])
-        title_metas_inst12 = metas_inst12.find("h1", class_="documentFirstHeading").text
-        post_metas_inst12 = metas_inst12.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_inst12 = metas_inst12.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_inst12 = []
-        link_metas_inst12 = metas_inst12.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_inst12 in link_metas_inst12:
-            list_link_metas_inst12.append(a_metas_inst12["href"])  
-    if list_metas_inst[12]: # check
-        metas_atos = page_access(list_metas_inst[12])
-        title_metas_atos = metas_atos.find("h1", class_="documentFirstHeading").text
-        post_metas_atos = metas_atos.find("span", class_="documentPublished").find("span", class_="value").text
-        update_metas_atos = metas_atos.find("span", class_="documentModified").find("span", class_="value").text
-        list_link_metas_atos = []
-        link_metas_atos = metas_atos.find("div", {"id":"content-core"}).find_all("a")
-        for a_metas_atos in link_metas_atos:
-            list_link_metas_atos.append(a_metas_atos["href"]) 
+    url_base = "https://www.gov.br/mme/pt-br/acesso-a-informacao/metas-de-desempenho-institucional/" 
+    ciclos = ["01deg-ciclo", "02deg-ciclo", "03deg-ciclo", "04deg-ciclo", "05deg-ciclo", "06deg-ciclo", "07deg-ciclo", "08deg-ciclo", "09deg-ciclo", "10deg-ciclo", "11deg-ciclo", "12deg-ciclo", "atos-normativos-relevantes"]
+    for ciclo in ciclos:
+        url = url_base + ciclo
+        mme_page = page_access(url)
+        title_metas_inst = mme_page.find("h1", class_="documentFirstHeading").text
+        post_metas_inst = mme_page.find("span", class_="documentPublished").find("span", class_="value").text
+        update_metas_inst = mme_page.find("span", class_="documentModified").find("span", class_="value").text
+        link_metas_inst = mme_page.find("div", {"id":"content-core"}).find_all("a")
+        for a_metas_inst in link_metas_inst:
+            metas_inst_pages = page_access(a_metas_inst["href"])
+            link_metas_inst_pages = metas_inst_pages.find("div", {"id" : "content-core"}).find_all("a")
+            list_link_metas_inst = []
+            for a_metas_inst_pages in link_metas_inst_pages:
+                list_link_metas_inst.append(a_metas_inst_pages["href"]) 
  
 
-def discursos(): # check - conferir a partir de cima
+def discursos(): # check - otimizar
     url = "https://www.gov.br/mme/pt-br/centrais-de-conteudo/publicacoes/discursos-do-ministro" 
     mme_page = page_access(url)
     discurso = mme_page.find("div", class_="tabs-content").find_all("div")  
@@ -633,7 +525,7 @@ def informativo(): # check
         list_links_informativo.append(a_informativo["href"])
 
 
-def boletins_mensais(): # almost check - otimizar se possível
+def boletins_mensais(): # almost check - otimizar 
     url_base = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/boletins-mensais-de-energia/"
     anos = ["2021/portugues", "2010-1/portugues", "2019", "2018", "2017", "2016", "2015", "2014", "2013", "2012", "2011", "2010", "2009"]
     for ano in anos:
@@ -678,7 +570,7 @@ def resenha(): # check
             list_link_resenha_pages.append(a_resenha_pages["href"])
 
 
-def doc_potee(): # check - usar lógica em BOLETINS MENSAIS
+def doc_potee(): # check 
     url_base = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/plano-de-outorgas-de-transmissao-de-energia-eletrica-potee/documentos/" 
     anos = ["2021", "2020", "2019", "2018", "2017", "2016", "2015"]
     for ano in anos:
@@ -712,7 +604,7 @@ def doc_30(): # check
             list_link_doc_30_pages.append(a_doc_30_pages["href"])
 
 
-def relatorios(): # almost check - otimizar se possível
+def relatorios(): # check - boletins mensais (mesma lógica)
     url = "https://www.gov.br/mme/pt-br/assuntos/secretarias/spe/publicacoes/estudos-do-pne-2050/02-relatorios-epe" 
     mme_page = page_access(url)
     title_relatorios = mme_page.find("h1", class_="documentFirstHeading").text
@@ -727,12 +619,15 @@ def relatorios(): # almost check - otimizar se possível
         links_relatorios2 = mme_page2.find("tbody").find_all("a")
         for a_relatorios2 in links_relatorios2:
             list_links_relatorios.append(a_relatorios2["href"])
-        ## SINTETIZAR
-        del list_links_relatorios[0]
-        del list_links_relatorios[0]
-        del list_links_relatorios[21]
-        del list_links_relatorios[20]
-        ## ENTRAR NOS LINKS
+        del (list_links_relatorios[0:2])
+        del (list_links_relatorios[20:22])
+    # entra nos links
+    for pages_relatorios in list_links_relatorios:
+        relatorios_pages = page_access(pages_relatorios)
+        link_relatorios_pages = relatorios_pages.find("div", {"id" : "content-core"}).find_all("a")
+        list_link_relatorios = []
+        for a_relatorios_pages in link_relatorios_pages:
+            list_link_relatorios.append(a_relatorios_pages["href"])
 
 
 def main():
@@ -749,7 +644,7 @@ def main():
     # mme_metas_inst = metas_inst()
     # mme_discursos = discursos()
     # mme_apresentacoes = apresentacoes()
-    # mme_boletins_covid = boletins_covid()
+    mme_boletins_covid = boletins_covid()
     # mme_informativo = informativo()
     # mme_boletins_mensais = boletins_mensais()
     # mme_resenha = resenha()
