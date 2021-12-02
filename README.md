@@ -37,7 +37,25 @@ git pull origin master && conda activate env_govlatinamerica && conda env update
 
 # Pendencias
 
-- documentar criação do ambiente virtual
-- habilitar ambiente virtual na estação remota
-- instalação do vscode
-- indicar onde colocar os dados coletados
+- documentar criação do ambiente virtual - OK
+- habilitar ambiente virtual na estação remota - OK
+- instalação do vscode - OK
+- indicar onde colocar os dados coletados - OK
+
+# Integração 
+
+- Notícias
+- Agenda
+- HTML
+
+|Ministério|Notícias|Agenda|
+|----------|--------|------|
+|Planalto  |        |      |
+|Casa Civil| | |
+|MRE| | |
+|MMA| | |
+|Infraestrutura| | |
+|MME| | |
+|Economia| | |
+|Defesa| | |
+|Biblioteca presidencia| | |
