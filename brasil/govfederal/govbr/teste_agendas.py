@@ -18,6 +18,17 @@ DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
 DIR_DADOS= "/media/hdvm10/bd/003/001/001/001/001-b"
 
+def acesso_ministerios ():
+    Lista_ministerios = [
+        "https://www.gov.br/casacivil/pt-br/acesso-a-informacao/agendas-da-casa-civil",
+        "https://www.gov.br/mre/pt-br/acesso-a-informacao/agenda-de-autoridades",
+        "https://www.gov.br/mma/pt-br/acesso-a-informacao/agenda-de-autoridades-1",
+        "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/agendas-de-autoridades",
+        "https://www.gov.br/mme/pt-br/acesso-a-informacao/agendas-de-autoridades",
+        "https://www.gov.br/economia/pt-br/acesso-a-informacao/agendas-de-autoridades",
+        ""
+        ]
+
 def acessar_pagina(url):
     """Analisa os boletim do site a partir do link"""
     global response
