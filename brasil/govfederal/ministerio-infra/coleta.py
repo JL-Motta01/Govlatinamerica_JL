@@ -357,7 +357,7 @@ def main():
     mi_rel_gestao = rel_gestao() 
     mi_responsaveis = responsaveis() 
     mi_cronologia = cronologia() 
-    mi_convenios = convenios() 
+    mi_convenios = convenios()
 
 
 if __name__ == "__main__":

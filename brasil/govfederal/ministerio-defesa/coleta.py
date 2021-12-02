@@ -227,6 +227,16 @@ def noticias(): # check
             except:
                 pass
             content_link_noticias = link_noticias.find("div", {"id":"parent-fieldname-text"}).text
+            # tags notícias
+            lista_tags_noticias = []
+            try: 
+                tags_noticias = link_noticias.find("div", {"id":"category"}).find_all("span")
+                for span_noticias in tags_noticias:
+                    lista_tags_noticias.append(span_noticias.text)
+            except:
+                lista_tags_noticias.append("notícia sem tag")
+            if lista_tags_noticias[0] != 'notícia sem tag' :
+                del lista_tags_noticias[0]
 
 
 def main():
