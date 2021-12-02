@@ -64,10 +64,10 @@ def coleta_compromissos():
                 db.insert({
                     "link":url,
                     "data":data,
-                    "compromisso": ""
+                    "compromisso":lista_conteudo
                 })
-                for item in lista_conteudo:
-                    db.update(add("compromisso",item[0]),User.data==data)
+                # for item in lista_conteudo:
+                #     db.update(add("compromisso",item[0]),User.data==data)
             else:
                 print("está na base")
         except:

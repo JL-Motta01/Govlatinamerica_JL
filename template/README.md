@@ -1,0 +1,3 @@
+- Local: Ministério da Economia
+- Classificado como: Noticia, Discurso, Documento
+- Tipo de arquivo original: pdf, html
