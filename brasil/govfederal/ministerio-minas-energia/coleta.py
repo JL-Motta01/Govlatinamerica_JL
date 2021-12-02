@@ -9,7 +9,7 @@ def page_access(url):
     return bsoup
 
 
-def noticias(): # check
+def noticias(): # check - conferir depois
     url = "https://www.gov.br/mme/pt-br/assuntos/noticias" 
     mme_page = page_access(url)
     # título
@@ -320,9 +320,10 @@ def relatorios(): # check
 
 def main():
     global bs
-    url = "https://www.gov.br/mme/pt-br"
+    url = "https://www.gov.br/mme/pt-br/"
     bs = page_access(url) 
     mme_noticias = noticias()
+    """
     mme_pdp21 = pdp21()
     mme_pdp20 = pdp20()
     mme_contasanuais = contasanuais()
@@ -338,6 +339,7 @@ def main():
     mme_doc_potee = doc_potee()
     mme_doc_30 = doc_30()
     mme_relatorios = relatorios()
+    """
 
 
 if __name__ == "__main__":
