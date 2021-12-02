@@ -48,7 +48,7 @@ def coleta_link():
 
 def coleta_conteudo():
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos entrevistas"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_entrevista.json")
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_entrevista.json", ensure_ascii=False)
     User = Query()
     for link in coleta_link():
         entrevistas = acessar_pagina(link)

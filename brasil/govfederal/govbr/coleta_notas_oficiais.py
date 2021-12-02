@@ -48,7 +48,7 @@ def coleta_link():
 
 def coleta_conteudo():
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos notas"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_notas.json")
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_notas.json", ensure_ascii=False)
     User = Query()
     for link in coleta_link():
         notas = acessar_pagina(link)

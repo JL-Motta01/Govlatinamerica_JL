@@ -23,7 +23,7 @@ git push origin main
 # verificar atualizações do ambiente virtual
 
 ```
-git pull origin master && conda activate env_govlatinamerica && conda env update
+git pull origin main && conda activate env_govlatinamerica && conda env update
 ```
 
 # Pendencias

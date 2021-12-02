@@ -31,7 +31,7 @@ def paginas_com_url_auditoria_vice ():
 
 def coleta_conteudo():
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos auditoria_vice"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_auditoria_vice.json")
+    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_auditoria_vice.json", ensure_ascii=False)
     User = Query()
     for link in paginas_com_url_auditoria_vice():
         auditoria_vice = acessar_pagina(link)

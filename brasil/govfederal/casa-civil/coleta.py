@@ -37,8 +37,9 @@ def noticias(): # check
         contador += 60
         lista_url_noticias.append(dominio)
     for url_noticias in lista_url_noticias:
+        page = acessar_pagina(url_noticias)
         # conteudo 
-        conteudo_noticias = cc_pagina.find("div", id="content-core").find_all("li")
+        conteudo_noticias = page.find("div", id="content-core").find_all("li")
         for li_noticias in conteudo_noticias:
             link_noticias = acessar_pagina(li_noticias.h2.a["href"])
             # entrando na notícia
