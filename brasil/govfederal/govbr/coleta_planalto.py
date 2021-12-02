@@ -62,9 +62,9 @@ def base_dados(xml):
     User = Query()
     lista_geral = parse_mapa(xml)
     for sublista in lista_geral:
-        db_planalto = db.contains(User.titulo==sublista[0])
+        db_planalto = db.contains(User.titulo==sublista[5])
         if not db_planalto:
-            print("não está na base")
+            print(f"não está na base:{sublista[5]}")
             db.insert({
                 "link": sublista[0],
                 "data":sublista[1],
@@ -76,7 +76,6 @@ def base_dados(xml):
             })
             link_news = sublista[0]
             lista_update = extracao_conteudo(link_news)
-            print("está na base")
             if db.search(User.conteudo == "NA"):
                 db.update({"atualizado em":lista_update[0]})
                 db.update({"conteudo":lista_update[1]})
@@ -85,7 +84,7 @@ def base_dados(xml):
         if db_planalto:
             link_news = sublista[0]
             lista_update = extracao_conteudo(link_news)
-            print("está na base")
+            print(f"está na base:{sublista[5]}")
             if db.search(User.conteudo == "NA"):
                 db.update({"atualizado em":lista_update[0]})
                 db.update({"conteudo":lista_update[1]})

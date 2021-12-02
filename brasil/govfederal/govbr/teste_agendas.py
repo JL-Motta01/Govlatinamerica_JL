@@ -73,20 +73,6 @@ def coleta_compromissos():
                     detalhes.append(url)
                     lista_conteudo.append(detalhes)
             except:
-<<<<<<< HEAD
-                lista_conteudo= "data sem cmpromissos"
-            if not db_planalto:
-                print("não está na base")
-                db.insert({
-                    "link":url,
-                    "data":data,
-                    "compromisso":lista_conteudo
-                })
-                # for item in lista_conteudo:
-                #     db.update(add("compromisso",item[0]),User.data==data)
-            else:
-                print("está na base")
-=======
                 lista_conteudo= "data sem compromissos" 
             for detalhe in lista_conteudo:
                 db_planalto = db.contains((User.compromisso==detalhe[0])&(User.data==detalhe[3][-10:])&(User.horario==detalhe[1]))
@@ -101,7 +87,6 @@ def coleta_compromissos():
                         })
                 else:
                     print("está na base")
->>>>>>> 2a745a4080054a1b734620b1f5cf2654f54ffb63
         except:
             pass
         
