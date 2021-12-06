@@ -11,3 +11,4 @@
 | Ministério da Infraestrutura | Sim | Específico | Coleta por artigo (article) | Comum | Try em datas |
 | MME | Sim | Comum | Coleta lista (ul > li) | Comum | Try em datas |
 | MAPA | Sim | Comum | Coleta lista (ul > li) | Comum | Try em datas |
+| Saúde | Não | Comum | Coleta lista (ul > li) | Comum | Try em datas |
