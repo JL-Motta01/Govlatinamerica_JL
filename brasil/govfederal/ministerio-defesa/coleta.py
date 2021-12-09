@@ -201,9 +201,7 @@ def corona(): # check
 def noticias(): # check
     url = "https://www.gov.br/defesa/pt-br/centrais-de-conteudo/noticias" 
     md_page = page_access(url)
-    # título
     title_noticias = md_page.find("h1", class_="documentFirstHeading").text
-    # datas
     post_noticias = md_page.find("span", class_="documentPublished").find("span", class_="value").text
     update_noticias = md_page.find("span", class_="documentModified").find("span", class_="value").text
     counter = 0 
@@ -215,7 +213,6 @@ def noticias(): # check
         list_url_noticias.append(domain)
     for url_noticias in list_url_noticias:
         page = page_access(url_noticias)
-        # conteúdo
         content_noticias = page.find("ul", class_="noticias listagem-noticias-com-foto").find_all("li")
         for li_noticias in content_noticias:
             link_noticias = page_access(li_noticias.div.h2.a["href"]) 
