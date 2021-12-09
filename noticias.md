@@ -1,7 +1,7 @@
 # Conferindo padrões de coleta entre Ministérios 
 
 | Ministério | Tags | Notícia | Como entra | Coleta do conteúdo interno | Subtítulo | Autor: quem | Como coleta autor |
-| ----- | ----- | ----- | ----- | ----- | ----- |
+| ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- |
 | Planalto | Sim | Específico | Coleta por artigo (article) | Comum | Try | Não | n/a | 
 | MRE | Não | Específico | Coleta por artigo (article) | Comum | Try | Não | n/a | 
 | Casa Civil | Sim | Comum | Coleta lista (ul > li) | Comum | Try | Não | n/a | 
