@@ -28,10 +28,10 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 
 # Pendencias
 
-- documentar criação do ambiente virtual - OK
-- habilitar ambiente virtual na estação remota - OK
-- instalação do vscode - OK
-- indicar onde colocar os dados coletados - OK
+- [x] documentar criação do ambiente virtual 
+- [x] habilitar ambiente virtual na estação remota 
+- [x] instalação do vscode 
+- [x] indicar onde colocar os dados coletados 
 
 # Integração 
 
