@@ -233,34 +233,46 @@ def cartilhas(): # check
             list_link_cartilhas.append(a_cartilhas_pages["href"])
 
 
-def campanhas(): # in progress
+def campanhas(): # check
     url_base = "https://www.gov.br/saude/pt-br/campanhas-da-saude/"
     subpages = ["2021", "2020", "2019"]
     for pages in subpages:
         url = url_base + pages
         sd_page = page_access(url)
-        print(url)
-        # title_campanhas = sd_page.find("h1", class_="documentFirstHeading").text
-        # print(title_campanhas)
+        try: 
+            title_style1_campanhas = sd_page.find("h1", class_="documentFirstHeading").text
+        except:
+            title_style2_campanhas = sd_page.find("h2", class_="outstanding-title").text
+        links_campanhas = sd_page.find("div", class_="wrapper").find_all("a")
+        for a_wrapper in links_campanhas:
+            page = page_access(a_wrapper["href"])
+            title_campanhas = page.find("h1", class_="documentFirstHeading").text
+            post_campanhas = page.find("span", class_="documentPublished").find("span", class_="value").text
+            update_campanhas = page.find("span", class_="documentModified").find("span", class_="value").text
+            content_campanhas = page.find("div", {"id" : "parent-fieldname-text"}).text
+            list_links_campanhas = []
+            links_campanhas = page.find("div", {"id":"content-core"}).find_all("a")
+            for a_campanhas in links_campanhas:
+                list_links_campanhas.append(a_campanhas["href"])
 
 
 def main():
     global bs
     url = "https://www.gov.br/saude/pt-br"
     bs = page_access(url) 
-    # sd_noticias = noticias()
-    # sd_boletins = boletins()
-    # sd_rename = rename()
-    # sd_arquivos = arquivos()
-    # sd_vacinas_plano = vacinas_plano()
-    # sd_vac_gt = vac_gt()
-    # sd_vac_pdf = vac_pdf()
-    # sd_vac_sctie = vac_sctie()
-    # sd_acoes = acoes()
-    # sd_corona_boletins = corona_boletins()
-    # sd_risco_covid = risco_covid()
-    # sd_infos = infos()
-    # sd_cartilhas = cartilhas()
+    sd_noticias = noticias()
+    sd_boletins = boletins()
+    sd_rename = rename()
+    sd_arquivos = arquivos()
+    sd_vacinas_plano = vacinas_plano()
+    sd_vac_gt = vac_gt()
+    sd_vac_pdf = vac_pdf()
+    sd_vac_sctie = vac_sctie()
+    sd_acoes = acoes()
+    sd_corona_boletins = corona_boletins()
+    sd_risco_covid = risco_covid()
+    sd_infos = infos()
+    sd_cartilhas = cartilhas()
     sd_campanhas = campanhas()
 
 
