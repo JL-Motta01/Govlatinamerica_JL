@@ -118,7 +118,7 @@ def vac_sctie(): # check
         list_links_vac_sctie.append(a_vac_sctie["href"])
 
 
-def acoes(): # in progress
+def acoes(): # check
     url = "https://www.gov.br/saude/pt-br/coronavirus/acoes-estrategicas"
     sd_page = page_access(url)
     title_acoes = sd_page.find("h1", class_="documentFirstHeading").text
@@ -147,54 +147,133 @@ def acoes(): # in progress
             except:
                 pass
             content_link_acoes = link_acoes.find("div", {"id":"parent-fieldname-text"}).text
+            # tags 
+            lista_tags_acoes = []
+            try: 
+                tags_acoes = link_acoes.find("div", {"id":"category"}).find_all("span")
+                for span_acoes in tags_acoes:
+                    lista_tags_acoes.append(span_acoes.text)
+            except:
+                lista_tags_acoes.append("boletim sem tag")
+            if lista_tags_acoes[0] != 'boletim sem tag' :
+                del lista_tags_acoes[0]
 
 
-def corona_boletins():
+def corona_boletins(): # check
     url = "https://www.gov.br/saude/pt-br/coronavirus/boletins-epidemiologicos"
     sd_page = page_access(url)
+    title_corona_boletins = sd_page.find("h1", class_="documentFirstHeading").text
+    post_corona_boletins = sd_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_corona_boletins = sd_page.find("span", class_="documentModified").find("span", class_="value").text
+    counter = 0 
+    list_url_corona_boletins = []
+    while counter < 41:
+        domain = "https://www.gov.br/saude/pt-br/coronavirus/boletins-epidemiologicos?b_start:int="
+        domain += str(counter) 
+        counter += 20
+        list_url_corona_boletins.append(domain)
+    for url_corona_boletins in list_url_corona_boletins:
+        page = page_access(url_corona_boletins)
+        link_corona_boletins = page.find("div", {"id":"content-core"}).find_all("article")
+        for article_corona_boletins in link_corona_boletins:
+            corona_boletins_pages = page_access(article_corona_boletins.h2.a["href"])
+            link_corona_boletins_pages = corona_boletins_pages.find("div", {"id" : "content-core"}).find_all("a")
+            list_link_corona_boletins = []
+            for a_corona_boletins_pages in link_corona_boletins_pages:
+                list_link_corona_boletins.append(a_corona_boletins_pages["href"])
 
 
-def risco_covid():
+def risco_covid(): # check
     url = "https://www.gov.br/saude/pt-br/coronavirus/avaliacao-de-risco-para-covid-19/avaliacao-de-risco-no-cenario-da-covid-19"
     sd_page = page_access(url)
+    title_risco_covid = sd_page.find("h1", class_="documentFirstHeading").text
+    post_risco_covid = sd_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_risco_covid = sd_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_risco_covid = sd_page.find("div", {"id" : "parent-fieldname-text"}).text
+    # links
+    list_links_risco_covid = []
+    links_risco_covid = sd_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_risco_covid in links_risco_covid:
+        list_links_risco_covid.append(a_risco_covid["href"])
 
 
-def infos():
+def infos(): # check
     url_base = "https://www.gov.br/saude/pt-br/acesso-a-informacao/informacoes-classificadas/"
     subpages = ["rol-de-informacoes-classificadas", "rol-de-informacoes-desclassificadas"]
     for pages in subpages:
         url = url_base + pages
         sd_page = page_access(url)
+        title_infos = sd_page.find("h1", class_="documentFirstHeading").text
+        post_infos = sd_page.find("span", class_="documentPublished").find("span", class_="value").text
+        update_infos = sd_page.find("span", class_="documentModified").find("span", class_="value").text
+        link_infos = sd_page.find("div", {"id":"content-core"}).find_all("article")
+        for article_infos in link_infos:
+            infos_pages = page_access(article_infos.h2.a["href"])
+            link_infos_pages = infos_pages.find("div", {"id" : "content-core"}).find_all("a")
+            list_link_infos = []
+            for a_infos_pages in link_infos_pages:
+                list_link_infos.append(a_infos_pages["href"])
 
 
-def cartilhas():
+def cartilhas(): # check
     url = "https://www.gov.br/saude/pt-br/centrais-de-conteudo/publicacoes/cartilhas/2018"
     sd_page = page_access(url)
+    title_cartilhas = sd_page.find("h1", class_="documentFirstHeading").text
+    post_cartilhas = sd_page.find("span", class_="documentPublished").find("span", class_="value").text
+    try:
+        update_cartilhas = sd_page.find("span", class_="documentModified").find("span", class_="value").text
+    except:
+        pass
+    link_cartilhas = sd_page.find("div", {"id":"content-core"}).find_all("article")
+    for article_cartilhas in link_cartilhas:
+        cartilhas_pages = page_access(article_cartilhas.h2.a["href"])
+        link_cartilhas_pages = cartilhas_pages.find("div", {"id" : "content-core"}).find_all("a")
+        list_link_cartilhas = []
+        for a_cartilhas_pages in link_cartilhas_pages:
+            list_link_cartilhas.append(a_cartilhas_pages["href"])
 
 
-def campanhas():
-    url = "https://www.gov.br/saude/pt-br/campanhas-da-saude"
-    sd_page = page_access(url)
+def campanhas(): # check
+    url_base = "https://www.gov.br/saude/pt-br/campanhas-da-saude/"
+    subpages = ["2021", "2020", "2019"]
+    for pages in subpages:
+        url = url_base + pages
+        sd_page = page_access(url)
+        try: 
+            title_style1_campanhas = sd_page.find("h1", class_="documentFirstHeading").text
+        except:
+            title_style2_campanhas = sd_page.find("h2", class_="outstanding-title").text
+        links_campanhas = sd_page.find("div", class_="wrapper").find_all("a")
+        for a_wrapper in links_campanhas:
+            page = page_access(a_wrapper["href"])
+            title_campanhas = page.find("h1", class_="documentFirstHeading").text
+            post_campanhas = page.find("span", class_="documentPublished").find("span", class_="value").text
+            update_campanhas = page.find("span", class_="documentModified").find("span", class_="value").text
+            content_campanhas = page.find("div", {"id" : "parent-fieldname-text"}).text
+            list_links_campanhas = []
+            links_campanhas = page.find("div", {"id":"content-core"}).find_all("a")
+            for a_campanhas in links_campanhas:
+                list_links_campanhas.append(a_campanhas["href"])
 
 
 def main():
     global bs
     url = "https://www.gov.br/saude/pt-br"
     bs = page_access(url) 
-    # sd_noticias = noticias()
-    # sd_boletins = boletins()
-    # sd_rename = rename()
-    # sd_arquivos = arquivos()
-    # sd_vacinas_plano = vacinas_plano()
-    # sd_vac_gt = vac_gt()
-    # sd_vac_pdf = vac_pdf()
-    # sd_vac_sctie = vac_sctie()
+    sd_noticias = noticias()
+    sd_boletins = boletins()
+    sd_rename = rename()
+    sd_arquivos = arquivos()
+    sd_vacinas_plano = vacinas_plano()
+    sd_vac_gt = vac_gt()
+    sd_vac_pdf = vac_pdf()
+    sd_vac_sctie = vac_sctie()
     sd_acoes = acoes()
-    # sd_corona_boletins = corona_boletins()
-    # sd_risco_covid = risco_covid()
-    # sd_infos = infos()
-    # sd_cartilhas = cartilhas()
-    # sd_campanhas = campanhas()
+    sd_corona_boletins = corona_boletins()
+    sd_risco_covid = risco_covid()
+    sd_infos = infos()
+    sd_cartilhas = cartilhas()
+    sd_campanhas = campanhas()
 
 
 if __name__ == "__main__":
