@@ -18,16 +18,6 @@ DIR_LOCAL= "/home/labri_joaomotta/codigo"
 
 DIR_DADOS= "/media/hdvm10/bd/003/001/001/001/001-b"
 
-def acesso_ministerios ():
-    Lista_ministerios = [
-        "https://www.gov.br/casacivil/pt-br/acesso-a-informacao/agendas-da-casa-civil",
-        "https://www.gov.br/mre/pt-br/acesso-a-informacao/agenda-de-autoridades",
-        "https://www.gov.br/mma/pt-br/acesso-a-informacao/agenda-de-autoridades-1",
-        "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/agendas-de-autoridades",
-        "https://www.gov.br/mme/pt-br/acesso-a-informacao/agendas-de-autoridades",
-        "https://www.gov.br/economia/pt-br/acesso-a-informacao/agendas-de-autoridades",
-        ""
-        ]
 
 def acessar_pagina(url):
     """Analisa os boletim do site a partir do link"""
@@ -101,10 +91,37 @@ def coleta_compromissos():
         except:
             pass
         
+def acesso_ministerios ():
+    lista_ministerios = [
+        "https://www.gov.br/casacivil/pt-br/acesso-a-informacao/agendas-da-casa-civil",
+        "https://www.gov.br/mre/pt-br/acesso-a-informacao/agenda-de-autoridades",
+        "https://www.gov.br/mma/pt-br/acesso-a-informacao/agenda-de-autoridades-1",
+        "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/agendas-de-autoridades",
+        "https://www.gov.br/mme/pt-br/acesso-a-informacao/agendas-de-autoridades",
+        "https://www.gov.br/defesa/pt-br/acesso-a-informacao/agenda-de-autoridades"
+        ##"https://www.gov.br/economia/pt-br/acesso-a-informacao/agendas-de-autoridades"
+        ]
+    lista_agenda = []
+    for ministerio in lista_ministerios:
+        lista_link = []
+        lista_link.append(ministerio)
+        acesso_ministerio = acessar_pagina(ministerio)
+        agendas = acesso_ministerio.find_all("a", class_="govbr-card-content")
+        if not agendas:
+            agendas = acesso_ministerio.find_all("a", class_="calendario")
+        if not agendas:
+            agendas = acesso_ministerio.find_all("a", class_="internal-link")
+        if not agendas:
+            print("rever ministério: ", ministerio)
+        for agenda in agendas:
+            link = agenda["href"]
+            lista_link.append(link)
+        lista_agenda.append(lista_link)
+    print(lista_agenda)
 
 def main ():
     """Função principal"""
-    coleta_compromissos()
+    acesso_ministerios()
 
 if __name__ == "__main__":
     main()
