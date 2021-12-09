@@ -41,12 +41,12 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 
 |Ministério|Notícias|Agenda|
 |----------|--------|------|
-|Planalto  | Específico |      |
-|Casa Civil| Comum | |
-|MRE| Específico | |
-|MMA| Específico | |
-|Infraestrutura| Específico | |
-|MME| Comum | |
-|Economia| Comum | |
-|Defesa| Comum | |
-|Biblioteca presidencia| Sem notícias | |
+|Planalto  | Específico |  Comum    |
+|Casa Civil| Comum | Comum |
+|MRE| Específico | Comum |
+|MMA| Específico | Comum |
+|Infraestrutura| Específico | Comum |
+|MME| Comum | Comum |
+|Economia| Comum | Sem agenda (fora do ar temporariamente) |
+|Defesa| Comum | Comum |
+|Biblioteca presidencia| Sem notícias | Sem agenda |
