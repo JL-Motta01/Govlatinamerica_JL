@@ -1,6 +1,10 @@
 {
   "_default": {
     "1": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/e-viva-a-nossa-amazonia",
       "data": "05/09/2021 10h47",
       "atualizado em": "15/09/2021 15h13",
@@ -17,6 +21,10 @@
       ]
     },
     "2": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/vamos-falar-de-queimadas",
       "data": "19/08/2020 11h40",
       "atualizado em": "28/08/2021 15h36",
@@ -40,6 +48,10 @@
       ]
     },
     "3": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/opiniao-e-principios",
       "data": "03/06/2020 09h13",
       "atualizado em": "28/08/2021 15h36",
@@ -69,6 +81,10 @@
       ]
     },
     "4": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/limites-e-responsabilidades",
       "data": "14/05/2020 10h35",
       "atualizado em": "28/08/2021 15h36",
@@ -95,6 +111,10 @@
       ]
     },
     "5": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/artigo-a-nossa-amazonia",
       "data": "21/04/2020 13h53",
       "atualizado em": "28/08/2021 15h36",
@@ -132,6 +152,10 @@
       ]
     },
     "6": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/em-nome-do-bem-comum",
       "data": "11/12/2020 18h46",
       "atualizado em": "28/08/2021 15h36",
@@ -160,6 +184,10 @@
       ]
     },
     "7": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/o-que-os-brasileiros-esperam-de-suas-forcas-armadas",
       "data": "06/04/2021 09h13",
       "atualizado em": "28/08/2021 15h36",
@@ -185,6 +213,10 @@
       ]
     },
     "8": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/amazonia-em-chamas",
       "data": "24/09/2020 17h00",
       "atualizado em": "28/08/2021 15h36",
@@ -207,6 +239,10 @@
       ]
     },
     "9": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/e-viva-a-nossa-amazonia",
       "data": "05/09/2021 10h47",
       "atualizado em": "15/09/2021 15h13",
@@ -223,10 +259,14 @@
       ]
     },
     "10": {
+      "origem": "planalto",
+      "classificado": "noticia",
+      "autor":"NA",
+      "subtitulo":"NA",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/vamos-falar-de-queimadas",
       "data": "19/08/2020 11h40",
       "atualizado em": "28/08/2021 15h36",
-      "tags": "n\u00e3o possui tags",
+      "tags": "NA",
       "titulo": "Vamos falar de queimadas",
       "conteudo": [
         "A Amaz\u00f4nia \u00e9 vida! N\u00e3o por ser o \u201cpulm\u00e3o do mundo\u201d, pois esse m\u00e9rito pertence aos oceanos, com suas algas. O vasto tapete verde da maior e mais preservada floresta tropical do planeta abriga tantas vidas animais e vegetais que algumas talvez ainda nem sejam do nosso conhecimento. O gigantismo, os encantos, os desafios e as oportunidades da biodiversidade amaz\u00f4nica ultrapassaram fronteiras e alcan\u00e7aram o mundo antes mesmo do fen\u00f4meno da globaliza\u00e7\u00e3o. N\u00e3o h\u00e1 como n\u00e3o admirar ou n\u00e3o respeitar a nossa Amaz\u00f4nia, um presente ecol\u00f3gico para todos os brasileiros alocado no Norte do Pa\u00eds e abra\u00e7ado por 9 estados.",
@@ -246,6 +286,10 @@
       ]
     },
     "11": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/opiniao-e-principios",
       "data": "03/06/2020 09h13",
       "atualizado em": "28/08/2021 15h36",
@@ -275,6 +319,10 @@
       ]
     },
     "12": {
+      "autor":"NA",
+      "subtitulo":"NA",
+      "origem": "planalto",
+      "classificado": "noticia",
       "link": "https://www.gov.br/planalto/pt-br/nova-vice-presidencia/central-de-conteudo/publicacoes/artigos/limites-e-responsabilidades",
       "data": "14/05/2020 10h35",
       "atualizado em": "28/08/2021 15h36",
