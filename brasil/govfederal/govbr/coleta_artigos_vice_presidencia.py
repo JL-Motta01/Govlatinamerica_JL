@@ -41,7 +41,7 @@ def coleta_conteudo():
     for link in coleta_link():
         artigos = acessar_pagina(link)
         url = link
-        publicado_em = artigos.find("span", class_="documentPublished").find("span", class_="value").text
+        publicado_em = artigos.find("span", class_="documentPublished").find("span", class_="value").text.split(" ")
         try:
             atualizado_em = artigos.find("span", class_="documentModified").find("span", class_="value").text
         except:
@@ -67,12 +67,15 @@ def coleta_conteudo():
                 lista_conteudo.append(texto)
         except:
             lista_conteudo= "notícia sem conteúdo"
-        db_planalto = db.contains(User.titulo==titulo,User.data==publicado_em)
+        db_planalto = db.contains(User.titulo==titulo,User.data==publicado_em[0])
         if not db_planalto:
             print("não está na base")
             db.insert({
+                "origem": "vice presidência",
+                "classificado": "artigo",
                 "link":url,
-                "data":publicado_em,
+                "data":publicado_em[0],
+                "horario":publicado_em[1],
                 "atualizado em":atualizado_em,           
                 "tags":lista_tags,
                 "titulo":titulo,

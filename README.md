@@ -29,9 +29,19 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 # Pendencias
 
 - [x] documentar criação do ambiente virtual 
+<<<<<<< HEAD
 - habilitar ambiente virtual na estação remota - OK
 - instalação do vscode - OK
 - indicar onde colocar os dados coletados - OK
+=======
+- [x] habilitar ambiente virtual na estação remota 
+- [x] instalação do vscode 
+- [x] indicar onde colocar os dados coletados 
+- [ ] gerar HTMLs a partir do BD json (template construído, falta escalar)
+- [ ] salvar os arquivos no internet archive 
+- [ ] definir variáveis de ambiente 
+- [ ] construir classes para abrigar as partes similares dos sites
+>>>>>>> 0fb787c9e5dc8e25951df128a06d6db5c33c52d0
 
 # Integração 
 
@@ -49,4 +59,5 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 |MME| Comum | Comum |
 |Economia| Comum | Sem agenda (fora do ar temporariamente) |
 |Defesa| Comum | Comum |
+|Saúde| Comum | |
 |Biblioteca presidencia| Sem notícias | Sem agenda |
