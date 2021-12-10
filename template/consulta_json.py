@@ -2,13 +2,13 @@
 from tinydb import TinyDB, Query
 from pprint import pprint
 from pagina_html import get_html
-
+# https://lyz-code.github.io/blue-book/coding/python/tinydb/
 
 def consultar():
     db = TinyDB('/home/lantri_rafael/codigo/govlatinamerica/template/db_artigo.json')
     myDBQuery = Query()
     for dado in iter(db):
-        print(dado['link'])
+        print(dado['conteudo'])
         print("#################")
         file = dado['titulo']
         file += ".html"
