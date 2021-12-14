@@ -40,12 +40,69 @@ def boletins(): # check
                 list_link_boletins.append(a_boletins_pages["href"])
 
 
-def entregas(): # in progress - do it later
+def entregas(): # in progress - FIX IT LATER: entrar nas páginas corretamente
     url_base = "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/entregas"
-    anos = ["/2021", "/2020", "/2019"]
+    anos = ["/2021?b_size=60", "/2020?b_size=60", "/2019?b_size=60"]
     for ano in anos:
         url = url_base + ano
-        mcti_page = page_access(url)
+        page = page_access(url)
+        list_url_entregas = []
+        try: 
+            print("2021")
+            counter = 0
+            while counter < 301:
+                domain = url + "&b_start:int="
+                domain += str(counter) 
+                counter += 60
+                list_url_entregas.append(domain)
+            for url_entregas in list_url_entregas:
+                mcti_page = page_access(url_entregas)
+                links_entregas = mcti_page.find("div", {"id":"content-core"}).find_all("li")
+                for li_entregas in links_entregas:
+                    link_entrega = page_access(li_entregas.div.h2.a["href"]) 
+                    title_link_entrega = link_entrega.find("h1", class_="documentFirstHeading").text
+                    print(title_link_entrega)
+                    try:
+                        post_link_entrega = link_entrega.find("span", class_="documentPublished").find("span", class_="value").text
+                        update_link_entrega = link_entrega.find("span", class_="documentModified").find("span", class_="value").text
+                    except:
+                        pass
+                    content_link_entrega = link_entrega.find("div", {"id":"parent-fieldname-text"}).text
+        except:
+            try:
+                print("2020")
+                counter = 0
+                while counter < 61:
+                    domain = url + "&b_start:int="
+                    domain += str(counter) 
+                    counter += 60
+                    list_url_entregas.append(domain)
+                for url_entregas in list_url_entregas:
+                    mcti_page = page_access(url_entregas)
+                    links_entregas = mcti_page.find("div", {"id":"content-core"}).find_all("li")
+                for li_entregas in links_entregas:
+                    link_entrega = page_access(li_entregas.div.h2.a["href"]) 
+                    title_link_entrega = link_entrega.find("h1", class_="documentFirstHeading").text
+                    print(title_link_entrega)
+                    try:
+                        post_link_entrega = link_entrega.find("span", class_="documentPublished").find("span", class_="value").text
+                        update_link_entrega = link_entrega.find("span", class_="documentModified").find("span", class_="value").text
+                    except:
+                        pass
+                    content_link_entrega = link_entrega.find("div", {"id":"parent-fieldname-text"}).text
+            except:
+                    print("2019")
+                    links_entregas = mcti_page.find("div", {"id":"content-core"}).find_all("li")
+                    for li_entregas in links_entregas:
+                        link_entrega = page_access(li_entregas.div.h2.a["href"]) 
+                        title_link_entrega = link_entrega.find("h1", class_="documentFirstHeading").text
+                        print(title_link_entrega)
+                        try:
+                            post_link_entrega = link_entrega.find("span", class_="documentPublished").find("span", class_="value").text
+                            update_link_entrega = link_entrega.find("span", class_="documentModified").find("span", class_="value").text
+                        except:
+                            pass
+                        content_link_entrega = link_entrega.find("div", {"id":"parent-fieldname-text"}).text
 
 
 def informes_corona(): # check
@@ -148,7 +205,7 @@ def dados(): # check
         list_links_informes_dados.append(a_informes_dados["href"])
 
 
-def comunicados(): # in progress
+def comunicados(): # check
     url = "https://www.gov.br/mcti/pt-br/centrais-de-conteudo/comunicados-mcti"
     mcti_page = page_access(url)
     cards_comunicados = mcti_page.find("div", class_="wrapper").find_all("div", class_="card")
@@ -157,16 +214,18 @@ def comunicados(): # in progress
             comunicado_page = page_access(card.a["href"])
             title_comunicado = comunicado_page.find("h1", class_="documentFirstHeading").text
             post_comunicado = comunicado_page.find("span", class_="documentPublished").find("span", class_="value").text
-            print(title_comunicado, post_comunicado)
             try:
                 update_comunicado = comunicado_page.find("span", class_="documentModified").find("span", class_="value").text
             except:
                 pass
             content_comunicado = comunicado_page.find("div", {"id" : "parent-fieldname-text"}).text
+            list_links_comunicado = []
+            links_comunicado = comunicado_page.find("div", {"id" : "content"}).find_all("a")
+            for a_comunicado in links_comunicado:
+                list_links_comunicado.append(a["href"])
         except:
             list_comunicados = []
             list_comunicados.append(card.a["href"])
-            print(list_comunicados)
 
 
 def main():
@@ -175,7 +234,7 @@ def main():
     bs = page_access(url) 
     # mcti_noticias = noticias()
     # mcti_boletins = boletins()
-    # mcti_entregas = entregas()
+    mcti_entregas = entregas()
     # mcti_informes_corona = informes_corona()
     # mcti_informes_previr = informes_previr()
     # mcti_informes_humanidade = informes_humanidade()
@@ -183,7 +242,7 @@ def main():
     # mcti_informes_variante = informes_variante()
     # mcti_infos = infos()
     # mcti_dados = dados()
-    mcti_comunicados = comunicados()
+    # mcti_comunicados = comunicados()
 
 
 if __name__ == "__main__":
