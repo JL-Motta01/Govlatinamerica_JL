@@ -40,39 +40,7 @@ def boletins(): # check
                 list_link_boletins.append(a_boletins_pages["href"])
 
 
-def entregas(): # in progress - FIX IT LATER: entrar nas páginas corretamente
-    url_2021 = "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/entregas/2021?b_size=60"
-    url_2020 = "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/entregas/2020?b_size=60"
-    url_2019 = "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/entregas/2019?b_size=60"
-    list_url_entregas = []
-    list_links_entregas = []
-    list_url_entregas.append(url_2021)
-    list_url_entregas.append(url_2020)
-    list_url_entregas.append(url_2019)
-    if list_url_entregas[0]:
-        entregas_2019 = page_access(list_url_entregas[0])
-        print("2021")
-        counter = 0
-        while counter < 301:
-            domain = url_2021 + "&b_start:int="
-            domain += str(counter) 
-            counter += 60
-            list_links_entregas.append(domain)
-        for link_entregas in list_links_entregas:
-            mcti_page = page_access(link_entregas)
-            links_entregas = mcti_page.find("div", {"id":"content-core"}).find_all("li")
-            for li_entregas in links_entregas:
-                link_entrega = page_access(li_entregas.div.h2.a["href"]) 
-                title_link_entrega = link_entrega.find("h1", class_="documentFirstHeading").text
-                print(title_link_entrega)
-                try:
-                    post_link_entrega = link_entrega.find("span", class_="documentPublished").find("span", class_="value").text
-                    update_link_entrega = link_entrega.find("span", class_="documentModified").find("span", class_="value").text
-                except:
-                    pass
-                content_link_entrega = link_entrega.find("div", {"id":"parent-fieldname-text"}).text
-
-    """
+def entregas(): # check
     url_base = "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/entregas"
     anos = ["/2021?b_size=60", "/2020?b_size=60", "/2019?b_size=60"]
     for ano in anos:
@@ -91,15 +59,18 @@ def entregas(): # in progress - FIX IT LATER: entrar nas páginas corretamente
                 mcti_page = page_access(url_entregas)
                 links_entregas = mcti_page.find("div", {"id":"content-core"}).find_all("li")
                 for li_entregas in links_entregas:
-                    link_entrega = page_access(li_entregas.div.h2.a["href"]) 
-                    title_link_entrega = link_entrega.find("h1", class_="documentFirstHeading").text
-                    print(title_link_entrega)
                     try:
-                        post_link_entrega = link_entrega.find("span", class_="documentPublished").find("span", class_="value").text
-                        update_link_entrega = link_entrega.find("span", class_="documentModified").find("span", class_="value").text
+                        link_entrega = page_access(li_entregas.div.h2.a["href"]) 
+                        title_link_entrega = link_entrega.find("h1", class_="documentFirstHeading").text
+                        try:
+                            post_link_entrega = link_entrega.find("span", class_="documentPublished").find("span", class_="value").text
+                            update_link_entrega = link_entrega.find("span", class_="documentModified").find("span", class_="value").text
+                        except:
+                            pass
+                        content_link_entrega = link_entrega.find("div", {"id":"parent-fieldname-text"}).text
                     except:
-                        pass
-                    content_link_entrega = link_entrega.find("div", {"id":"parent-fieldname-text"}).text
+                        print("não foi possível coletar essa página")
+                        continue
         except:
             try:
                 print("2020")
@@ -115,7 +86,6 @@ def entregas(): # in progress - FIX IT LATER: entrar nas páginas corretamente
                 for li_entregas in links_entregas:
                     link_entrega = page_access(li_entregas.div.h2.a["href"]) 
                     title_link_entrega = link_entrega.find("h1", class_="documentFirstHeading").text
-                    print(title_link_entrega)
                     try:
                         post_link_entrega = link_entrega.find("span", class_="documentPublished").find("span", class_="value").text
                         update_link_entrega = link_entrega.find("span", class_="documentModified").find("span", class_="value").text
@@ -128,14 +98,13 @@ def entregas(): # in progress - FIX IT LATER: entrar nas páginas corretamente
                     for li_entregas in links_entregas:
                         link_entrega = page_access(li_entregas.div.h2.a["href"]) 
                         title_link_entrega = link_entrega.find("h1", class_="documentFirstHeading").text
-                        print(title_link_entrega)
                         try:
                             post_link_entrega = link_entrega.find("span", class_="documentPublished").find("span", class_="value").text
                             update_link_entrega = link_entrega.find("span", class_="documentModified").find("span", class_="value").text
                         except:
                             pass
                         content_link_entrega = link_entrega.find("div", {"id":"parent-fieldname-text"}).text
-    """
+
 
 def informes_corona(): # check
     url = "https://www.gov.br/mcti/pt-br/coronavirus/informes-rede-coronaomicabr-mcti"
