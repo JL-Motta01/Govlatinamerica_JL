@@ -56,4 +56,7 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 |Saúde| Comum | |
 |Ciência| Comum | |
 |Mulher| Específico | |
+|Comunicações| Comum | |
+|Turismo| Comum | |
+|Desenvolvimento Regional| Comum | |
 |Biblioteca presidencia| Sem notícias | Sem agenda |

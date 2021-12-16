@@ -14,3 +14,6 @@
 | Saúde |  | Comum | Coleta lista (ul > li) | Comum | Try | Sim: vários | Uma tag de conteúdo (p) | 
 | Ciência |  | Comum | Coleta lista (ul > li) | Comum | Try | Não | n/a | 
 | Mulher |  | Específico | Coleta por artigo (article) | Comum | Try | Não | n/a | 
+| Comunicações |  | Comum | Coleta lista (ul > li) | Comum | Try | Não | n/a | 
+| Turismo |  | Comum | Coleta lista (ul > li) | Comum | Try | Sim: vários (Assessoria de Comunicação do Ministério do Turismo) |  | 
+| Desenvolvimento Regional |  | Comum | Coleta lista (ul > li) | Comum | Try | Não | n/a | 
