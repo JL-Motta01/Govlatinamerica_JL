@@ -14,9 +14,19 @@ def noticias():
     pass
 
 
-def dados():
-    url = "https://www.gov.br/mcom/pt-br/acesso-a-informacao/dados-abertos"
+def dados(): # check
+    url = "https://www.gov.br/mcom/pt-br/acesso-a-informacao/dados-abertos/bases-abertas"
     mcom_page = page_access(url)
+    title_dados = mcom_page.find("h1", class_="documentFirstHeading").text
+    post_dados = mcom_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_dados = mcom_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_dados = mcom_page.find("div", {"id" : "parent-fieldname-text"}).text
+    list_links_dados = []
+    links_dados = mcom_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_dados in links_dados:
+        list_links_dados.append(a_dados["href"])
+    del (list_links_dados[0])
+    del (list_links_dados[3])
 
 
 def publicacoes():
@@ -35,7 +45,7 @@ def main():
     bs = page_access(url) 
     # mcom_noticias = noticias()
     # mcom_dados = dados()
-    # mcom_publicacoes = publicacoes()
+    mcom_publicacoes = publicacoes()
     # mcom_cartilha = cartilha()
 
 
