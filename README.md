@@ -11,7 +11,7 @@
 
 
 
-# sincronizar com o gitlab (na pasta raiz GOVLATINAMERICA)
+# Sincronizar com o GitLab (na pasta raiz GOVLATINAMERICA)
 
 ```
 git add .
@@ -20,13 +20,13 @@ git pull origin main
 git push origin main
 ```
 
-# verificar atualizações do ambiente virtual
+# Verificar atualizações do ambiente virtual
 
 ```
 git pull origin main && conda activate env_govlatinamerica && conda env update
 ```
 
-# Pendencias
+# Pendências
 
 - [x] documentar criação do ambiente virtual 
 - [x] habilitar ambiente virtual na estação remota 
