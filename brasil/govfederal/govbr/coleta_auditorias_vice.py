@@ -48,6 +48,8 @@ def coleta_conteudo():
                 print("não está na base")
                 wget.download(url, f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_auditoria_vice/")
                 db.insert({
+                    "origem": "vice presidência",
+                    "classificado": "Auditorias",
                     "link":url, 
                     "titulo":titulo,
                 })

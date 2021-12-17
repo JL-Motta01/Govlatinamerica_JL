@@ -53,21 +53,29 @@ def coleta_conteudo():
     for link in coleta_link():
         boletim = acessar_pagina(link)
         url = link
-        publicado_em = boletim.find("span", class_="documentPublished").find("span", class_="value").text
+        publicado_em = boletim.find("span", class_="documentPublished").find("span", class_="value").text.split(" ")
+        try:
+            subtitulo = boletim.find("a", class_="nitfSubtitle").text
+        except:
+            subtitulo = "NA"
         try:
             atualizado_em = boletim.find("span", class_="documentModified").find("span", class_="value").text
         except:
            atualizado_em = "boletim não modificado"
         titulo = boletim.find("h1", class_="documentFirstHeading").text
-        db_planalto = db.contains(User.titulo==titulo,User.data==publicado_em)
+        db_planalto = db.contains((User.titulo==titulo)&(User.data==publicado_em))
         if not db_planalto:
             print("não está na base")
             wget.download(url[:-5], f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_boletim/")
             db.insert({
-                "link":url[:-5],
-                "data":publicado_em,
-                "atualizado em":atualizado_em,  
+                "origem": "Planalto",
+                "classificado": "Notas e classificados",
+                "data":publicado_em[0],
+                "horario":publicado_em[1],
+                "atualizado em":atualizado_em,
+                "link":url[:-5],  
                 "titulo":titulo,
+                "subtítulo":subtitulo
             })
         else:
             print("está na base")

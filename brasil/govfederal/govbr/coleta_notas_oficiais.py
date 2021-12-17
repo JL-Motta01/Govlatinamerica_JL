@@ -53,11 +53,11 @@ def coleta_conteudo():
     for link in coleta_link():
         notas = acessar_pagina(link)
         url = link
-        publicado_em = notas.find("span", class_="documentPublished").find("span", class_="value").text
+        publicado_em = notas.find("span", class_="documentPublished").find("span", class_="value").text.split(" ")
         try:
             atualizado_em = notas.find("span", class_="documentModified").find("span", class_="value").text
         except:
-           atualizado_em = "notas não modificado"
+           atualizado_em = "NA"
         try:
             lista_tags=[]
             spans=notas.find("div", {"id" : "category"}).find_all("span") 
@@ -65,7 +65,7 @@ def coleta_conteudo():
                 tag = span.text
                 lista_tags.append(tag)
         except:
-            lista_tags="não possui tags"
+            lista_tags= "NA"
         titulo = notas.find("h1", class_="documentFirstHeading").text
         try:
             lista_conteudo=[]
@@ -78,16 +78,24 @@ def coleta_conteudo():
                     texto = conteudo.text 
                 lista_conteudo.append(texto)
         except:
-            lista_conteudo= "notícia sem conteúdo"
-        db_planalto = db.contains(User.titulo==titulo,User.data==publicado_em)
+            lista_conteudo= "NA"
+        try:
+            subtitulo = notas.find("a", class_="nitfSubtitle").text
+        except:
+            subtitulo="NA"
+        db_planalto = db.contains((User.titulo==titulo)&(User.data==publicado_em))
         if not db_planalto:
             print("não está na base")
             db.insert({
-                "link":url,
-                "data":publicado_em,
-                "atualizado em":atualizado_em,           
-                "tags":lista_tags,
+                "origem": "Planalto",
+                "classificado": "Notas Oficiais",
+                "data":publicado_em[0],
+                "horario":publicado_em[1],
+                "atualizado em":atualizado_em,
                 "titulo":titulo,
+                "subtitulo":subtitulo,
+                "link":url,           
+                "tags":lista_tags,
                 "conteudo":lista_conteudo,
             })
         else:

@@ -43,9 +43,13 @@ def coleta_conteudo():
         url = link
         publicado_em = artigos.find("span", class_="documentPublished").find("span", class_="value").text.split(" ")
         try:
+            subtitulo = artigos.find("a", class_="nitfSubtitle").text
+        except:
+            subtitulo = "NA"
+        try:
             atualizado_em = artigos.find("span", class_="documentModified").find("span", class_="value").text
         except:
-           atualizado_em = "artigo não modificado"
+           atualizado_em = "NA"
         try:
             lista_tags=[]
             spans=artigos.find("div", {"id" : "category"}).find_all("span") 
@@ -53,7 +57,7 @@ def coleta_conteudo():
                 tag = span.text
                 lista_tags.append(tag)
         except:
-            lista_tags="não possui tags"
+            lista_tags="NA"
         titulo = artigos.find("h1", class_="documentFirstHeading").text
         try:
             lista_conteudo=[]
@@ -66,19 +70,21 @@ def coleta_conteudo():
                     texto = conteudo.text 
                 lista_conteudo.append(texto)
         except:
-            lista_conteudo= "notícia sem conteúdo"
-        db_planalto = db.contains(User.titulo==titulo,User.data==publicado_em[0])
+            lista_conteudo= "NA"
+        db_planalto = db.contains((User.titulo==titulo)&(User.data==publicado_em[0]))
         if not db_planalto:
             print("não está na base")
             db.insert({
                 "origem": "vice presidência",
                 "classificado": "artigo",
-                "link":url,
                 "data":publicado_em[0],
                 "horario":publicado_em[1],
-                "atualizado em":atualizado_em,           
-                "tags":lista_tags,
+                "atualizado em":atualizado_em,
                 "titulo":titulo,
+                "subtitulo":subtitulo,
+                "autor": "Hamilton Mourão",           
+                "tags":lista_tags,
+                "link":url,
                 "conteudo":lista_conteudo,
             })
         else:

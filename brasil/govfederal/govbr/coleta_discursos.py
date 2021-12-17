@@ -53,11 +53,11 @@ def coleta_conteudo_discursos ():
     for link in coleta_link_discursos():
         discursos = acessar_pagina(link)
         url = link
-        publicado_em = discursos.find("span", class_="documentPublished").find("span", class_="value").text
+        publicado_em = discursos.find("span", class_="documentPublished").find("span", class_="value").text.split(" ")
         try:
             atualizado_em = discursos.find("span", class_="documentModified").find("span", class_="value").text
         except:
-           atualizado_em = "discurso não modificado"
+           atualizado_em = "NA"
         try:
             lista_tags=[]
             spans=discursos.find("div", {"id" : "category"}).find_all("span") 
@@ -65,7 +65,7 @@ def coleta_conteudo_discursos ():
                 tag = span.text
                 lista_tags.append(tag)
         except:
-            lista_tags="não possui tags"
+            lista_tags="NA"
         titulo = discursos.find("h1", class_="documentFirstHeading").text
         try:
             lista_conteudo=[]
@@ -78,16 +78,25 @@ def coleta_conteudo_discursos ():
                     texto = conteudo.text 
                 lista_conteudo.append(texto)
         except:
-            lista_conteudo= "notícia sem conteúdo"
+            lista_conteudo= "NA"
+        try:
+            subtitulo = discursos.find("a", class_="nitfSubtitle").text
+        except:
+            subtitulo="NA"
         db_planalto = db.contains(User.titulo==titulo)
         if not db_planalto:
             print("não está na base")
             db.insert({
-                "link":url,
-                "data":publicado_em,
-                "atualizado em":atualizado_em,           
-                "tags":lista_tags,
+                "origem": "Presidência da República",
+                "classificado": "discurso",
+                "data":publicado_em[0],
+                "horario":publicado_em[1],
+                "atualizado em":atualizado_em,
                 "titulo":titulo,
+                "subtitulo":subtitulo,
+                "autor": "Jair Messias Bolsonaro",
+                "link":url,           
+                "tags":lista_tags,
                 "conteudo":lista_conteudo,
             })
         else:
