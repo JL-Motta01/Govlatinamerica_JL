@@ -24,9 +24,9 @@ class NoticiasGovBr:
     def noticias(self): # check
         link = self.url
         md_page = self.acessar_pagina(link)
-        title_noticias = md_page.find("h1", class_="documentFirstHeading").text
-        post_noticias = md_page.find("span", class_="documentPublished").find("span", class_="value").text
-        update_noticias = md_page.find("span", class_="documentModified").find("span", class_="value").text
+        title_pag_noticias = md_page.find("h1", class_="documentFirstHeading").text
+        data_post_pag_noticias = md_page.find("span", class_="documentPublished").find("span", class_="value").text
+        data_update_pag_noticias = md_page.find("span", class_="documentModified").find("span", class_="value").text
         counter = 0 
         list_url_noticias = [] # lista com paginas com links de noticias
         while counter < 5941:
@@ -44,22 +44,24 @@ class NoticiasGovBr:
                 titulo = acessar_noticia.find("h1", class_="documentFirstHeading").text
                 print(f'TITULO: {titulo}')
                 try:
-                    post_link_noticias = acessar_noticia.find("span", class_="documentPublished").find("span", class_="value").text
-                    update_link_noticias = acessar_noticia.find("span", class_="documentModified").find("span", class_="value").text
-                    print(post_link_noticias)
+                    data_post = acessar_noticia.find("span", class_="documentPublished").find("span", class_="value").text
                 except:
                     pass
-                content_link_noticias = acessar_noticia.find("div", {"id":"parent-fieldname-text"})
-                # tags notícias
-                lista_tags_noticias = []
-                try: 
-                    tags_noticias = acessar_noticia.find("div", {"id":"category"}).find_all("span")
-                    for span_noticias in tags_noticias:
-                        lista_tags_noticias.append(span_noticias.text)
+                try:
+                    data_update = acessar_noticia.find("span", class_="documentModified").find("span", class_="value").text
                 except:
-                    lista_tags_noticias.append("notícia sem tag")
-                if lista_tags_noticias[0] != 'notícia sem tag' :
-                    del lista_tags_noticias[0]
+                    pass
+                conteudo_paragrafos = acessar_noticia.find("div", {"id":"parent-fieldname-text"}).text
+                # tags das notícias
+                lista_tags_noticia = []
+                try: 
+                    tags_noticia = acessar_noticia.find("div", {"id":"category"}).find_all("span")
+                    for tag_noticia in tags_noticia:
+                        lista_tags_noticia.append(tag_noticia.text)
+                except:
+                    lista_tags_noticia.append("notícia sem tag")
+                if lista_tags_noticia[0] != 'notícia sem tag' :
+                    del lista_tags_noticia[0]
     
 def main():
     url= "https://www.gov.br/defesa/pt-br/centrais-de-conteudo/noticias"

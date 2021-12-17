@@ -233,13 +233,14 @@ def noticias(): # check
             except:
                 lista_tags_noticias.append("notícia sem tag")
             if lista_tags_noticias[0] != 'notícia sem tag' :
-                del lista_tags_noticias[0]
+                del lista_tags_noticias[0]       
 
 
 def main():
     global bs
     url = "https://www.gov.br/economia/pt-br"
     bs = page_access(url)  
+    """
     md_notas = notas()
     md_artigos = artigos()
     md_planejamento = planejamento()
@@ -248,6 +249,7 @@ def main():
     md_base_dados = base_dados()
     md_infograficos = infograficos()
     md_corona = corona()
+    """
     md_noticias = noticias()   
 
 
