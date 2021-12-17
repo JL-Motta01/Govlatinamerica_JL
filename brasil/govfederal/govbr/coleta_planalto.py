@@ -99,7 +99,7 @@ def extracao_conteudo(link):
     try:
         lista_att = html.find('span', class_='documentModified').find('span', class_='value').get_text()
     except:
-        lista_att = "notícia não modificada"
+        lista_att = "NA"
 
     try:
         lista_conteudo = []
@@ -112,12 +112,12 @@ def extracao_conteudo(link):
                 texto = conteudo.text 
             lista_conteudo.append(texto)
     except:
-        lista_conteudo= "notícia sem conteúdo"
+        lista_conteudo= "NA"
 
     try:
         lista_categoria = html.find('span', {'id' : 'form-widgets-categoria'}).find('a').get_text()
     except:
-        lista_categoria= "notícia sem categoria"
+        lista_categoria= "NA"
 
     try:
         lista_tag = []
@@ -125,7 +125,7 @@ def extracao_conteudo(link):
             tag = spt.text
             lista_tag.append(tag)
     except:
-        lista_tag= "notícia sem tags"
+        lista_tag= "NA"
 
     lista_update = [lista_att,lista_conteudo,lista_categoria,lista_tag]
     return lista_update

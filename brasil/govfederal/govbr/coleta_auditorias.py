@@ -45,6 +45,8 @@ def coleta_conteudo():
                 print("não está na base")
                 wget.download(url, f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_auditoria/")
                 db.insert({
+                    "origem": "Presidência da República",
+                    "classificado": "Auditorias",
                     "link":url, 
                     "titulo":titulo,
                 })

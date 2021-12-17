@@ -73,7 +73,7 @@ def coleta_compromissos():
                     detalhes.append(url)
                     lista_conteudo.append(detalhes)
             except:
-                lista_conteudo= "data sem compromissos" 
+                lista_conteudo= "NA" 
             for detalhe in lista_conteudo:
                 db_planalto = db.contains((User.compromisso==detalhe[0])&(User.data==detalhe[3][-10:])&(User.horario==detalhe[1]))
                 if not db_planalto:

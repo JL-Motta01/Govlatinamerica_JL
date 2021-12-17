@@ -38,21 +38,22 @@ def datas():
     lista_data_final = [datetime.strftime(dt,format="%Y-%m-%d") for dt in lista_data]
     return lista_data_final
 
-def agenda():
+def agenda(urlbase):
     """Percorre as datas da agenda"""
     #lista_data = datas()
     lista_data = ["2021-11-10","2021-11-11"]
-    url_base = "https://www.gov.br/planalto/pt-br/acompanhe-o-planalto/agenda-do-presidente-da-republica/"
+    url_base = urlbase
     lista_url_data = []
     for data in lista_data:
         url= url_base+data
         lista_url_data.append(url)
     return lista_url_data
 
-def coleta_compromissos():
+def coleta_compromissos(ag, origem):
     """coleta os compromissos de cada dia"""
-    for dia in agenda():
-        db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_agenda.json", ensure_ascii=False)
+    print("Entrando na função coleta compromisso. agenda: ",ag)
+    for dia in agenda(ag):
+        db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_agenda_ministerios.json", ensure_ascii=False)
         User = Query()
         try:
             pagina_dia = acessar_pagina(dia)
@@ -74,17 +75,28 @@ def coleta_compromissos():
                     detalhes.append(url)
                     lista_conteudo.append(detalhes)
             except:
-                lista_conteudo= "data sem compromissos" 
+                lista_conteudo= "NA" 
             for detalhe in lista_conteudo:
+                print(detalhe)
                 db_planalto = db.contains((User.compromisso==detalhe[0])&(User.data==detalhe[3][-10:])&(User.horario==detalhe[1]))
                 if not db_planalto:
                     print("não está na base")
                     db.insert({
-                        "link":detalhe[4],
-                        "data":detalhe[3][-10:],
-                        "compromisso": detalhe[0],
-                        "horario": detalhe[1].replace("              ","").replace("\n",""),
-                        "local": detalhe[2]
+                        "origem" : origem,
+                        "classificado_como" : "compromiso de agenda",
+                        "titulo" : detalhe[0],
+                        "subtitulo" : "NA",
+                        "link" : detalhe[4],
+                        "link_archive" : "NA",
+                        "data" : detalhe[3][-10:],
+                        "horario" : detalhe[1].replace("              ","").replace("\n",""), 
+                        "data_atualizado_em" : "NA", 
+                        "horario_atualizado_em" : "NA",
+                        "local_do_compromisso" : detalhe[2],
+                        "autoria" : detalhe[3][:10],
+                        "tags" : "NA",
+                        "conteudo" : "NA",
+                        "dir_local" : "/media/hdvm10/bd/003/001/001/001/001-b/govlatinamerica/brasil/govfederal/govbr/bd"
                         })
                 else:
                     print("está na base")
@@ -106,22 +118,60 @@ def acesso_ministerios ():
         lista_link = []
         lista_link.append(ministerio)
         acesso_ministerio = acessar_pagina(ministerio)
+        """Teste para ministerios difereines"""
+        #ministérios que direcionam para as agendas a partir de card contents (MRE)
         agendas = acesso_ministerio.find_all("a", class_="govbr-card-content")
+        if agendas:
+            try:
+                #ministérios que direcionam para as secretarias a partir de card contents (MMA)
+                #Nesse caso, acessa cada secretaria e lista as agendas de seus membros, também em card contents
+                for link in agendas:
+                    acesso_agenda_reduzida = acessar_pagina(link)
+                    corrige = acesso_agenda_reduzida.find_all("a", class_="govbr-card-content")
+                    for item in corrige:
+                        agendas.remove(link)                  
+                        agendas.append(item["href"])
+            except:
+                pass           
+            try:
+                #Verifica se o link  da agenda direciona para uma versão simplificada da mesma (Comum no MMA)
+                #Neste caso, busca o link da agenda completa
+                for link in agendas:
+                    corrige_agenda = []
+                    acesso_agenda_reduzida = acessar_pagina(link)
+                    link_agenda_completa = acesso_agenda_reduzida.find("div", class_="agenda-tile-footer").find("a")
+                    agenda_completa =link_agenda_completa["href"]
+                    corrige_agenda.append(agenda_completa)
+                agendas = corrige_agenda
+            except:
+                pass
         if not agendas:
+            #Ministérios com uso de drop-down-lists que contém os links para as agendas (Casa civil, MME e Ministério da defesa)
             agendas = acesso_ministerio.find_all("a", class_="calendario")
         if not agendas:
+            #Ministérios que usam listas simples de links para as agendas (Ministério da infraestrutura)
             agendas = acesso_ministerio.find_all("a", class_="internal-link")
         if not agendas:
+            #Caso não se enquadre, solicita revisão do ministério (Ministério da economia, atualmente fora do ar)
             print("rever ministério: ", ministerio)
         for agenda in agendas:
             link = agenda["href"]
             lista_link.append(link)
         lista_agenda.append(lista_link)
-    print(lista_agenda)
+    return lista_agenda
+
+def coleta_agendas ():
+    for ministerio in acesso_ministerios():
+        pagina_inicial = acessar_pagina(ministerio[1])
+        origem = pagina_inicial.find("div", class_="site-name").find("a").text
+        print(origem)
+        for agenda in ministerio[1:]:
+            coleta_compromissos(agenda,origem)
+
 
 def main ():
     """Função principal"""
-    acesso_ministerios()
+    coleta_agendas()
 
 if __name__ == "__main__":
     main()

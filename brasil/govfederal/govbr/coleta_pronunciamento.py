@@ -52,11 +52,11 @@ def coleta_conteudo():
     for link in coleta_link():
         pronunciamentos = acessar_pagina(link)
         url = link
-        publicado_em = pronunciamentos.find("span", class_="documentPublished").find("span", class_="value").text
+        publicado_em = pronunciamentos.find("span", class_="documentPublished").find("span", class_="value").text.split(" ")
         try:
             atualizado_em = pronunciamentos.find("span", class_="documentModified").find("span", class_="value").text
         except:
-           atualizado_em = "pronunciamento não modificado"
+           atualizado_em = "NA"
         try:
             lista_tags=[]
             spans=pronunciamentos.find("div", {"id" : "category"}).find_all("span") 
@@ -64,7 +64,7 @@ def coleta_conteudo():
                 tag = span.text
                 lista_tags.append(tag)
         except:
-            lista_tags="não possui tags"
+            lista_tags="NA"
         titulo = pronunciamentos.find("h1", class_="documentFirstHeading").text
         try:
             lista_conteudo=[]
@@ -77,17 +77,26 @@ def coleta_conteudo():
                     texto = conteudo.text 
                 lista_conteudo.append(texto)
         except:
-            lista_conteudo= "notícia sem conteúdo"
-        db_planalto = db.contains(User.titulo==titulo,User.data==publicado_em)
+            lista_conteudo= "NA"
+        try:
+            subtitulo = pronunciamentos.find("a", class_="nitfSubtitle").text
+        except:
+            subtitulo="NA"
+        db_planalto = db.contains((User.titulo==titulo)&(User.data==publicado_em))
         if not db_planalto:
             print("não está na base")
             db.insert({
-                "link":url,
-                "data":publicado_em,
-                "atualizado em":atualizado_em,           
-                "tags":lista_tags,
+                "origem": "Planalto",
+                "classificado": "Pronunciamentos",
+                "data":publicado_em[0],
+                "horario":publicado_em[1],
+                "atualizado em":atualizado_em,  
                 "titulo":titulo,
-                "conteudo":lista_conteudo,
+                "subtitulo":subtitulo,
+                "link":url[:-5],
+                "tags":lista_tags,
+                "conteudo":lista_conteudo
+
             })
         else:
             print("está na base")
