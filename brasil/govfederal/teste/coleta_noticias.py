@@ -17,7 +17,7 @@ class NoticiasGovBr:
 
 
     def acessar_pagina(self,link):
-        html = urlopen(link)  # retorna a página da função links_navigation
+        html = urlopen(link)
         global bsoup
         bsoup = BeautifulSoup(html, "html.parser")
         return bsoup
@@ -28,7 +28,10 @@ class NoticiasGovBr:
         md_page = self.acessar_pagina(link)
         title_pag_noticias = md_page.find("h1", class_="documentFirstHeading").text
         data_post_pag_noticias = md_page.find("span", class_="documentPublished").find("span", class_="value").text
-        data_update_pag_noticias = md_page.find("span", class_="documentModified").find("span", class_="value").text
+        try:
+            data_update_pag_noticias = md_page.find("span", class_="documentModified").find("span", class_="value").text
+        except:
+            pass # >> sem data de atualização
         counter = 0 
         list_url_noticias = [] # lista com paginas com links de noticias
         # 5941
@@ -39,9 +42,9 @@ class NoticiasGovBr:
             list_url_noticias.append(domain) 
         for url_noticias in list_url_noticias:
             acessar_pag_com_links_noticias = self.acessar_pagina(url_noticias)
-            if ("casacivil") in self.url: 
+            if ("mdr" in self.url) or ("turismo" in self.url) or ("mcom" in self.url) or ("mcti" in self.url) or ("saude" in self.url) or ("agricultura" in self.url) or ("mme" in self.url) or ("economia" in self.url) or ("casacivil" in self.url) or ("defesa" in self.url): 
                 noticias = acessar_pag_com_links_noticias.find("ul", class_="noticias listagem-noticias-com-foto").find_all("li")
-            elif ("infraestrutura") in self.url:
+            elif ("planalto" in self.url) or ("mdh" in self.url) or ("infraestrutura" in self.url) or ("mma" in self.url):
                 noticias = acessar_pag_com_links_noticias.find("div", {"id":"content-core"}).find_all("article")
             for index, noticia in enumerate(noticias, start=1):
                 link_noticia = noticia.div.h2.a["href"]
@@ -75,9 +78,10 @@ class NoticiasGovBr:
                 # print(f'TAGS: {lista_tags_noticia}')
     
 def main():
-    urls = ["https://www.gov.br/defesa/pt-br/centrais-de-conteudo/noticias", "https://www.gov.br/mma/pt-br/assuntos/noticias", "https://www.gov.br/casacivil/pt-br/assuntos/noticias", "https://www.gov.br/infraestrutura/pt-br/assuntos/noticias"]
-    govbr = NoticiasGovBr("https://www.gov.br/casacivil/pt-br/assuntos/noticias")
-    coleta = govbr.noticias() 
+    urls = ["https://www.gov.br/planalto/pt-br/acompanhe-o-planalto/noticias", "https://www.gov.br/mdr/pt-br/noticias", "https://www.gov.br/turismo/pt-br/assuntos/noticias", "https://www.gov.br/mcom/pt-br/noticias", "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/noticias", "https://www.gov.br/saude/pt-br/assuntos/noticias", "https://www.gov.br/agricultura/pt-br/assuntos/noticias", "https://www.gov.br/mdh/pt-br/assuntos/noticias", "https://www.gov.br/mme/pt-br/assuntos/noticias", "https://www.gov.br/economia/pt-br/assuntos/noticias", "https://www.gov.br/casacivil/pt-br/assuntos/noticias", "https://www.gov.br/infraestrutura/pt-br/assuntos/noticias", "https://www.gov.br/defesa/pt-br/centrais-de-conteudo/noticias", "https://www.gov.br/mma/pt-br/assuntos/noticias"]
+    for url in urls:
+        govbr = NoticiasGovBr(url)
+        coleta = govbr.noticias() 
 
 if __name__=="__main__":
     main()
