@@ -32,10 +32,13 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] habilitar ambiente virtual na estação remota 
 - [x] instalação do vscode 
 - [x] indicar onde colocar os dados coletados 
+- [x] separação da coleta dos ministérios restantes (em andamento)
+- [ ] construir classes para abrigar as partes similares dos sites (em andamento)
+- [ ] salvar informações em um banco json 
 - [ ] gerar HTMLs a partir do BD json (template construído, falta escalar)
-- [ ] salvar os arquivos no internet archive 
 - [ ] definir variáveis de ambiente 
-- [ ] construir classes para abrigar as partes similares dos sites
+- [ ] salvar os arquivos no internet archive 
+
 
 # Integração 
 
@@ -60,3 +63,14 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 |Turismo| Comum | |
 |Desenvolvimento Regional| Comum | |
 |Biblioteca presidencia| Sem notícias | Sem agenda |
+|Secretaria-Geral| Específico | |
+|Controladoria-Geral da União| Específico | |
+|Advocacia-Geral da União| Específico | |
+|Cidadania (institucional)| Comum (>> dá problema a partir da 9ª notícia) | |  
+|Cidadania (desenvolvimento social)| Específico | |
+|Cidadania (esporte)| Específico | |
+|Secretaria de Governo| Comum | |
+|Educação| Comum | |
+|Ministério da Justiça e Segurança Pública| Comum | |
+|Gabinete de Segurança Institucional| Específico | |
+

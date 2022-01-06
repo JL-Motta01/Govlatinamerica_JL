@@ -17,3 +17,14 @@
 | Comunicações |  | Comum | Coleta lista (ul > li) | Comum | Try | Não | n/a | 
 | Turismo |  | Comum | Coleta lista (ul > li) | Comum | Try | Sim: vários (Assessoria de Comunicação do Ministério do Turismo) |  | 
 | Desenvolvimento Regional |  | Comum | Coleta lista (ul > li) | Comum | Try | Não | n/a | 
+| Secretaria-Geral |  | Específico | Coleta por artigo (article) | Comum | Try | Ministério das Comunicações | n/a | 
+| Controladoria-Geral da União | Try | Específico | Coleta por artigo (article) | Comum | Try | Não | n/a | 
+| Advocacia-Geral da União | | Específico | Coleta por artigo (article) | Comum | Try | Não | n/a | 
+| Cidadania (institucional) |  | Comum | Coleta lista (ul > li) | Comum | Try | Sim: Diretoria de Comunicação – Ministério da Cidadania | Várias tags de conteúdo (p) | 
+| Cidadania (desenvolvimento social) | Try | Específico | Coleta por artigo (article) | Comum | Try | Sim: Diretoria de Comunicação – Ministério da Cidadania | Várias tags de conteúdo (p) |
+| Cidadania (esporte) | Try | Específico | Coleta por artigo (article) | Comum | Try | Sim: Diretoria de Comunicação – Ministério da Cidadania | Várias tags de conteúdo (p) |
+| Secretaria de Governo |  | Comum | Coleta lista (ul > li) | Comum | Try | Não | n/a | 
+| Educação | Try | Comum | Coleta lista (ul > li) | Comum | Try | Sim: Assessoria de Comunicação Social do MEC | Várias tags de conteúdo (p) | 
+| Ministério da Justiça e Segurança Pública | Try | Comum | Coleta lista (ul > li) | Comum | Try | Não | n/a | 
+| Gabinete de Segurança Institucional | | Específico | Coleta por artigo (article) | Comum | Try | Não | n/a |
+
