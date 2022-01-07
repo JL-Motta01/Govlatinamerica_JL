@@ -34,10 +34,12 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] indicar onde colocar os dados coletados 
 - [x] separação da coleta dos ministérios restantes (em andamento)
 - [ ] construir classes para abrigar as partes similares dos sites (em andamento)
-- [ ] salvar informações em um banco json 
+- [x] salvar informações em um banco json (em andamento)
+- [x] separar data de horário
 - [ ] gerar HTMLs a partir do BD json (template construído, falta escalar)
-- [ ] definir variáveis de ambiente 
+- [x] definir variáveis de ambiente 
 - [ ] salvar os arquivos no internet archive 
+- [ ] colocar mais de um parâmetro de verificação antes de inserir no json (ex: título, data e horário)
 
 
 # Integração 
