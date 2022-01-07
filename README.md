@@ -40,6 +40,7 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] definir variáveis de ambiente 
 - [ ] salvar os arquivos no internet archive 
 - [ ] colocar mais de um parâmetro de verificação antes de inserir no json (ex: título, data e horário)
+- [ ] indicar categorias do Ministério da Cidadania (esporte, institucional e desenvolvimento social)
 
 
 # Integração 
