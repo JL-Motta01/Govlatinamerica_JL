@@ -73,4 +73,5 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 |Educação| Comum | |
 |Ministério da Justiça e Segurança Pública| Comum | |
 |Gabinete de Segurança Institucional| Específico | |
+|MAPA| Comum | |
 
