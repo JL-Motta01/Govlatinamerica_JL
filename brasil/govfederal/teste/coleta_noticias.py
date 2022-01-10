@@ -89,9 +89,13 @@ class NoticiasGovBr:
                 except:
                     modificado = "NA"
                 try:
-                    paragrafos = acessar_noticia.find("div", {"id":"parent-fieldname-text"}).text
+                    paragrafos = []
+                    div_paragrafos = acessar_noticia.find("div", {"id":"parent-fieldname-text"}).find_all("p")
+                    for paragrafo in div_paragrafos:
+                        paragrafos.append(paragrafo.text)
+                    print(paragrafos)
                 except:
-                    paragrafos = "NA"
+                    paragrafos = ["NA"]
                 # print(f'CONTEÚDO: {paragrafos}')
                 # tags das notícias
                 tags = []
@@ -117,16 +121,18 @@ class NoticiasGovBr:
                 extra_01 = "NA"
                 extra_02 = "NA"
                 extra_03 = "NA"
+                # paragrafos = "NA"
                 inserir_banco = self.inserir_bd(env_ministerio, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
     
     def inserir_bd(self, env_ministerio="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
         DIR_FINAL = self.diretorio(env_ministerio)[0]
         nome_bd_json = env_ministerio 
-        excluir_json = os.remove(f'{DIR_FINAL}/{nome_bd_json}.json')
-        db = TinyDB(f'{DIR_FINAL}/{nome_bd_json}.json', ensure_ascii = False)
+        # excluir_json = os.remove(f'{DIR_FINAL}/{nome_bd_json}.json')
+        db = TinyDB(f'{DIR_FINAL}/{nome_bd_json}.json', indent=4, ensure_ascii = False)
         dir_local = f'{DIR_FINAL}/{nome_bd_json}.json'
         User = Query()
         verifica_bd = db.contains((User.titulo == titulo)&(User.data == data)&(User.horario == horario))
+        print(verifica_bd)
         try:
             if not verifica_bd:
                 print("Não está na base")

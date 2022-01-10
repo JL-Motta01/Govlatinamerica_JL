@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
 :root{
   font-size: 62.5%
@@ -29,7 +29,21 @@ font-weight: bold;
 text-align: center;
 }
 
+infos{
+  line-height: normal;
+  text-align: left;
+}
+
+h3{
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  font-weight: lighter;
+  text-align: left;
+  line-height: 0.5;
+}
+
 .info-head{
+  text-align: left;
   font-weight: normal;
 }
 .clear {
@@ -42,25 +56,24 @@ clear: both;
 }
 
 p{
-  font-size: 2.3rem;
-  font-family: 'Roboto', sans-serif;
+  font-size: 2.1rem;
+  font-family: 'Roboto Slab', serif;
   text-align: justify;
   margin: 1.2rem 0rem;
   line-height: 1.4em;
-
-
 }
 
 .subtitulo{
-  font-family: Georgia;
+  font-family: 'Roboto', sans-serif;
   font-style: italic;
+  font-size: 2.3rem;
   text-align: center;
-  margin-top:auto: 0.5rem;
+  margin-top: auto 0.5rem;
   margin-bottom: 5rem;
 
 }
 
-.autores{
+.autor{
   font-style: italic;
 }
 h1{
