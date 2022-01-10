@@ -36,11 +36,11 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [ ] construir classes para abrigar as partes similares dos sites (em andamento)
 - [x] salvar informações em um banco json (em andamento)
 - [x] separar data de horário
+- [x] colocar mais de um parâmetro de verificação antes de inserir no json (ex: título, data e horário)
+- [x] indicar categorias do Ministério da Cidadania (esporte, institucional e desenvolvimento social)
 - [ ] gerar HTMLs a partir do BD json (template construído, falta escalar)
 - [x] definir variáveis de ambiente 
 - [ ] salvar os arquivos no internet archive 
-- [ ] colocar mais de um parâmetro de verificação antes de inserir no json (ex: título, data e horário)
-- [ ] indicar categorias do Ministério da Cidadania (esporte, institucional e desenvolvimento social)
 
 
 # Integração 
