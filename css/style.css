@@ -55,12 +55,30 @@ clear: both;
   margin: 2rem;
 }
 
-p{
-  font-size: 2.1rem;
+h4{
   font-family: 'Roboto Slab', serif;
-  text-align: justify;
   margin: 1.2rem 0rem;
   line-height: 1.4em;
+  font-size: 2.1rem;
+  text-align: justify;
+  font-weight: lighter;
+}
+
+p{
+  font-family: 'Roboto Slab', serif;
+  margin: 1.2rem 0rem;
+  line-height: 1em;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.p-corpo{
+  font-size: 2.1rem;
+  text-align: justify;
+}
+
+.p-footer{
+  font-size: 1.5rem;
 }
 
 .subtitulo{
@@ -118,7 +136,7 @@ font-size: 1.8rem;
 }
 
 footer{
-  background: #F4F8FD;
+  background: #c5c5c5;
   height: 10%;
   border-top: 0.5rem solid #0003;
   left: 0;
@@ -141,17 +159,17 @@ h6{
   padding: 4rem;
   color:#444;
   margin-bottom: 0;
+  margin: 1rem 0 1rem 0;
   text-align: center;
-  
 }
 
 footer{
     margin: 0;
-    padding: 0;
+    padding: 2rem;
 }
 
-.texto-footer p{
+.texto-footer{
   text-align: center;
   font-family: 'Times New Roman', ;
-  font-size: 1.6rem;
+  font-size: 1rem;
 }

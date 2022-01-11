@@ -54,7 +54,8 @@ def template_html(dir_html="NA", origem="NA", classificado="NA", titulo="NA", su
     doc, tag, text = Doc().tagtext()
     paragrafos_avisos = ['Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com o respectivo Jornal.', 'O tratamento e disponibilização é realizada com o intuito de facilitar a pesquisa.', 'Não é permitida qualquer atividade com fins lucrativos usando esse texto.']
     links = ["stylesheet"]
-    estilo = "/Users/Kayo/codigo/template-html/css/style.css"
+    estilo = "/home/labri_juliasilveira/codigo/template-html/css/style.css"
+    referencias = "/home/labri_juliasilveira/codigo/template-html/js/referencia.js"
     doc.asis('<!DOCTYPE html>')
     with tag('html'):
         with tag('head'):
@@ -137,7 +138,7 @@ def template_html(dir_html="NA", origem="NA", classificado="NA", titulo="NA", su
                                 
                     with tag('div', klass='corpo-noticia'):
                         for paragrafo in paragrafos:
-                            with tag('p'):
+                            with tag('h4'):
                                 text(paragrafo)
                 with tag('div', klass='referencia'):
                     
@@ -152,9 +153,9 @@ def template_html(dir_html="NA", origem="NA", classificado="NA", titulo="NA", su
                 with tag('div', klass='aviso-texto'):
                     text("AVISOS")
                     for paragrafo in paragrafos_avisos:
-                        with tag('p', klass='paragrafo-aviso'):
+                        with tag('p', klass='p-footer'):
                             text(paragrafo)
-            doc.asis('<script type="text/javascript" src="/Users/Kayo/codigo/template-html/js/referencia.js"></script>')
+            doc.asis(f'<script type="text/javascript" src={referencias}></script>')
     # result = indent(doc.getvalue())
     result = doc.getvalue()
 
