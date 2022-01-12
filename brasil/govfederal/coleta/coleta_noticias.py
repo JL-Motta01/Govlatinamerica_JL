@@ -17,6 +17,7 @@ class NoticiasGovBr:
     def __init__(self, url="NA"):
         self.url = url
 
+    """
     def diretorio(self, nome, ano="NA"):
         env_dir = load_dotenv("../../../.env_local") # procurando a pasta de cima (../)
         DIR_FINAL = os.getenv("DIR_FINAL")
@@ -31,6 +32,29 @@ class NoticiasGovBr:
         print(f'{DIR_FINAL}/{MINISTERIO}/banco')
         print(f'{DIR_FINAL}/{MINISTERIO}/html')
         return (f'{DIR_FINAL}/{MINISTERIO}/banco', f'{DIR_FINAL}/{MINISTERIO}/html', dir_html_ano)
+    """
+
+    def diretorio(self, nome, ano="NA"):
+        """ para rodar o template html no computador local, substituir a variável DIR_BD_FINAL por DIR_CONFIG """
+        print(f'NOME: {nome}')
+        env_dir = load_dotenv("/home/labri_cintiaiorio/codigo/govlatinamerica/template-html/.env") 
+        DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
+        print(f'DIR BD FINAL: {DIR_BD_FINAL}')
+        MINISTERIO = os.getenv(str(nome))
+        print(f'MINISTERIO: {MINISTERIO}')
+        REFERENCIAS = os.getenv("REFERENCIAS")
+        ESTILO = os.getenv("ESTILO")
+        cria_dir_banco = os.makedirs(f'{DIR_BD_FINAL}/{MINISTERIO}/banco', exist_ok = True) # makedirs cria diretório
+        cria_dir_html = os.makedirs(f'{DIR_BD_FINAL}/{MINISTERIO}/html', exist_ok = True)
+        if ano != "NA":
+            cria_dir_html_ano = os.makedirs(f'{DIR_BD_FINAL}/{MINISTERIO}/html/{ano}', exist_ok = True)
+            dir_html_ano = f'{DIR_BD_FINAL}/{MINISTERIO}/html/{ano}'
+        else:
+            dir_html_ano = "NA"
+        print(f'{DIR_BD_FINAL}/{MINISTERIO}/banco')
+        print(f'{DIR_BD_FINAL}/{MINISTERIO}/html')
+        return (f'{DIR_BD_FINAL}/{MINISTERIO}/banco', f'{DIR_BD_FINAL}/{MINISTERIO}/html', dir_html_ano, REFERENCIAS, ESTILO)
+
     
     def acessar_pagina(self,link):
         html = urlopen(link)
@@ -60,7 +84,7 @@ class NoticiasGovBr:
                 noticias = acessar_pag_com_links_noticias.find("div", {"id":"content-core"}).find_all("article") # abre a notícia
             for index, noticia in enumerate(noticias, start=1):
                 env_ministerio = url.split("/")[3].upper()
-                print(env_ministerio)
+                print(env_ministerio, type(env_ministerio))
                 link = noticia.div.h2.a["href"]
                 if ("esporte" in link):
                     categoria = "esporte"
@@ -125,7 +149,9 @@ class NoticiasGovBr:
                 inserir_banco = self.inserir_bd(env_ministerio, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
     
     def inserir_bd(self, env_ministerio="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+        print(f'ENV MINISTERIO: {env_ministerio}')
         DIR_FINAL = self.diretorio(env_ministerio)[0]
+        print(DIR_FINAL)
         nome_bd_json = env_ministerio 
         # excluir_json = os.remove(f'{DIR_FINAL}/{nome_bd_json}.json')
         db = TinyDB(f'{DIR_FINAL}/{nome_bd_json}.json', indent=4, ensure_ascii = False)

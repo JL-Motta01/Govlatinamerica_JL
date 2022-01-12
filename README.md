@@ -8,7 +8,7 @@
 | Informações gerais | [Pasta Google Drive](https://drive.google.com/drive/u/1/folders/1_g01RcccLl2PpTupxQyCoXEJka30VXeG) |
 | Tarefas do projeto | [Notion](https://www.notion.so/Projeto-GovLatinAmerica-9219a9b60ae24cb98a197f7bdab42209)           |
 | Documentação       | [Site](https://apoio.labriunesp.org/docs/projetos/dados/gov-latin-america/intro/)                  |
-
+| Template html      | [Template html](https://gitlab.com/unesp-labri/projeto/template-html)                              |
 
 
 # Sincronizar com o GitLab (na pasta raiz GOVLATINAMERICA)
