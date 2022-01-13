@@ -37,7 +37,7 @@ class NoticiasGovBr:
     def diretorio(self, nome, ano="NA"):
         """ para rodar o template html no computador local, substituir a variável DIR_BD_FINAL por DIR_CONFIG """
         print(f'NOME: {nome}')
-        env_dir = load_dotenv("/home/labri_cintiaiorio/codigo/govlatinamerica/template-html/.env") 
+        env_dir = load_dotenv("/home/labri_cintiaiorio/codigo/govlatinamerica/template-html/.env_var") 
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
         print(f'DIR BD FINAL: {DIR_BD_FINAL}')
         MINISTERIO = os.getenv(str(nome))
