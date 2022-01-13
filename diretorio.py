@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 import os
 
 def diretorio(nome, ano="NA"):
-        env_dir = load_dotenv(".env_local") 
+        env_dir = load_dotenv(".env_var") 
         DIR_FINAL = os.getenv("DIR_FINAL")
         MINISTERIO = os.getenv(nome)
         REFERENCIAS = os.getenv("REFERENCIAS")

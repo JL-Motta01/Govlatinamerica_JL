@@ -2,10 +2,10 @@ from yattag import Doc, indent
 from tinydb import TinyDB, Query
 from dotenv import load_dotenv
 import os
-# from diretorio import diretorio 
-import sys 
-sys.path.insert(1,"../brasil/govfederal/coleta")
-from coleta_noticias import diretorio 
+from diretorio import diretorio 
+# import sys 
+# sys.path.insert(1,"../brasil/govfederal/coleta")
+# from coleta_noticias import diretorio 
 
 
 def consultar():
