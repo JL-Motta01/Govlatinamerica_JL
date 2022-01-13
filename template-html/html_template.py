@@ -2,6 +2,7 @@ from yattag import Doc, indent
 from tinydb import TinyDB, Query
 from dotenv import load_dotenv
 import os
+# from diretorio import diretorio 
 import sys 
 sys.path.insert(1,"../brasil/govfederal/coleta")
 from coleta_noticias import diretorio 
@@ -132,7 +133,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                                 
                     with tag('div', klass='corpo-noticia'):
                         for paragrafo in paragrafos:
-                            with tag('h4'):
+                            with tag('p'):
                                 text(paragrafo)
                 with tag('div', klass='referencia'):
                     
@@ -147,7 +148,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                 with tag('div', klass='aviso-texto'):
                     text("AVISOS")
                     for paragrafo in paragrafos_avisos:
-                        with tag('p', klass='p-footer'):
+                        with tag('h4'):
                             text(paragrafo)
             doc.asis(f'<script type="text/javascript" src={REFERENCIAS}></script>')
     # result = indent(doc.getvalue())
