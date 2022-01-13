@@ -4,6 +4,12 @@ import re
 from dotenv import load_dotenv
 import os
 from tinydb import TinyDB, Query
+import sys 
+# sys.path.insert(1,"../../../template-html")
+sys.path.insert(0,"../../../template-html")
+from diretorio import diretorios 
+# from html_template import consultar
+# from html_template import HtmlTemplate
 
 
 """
@@ -34,8 +40,9 @@ class NoticiasGovBr:
         return (f'{DIR_FINAL}/{MINISTERIO}/banco', f'{DIR_FINAL}/{MINISTERIO}/html', dir_html_ano)
     """
 
+    """
     def diretorio(self, nome, ano="NA"):
-        """ para rodar o template html no computador local, substituir a variável DIR_BD_FINAL por DIR_CONFIG """
+        # para rodar o template html no computador local, substituir a variável DIR_BD_FINAL por DIR_CONFIG 
         print(f'NOME: {nome}')
         env_dir = load_dotenv("/home/labri_cintiaiorio/codigo/govlatinamerica/template-html/.env_var") 
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
@@ -54,7 +61,7 @@ class NoticiasGovBr:
         print(f'{DIR_BD_FINAL}/{MINISTERIO}/banco')
         print(f'{DIR_BD_FINAL}/{MINISTERIO}/html')
         return (f'{DIR_BD_FINAL}/{MINISTERIO}/banco', f'{DIR_BD_FINAL}/{MINISTERIO}/html', dir_html_ano, REFERENCIAS, ESTILO)
-
+    """
     
     def acessar_pagina(self,link):
         html = urlopen(link)
@@ -84,7 +91,7 @@ class NoticiasGovBr:
                 noticias = acessar_pag_com_links_noticias.find("div", {"id":"content-core"}).find_all("article") # abre a notícia
             for index, noticia in enumerate(noticias, start=1):
                 env_ministerio = url.split("/")[3].upper()
-                print(env_ministerio, type(env_ministerio))
+                print(f'TIPO: {env_ministerio}, {type(env_ministerio)}')
                 link = noticia.div.h2.a["href"]
                 if ("esporte" in link):
                     categoria = "esporte"
@@ -150,7 +157,7 @@ class NoticiasGovBr:
     
     def inserir_bd(self, env_ministerio="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
         print(f'ENV MINISTERIO: {env_ministerio}')
-        DIR_FINAL = self.diretorio(env_ministerio)[0]
+        DIR_FINAL = diretorio(env_ministerio)
         print(DIR_FINAL)
         nome_bd_json = env_ministerio 
         # excluir_json = os.remove(f'{DIR_FINAL}/{nome_bd_json}.json')
@@ -195,6 +202,7 @@ def main():
     for url in urls:
         govbr = NoticiasGovBr(url)
         coleta = govbr.noticias()
+        consulta = consultar()
 
 if __name__=="__main__":
     main()
