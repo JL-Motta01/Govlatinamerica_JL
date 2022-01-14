@@ -88,7 +88,10 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                                 
                     with tag('div', klass='corpo-noticia'):
                         with tag('p', id='negrito'):
-                            text(f'{autoria}, {data}')
+                            if "NA" in autoria:
+                                text(f'{origem.title()}, {data}')
+                            else: 
+                                text(f'{", ".join(autoria)}, {data}')
                         for paragrafo in paragrafos:
                             with tag('p'):
                                 text(paragrafo)
@@ -118,7 +121,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                             if "NA" in autoria:
                                 text(f'Origem: {origem.title()}')
                             else: 
-                                text(f'Autoria: {autoria.title()}')
+                                text(f'Autoria: {", ".join(autoria)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if classificado == "NA":

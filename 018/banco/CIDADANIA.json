@@ -276,7 +276,7 @@
             "origem": "Ministerio da Cidadania",
             "classificado": "notecia",
             "titulo": "Onyx Lorenzoni toma posse como novo ministro da Cidadania",
-            "subtitulo": "NA",
+            "subtitulo": "Onyx Lorenzoni toma posse como novo ministro da Cidadania",
             "link": "https://www.gov.br/cidadania/pt-br/noticias-e-conteudos/institucional-cidadania/onyx-lorenzoni-toma-posse-como-novo-ministro-da-cidadania",
             "link_archive": "NA",
             "categoria": "institucional-cidadania",
@@ -285,7 +285,9 @@
             "data_atualizado": "01/09/2020",
             "horario_atualizado": "13h56",
             "local": "NA",
-            "autoria": "NA",
+            "autoria": [
+                "Onyx Lorenzoni"
+            ],
             "tags": [
                 "NA"
             ],
