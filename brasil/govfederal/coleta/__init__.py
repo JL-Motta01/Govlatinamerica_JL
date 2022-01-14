@@ -1,0 +1,1 @@
+__all__ = ["coleta_noticias", "teste", "/home/labri_cintiaiorio/codigo/govlatinamerica/template_html/diretorio"]

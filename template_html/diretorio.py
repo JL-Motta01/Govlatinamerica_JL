@@ -4,8 +4,10 @@ import os
 def diretorios(nome, ano="NA"):
         """ para rodar o template html no computador local, substituir a variável DIR_BD_FINAL por DIR_CONFIG """
         print(f'NOME: {nome}')
+        DIR_HOME = os.environ["HOME"]
+        print(f'DIR HOME: {DIR_HOME}')
+        env_dir = load_dotenv(f'{DIR_HOME}/codigo/govlatinamerica/template_html/.env_var') 
         LOCAL = os.getenv("LOCAL")
-        env_dir = load_dotenv(f'{LOCAL}/codigo/govlatinamerica/template-html/.env_var') 
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
         print(f'DIR BD FINAL: {DIR_BD_FINAL}')
         MINISTERIO = os.getenv(str(nome))
@@ -27,7 +29,7 @@ def diretorio_template(nome, ano="NA"):
         """ para rodar o template html no computador local, substituir a variável DIR_BD_FINAL por DIR_CONFIG """
         print(f'NOME: {nome}')
         LOCAL = os.getenv("LOCAL")
-        env_dir = load_dotenv(f'{LOCAL}/codigo/govlatinamerica/template-html/.env_var') 
+        env_dir = load_dotenv(f'{LOCAL}/codigo/govlatinamerica/template_html/.env_var') 
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
         print(f'DIR BD FINAL: {DIR_BD_FINAL}')
         MINISTERIO = os.getenv(str(nome))

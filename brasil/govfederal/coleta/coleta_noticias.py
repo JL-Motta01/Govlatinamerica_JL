@@ -5,11 +5,8 @@ from dotenv import load_dotenv
 import os
 from tinydb import TinyDB, Query
 import sys 
-# sys.path.insert(1,"../../../template-html")
-sys.path.insert(0,"../../../template-html")
-from diretorio import diretorios 
-# from html_template import consultar
-# from html_template import HtmlTemplate
+sys.path.insert(1,"../../../template_html")
+from template_html.diretorio import diretorios
 
 
 """
@@ -157,7 +154,7 @@ class NoticiasGovBr:
     
     def inserir_bd(self, env_ministerio="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
         print(f'ENV MINISTERIO: {env_ministerio}')
-        DIR_FINAL = diretorio(env_ministerio)
+        DIR_FINAL = diretorio.diretorios(env_ministerio)
         print(DIR_FINAL)
         nome_bd_json = env_ministerio 
         # excluir_json = os.remove(f'{DIR_FINAL}/{nome_bd_json}.json')
