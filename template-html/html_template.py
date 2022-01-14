@@ -2,14 +2,7 @@ from yattag import Doc, indent
 from tinydb import TinyDB, Query
 from dotenv import load_dotenv
 import os
-<<<<<<< HEAD
 from diretorio import diretorios, diretorios_template 
-=======
-from diretorio import diretorio 
-# import sys 
-# sys.path.insert(1,"../brasil/govfederal/coleta")
-# from coleta_noticias import diretorio 
->>>>>>> e1a6c75b840701b91e8b7d2dbd0a5d7182a6c09a
 
 
 def consultar(template = "NA"):
