@@ -2,17 +2,21 @@ from yattag import Doc, indent
 from tinydb import TinyDB, Query
 from dotenv import load_dotenv
 import os
-from diretorio import diretorios 
+from diretorio import diretorios, diretorios_template 
 
 
-def consultar():
+def consultar(template = "NA"):
     ministerios = ["CIDADANIA", "MMA", "PLANALTO"]
     for ministerio in ministerios:
-        diretorios = diretorio(ministerio)
-        dir_json = diretorios[0]
-        dir_html = diretorios[1]
-        dir_referencias = diretorios[3]
-        dir_estilo = diretorios[4]
+        if template == "ok":
+            print("ok")
+            diretorio = diretorios_template(ministerio)
+        else:
+            diretorio = diretorios(ministerio)
+        dir_json = diretorio[0]
+        dir_html = diretorio[1]
+        dir_referencias = diretorio[3]
+        dir_estilo = diretorio[4]
         db = TinyDB(f'{dir_json}/{ministerio}.json')
         myDBQuery = Query()
         for dado in iter(db):
@@ -36,7 +40,10 @@ def consultar():
             extra_02 = dado['extra_02']
             extra_03 = dado['extra_03']
             print(data)
-            dir_html_ano = diretorio(ministerio, data[-4:])[2]
+            if template == "ok":
+                dir_html_ano = diretorios_template(ministerio, data[-4:])[2]
+            else:
+                dir_html_ano = diretorios(ministerio, data[-4:])[2]
             template_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
             
             print("#################")
@@ -150,14 +157,14 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
             doc.asis(f'<script type="text/javascript" src={REFERENCIAS}></script>')
     # result = indent(doc.getvalue())
     result = doc.getvalue()
+    print(f'DIR HTML ANO: {dir_html_ano}')
 
     with open(f"{dir_html_ano}/{data[-4:]}-{data[3:5]}-{data[:2]}-{horario}-{titulo}.html", "w") as file:
         file.write(result)
 
 
 def main():
-   consulta = consultar()
-   # 
+   consulta = consultar(template = "ok")
 
 
 if __name__ == '__main__':

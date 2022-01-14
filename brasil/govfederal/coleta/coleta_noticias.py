@@ -5,9 +5,12 @@ from dotenv import load_dotenv
 import os
 from tinydb import TinyDB, Query
 import sys 
-sys.path.insert(1,"../../../template_html")
+DIR_ATUAL = os.environ["PWD"] 
+DIR_TMP = DIR_ATUAL.split("govlatinamerica")
+DIR_ROOT = DIR_TMP[0]+"govlatinamerica"
+sys.path.append(DIR_ROOT) 
 from template_html.diretorio import diretorios
-
+from template_html.html_template import consultar
 
 """
 - coletar noticias de todos os ministérios
@@ -154,7 +157,7 @@ class NoticiasGovBr:
     
     def inserir_bd(self, env_ministerio="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
         print(f'ENV MINISTERIO: {env_ministerio}')
-        DIR_FINAL = diretorio.diretorios(env_ministerio)
+        DIR_FINAL = diretorios(env_ministerio)[0]
         print(DIR_FINAL)
         nome_bd_json = env_ministerio 
         # excluir_json = os.remove(f'{DIR_FINAL}/{nome_bd_json}.json')
@@ -199,7 +202,7 @@ def main():
     for url in urls:
         govbr = NoticiasGovBr(url)
         coleta = govbr.noticias()
-        consulta = consultar()
+    consulta = consultar()
 
 if __name__=="__main__":
     main()

@@ -41,9 +41,10 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [ ] gerar HTMLs a partir do BD json (template construído, falta escalar)
 - [x] definir variáveis de ambiente 
 - [ ] salvar os arquivos no internet archive 
-- [ ] resolver questões de importação
+- [x] resolver questões de importação
 - [ ] deixar mais genérico o template html
 - [ ] separar em um template a inserção no banco de dados 
+- [ ] otimizar importação
 
 
 # Integração 
