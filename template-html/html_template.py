@@ -2,7 +2,14 @@ from yattag import Doc, indent
 from tinydb import TinyDB, Query
 from dotenv import load_dotenv
 import os
+<<<<<<< HEAD
 from diretorio import diretorios, diretorios_template 
+=======
+from diretorio import diretorio 
+# import sys 
+# sys.path.insert(1,"../brasil/govfederal/coleta")
+# from coleta_noticias import diretorio 
+>>>>>>> e1a6c75b840701b91e8b7d2dbd0a5d7182a6c09a
 
 
 def consultar(template = "NA"):
@@ -51,7 +58,7 @@ def consultar(template = "NA"):
 
 def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
     doc, tag, text = Doc().tagtext()
-    paragrafos_avisos = ['Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com o respectivo Jornal.', 'O tratamento e disponibilização é realizada com o intuito de facilitar a pesquisa.', 'Não é permitida qualquer atividade com fins lucrativos usando esse texto.']
+    paragrafos_avisos = [f'Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com a instituição que produziu e/ou divulgou esta informação: {origem}']
     links = ["stylesheet"]
     ESTILO = dir_estilo
     REFERENCIAS = dir_referencias
@@ -82,13 +89,50 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
             
         with tag('body'):
             with tag('div', klass='container'):
-                with tag('header', klass="negrito", id="conteudo-principal"):
+                with tag('article', klass="texto-conteudo", id="conteudo-principal"):
+                    with tag('div', klass='head-noticia'):
+                        with tag('h1'):
+                            text(titulo)
+                        with tag('h2', klass='subtitulo'):
+                            if subtitulo != 'NA':
+                                text(subtitulo)
+                                
+                    with tag('div', klass='corpo-noticia'):
+                        with tag('p', id='negrito'):
+                            if "NA" in autoria:
+                                text(f'{origem.title()}, {data}')
+                            else: 
+                                text(f'{", ".join(autoria)}, {data}')
+                        for paragrafo in paragrafos:
+                            with tag('p'):
+                                text(paragrafo)
+
+
+                with tag('div', klass='referencia', id='referencias'):
+                    with tag('h4'):
+                        #text(f'Como citar: {origem}. {titulo}, {data}. Acesso em: ')
+                        #doc.asis(f'<span id="dateAndTime">Como citar: {origem}. {titulo}, {data}. Acesso em: </span>')
+                        # MINISTERIODACIDADANIA. 12ª Conferência Nacional da Assistência Social tem Início em Brasília, 16/12/2021, Acesso em: 11 jan. 2022
+                        text(f'Como citar: ')
+                    with tag('h4'):
+                        text(f'{origem.upper()}. ')
+                        with tag('span', id='negrito'):
+                            text(f'{titulo}, ')
+                        text(f'{data}. ')
+                        text(f'Acesso em: ')
+                        with tag('span', id='dateAndTime'):
+                            text(f'Acesso em: ')
+
+
+                with tag('header', klass="negrito", id="metadados"):
+                    with tag('h4'):
+                        text('Metadados:')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if origem == "NA":
-                                text(f'Origem: Não possui esta informação')
-                            else:
+                            if "NA" in autoria:
                                 text(f'Origem: {origem.title()}')
+                            else: 
+                                text(f'Autoria: {", ".join(autoria)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if classificado == "NA":
@@ -102,10 +146,21 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                             text(f'Data: {data}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
+                            if horario == "NA":
+                                text(f'Horario: Não possui esta informação')
+                            text(f'Horario {horario}')
+                    with tag('h3'):
+                        with tag('span', klass="infos"):
                             if data_atualizado == "NA":
                                 text(f'Data de atualização: Não possui esta informação')
                             else:
                                 text(f'Data de atualização: {data_atualizado}')
+                    with tag('h3'):
+                        with tag('span', klass="infos"):
+                            if horario_atualizado == "NA":
+                                text(f'Horario de atualização: Não possui esta informação')
+                            else:
+                                text(f'Horario de atualização: {horario_atualizado}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if local == "NA":
@@ -114,37 +169,13 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                                 text(f'Local: {local}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if autoria == "NA":
-                                text(f'Autoria: Não possui esta informação')
-                            else: 
-                                text(f'Autoria: {autoria}')
-                    with tag('h3'):
-                        with tag('span', klass="infos"):
-                            if tags == "NA":
+                            if "NA" in tags:
                                 text(f'Tags: Não possui esta informação')
                             else: 
                                 text(f'Tags: {", ".join(tags)}')
                     
-                    
-                    
-        
-                with tag('article', klass="texto-conteudo", id="conteudo-principal"):
-                    with tag('div', klass='head-noticia'):
-                        with tag('h1'):
-                            text(titulo)
-                        with tag('h2', klass='subtitulo'):
-                            text(subtitulo)
-                                
-                    with tag('div', klass='corpo-noticia'):
-                        for paragrafo in paragrafos:
-                            with tag('p'):
-                                text(paragrafo)
-                with tag('div', klass='referencia'):
-                    
-                    with tag('h2'):
-                        text(f'Como citar: {origem}. {titulo}, {data}. Acesso em: ')
-                        doc.asis(f'<span id="dateAndTime">Como citar: {origem}. {titulo}, {data}. Acesso em: </span>')
-                        # MINISTERIODACIDADANIA. 12ª Conferência Nacional da Assistência Social tem Início em Brasília, 16/12/2021, Acesso em: 11 jan. 2022
+
+                
 
 
 
@@ -152,7 +183,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                 with tag('div', klass='aviso-texto'):
                     text("AVISOS")
                     for paragrafo in paragrafos_avisos:
-                        with tag('h4'):
+                        with tag('h5'):
                             text(paragrafo)
             doc.asis(f'<script type="text/javascript" src={REFERENCIAS}></script>')
     # result = indent(doc.getvalue())
