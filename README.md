@@ -45,6 +45,7 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [ ] deixar mais genérico o template html
 - [ ] separar em um template a inserção no banco de dados 
 - [ ] otimizar importação
+- [ ] ajustar caminhos para estilos e referências do html (em andamento)
 
 
 # Integração 
