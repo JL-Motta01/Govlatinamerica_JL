@@ -82,3 +82,21 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 |Gabinete de Segurança Institucional| Específico | |
 |MAPA| Comum | |
 
+# Problemas no GIT
+
+## non-fast-forward
+
+```
+To https://gitlab.com/unesp-labri/projeto/template_html.git
+ ! [rejected]        21c98206d52a741b5346436f2f4544e2b3d93032 -> main (non-fast-forward)
+error: failed to push some refs to 'https://gitlab.com/unesp-labri/projeto/template_html.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+``` 
+
+- resolução:
+```
+git push template_html --all
+``` 
