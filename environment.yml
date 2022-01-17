@@ -1,17 +1,13 @@
-name: env_govlatinamerica
+name: env_template-html
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python
   - tinydb
-  - beautifulsoup4
   - yattag
   - python-dotenv
-  - lxml
   - pip
-  - pip:
-    - wget
   
   
-prefix: ~/.conda/envs/env_govlatinamerica
+prefix: ~/.conda/envs/env_template-html
