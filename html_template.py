@@ -6,13 +6,13 @@ from diretorio import diretorios, diretorios_template
 
 
 def consultar(template = "NA"):
-    ministerios = ["CIDADANIA", "MMA", "PLANALTO"]
+    ministerios = ["CIDADANIA"]
     for ministerio in ministerios:
         if template == "ok":
             print("ok")
             diretorio = diretorios_template(ministerio)
-        else:
-            diretorio = diretorios(ministerio)
+        # else:
+            # diretorio = diretorios(ministerio)
         dir_json = diretorio[0]
         dir_html = diretorio[1]
         dir_referencias = diretorio[3]
@@ -42,8 +42,8 @@ def consultar(template = "NA"):
             print(data)
             if template == "ok":
                 dir_html_ano = diretorios_template(ministerio, data[-4:])[2]
-            else:
-                dir_html_ano = diretorios(ministerio, data[-4:])[2]
+            # else:
+               # dir_html_ano = diretorios(ministerio, data[-4:])[2]
             template_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
             
             print("#################")
