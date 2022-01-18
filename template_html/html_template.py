@@ -2,22 +2,28 @@ from yattag import Doc, indent
 from tinydb import TinyDB, Query
 from dotenv import load_dotenv
 import os
-from diretorio import diretorios, diretorios_template 
+import sys
+DIR_PWD = os.environ["PWD"] 
+DIR_TMP = DIR_PWD.split("govlatinamerica")
+DIR_PROJETO = DIR_TMP[0]+"govlatinamerica"
+sys.path.append(DIR_PROJETO) 
+from template_html.diretorio import diretorios, diretorios_template 
 
 
-def consultar(template = "NA"):
-    ministerios = ["CIDADANIA"]
-    for ministerio in ministerios:
+def consultar(sites="NA", template="NA"):
+    lista_sites = sites
+    print(f'LISTA DE SITES: {lista_sites}')
+    for site in lista_sites:
         if template == "ok":
             print("ok")
-            diretorio = diretorios_template(ministerio)
-        # else:
-            # diretorio = diretorios(ministerio)
+            diretorio = diretorios_template(site)
+        else:
+            diretorio = diretorios(site)
         dir_json = diretorio[0]
         dir_html = diretorio[1]
         dir_referencias = diretorio[3]
         dir_estilo = diretorio[4]
-        db = TinyDB(f'{dir_json}/{ministerio}.json')
+        db = TinyDB(f'{dir_json}/{site}.json')
         myDBQuery = Query()
         for dado in iter(db):
             origem = dado['origem']
@@ -41,9 +47,9 @@ def consultar(template = "NA"):
             extra_03 = dado['extra_03']
             print(data)
             if template == "ok":
-                dir_html_ano = diretorios_template(ministerio, data[-4:])[2]
-            # else:
-               # dir_html_ano = diretorios(ministerio, data[-4:])[2]
+                dir_html_ano = diretorios_template(site, data[-4:])[2]
+            else:
+               dir_html_ano = diretorios(site, data[-4:])[2]
             template_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
             
             print("#################")
@@ -188,8 +194,8 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
 
 
 def main():
-   consulta = consultar(template = "ok")
-
+    sites = ["CIDADANIA"]
+    consulta = consultar(sites, template="ok")
 
 if __name__ == '__main__':
     main()
