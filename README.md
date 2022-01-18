@@ -40,12 +40,13 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] indicar categorias do Ministério da Cidadania (esporte, institucional e desenvolvimento social)
 - [ ] gerar HTMLs a partir do BD json (template construído, falta escalar)
 - [x] definir variáveis de ambiente 
-- [ ] salvar os arquivos no internet archive 
 - [x] resolver questões de importação
-- [ ] deixar mais genérico o template html
+- [x] deixar mais genérico o template html
+- [x] ajustar caminhos para estilos e referências do html
 - [ ] separar em um template a inserção no banco de dados 
+- [ ] separar em um template os apontamentos dos diretórios
+- [ ] salvar os arquivos no internet archive 
 - [ ] otimizar importação
-- [ ] ajustar caminhos para estilos e referências do html (em andamento)
 
 
 # Integração 
@@ -101,3 +102,21 @@ hint: See the 'Note about fast-forwards' in 'git push --help' for details.
 ```
 git push template_html --all
 ``` 
+
+ENV MINISTERIO: Ministério da Justiça e Segurança Pública
+NOME: Ministério da Justiça e Segurança Pública
+DIR BD FINAL: /media/hdvm10/bd/003/001/001/001
+MINISTERIO: None
+/media/hdvm10/bd/003/001/001/001/None/banco
+False
+Não está na base
+TIPO: MJ, <class 'str'>
+
+ENV MINISTERIO: CIDADANIA
+NOME: CIDADANIA
+DIR BD FINAL: /media/hdvm10/bd/003/001/001/001
+MINISTERIO: 018
+/media/hdvm10/bd/003/001/001/001/018/banco
+True
+Já está na base
+TIPO: CIDADANIA, <class 'str'>

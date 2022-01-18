@@ -4,10 +4,12 @@ from dotenv import load_dotenv
 import os
 import sys
 DIR_PWD = os.environ["PWD"] 
-DIR_TMP = DIR_PWD.split("govlatinamerica")
-DIR_PROJETO = DIR_TMP[0]+"govlatinamerica"
+lista_dir_atual = DIR_PWD.split("/")
+NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
+lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
+DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
-from template_html.diretorio import diretorios, diretorios_template 
+from diretorios.diretorio import diretorios, diretorios_template 
 
 
 def consultar(sites="NA", template="NA"):
