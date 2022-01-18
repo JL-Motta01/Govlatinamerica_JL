@@ -11,7 +11,11 @@ def diretorios(nome, ano="NA"):
         NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
         lista_dir_atual_02 = DIR_ATUAL.split(NOME_PROJETO)
         DIR_ROOT = lista_dir_atual_02[0]+NOME_PROJETO
+<<<<<<< HEAD
         env_dir = load_dotenv(f'{DIR_ROOT}/diretorios/.env_dir') 
+=======
+        env_dir = load_dotenv(f'{DIR_ROOT}/template_html/.env_var') 
+>>>>>>> 9f925e18df9bbc90f1d0dcec6db24a9d512bbbe2
         LOCAL = os.getenv("LOCAL")
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
         print(f'DIR BD FINAL: {DIR_BD_FINAL}')
@@ -23,7 +27,11 @@ def diretorios(nome, ano="NA"):
             DIR_TEMPLATE_HTML = DIR_ROOT + "/template_html"
             ESTILO = DIR_TEMPLATE_HTML + "/css/style.css" 
             REFERENCIAS = DIR_TEMPLATE_HTML + "/js/referencia.js"
+<<<<<<< HEAD
         env_dir = load_dotenv(f'{DIR_ROOT}/diretorios/.env_dir') 
+=======
+        env_dir = load_dotenv(f'{DIR_TEMPLATE_HTML}/.env_var') 
+>>>>>>> 9f925e18df9bbc90f1d0dcec6db24a9d512bbbe2
         cria_dir_banco = os.makedirs(f'{DIR_BD_FINAL}/{MINISTERIO}/banco', exist_ok = True) # makedirs cria diretório
         DIR_BD = f'{DIR_BD_FINAL}/{MINISTERIO}/banco'
         cria_dir_html = os.makedirs(f'{DIR_BD_FINAL}/{MINISTERIO}/html', exist_ok = True)
