@@ -1,3 +1,5 @@
+""" Para utilizar esse script, é necessário incorporá-lo em um dos repositórios de coleta. 
+Por exemplo: govlatinamerica. """
 from dotenv import load_dotenv
 import os
 
@@ -9,7 +11,7 @@ def diretorios(nome, ano="NA"):
         NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
         lista_dir_atual_02 = DIR_ATUAL.split(NOME_PROJETO)
         DIR_ROOT = lista_dir_atual_02[0]+NOME_PROJETO
-        env_dir = load_dotenv(f'{DIR_ROOT}/template_html/.env_var') 
+        env_dir = load_dotenv(f'{DIR_ROOT}/diretorios/.env_dir') 
         LOCAL = os.getenv("LOCAL")
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
         print(f'DIR BD FINAL: {DIR_BD_FINAL}')
@@ -21,7 +23,7 @@ def diretorios(nome, ano="NA"):
             DIR_TEMPLATE_HTML = DIR_ROOT + "/template_html"
             ESTILO = DIR_TEMPLATE_HTML + "/css/style.css" 
             REFERENCIAS = DIR_TEMPLATE_HTML + "/js/referencia.js"
-        env_dir = load_dotenv(f'{DIR_TEMPLATE_HTML}/.env_var') 
+        env_dir = load_dotenv(f'{DIR_ROOT}/diretorios/.env_dir') 
         cria_dir_banco = os.makedirs(f'{DIR_BD_FINAL}/{MINISTERIO}/banco', exist_ok = True) # makedirs cria diretório
         DIR_BD = f'{DIR_BD_FINAL}/{MINISTERIO}/banco'
         cria_dir_html = os.makedirs(f'{DIR_BD_FINAL}/{MINISTERIO}/html', exist_ok = True)
@@ -47,8 +49,8 @@ def diretorios_template(nome, ano="NA"):
             DIR_ROOT += "/template_html"
             ESTILO = DIR_ROOT + "/css/style.css" 
             REFERENCIAS = DIR_ROOT + "/js/referencia.js"
-        env_dir = load_dotenv(f'{DIR_ROOT}/.env_var') 
-        print(f'{DIR_ROOT}/.env_var')
+        env_dir = load_dotenv(f'{DIR_ROOT}/.env_dir') 
+        print(f'{DIR_ROOT}/.env_dir')
         # /home/labri_juliasilveira/codigo/template_html/.env_var
         LOCAL = os.getenv("LOCAL")
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
