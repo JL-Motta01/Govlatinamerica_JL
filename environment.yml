@@ -12,6 +12,7 @@ dependencies:
   - pip
   - pip:
     - wget
+  - pipenv
   
   
 prefix: ~/.conda/envs/env_govlatinamerica
