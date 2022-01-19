@@ -1,4 +1,4 @@
-name: env_govlatinamerica
+name: env_govlatinamerica2
 channels:
   - conda-forge
   - defaults
@@ -12,7 +12,7 @@ dependencies:
   - pip
   - pip:
     - wget
-  - pipenv
+    - waybackpy
   
   
 prefix: ~/.conda/envs/env_govlatinamerica
