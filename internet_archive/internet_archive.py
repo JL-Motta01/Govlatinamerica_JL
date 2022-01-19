@@ -9,7 +9,7 @@ def salvar_pagina():
     print(archive.archive_url)
 
 def salvar_pagina2():
-    url = "https://github.com"
+    url = "https://www.gov.br/mj/pt-br/assuntos/noticias/ministerio-da-justica-e-seguranca-publica-realiza-segunda-etapa-dos-ensaios-tecnicos-em-viaturas"
     user_agente = "Mozilla/5.0 (Windows NT 5.1; rv:40.0) Gecko/20100101 Firefox/40.0"
     save_api = WaybackMachineSaveAPI(url, user_agente)
     arquivar_pagina = save_api.save()
