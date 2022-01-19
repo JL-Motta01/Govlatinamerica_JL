@@ -119,6 +119,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                         with tag('span', id='negrito'):
                             text(f'{titulo}, ')
                         text(f'{data}. ')
+                        text(f'Disponível em: {link}. ')
                         text(f'Acesso em: ')
                         with tag('span', id='dateAndTime'):
                             text(f'Acesso em: ')
