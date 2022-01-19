@@ -35,7 +35,6 @@ class NoticiasGovBr:
         print(self.url)
         counter = 0 
         list_url_noticias = [] # lista com paginas com links de noticias
-        # 5941
         while counter <= 30: 
             domain = f"{self.url}?b_size=30&b_start:int="
             domain += str(counter) 

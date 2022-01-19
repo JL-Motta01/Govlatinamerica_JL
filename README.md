@@ -89,34 +89,11 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 ## non-fast-forward
 
 ```
-To https://gitlab.com/unesp-labri/projeto/template_html.git
- ! [rejected]        21c98206d52a741b5346436f2f4544e2b3d93032 -> main (non-fast-forward)
-error: failed to push some refs to 'https://gitlab.com/unesp-labri/projeto/template_html.git'
-hint: Updates were rejected because the tip of your current branch is behind
-hint: its remote counterpart. Integrate the remote changes (e.g.
-hint: 'git pull ...') before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+git add --all .
+git commit -m "resolvendo conflitos no arquivo html template e teste de internet archive"
+git pull origin main
+git push origin main
+git subtree pull --prefix=template_html template_html main
+git subtree push --prefix=template_html template_html main
+
 ``` 
-
-- resolução:
-```
-git push template_html --all
-``` 
-
-ENV MINISTERIO: Ministério da Justiça e Segurança Pública
-NOME: Ministério da Justiça e Segurança Pública
-DIR BD FINAL: /media/hdvm10/bd/003/001/001/001
-MINISTERIO: None
-/media/hdvm10/bd/003/001/001/001/None/banco
-False
-Não está na base
-TIPO: MJ, <class 'str'>
-
-ENV MINISTERIO: CIDADANIA
-NOME: CIDADANIA
-DIR BD FINAL: /media/hdvm10/bd/003/001/001/001
-MINISTERIO: 018
-/media/hdvm10/bd/003/001/001/001/018/banco
-True
-Já está na base
-TIPO: CIDADANIA, <class 'str'>

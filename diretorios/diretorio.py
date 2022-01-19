@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 import os
 
 def diretorios(nome, ano="NA"):
-        """ para rodar o template html no computador local, substituir a variável DIR_BD_FINAL por DIR_CONFIG """
+        """ essa função retorna a pasta do banco, do html, do html-ano, referencia-abnt, estilo-css """
         print(f'NOME: {nome}')
         DIR_ATUAL = os.environ["PWD"] 
         lista_dir_atual = DIR_ATUAL.split("/")
