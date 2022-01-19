@@ -49,8 +49,7 @@ def diretorios_template(nome, ano="NA"):
             DIR_ROOT += "/template_html"
             ESTILO = DIR_ROOT + "/css/style.css" 
             REFERENCIAS = DIR_ROOT + "/js/referencia.js"
-        env_dir = load_dotenv(f'{DIR_ROOT}/.env_dir') 
-        print(f'{DIR_ROOT}/.env_dir')
+        env_dir = load_dotenv(f'{DIR_ROOT}/diretorios/.env_dir')  
         # /home/labri_juliasilveira/codigo/template_html/.env_var
         LOCAL = os.getenv("LOCAL")
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")

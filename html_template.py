@@ -24,6 +24,7 @@ def consultar(sites="NA", template="NA"):
         dir_html = diretorio[1]
         dir_referencias = diretorio[3]
         dir_estilo = diretorio[4]
+        print(dir_estilo)
         db = TinyDB(f'{dir_json}/{site}.json')
         myDBQuery = Query()
         for dado in iter(db):
