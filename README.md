@@ -43,10 +43,16 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] resolver questões de importação
 - [x] deixar mais genérico o template html
 - [x] ajustar caminhos para estilos e referências do html
-- [ ] separar em um template a inserção no banco de dados 
-- [ ] separar em um template os apontamentos dos diretórios
-- [ ] salvar os arquivos no internet archive 
-- [ ] otimizar importação
+- [ ] separar em um template a inserção no banco de dados (em andamento)
+- [ ] separar em um template os apontamentos dos diretórios (em andamento)
+- [ ] separar em um template o internet archive (em andamento)
+- [x] salvar os arquivos no internet archive 
+- [ ] otimizar importação 
+- [ ] .env_dir está na pasta template_html e diretorios, e deve ficar apenas em diretorios
+- [ ] ajustar link e link_archive para url e url_archive
+- [ ] colocar link_archive como lista e não como str
+- [ ] inserir no json a data em que o link foi salvo no internet archive
+- [ ] fazer uma chamada genérica no internet archive (em andamento)
 
 
 # Integração 
