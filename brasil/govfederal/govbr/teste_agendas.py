@@ -50,15 +50,16 @@ def agenda(urlbase):
 
 def coleta_compromissos(ag, origem):
     """coleta os compromissos de cada dia"""
-    print("Entrando na função coleta compromisso. agenda: ",ag)
+    print("Entrando na função coleta compromisso da agenda: ", origem)
     for dia in agenda(ag):
-        dir_json = diretorios()
-        db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_agenda_ministerios.json", ensure_ascii=False)
+        dir_json = diretorios("PLANALTO")[0]
+        db = TinyDB(f"{dir_json}/agenda_ministerios.json", indent=4, ensure_ascii=False)
         User = Query()
+        pagina_dia = acessar_pagina(dia)
+        url=dia
+        data=pagina_dia.find("span", {"id":"breadcrumbs-current"}).text
+        print(f"DATA:{data}")
         try:
-            pagina_dia = acessar_pagina(dia)
-            url=dia
-            data=pagina_dia.find("span", {"id":"breadcrumbs-current"}).text
             try:
                 lista_conteudo=[]
                 compromissos = pagina_dia.find("ul", class_="list-compromissos").find_all("div", class_="item-compromisso")
@@ -101,7 +102,7 @@ def coleta_compromissos(ag, origem):
                 else:
                     print("está na base")
         except:
-            pass
+            print("erro na inserção")
         
 def acesso_ministerios ():
     lista_ministerios = [
@@ -128,9 +129,9 @@ def acesso_ministerios ():
                 for link in agendas:
                     acesso_agenda_reduzida = acessar_pagina(link)
                     corrige = acesso_agenda_reduzida.find_all("a", class_="govbr-card-content")
-                    for item in corrige:
-                        agendas.remove(link)                  
-                        agendas.append(item["href"])
+                for item in corrige:
+                    agendas.remove(link)                  
+                    agendas.append(item["href"])
             except:
                 pass           
             try:
@@ -161,11 +162,13 @@ def acesso_ministerios ():
     return lista_agenda
 
 def coleta_agendas ():
+    ministerios = acesso_ministerios()
+    print(f"Ministerio agenda:{ministerios}", len(ministerios))
     for ministerio in acesso_ministerios():
-        pagina_inicial = acessar_pagina(ministerio[1])
+        pagina_inicial = acessar_pagina(ministerio[0])
         origem = pagina_inicial.find("div", class_="site-name").find("a").text
         print(origem)
-        for agenda in ministerio[1:]:
+        for agenda in ministerio[0:]:
             coleta_compromissos(agenda,origem)
 
 
