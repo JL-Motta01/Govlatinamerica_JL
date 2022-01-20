@@ -9,9 +9,11 @@ NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
 lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
 DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
+print(f'DIR PROJETO: {DIR_PROJETO}')
 from diretorios.diretorio import diretorios, diretorios_template 
 
 def consultar(sites="NA", template="NA"):
+    print("acessando função consultar")
     lista_sites = sites
     print(f'LISTA DE SITES: {lista_sites}')
     for site in lista_sites:
@@ -24,7 +26,7 @@ def consultar(sites="NA", template="NA"):
         dir_html = diretorio[1]
         dir_referencias = diretorio[3]
         dir_estilo = diretorio[4]
-        print(dir_estilo)
+        print(f'dir_estilo: {dir_estilo}')
         db = TinyDB(f'{dir_json}/{site}.json')
         myDBQuery = Query()
         for dado in iter(db):
@@ -110,7 +112,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
 
 
                 with tag('div', klass='referencia', id='referencias'):
-                    with tag('h4'):
+                    with tag('h2'):
                         #text(f'Como citar: {origem}. {titulo}, {data}. Acesso em: ')
                         #doc.asis(f'<span id="dateAndTime">Como citar: {origem}. {titulo}, {data}. Acesso em: </span>')
                         # MINISTERIODACIDADANIA. 12ª Conferência Nacional da Assistência Social tem Início em Brasília, 16/12/2021, Acesso em: 11 jan. 2022
@@ -127,7 +129,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
 
 
                 with tag('header', klass="negrito", id="metadados"):
-                    with tag('h4'):
+                    with tag('h2'):
                         text('Metadados:')
                     with tag('h3'):
                         with tag('span', klass="infos"):
@@ -175,6 +177,22 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                                 text(f'Tags: Não possui esta informação')
                             else: 
                                 text(f'Tags: {", ".join(tags)}')
+                    with tag('h3'):
+                        with tag('span', klass="infos"):
+                            if "NA" in link:
+                                text(f'Link: Não possui esta informação')
+                            else: 
+                                text(f'Link: ')
+                                with tag('a', href=link, target="_blank"):
+                                    text("Acesse o link original desta informação")
+                    with tag('h3'):
+                        with tag('span', klass="infos"):
+                            if "NA" in link_archive:
+                                text(f'Link_archive: Não possui esta informação')
+                            else:  
+                                text(f'Link_archive: ')
+                                with tag('a', href=link, target="_blank"):
+                                    text("Acesse o link arquivado na Internet Archive")
                     
 
                 
