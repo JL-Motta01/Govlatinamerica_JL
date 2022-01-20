@@ -66,12 +66,16 @@ def base_dados(xml):
         if not db_planalto:
             print(f"não está na base:{sublista[5]}")
             db.insert({
-                "link": sublista[0],
-                "data":sublista[1],
-                "atualizado em": sublista[2],
+                "origem": "Planalto",
+                "classificado": "Noticias",
                 "categoria": sublista[3],
-                "tags": sublista[4],
+                "data":sublista[1],
+                "horario": """""",
+                "atualizado em": sublista[2],
                 "titulo": sublista[5],
+                "subtitulo": "",
+                "link": sublista[0],
+                "tags": sublista[4],
                 "conteudo": sublista[6],
             })
             link_news = sublista[0]
