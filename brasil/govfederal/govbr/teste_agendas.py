@@ -1,16 +1,7 @@
-from io import DEFAULT_BUFFER_SIZE
-from urllib import parse
-from urllib.request import urlopen
-import urllib
 import urllib.request #realizar requisição da página html
-import os #para especificar o caminho do download
-import wget
-import csv
 from tinydb import TinyDB,Query
-from urllib.parse import urlparse #realizar parseamento do html
 from bs4 import BeautifulSoup #importa o beautifulsoup para extrair as infos das tags
 from pprint import pprint #organizar estéticamente os prints
-from tinydb.operations import add
 from datetime import date, timedelta, datetime
 
 
