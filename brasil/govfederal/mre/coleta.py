@@ -97,9 +97,35 @@ def infos_classificadas(): # check
                 list_links_infos_classificadas.append(a_infos_classificadas["href"])
         
 
-def dados_abertos():
+def dados_abertos(): # ajustar erros
     url = "https://www.gov.br/mre/pt-br/acesso-a-informacao/dados-abertos"
     mre_page = page_access(url)
+    title_dados_abertos = mre_page.find("h1", class_="documentFirstHeading").text
+    post_dados_abertos = mre_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_dados_abertos = mre_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_dados_abertos = mre_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_dados_abertos in content_dados_abertos:
+        link_dados_abertos = page_access(a_dados_abertos["href"]) 
+        try:
+            title_link_dados_abertos_page = link_dados_abertos.find("h1", class_="documentFirstHeading").text
+        except:
+            print("sem título")
+        try: 
+            post_link_dados_abertos_page = link_dados_abertos.find("span", class_="documentPublished").find("span", class_="value").text
+        except:
+            print("sem post")
+        try:
+            update_link_dados_abertos_page = link_dados_abertos.find("span", class_="documentModified").find("span", class_="value").text
+        except:
+            print("sem update")
+        list_links_dados_abertos_page = []
+        try: 
+            links_dados_abertos_page = link_dados_abertos.find("div", {"id":"content-core"}).find_all("a")
+            for a_dados_abertos in links_dados_abertos_page:
+                list_links_dados_abertos_page.append(a_dados_abertos["href"])
+            print(list_links_dados_abertos_page)
+        except:
+            print("sem link")
     
 
 def cgrc():
