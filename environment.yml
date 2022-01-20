@@ -1,4 +1,4 @@
-name: env_govlatinamerica
+name: env_govlatinamerica2
 channels:
   - conda-forge
   - defaults
@@ -7,10 +7,12 @@ dependencies:
   - tinydb
   - beautifulsoup4
   - yattag
+  - python-dotenv
   - lxml
   - pip
   - pip:
     - wget
+    - waybackpy
   
   
 prefix: ~/.conda/envs/env_govlatinamerica
