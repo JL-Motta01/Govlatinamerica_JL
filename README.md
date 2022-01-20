@@ -53,6 +53,7 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [ ] colocar link_archive como lista e não como str
 - [ ] inserir no json a data em que o link foi salvo no internet archive
 - [ ] fazer uma chamada genérica no internet archive (em andamento)
+- [ ] documentar estrutura dos repositórios do gitlab
 
 
 # Integração 
