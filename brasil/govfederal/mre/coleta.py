@@ -14,9 +14,19 @@ def noticias():
     pass
 
 
-def estudos_mercado_tecnologia():
+def estudos_mercado_tecnologia(): # in progress
     url = "https://www.gov.br/mre/pt-br/assuntos/ciencia-tecnologia-e-inovacao/estudos-de-mercado-e-de-tecnologias"
     mre_page = page_access(url)
+    title_estudos_mercado_tecnologia = mre_page.find("h1", class_="documentFirstHeading").text
+    post_estudos_mercado_tecnologia = mre_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_estudos_mercado_tecnologia = mre_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_estudos_mercado_tecnologia = mre_page.find("div", {"id" : "parent-fieldname-text"}).text
+    list_links_estudos_mercado_tecnologia = []
+    links_estudos_mercado_tecnologia = mre_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_estudos_mercado_tecnologia in links_estudos_mercado_tecnologia:
+        list_links_estudos_mercado_tecnologia.append(a_estudos_mercado_tecnologia["href"])
+    print(title_estudos_mercado_tecnologia, post_estudos_mercado_tecnologia, update_estudos_mercado_tecnologia)
+    print(list_links_estudos_mercado_tecnologia)
 
 
 def alertas_consular():
@@ -34,7 +44,7 @@ def infos_classificadas():
     mre_page = page_access(url)
     
 
-def infos_classificadas():
+def dados_abertos():
     url = "https://www.gov.br/mre/pt-br/acesso-a-informacao/dados-abertos"
     mre_page = page_access(url)
     
@@ -63,6 +73,7 @@ def ocde_boletins():
     url = "https://www.gov.br/mre/pt-br/assuntos/politica-externa-comercial-e-economica/organizacoes-economicas-internacionais/brasil-na-ocde-boletim-informativo"
     mre_page = page_access(url)
 
+
 def main():
     global bs
     url = "https://www.gov.br/mre/pt-br/"
@@ -72,12 +83,12 @@ def main():
     mre_alertas = alertas()
     mre_noticias_consular = noticias_consular()
     mre_infos_classificadas = infos_classificadas()
+    mre_dados_abertos = dados_abertos()
     mre_cgrc = cgrc()
     mre_pei_mre = pei_mre()
     mre_entrevistas = entrevistas()
     mre_resenhas_peb = resenhas_peb()
     mre_ocde_boletins = ocde_boletins()
-
 
 
 if __name__ == "__main__":
