@@ -3,11 +3,19 @@ from tinydb import TinyDB,Query
 from bs4 import BeautifulSoup #importa o beautifulsoup para extrair as infos das tags
 from pprint import pprint #organizar estéticamente os prints
 from datetime import date, timedelta, datetime
+import os
+import sys 
+DIR_PWD = os.environ["PWD"] 
+lista_dir_atual = DIR_PWD.split("/")
+NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
+lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
+DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
+sys.path.append(DIR_PROJETO) 
+from diretorios.diretorio import diretorios
+from inserir_bd import inserir_bd
 
-
-DIR_LOCAL= "/home/labri_joaomotta/codigo"
-
-DIR_DADOS= "/media/hdvm10/bd/003/001/001/001/001-b"
+# DIR_LOCAL= "/home/labri_joaomotta/codigo"
+# DIR_DADOS= "/media/hdvm10/bd/003/001/001/001/001-b"
 
 
 def acessar_pagina(url):
@@ -44,6 +52,7 @@ def coleta_compromissos(ag, origem):
     """coleta os compromissos de cada dia"""
     print("Entrando na função coleta compromisso. agenda: ",ag)
     for dia in agenda(ag):
+        dir_json = diretorios()
         db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_agenda_ministerios.json", ensure_ascii=False)
         User = Query()
         try:
