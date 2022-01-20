@@ -14,7 +14,7 @@ def noticias():
     pass
 
 
-def estudos_mercado_tecnologia(): # in progress
+def estudos_mercado_tecnologia(): # check
     url = "https://www.gov.br/mre/pt-br/assuntos/ciencia-tecnologia-e-inovacao/estudos-de-mercado-e-de-tecnologias"
     mre_page = page_access(url)
     title_estudos_mercado_tecnologia = mre_page.find("h1", class_="documentFirstHeading").text
@@ -25,16 +25,31 @@ def estudos_mercado_tecnologia(): # in progress
     links_estudos_mercado_tecnologia = mre_page.find("div", {"id":"content-core"}).find_all("a")
     for a_estudos_mercado_tecnologia in links_estudos_mercado_tecnologia:
         list_links_estudos_mercado_tecnologia.append(a_estudos_mercado_tecnologia["href"])
-    print(title_estudos_mercado_tecnologia, post_estudos_mercado_tecnologia, update_estudos_mercado_tecnologia)
-    print(list_links_estudos_mercado_tecnologia)
 
 
-def alertas_consular():
+def alertas_consular(): # check
     url = "https://www.gov.br/mre/pt-br/assuntos/portal-consular/alertas%20e%20noticias/alertas/alertas"
     mre_page = page_access(url)
+    title_alertas_consular = mre_page.find("h1", class_="documentFirstHeading").text
+    post_alertas_consular = mre_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_alertas_consular = mre_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_alertas_consular = mre_page.find("div", {"id":"content-core"}).find_all("article")
+    for article_alertas_consular in content_alertas_consular:
+        link_alertas_consular = page_access(article_alertas_consular.div.h2.a["href"]) 
+        title_link_alertas_consular_page = link_alertas_consular.find("h1", class_="documentFirstHeading").text
+        post_link_alertas_consular_page = link_alertas_consular.find("span", class_="documentPublished").find("span", class_="value").text
+        try:
+            update_link_alertas_consular_page = link_alertas_consular.find("span", class_="documentModified").find("span", class_="value").text
+        except:
+            pass
+        content_link_alertas_consular_page = link_alertas_consular.find("div", {"id" : "parent-fieldname-text"}).text
+        list_links_alertas_consular_page = []
+        links_alertas_consular_page = link_alertas_consular.find("div", {"id":"parent-fieldname-text"}).find_all("a")
+        for a_alertas_consular in links_alertas_consular_page:
+            list_links_alertas_consular_page.append(a_alertas_consular["href"]) 
 
 
-def noticias_consular():
+def noticias_consular(): # in progress
     url = "https://www.gov.br/mre/pt-br/assuntos/portal-consular/alertas%20e%20noticias/noticias/colecao-de-noticias"
     mre_page = page_access(url)
 
@@ -78,9 +93,9 @@ def main():
     global bs
     url = "https://www.gov.br/mre/pt-br/"
     bs = page_access(url) 
-    mre_noticias = noticias()
-    mre_estudos_mercado_tecnologia = estudos_mercado_tecnologia()
-    mre_alertas = alertas()
+    # mre_noticias = noticias()
+    # mre_estudos_mercado_tecnologia = estudos_mercado_tecnologia()
+    # mre_alertas_consular = alertas_consular()
     mre_noticias_consular = noticias_consular()
     mre_infos_classificadas = infos_classificadas()
     mre_dados_abertos = dados_abertos()
