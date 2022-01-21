@@ -97,7 +97,7 @@ def infos_classificadas(): # check
                 list_links_infos_classificadas.append(a_infos_classificadas["href"])
         
 
-def dados_abertos(): # ajustar erros
+def dados_abertos(): # ajustar erros - fix it later
     url = "https://www.gov.br/mre/pt-br/acesso-a-informacao/dados-abertos"
     mre_page = page_access(url)
     title_dados_abertos = mre_page.find("h1", class_="documentFirstHeading").text
@@ -128,19 +128,49 @@ def dados_abertos(): # ajustar erros
             print("sem link")
     
 
-def cgrc():
+def cgirc(): # check
     url = "https://www.gov.br/mre/pt-br/acesso-a-informacao/gestao-e-governanca/governanca/comite-de-governanca-riscos-e-controle-cgrc"
     mre_page = page_access(url)
+    title_cgirc = mre_page.find("h1", class_="documentFirstHeading").text
+    post_cgirc = mre_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_cgirc = mre_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_cgirc = mre_page.find("div", {"id" : "parent-fieldname-text"}).text
+    list_links_cgirc = []
+    links_cgirc = mre_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_cgirc in links_cgirc:
+        list_links_cgirc.append(a_cgirc["href"])
 
 
-def pei_mre():
+def pei_mre(): # check
     url = "https://www.gov.br/mre/pt-br/acesso-a-informacao/gestao-e-governanca/governanca/planejamento-estrategico-institucional-do-mre-pei-mre"
     mre_page = page_access(url)
+    title_pei_mre = mre_page.find("h1", class_="documentFirstHeading").text
+    post_pei_mre = mre_page.find("span", class_="documentPublished").find("span", class_="value").text
+    update_pei_mre = mre_page.find("span", class_="documentModified").find("span", class_="value").text
+    content_pei_mre = mre_page.find("div", {"id" : "parent-fieldname-text"}).text
+    list_links_pei_mre = []
+    links_pei_mre = mre_page.find("div", {"id":"content-core"}).find_all("a")
+    for a_pei_mre in links_pei_mre:
+        list_links_pei_mre.append(a_pei_mre["href"])
 
 
-def entrevistas():
-    url = "https://www.gov.br/mre/pt-br/centrais-de-conteudo/publicacoes/discursos-artigos-e-entrevistas"
-    mre_page = page_access(url)
+def entrevistas(): # in progress
+    url_base = "https://www.gov.br/mre/pt-br/centrais-de-conteudo/publicacoes/discursos-artigos-e-entrevistas/"
+    subpages = ["presidente-da-republica", "vice-presidente", "ministro-das-relacoes-exteriores", "secretario-geral", "diplomatas", "outras-autoridades"]
+    for pages in subpages:
+        url = url_base + pages
+        print(url)
+        if url[1]:
+            url_presidente = url + "/presidente-da-republica-federativa-do-brasil-"
+            print(url_presidente)
+            sub = ["discursos", "artigos", "entrevistas"]
+            #for subs in sub:
+                #teste = url_presidente + sub
+                #print(teste)
+        # mre_page = page_access(url)
+        # title_boletins = sd_page.find("h1", class_="documentFirstHeading").text
+
+# https://www.gov.br/mre/pt-br/centrais-de-conteudo/publicacoes/discursos-artigos-e-entrevistas/presidente-da-republica/presidente-da-republica-federativa-do-brasil-discursos
 
 
 def resenhas_peb():
@@ -162,9 +192,9 @@ def main():
     # mre_alertas_consular = alertas_consular()
     # mre_noticias_consular = noticias_consular()
     # mre_infos_classificadas = infos_classificadas()
-    mre_dados_abertos = dados_abertos()
-    mre_cgrc = cgrc()
-    mre_pei_mre = pei_mre()
+    # mre_dados_abertos = dados_abertos()
+    # mre_cgirc = cgirc()
+    # mre_pei_mre = pei_mre()
     mre_entrevistas = entrevistas()
     mre_resenhas_peb = resenhas_peb()
     mre_ocde_boletins = ocde_boletins()
