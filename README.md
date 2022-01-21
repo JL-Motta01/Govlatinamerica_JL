@@ -100,7 +100,15 @@ git add --all .
 git commit -m "resolvendo conflitos no arquivo html template e teste de internet archive"
 git pull origin main
 git push origin main
-git subtree pull --prefix=template_html template_html main
-git subtree push --prefix=template_html template_html main
+git subtree pull --prefix=templates templates main
+git subtree push --prefix=templates templates main
 
 ``` 
+
+# Para adicionar repositórios externos
+
+```
+git remote add templates https://gitlab.com/unesp-labri/projeto/templates.git
+git subtree add --prefix=templates/ templates main
+
+```
