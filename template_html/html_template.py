@@ -36,7 +36,8 @@ def consultar(sites="NA", template="NA"):
             subtitulo = dado['subtitulo']
             link = dado['link']
             link_archive = dado['link_archive']
-            data_archine = dado['data_archive']
+            data_archive = dado['data_archive']
+            horario_archive = dado['horario_archive']
             categoria = dado['categoria']
             data = dado['data']
             horario = dado['horario']
@@ -55,12 +56,12 @@ def consultar(sites="NA", template="NA"):
                 dir_html_ano = diretorios_template(site, data[-4:])[2]
             else:
                dir_html_ano = diretorios(site, data[-4:])[2]
-            template_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
+            template_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
             
             print("#################")
             print("#################")
 
-def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
     doc, tag, text = Doc().tagtext()
     paragrafos_avisos = [f'Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com a instituição que produziu e/ou divulgou esta informação: {origem}']
     links = ["stylesheet"]
@@ -82,6 +83,8 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
             doc.asis(f'<meta name="subtitulo" content={subtitulo}>')
             doc.asis(f'<meta name="link" content={link}>') 
             doc.asis(f'<meta name="link_archive" content={link_archive}>')
+            doc.asis(f'<meta name="data_archive" content={data_archive}>')
+            doc.asis(f'<meta name="horario_archive" content={horario_archive}>')
             doc.asis(f'<meta name="data" content="{data}">')
             doc.asis(f'<meta name="horario" content="{horario}">')
             doc.asis(f'<meta name="data_atualizado" content="{data_atualizado}">') 
@@ -181,20 +184,31 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in link:
-                                text(f'Link: Não possui esta informação')
+                                text(f'Endereço original: Não possui esta informação')
                             else: 
-                                text(f'Link: ')
+                                text(f'Endereço original: ')
                                 with tag('a', href=link, target="_blank"):
-                                    text("Acesse o link original desta informação")
+                                    text("Acesse aqui o link original desta informação")
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in link_archive:
-                                text(f'Link_archive: Não possui esta informação')
+                                text(f'Endereço no Internet Archive: Não possui esta informação')
                             else:  
-                                text(f'Link_archive: ')
+                                text(f'Endereço no Internet Archive: ')
                                 with tag('a', href=link, target="_blank"):
-                                    text("Acesse o link arquivado na Internet Archive")
-                    
+                                    text("Acesse aqui o link arquivado no Internet Archive")
+                    with tag('h3'):
+                        with tag('span', klass="infos"):
+                            if "NA" in data_archive:
+                                text(f'Arquivado no Internet Archive em: Não possui esta informação')
+                            else:  
+                                text(f'Arquivado no Internet Archive em: {data_archive}')
+                    with tag('h3'):
+                        with tag('span', klass="infos"):
+                            if "NA" in horario_archive:
+                                text(f'Arquivado no Internet Archive às: Não possui esta informação')
+                            else:  
+                                text(f'Arquivado no Internet Archive às: {horario_archive}')
 
                 
 
@@ -216,7 +230,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
 
 
 def main():
-    sites = ["CIDADANIA"]
+    sites = ["CIDADANIA2"]
     consulta = consultar(sites, template="ok")
 
 if __name__ == '__main__':

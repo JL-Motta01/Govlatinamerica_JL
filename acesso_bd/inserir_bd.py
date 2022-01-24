@@ -12,7 +12,7 @@ DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
 from diretorios.diretorio import diretorios
 
-def inserir_bd(env_ministerio="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+def inserir_bd(env_ministerio="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
         print(f'ENV MINISTERIO: {env_ministerio}')
         DIR_FINAL = diretorios(env_ministerio)[0]
         print(DIR_FINAL)
@@ -33,6 +33,8 @@ def inserir_bd(env_ministerio="NA", origem="NA", classificado="NA", titulo="NA",
                     "subtitulo": subtitulo,
                     "link": link,
                     "link_archive": link_archive,
+                    "data_archive": data_archive,
+                    "horario_archive": horario_archive,
                     "categoria": categoria,
                     "data": data,
                     "horario": horario,

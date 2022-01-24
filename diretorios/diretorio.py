@@ -43,13 +43,13 @@ def diretorios_template(nome, ano="NA"):
         NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
         lista_dir_atual_02 = DIR_ATUAL.split(NOME_PROJETO)
         DIR_ROOT = lista_dir_atual_02[0]+NOME_PROJETO
+        env_dir = load_dotenv(f'{DIR_ROOT}/.env_dir') 
         REFERENCIAS = os.getenv("REFERENCIAS")
         ESTILO = os.getenv("ESTILO")
-        if NOME_PROJETO != "template_html":
-            DIR_ROOT += "/template_html"
+        if NOME_PROJETO != "templates":
+            DIR_ROOT += "/templates/template_html"
             ESTILO = DIR_ROOT + "/css/style.css" 
-            REFERENCIAS = DIR_ROOT + "/js/referencia.js"
-        env_dir = load_dotenv(f'{DIR_ROOT}/.env_dir') 
+            REFERENCIAS = DIR_ROOT + "/js/referencia.js"       
         print(f'{DIR_ROOT}/.env_dir')
         # /home/labri_juliasilveira/codigo/template_html/.env_var
         LOCAL = os.getenv("LOCAL")

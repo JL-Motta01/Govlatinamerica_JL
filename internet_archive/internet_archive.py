@@ -25,7 +25,7 @@ def salvar_internet_archive(url):
     lista_data_horario_archive = data_horario_archive.split(" ")
     print(f'lista: {lista_data_horario_archive}')
     data_archive = lista_data_horario_archive[0]
-    horario_archive = lista_data_horario_archive[1]
+    horario_archive = [lista_data_horario_archive[1], "UTC+00"]
     return url, link_archive, data_archive, horario_archive
 
 def salvar_internet_archive_exemplo(link):
