@@ -10,7 +10,7 @@ lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
 DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
 print(f'DIR PROJETO: {DIR_PROJETO}')
-from diretorios.diretorio import diretorios, diretorios_template 
+from templates.diretorios.diretorio import diretorios, diretorios_template 
 
 def consultar(sites="NA", template="NA"):
     print("acessando função consultar")
