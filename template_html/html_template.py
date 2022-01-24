@@ -208,7 +208,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
                             if "NA" in horario_archive:
                                 text(f'Arquivado no Internet Archive às: Não possui esta informação')
                             else:  
-                                text(f'Arquivado no Internet Archive às: {horario_archive}')
+                                text(f'Arquivado no Internet Archive às: {horario_archive[0]} ({horario_archive[1]})')
 
                 
 
