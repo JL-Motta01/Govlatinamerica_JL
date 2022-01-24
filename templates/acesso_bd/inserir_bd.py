@@ -10,7 +10,7 @@ NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
 lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
 DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
-from diretorios.diretorio import diretorios
+from templates.diretorios.diretorio import diretorios
 
 def inserir_bd(env_ministerio="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
         print(f'ENV MINISTERIO: {env_ministerio}')

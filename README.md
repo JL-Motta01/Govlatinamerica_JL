@@ -54,7 +54,9 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [ ] fazer uma chamada genérica no internet archive (em andamento)
 - [ ] documentar estrutura dos repositórios do gitlab
 - [x] acrescentar na função inserir_bd os parâmetros data_archive e horario_archive: ambos inicialmente como N/A
-- [ ] integrar template ao projeto GovLatinAmerica
+- [x] integrar template ao projeto GovLatinAmerica (em andamento)
+- [ ] ver questões de importação (repositório template govlatinamerica)
+- [ ] ver caminho do css no govlatinamerica
 
 
 # Integração 
