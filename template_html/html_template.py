@@ -36,6 +36,7 @@ def consultar(sites="NA", template="NA"):
             subtitulo = dado['subtitulo']
             link = dado['link']
             link_archive = dado['link_archive']
+            data_archine = dado['data_archive']
             categoria = dado['categoria']
             data = dado['data']
             horario = dado['horario']

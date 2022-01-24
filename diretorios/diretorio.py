@@ -11,7 +11,7 @@ def diretorios(nome, ano="NA"):
         NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
         lista_dir_atual_02 = DIR_ATUAL.split(NOME_PROJETO)
         DIR_ROOT = lista_dir_atual_02[0]+NOME_PROJETO
-        env_dir = load_dotenv(f'{DIR_ROOT}/diretorios/.env_dir') 
+        env_dir = load_dotenv(f'{DIR_ROOT}/.env_dir') 
         LOCAL = os.getenv("LOCAL")
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
         print(f'DIR BD FINAL: {DIR_BD_FINAL}')
