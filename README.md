@@ -43,18 +43,18 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] resolver questões de importação
 - [x] deixar mais genérico o template html
 - [x] ajustar caminhos para estilos e referências do html
-- [ ] separar em um template a inserção no banco de dados (em andamento)
-- [ ] separar em um template os apontamentos dos diretórios (em andamento)
-- [ ] separar em um template o internet archive (em andamento)
+- [x] separar em um template a inserção no banco de dados 
+- [x] separar em um template os apontamentos dos diretórios 
+- [x] separar em um template o internet archive 
 - [x] salvar os arquivos no internet archive 
 - [ ] otimizar importação 
-- [ ] .env_dir está na pasta template_html e diretorios, e deve ficar apenas em diretorios
+- [ ] cada projeto/repositório deve ter o seu próprio .env_dir
 - [ ] ajustar link e link_archive para url e url_archive
-- [ ] colocar link_archive como lista e não como str
-- [ ] inserir no json a data em que o link foi salvo no internet archive
+- [x] inserir no json a data em que o link foi salvo no internet archive
 - [ ] fazer uma chamada genérica no internet archive (em andamento)
 - [ ] documentar estrutura dos repositórios do gitlab
-- [ ] acrescentar na função inserir_bd os parâmetros data_archive e horario_archive: ambos inicialmente como N/A
+- [x] acrescentar na função inserir_bd os parâmetros data_archive e horario_archive: ambos inicialmente como N/A
+- [ ] integrar template ao projeto GovLatinAmerica
 
 
 # Integração 
