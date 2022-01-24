@@ -14,14 +14,19 @@ sys.path.append(DIR_PROJETO)
 from diretorios.diretorio import diretorios
 
 
-def salvar_internet_archive(link):
+def salvar_internet_archive(url):
     """ passa a url para o internet archive e devolve a url enviada pelo link gerado pelo internet archive """
-    url = "https://www.gov.br/mj/pt-br/assuntos/noticias/ministerio-da-justica-e-seguranca-publica-realiza-segunda-etapa-dos-ensaios-tecnicos-em-viaturas"
+    #url = "https://www.gov.br/mj/pt-br/assuntos/noticias/ministerio-da-justica-e-seguranca-publica-realiza-segunda-etapa-dos-ensaios-tecnicos-em-viaturas"
     user_agente = "Mozilla/5.0 (Windows NT 5.1; rv:40.0) Gecko/20100101 Firefox/40.0"
     save_api = WaybackMachineSaveAPI(url, user_agente)
     link_archive = save_api.save()
-    arquivar_data = save_api.timestamp()
-    return url, link_archive
+    data_horario_archive_datatime = save_api.timestamp()
+    data_horario_archive = data_horario_archive_datatime.strftime("%d/%m/%Y %H:%M:%S")
+    lista_data_horario_archive = data_horario_archive.split(" ")
+    print(f'lista: {lista_data_horario_archive}')
+    data_archive = lista_data_horario_archive[0]
+    horario_archive = [lista_data_horario_archive[1], "UTC+00"]
+    return url, link_archive, data_archive, horario_archive
 
 def salvar_internet_archive_exemplo(link):
     """ função de teste para verificação do consulta_json sem ter que fazer chamada para internet archive """
@@ -31,23 +36,32 @@ def salvar_internet_archive_exemplo(link):
 
 def consulta_json():
     # lista = ["BIBLIOTECA-PRESIDENCIA", "PLANALTO", "MRE", "MMA", "INFRAESTRUTURA", "MME", "ECONOMIA", "DEFESA", "SAUDE", "MCTI", "MDH", "MCOM", "TURISMO", "MDR", "SECRETARIAGERAL", "CGU", "AGU", "CIDADANIA", "SECRETARIADEGOVERNO", "MEC", "MJ", "GSI", "CASACIVIL", "AGRICULTURA"]
-    ministerios = ["CIDADANIA", "MJ"]
+    ministerios = ["CIDADANIA2"]
     for nome in ministerios:
         dir_banco = diretorios(nome)[0]
+        print(dir_banco)
         db = TinyDB(f'{dir_banco}/{nome}.json', indent=4, ensure_ascii=False)
         for link in iter(db): # iter >> iteracao 
             url_link = link["link"]
             url_link_archive = link["link_archive"]
             if url_link_archive == "NA":
                 internet_archive = salvar_internet_archive(url_link)
-                atualizar = atualiza_json(internet_archive)
+                atualizar = atualiza_json(internet_archive, nome)
 
-def atualiza_json(archive):
-    print(archive)
-    nome = archive[0].split("/")[3].upper()
+def atualiza_json(internet_archive, nome):
+    print(internet_archive)
+    #nome = archive[0].split("/")[3].upper()
+    url = internet_archive[0]
+    link_archive = internet_archive[1] 
+    data_archive = internet_archive[2]
+    horario_archive = internet_archive[3]
     dir_banco = diretorios(nome)[0]
     db = TinyDB(f'{dir_banco}/{nome}.json', ensure_ascii=False)
-    db.update({"link_archive": archive[1]}, where("link")==archive[0])
+    db.update_multiple([
+        ({"link_archive": link_archive}, where("link")==url),
+        ({"data_archive": data_archive}, where("link")==url),
+        ({"horario_archive": horario_archive}, where("link")==url)
+        ])
 
 def main():
     consulta = consulta_json()

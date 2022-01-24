@@ -1,13 +1,12 @@
-name: env_template-html
+name: env_templates
 channels:
   - conda-forge
   - defaults
 dependencies:
   - python
   - tinydb
-  - yattag
   - python-dotenv
+  - yattag
   - pip
-  
-  
-prefix: ~/.conda/envs/env_template-html
+  - pip:
+    - -r requirements.txt
