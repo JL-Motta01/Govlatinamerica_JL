@@ -1,5 +1,7 @@
 """ Para utilizar esse script, é necessário incorporá-lo em um dos repositórios de coleta. 
 Por exemplo: govlatinamerica. """
+from http.client import OK
+from re import template
 from waybackpy import WaybackMachineSaveAPI
 from dotenv import load_dotenv
 from tinydb import TinyDB, Query, where
@@ -12,7 +14,7 @@ lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
 DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
 if NOME_PROJETO == "templates":
-    from diretorios.diretorio import diretorios
+    from diretorios.diretorio import diretorios, diretorios_template
 else:
     from templates.diretorios.diretorio import diretorios
 
@@ -37,28 +39,36 @@ def salvar_internet_archive_exemplo(link):
     link_archive = "https://web.archive.org/web/20220119125447/"+url
     return url, link_archive
 
-def archive_consultar_json(nomes):
-    # lista = ["BIBLIOTECA-PRESIDENCIA", "PLANALTO", "MRE", "MMA", "INFRAESTRUTURA", "MME", "ECONOMIA", "DEFESA", "SAUDE", "MCTI", "MDH", "MCOM", "TURISMO", "MDR", "SECRETARIAGERAL", "CGU", "AGU", "CIDADANIA", "SECRETARIADEGOVERNO", "MEC", "MJ", "GSI", "CASACIVIL", "AGRICULTURA"]
-    # ministerios = nomes # ["CIDADANIA2"]
+def archive_consultar_json(nomes, template="NA"):
     for nome in nomes:
-        dir_banco = diretorios(nome)[0]
-        print(dir_banco)
+        if template == "ok":
+            dir_banco = diretorios_template(nome)[0]
+        else: 
+            dir_banco = diretorios(nome)[0]
+        print(f'dir_banco: {dir_banco}')
         db = TinyDB(f'{dir_banco}/{nome}.json', indent=4, ensure_ascii=False)
         for link in iter(db): # iter >> iteracao 
             url_link = link["link"]
             url_link_archive = link["link_archive"]
             if url_link_archive == "NA":
                 internet_archive = salvar_internet_archive(url_link)
-                atualizar = atualiza_json(internet_archive, nome)
+                if template == "ok":
+                    print('template ok')
+                    atualizar = atualiza_json(internet_archive, nome, template="ok")
+                else: 
+                    atualizar = atualiza_json(internet_archive, nome)
 
-def atualiza_json(internet_archive, nome):
+def atualiza_json(internet_archive, nome, template="NA"):
     print(internet_archive)
     #nome = archive[0].split("/")[3].upper()
     url = internet_archive[0]
     link_archive = internet_archive[1] 
     data_archive = internet_archive[2]
     horario_archive = internet_archive[3]
-    dir_banco = diretorios(nome)[0]
+    if template == "ok":
+        dir_banco = diretorios_template(nome)[0]
+    else:
+        dir_banco = diretorios(nome)[0]
     db = TinyDB(f'{dir_banco}/{nome}.json', ensure_ascii=False)
     db.update_multiple([
         ({"link_archive": link_archive}, where("link")==url),
@@ -68,7 +78,7 @@ def atualiza_json(internet_archive, nome):
 
 def main():
     nomes = ["CIDADANIA2"]
-    salvar_internet_archive = archive_consultar_json(nomes)
+    salvar_internet_archive = archive_consultar_json(nomes, template="ok")
 
 if __name__=="__main__":
     main()
