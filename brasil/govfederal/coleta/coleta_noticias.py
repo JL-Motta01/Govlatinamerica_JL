@@ -12,7 +12,7 @@ lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
 DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
 from templates.diretorios.diretorio import diretorios
-from templates.template_html.html_template import consultar
+# from templates.template_html.html_template import html_consultar
 from templates.acesso_bd.inserir_bd import inserir_bd
 
 """
@@ -128,8 +128,6 @@ def main():
     for url in urls:
         govbr = NoticiasGovBr(url)
         coleta = govbr.noticias()
-    sites = ["CIDADANIA", "GSI", "MJ"]
-    consulta = consultar(sites)
 
 if __name__=="__main__":
     main()

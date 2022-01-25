@@ -19,8 +19,8 @@ def diretorios(nome, ano="NA"):
         print(f'MINISTERIO: {MINISTERIO}')
         REFERENCIAS = os.getenv("REFERENCIAS")
         ESTILO = os.getenv("ESTILO")
-        if NOME_PROJETO != "template_html":
-            DIR_TEMPLATE_HTML = DIR_ROOT + "/template_html"
+        if NOME_PROJETO != "templates":
+            DIR_TEMPLATE_HTML = DIR_ROOT + "/templates/template_html"
             ESTILO = DIR_TEMPLATE_HTML + "/css/style.css" 
             REFERENCIAS = DIR_TEMPLATE_HTML + "/js/referencia.js"
         env_dir = load_dotenv(f'{DIR_ROOT}/diretorios/.env_dir') 

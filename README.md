@@ -47,7 +47,6 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] separar em um template os apontamentos dos diretórios 
 - [x] separar em um template o internet archive 
 - [x] salvar os arquivos no internet archive 
-- [ ] otimizar importação 
 - [ ] cada projeto/repositório deve ter o seu próprio .env_dir
 - [ ] ajustar link e link_archive para url e url_archive
 - [x] inserir no json a data em que o link foi salvo no internet archive
@@ -56,7 +55,11 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] acrescentar na função inserir_bd os parâmetros data_archive e horario_archive: ambos inicialmente como N/A
 - [x] integrar template ao projeto GovLatinAmerica (em andamento)
 - [ ] ver questões de importação (repositório template govlatinamerica)
-- [ ] ver caminho do css no govlatinamerica
+  - [ ] otimizar importação 
+  - [ ] criar script main.py na raiz
+  - [ ] utilizar setup.py
+- [x] ver caminho do css no govlatinamerica
+- [ ] apontar sites para coleta
 
 
 # Integração 
