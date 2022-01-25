@@ -9,10 +9,14 @@ NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
 lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
 DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
+if NOME_PROJETO == "templates":
+    from diretorios.diretorio import diretorios, diretorios_template 
+else:
+    from templates.diretorios.diretorio import diretorios, diretorios_template 
 print(f'DIR PROJETO: {DIR_PROJETO}')
-from templates.diretorios.diretorio import diretorios, diretorios_template 
 
-def consultar(sites="NA", template="NA"):
+
+def html_consultar_json(sites="NA", template="NA"):
     print("acessando função consultar")
     lista_sites = sites
     print(f'LISTA DE SITES: {lista_sites}')
@@ -56,12 +60,12 @@ def consultar(sites="NA", template="NA"):
                 dir_html_ano = diretorios_template(site, data[-4:])[2]
             else:
                dir_html_ano = diretorios(site, data[-4:])[2]
-            template_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
+            gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
             
             print("#################")
             print("#################")
 
-def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
     doc, tag, text = Doc().tagtext()
     paragrafos_avisos = [f'Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com a instituição que produziu e/ou divulgou esta informação: {origem}']
     links = ["stylesheet"]
@@ -231,7 +235,7 @@ def template_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_
 
 def main():
     sites = ["CIDADANIA2"]
-    consulta = consultar(sites, template="ok")
+    consulta = html_consultar_json(sites, template="ok")
 
 if __name__ == '__main__':
     main()

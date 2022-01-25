@@ -11,7 +11,10 @@ NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
 lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
 DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
-from diretorios.diretorio import diretorios
+if NOME_PROJETO == "templates":
+    from diretorios.diretorio import diretorios
+else:
+    from templates.diretorios.diretorio import diretorios
 
 
 def salvar_internet_archive(url):
@@ -34,10 +37,10 @@ def salvar_internet_archive_exemplo(link):
     link_archive = "https://web.archive.org/web/20220119125447/"+url
     return url, link_archive
 
-def consulta_json():
+def archive_consultar_json(nomes):
     # lista = ["BIBLIOTECA-PRESIDENCIA", "PLANALTO", "MRE", "MMA", "INFRAESTRUTURA", "MME", "ECONOMIA", "DEFESA", "SAUDE", "MCTI", "MDH", "MCOM", "TURISMO", "MDR", "SECRETARIAGERAL", "CGU", "AGU", "CIDADANIA", "SECRETARIADEGOVERNO", "MEC", "MJ", "GSI", "CASACIVIL", "AGRICULTURA"]
-    ministerios = ["CIDADANIA2"]
-    for nome in ministerios:
+    # ministerios = nomes # ["CIDADANIA2"]
+    for nome in nomes:
         dir_banco = diretorios(nome)[0]
         print(dir_banco)
         db = TinyDB(f'{dir_banco}/{nome}.json', indent=4, ensure_ascii=False)
@@ -64,7 +67,8 @@ def atualiza_json(internet_archive, nome):
         ])
 
 def main():
-    consulta = consulta_json()
+    nomes = ["CIDADANIA2"]
+    salvar_internet_archive = archive_consultar_json(nomes)
 
 if __name__=="__main__":
     main()
