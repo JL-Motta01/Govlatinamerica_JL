@@ -160,7 +160,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                         with tag('span', klass="infos"):
                             if horario == "NA":
                                 text(f'Horario: Não possui esta informação')
-                            text(f'Horario {horario}')
+                            text(f'Horario: {horario}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if data_atualizado == "NA":
