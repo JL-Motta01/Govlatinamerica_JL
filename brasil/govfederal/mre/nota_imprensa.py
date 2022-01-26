@@ -17,6 +17,7 @@ from templates.acesso_bd.inserir_bd import inserir_bd
 
 
 def acessar_pagina_local(url):
+    """responsavel por acessar as paginas html"""
     html = open(url).read().encode("utf-8")
     bs = BeautifulSoup(html, "lxml")
     # print(bs)
@@ -24,6 +25,8 @@ def acessar_pagina_local(url):
 
 
 def notas_imprensa():
+    """responsavel por encontrar a localização dos htmls 
+    e chamar a função que extrai as infos do html"""
     env_dir = load_dotenv(f'{DIR_PROJETO}/.env_dir')
     DIR_BD = os.getenv("DIR_BD_FINAL") # getenv só aceita str
     MRE = os.getenv("MRE")
@@ -31,8 +34,9 @@ def notas_imprensa():
     DIR_FINAL = DIR_BD + "/" + MRE + MRE_NOTAS_IMPRENSA
     # print(DIR_FINAL)
     anos = [sorted(os.listdir(DIR_FINAL))[-2]]
-    print(anos)
+    # print(anos)
     for ano in anos:
+        # print(ano)
         DIR_HTML = DIR_FINAL + ano
         listar_html = os.listdir(DIR_HTML)
         for html in listar_html:
@@ -47,11 +51,14 @@ def extrai_info(html):
     print(titulo)
     data = bs.find("dd", class_="published").text
     print(data)
-
+    div_pf = bs.find("div", class_="item-page artigo-padrao").find_all("p")
+    for pf in div_pf: 
+        paragrafos = pf.text
+        print(paragrafos)
 
 def main():
     notas = notas_imprensa()
-
+    
 
 if __name__ == "__main__":
     main()

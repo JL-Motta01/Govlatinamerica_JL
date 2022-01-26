@@ -61,8 +61,15 @@ git pull origin main && conda activate env_govlatinamerica2 && conda env update 
 - [x] ver caminho do css no govlatinamerica
 - [x] apontar sites para coleta
 - [ ] verificar diretórios em que os arquivos HTML's e Jsons são salvos
+- [ ] tratamento das notas de imprensa de 1997 a 2013
+  - [ ] verificar problema de encode de 2013
+  - [ ] verificar todas as informações importantes contidas no html (título, data, parágrafos...)
+  - [ ] selecionar todas as tags importantes
+  - [ ] inserir no banco de dados 
+  - [ ] arquivar no internet archive
+  - [ ] gerar html's
 
-# Integração 
+  # Integração 
 
 - Notícias
 - Agenda
