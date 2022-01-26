@@ -23,7 +23,7 @@ git push origin main
 # Verificar atualizações do ambiente virtual
 
 ```
-git pull origin main && conda activate env_govlatinamerica && conda env update
+git pull origin main && conda activate env_govlatinamerica2 && conda env update --prune
 ```
 
 # Pendências
@@ -59,8 +59,8 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
   - [ ] criar script main.py na raiz
   - [ ] utilizar setup.py
 - [x] ver caminho do css no govlatinamerica
-- [ ] apontar sites para coleta
-
+- [x] apontar sites para coleta
+- [ ] verificar diretórios em que os arquivos HTML's e Jsons são salvos
 
 # Integração 
 
