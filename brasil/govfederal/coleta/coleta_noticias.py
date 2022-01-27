@@ -6,12 +6,14 @@ from tinydb import TinyDB, Query
 import os
 import sys 
 DIR_PWD = os.environ["PWD"] 
-DIR_TMP = DIR_PWD.split("govlatinamerica")
-DIR_PROJETO = DIR_TMP[0]+"govlatinamerica"
+lista_dir_atual = DIR_PWD.split("/")
+NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
+lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
+DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
-from diretorios.diretorio import diretorios
-from template_html.html_template import consultar
-from inserir_bd.inserir_bd import inserir_bd
+from templates.diretorios.diretorio import diretorios
+# from templates.template_html.html_template import html_consultar
+from templates.acesso_bd.inserir_bd import inserir_bd
 
 """
 - coletar noticias de todos os ministérios
@@ -102,6 +104,8 @@ class NoticiasGovBr:
                 print(f'TAGS: {tags}')
                 subtitulo = "NA"
                 link_archive = "NA"
+                data_archive = "NA"
+                horario_archive = "NA"
                 # categoria = "NA"
                 data = publicado[:10]
                 horario = publicado[-5:]
@@ -114,8 +118,8 @@ class NoticiasGovBr:
                 extra_02 = "NA"
                 extra_03 = "NA"
                 # paragrafos = "NA"
-                inserir_banco = inserir_bd(env_ministerio, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
-    
+                inserir_banco = inserir_bd(env_ministerio, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
+
 def main():
     # urls = ["https://www.gov.br/cidadania/pt-br/noticias-e-conteudos/institucional-cidadania", "https://www.gov.br/gsi/pt-br/assuntos/noticias", "https://www.gov.br/mj/pt-br/assuntos/noticias", "https://www.gov.br/mec/pt-br/assuntos/noticias", "https://www.gov.br/secretariadegoverno/pt-br/assuntos/noticias", "https://www.gov.br/cidadania/pt-br/noticias-e-conteudos/esporte/noticias_esporte", "https://www.gov.br/cidadania/pt-br/noticias-e-conteudos/desenvolvimento-social/noticias-desenvolvimento-social", "https://www.gov.br/agu/pt-br/comunicacao/noticias", "https://www.gov.br/cgu/pt-br/assuntos/noticias", "https://www.gov.br/secretariageral/pt-br/assuntos/noticias", "https://www.gov.br/planalto/pt-br/acompanhe-o-planalto/noticias", "https://www.gov.br/mdr/pt-br/noticias", "https://www.gov.br/turismo/pt-br/assuntos/noticias", "https://www.gov.br/mcom/pt-br/noticias", "https://www.gov.br/mcti/pt-br/acompanhe-o-mcti/noticias", "https://www.gov.br/saude/pt-br/assuntos/noticias", "https://www.gov.br/agricultura/pt-br/assuntos/noticias", "https://www.gov.br/mdh/pt-br/assuntos/noticias", "https://www.gov.br/mme/pt-br/assuntos/noticias", "https://www.gov.br/economia/pt-br/assuntos/noticias", "https://www.gov.br/casacivil/pt-br/assuntos/noticias", "https://www.gov.br/infraestrutura/pt-br/assuntos/noticias", "https://www.gov.br/defesa/pt-br/centrais-de-conteudo/noticias", "https://www.gov.br/mma/pt-br/assuntos/noticias"]
     urls = ["https://www.gov.br/cidadania/pt-br/noticias-e-conteudos/institucional-cidadania", "https://www.gov.br/gsi/pt-br/assuntos/noticias", "https://www.gov.br/mj/pt-br/assuntos/noticias"]
@@ -124,8 +128,6 @@ def main():
     for url in urls:
         govbr = NoticiasGovBr(url)
         coleta = govbr.noticias()
-    sites = ["CIDADANIA", "GSI", "MJ"]
-    consulta = consultar(sites)
 
 if __name__=="__main__":
     main()

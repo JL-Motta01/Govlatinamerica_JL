@@ -23,7 +23,7 @@ git push origin main
 # Verificar atualizações do ambiente virtual
 
 ```
-git pull origin main && conda activate env_govlatinamerica && conda env update
+git pull origin main && conda activate env_govlatinamerica2 && conda env update --prune
 ```
 
 # Pendências
@@ -43,20 +43,35 @@ git pull origin main && conda activate env_govlatinamerica && conda env update
 - [x] resolver questões de importação
 - [x] deixar mais genérico o template html
 - [x] ajustar caminhos para estilos e referências do html
-- [ ] separar em um template a inserção no banco de dados (em andamento)
-- [ ] separar em um template os apontamentos dos diretórios (em andamento)
-- [ ] separar em um template o internet archive (em andamento)
+- [x] separar em um template a inserção no banco de dados 
+- [x] separar em um template os apontamentos dos diretórios 
+- [x] separar em um template o internet archive 
 - [x] salvar os arquivos no internet archive 
-- [ ] otimizar importação 
-- [ ] .env_dir está na pasta template_html e diretorios, e deve ficar apenas em diretorios
+- [ ] cada projeto/repositório deve ter o seu próprio .env_dir
 - [ ] ajustar link e link_archive para url e url_archive
-- [ ] colocar link_archive como lista e não como str
-- [ ] inserir no json a data em que o link foi salvo no internet archive
+- [x] inserir no json a data em que o link foi salvo no internet archive
 - [ ] fazer uma chamada genérica no internet archive (em andamento)
 - [ ] documentar estrutura dos repositórios do gitlab
+- [x] acrescentar na função inserir_bd os parâmetros data_archive e horario_archive: ambos inicialmente como N/A
+- [x] integrar template ao projeto GovLatinAmerica (em andamento)
+- [ ] ver questões de importação (repositório template govlatinamerica)
+  - [ ] otimizar importação 
+  - [ ] criar script main.py na raiz
+  - [ ] utilizar setup.py
+- [x] ver caminho do css no govlatinamerica
+- [x] apontar sites para coleta
+- [ ] verificar diretórios em que os arquivos HTML's e Jsons são salvos
+- [ ] tratamento das notas de imprensa de 1997 a 2013
+  - [ ] verificar problema de encode de 2013
+  - [x] verificar todas as informações importantes contidas no html (título, data, parágrafos, número da nota quando houver...)
+  - [ ] necessidade de tratar especificamente as datas e os parágrafos de cada ano (mudança de estrutura html)
+  - [ ] selecionar todas as tags importantes
+  - [ ] inserir no banco de dados 
+  - [ ] arquivar no internet archive
+  - [ ] gerar html's
 
 
-# Integração 
+  # Integração 
 
 - Notícias
 - Agenda
@@ -100,7 +115,15 @@ git add --all .
 git commit -m "resolvendo conflitos no arquivo html template e teste de internet archive"
 git pull origin main
 git push origin main
-git subtree pull --prefix=template_html template_html main
-git subtree push --prefix=template_html template_html main
+git subtree pull --prefix=templates templates main
+git subtree push --prefix=templates templates main
 
 ``` 
+
+# Para adicionar repositórios externos
+
+```
+git remote add templates https://gitlab.com/unesp-labri/projeto/templates.git
+git subtree add --prefix=templates/ templates main
+
+```
