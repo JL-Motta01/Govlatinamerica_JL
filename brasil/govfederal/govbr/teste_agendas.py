@@ -120,39 +120,16 @@ def acesso_ministerios ():
         lista_link.append(ministerio)
         acesso_ministerio = acessar_pagina(ministerio)
         """Teste para ministerios difereines"""
-        #ministérios que direcionam para as agendas a partir de card contents (MRE)
-        agendas = acesso_ministerio.find_all("a", class_="govbr-card-content")
-        if agendas:
-            try:
-                #ministérios que direcionam para as secretarias a partir de card contents (MMA)
-                #Nesse caso, acessa cada secretaria e lista as agendas de seus membros, também em card contents
-                for link in agendas:
-                    acesso_agenda_reduzida = acessar_pagina(link)
-                    corrige = acesso_agenda_reduzida.find_all("a", class_="govbr-card-content")
-                for item in corrige:
-                    agendas.remove(link)                  
-                    agendas.append(item["href"])
-            except:
-                pass           
-            try:
-                #Verifica se o link  da agenda direciona para uma versão simplificada da mesma (Comum no MMA)
-                #Neste caso, busca o link da agenda completa
-                for link in agendas:
-                    corrige_agenda = []
-                    acesso_agenda_reduzida = acessar_pagina(link)
-                    link_agenda_completa = acesso_agenda_reduzida.find("div", class_="agenda-tile-footer").find("a")
-                    agenda_completa =link_agenda_completa["href"]
-                    corrige_agenda.append(agenda_completa)
-                agendas = corrige_agenda
-            except:
-                pass
-        if not agendas:
-            #Ministérios com uso de drop-down-lists que contém os links para as agendas (Casa civil, MME e Ministério da defesa)
-            agendas = acesso_ministerio.find_all("a", class_="calendario")
-        if not agendas:
-            #Ministérios que usam listas simples de links para as agendas (Ministério da infraestrutura)
-            agendas = acesso_ministerio.find_all("a", class_="internal-link")
-        if not agendas:
+        #Verifica se o link  da agenda direciona para uma versão simplificada da mesma (Comum no MMA)
+        #Neste caso, busca o link da agenda completa
+        for link in agendas:
+            corrige_agenda = []
+            acesso_agenda_reduzida = acessar_pagina(link)
+            link_agenda_completa = acesso_agenda_reduzida.find("div", class_="agenda-tile-footer").find("a")
+            agenda_completa =link_agenda_completa["href"]
+            corrige_agenda.append(agenda_completa)
+            agendas = corrige_agenda
+        
             #Caso não se enquadre, solicita revisão do ministério (Ministério da economia, atualmente fora do ar)
             print("rever ministério: ", ministerio)
         for agenda in agendas:
@@ -160,6 +137,34 @@ def acesso_ministerios ():
             lista_link.append(link)
         lista_agenda.append(lista_link)
     return lista_agenda
+
+def card_content(acesso):
+    #ministérios que direcionam para as agendas a partir de card contents (MRE)
+    agendas = acesso.find_all("a", class_="govbr-card-content")
+    return agendas
+
+def card_content_secretaria(acesso):
+    #ministérios que direcionam para as secretarias a partir de card contents (MMA)
+    #Nesse caso, acessa cada secretaria e lista as agendas de seus membros, também em card contents
+    agendas = acesso.find_all("a", class_="govbr-card-content")
+    for link in agendas:
+        acesso_agenda_reduzida = acessar_pagina(link)
+        corrige = acesso_agenda_reduzida.find_all("a", class_="govbr-card-content")
+    for item in corrige:
+        agendas.remove(link)                  
+        agendas.append(item["href"])
+    return agendas
+
+def drop_list(acesso):
+    #Ministérios com uso de drop-down-lists que contém os links para as agendas (Casa civil, MME e Ministério da defesa)
+    agendas = acesso.find_all("a", class_="calendario")
+    return agendas
+
+def normal_list(acesso):
+    #Ministérios que usam listas simples de links para as agendas (Ministério da infraestrutura)
+    agendas = acesso.find_all("a", class_="internal-link")
+    return agendas
+    
 
 def coleta_agendas ():
     ministerios = acesso_ministerios()
