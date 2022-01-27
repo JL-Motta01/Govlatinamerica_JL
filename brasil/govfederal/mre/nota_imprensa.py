@@ -33,7 +33,7 @@ def notas_imprensa():
     MRE_NOTAS_IMPRENSA = "/001/mre-notas-imprensa/"
     DIR_FINAL = DIR_BD + "/" + MRE + MRE_NOTAS_IMPRENSA
     # print(DIR_FINAL)
-    anos = [sorted(os.listdir(DIR_FINAL))[-2]]
+    anos = sorted(os.listdir(DIR_FINAL))[-3:-2]
     # print(anos)
     for ano in anos:
         # print(ano)
@@ -41,20 +41,25 @@ def notas_imprensa():
         listar_html = os.listdir(DIR_HTML)
         for html in listar_html:
             DIR_COMPLETO = os.path.join(DIR_HTML, html)
-            # print(DIR_COMPLETO)
-            extrair_infos = extrai_info(DIR_COMPLETO)
+            print(DIR_COMPLETO)
+            extrair_infos = extrai_info(DIR_COMPLETO, ano)
 
 
-def extrai_info(html):
+def extrai_info(html, ano):
     bs = acessar_pagina_local(html)
     titulo = bs.find("title").text
     print(titulo)
-    data = bs.find("dd", class_="published").text
-    print(data)
-    div_pf = bs.find("div", class_="item-page artigo-padrao").find_all("p")
-    for pf in div_pf: 
-        paragrafos = pf.text
-        print(paragrafos)
+    if ano == "2012":
+        data = bs.find("dd", class_="published").text
+        print(data)
+    elif ano == "2011":
+        data = bs.find("div",{"id":"parent-fieldname-text"})
+        print(f"data 2011:{data.span.text}")
+    # div_pf = bs.find("div", class_="item-page artigo-padrao").find_all("p")
+    # lista_paragrafos = []
+    # for pf in div_pf: 
+    #     lista_paragrafos.append(pf.text)
+    # print(lista_paragrafos)
 
 def main():
     notas = notas_imprensa()
