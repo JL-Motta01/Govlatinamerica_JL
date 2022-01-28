@@ -124,7 +124,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                         #text(f'Como citar: {origem}. {titulo}, {data}. Acesso em: ')
                         #doc.asis(f'<span id="dateAndTime">Como citar: {origem}. {titulo}, {data}. Acesso em: </span>')
                         # MINISTERIODACIDADANIA. 12ª Conferência Nacional da Assistência Social tem Início em Brasília, 16/12/2021, Acesso em: 11 jan. 2022
-                        text(f'Como citar: ')
+                        text(f'Como citar ')
                     with tag('h4'):
                         text(f'{origem.upper()}. ')
                         with tag('span', id='negrito'):
@@ -138,7 +138,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
 
                 with tag('header', klass="negrito", id="metadados"):
                     with tag('h2'):
-                        text('Metadados:')
+                        text('Metadados')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in autoria:
@@ -234,7 +234,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
 
 
 def main():
-    sites = ["CIDADANIA2"]
+    sites = ["CIDADANIA2", "MEC"]
     consulta = html_consultar_json(sites, template="ok")
 
 if __name__ == '__main__':
