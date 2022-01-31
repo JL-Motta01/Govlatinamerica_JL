@@ -14,7 +14,7 @@ def noticias():
     pass
 
 
-def estudos_mercado_tecnologia(): # check
+def estudos_mercado_tecnologia(): # check!
     url = "https://www.gov.br/mre/pt-br/assuntos/ciencia-tecnologia-e-inovacao/estudos-de-mercado-e-de-tecnologias"
     mre_page = page_access(url)
     title_estudos_mercado_tecnologia = mre_page.find("h1", class_="documentFirstHeading").text
@@ -25,14 +25,19 @@ def estudos_mercado_tecnologia(): # check
     links_estudos_mercado_tecnologia = mre_page.find("div", {"id":"content-core"}).find_all("a")
     for a_estudos_mercado_tecnologia in links_estudos_mercado_tecnologia:
         list_links_estudos_mercado_tecnologia.append(a_estudos_mercado_tecnologia["href"])
+    print("ESTUDOS MERCADO:")
+    print(title_estudos_mercado_tecnologia)
+    print(list_links_estudos_mercado_tecnologia)
 
 
-def alertas_consular(): # check
+def alertas_consular(): # check - ajustar links coletados
     url = "https://www.gov.br/mre/pt-br/assuntos/portal-consular/alertas%20e%20noticias/alertas/alertas"
     mre_page = page_access(url)
     title_alertas_consular = mre_page.find("h1", class_="documentFirstHeading").text
     post_alertas_consular = mre_page.find("span", class_="documentPublished").find("span", class_="value").text
     update_alertas_consular = mre_page.find("span", class_="documentModified").find("span", class_="value").text
+    print("ALERTAS CONSULAR:")
+    print(title_alertas_consular)
     content_alertas_consular = mre_page.find("div", {"id":"content-core"}).find_all("article")
     for article_alertas_consular in content_alertas_consular:
         link_alertas_consular = page_access(article_alertas_consular.div.h2.a["href"]) 
@@ -47,14 +52,17 @@ def alertas_consular(): # check
         links_alertas_consular_page = link_alertas_consular.find("div", {"id":"parent-fieldname-text"}).find_all("a")
         for a_alertas_consular in links_alertas_consular_page:
             list_links_alertas_consular_page.append(a_alertas_consular["href"]) 
+        print(list_links_alertas_consular_page)
 
 
-def noticias_consular(): # check
+def noticias_consular(): # check - conferir listas vazias
     url = "https://www.gov.br/mre/pt-br/assuntos/portal-consular/alertas%20e%20noticias/noticias/colecao-de-noticias"
     mre_page = page_access(url)
     title_noticias_consular = mre_page.find("h1", class_="documentFirstHeading").text
     post_noticias_consular = mre_page.find("span", class_="documentPublished").find("span", class_="value").text
     update_noticias_consular = mre_page.find("span", class_="documentModified").find("span", class_="value").text
+    print("NOTÍCIAS CONSULAR:")
+    print(title_noticias_consular)
     content_noticias_consular = mre_page.find("div", {"id":"content-core"}).find_all("article")
     for article_noticias_consular in content_noticias_consular:
         link_noticias_consular = page_access(article_noticias_consular.div.h2.a["href"]) 
@@ -72,14 +80,17 @@ def noticias_consular(): # check
             pdf = link.split(".")
             if pdf[-1] == "pdf":
                 list_links_noticias_consular_page.append(a_noticias_consular["href"])
+        print(list_links_noticias_consular_page)
 
 
-def infos_classificadas(): # check
+def infos_classificadas(): # check!
     url = "https://www.gov.br/mre/pt-br/acesso-a-informacao/informacoes-classificadas"
     mre_page = page_access(url)
     title_infos_classificadas = mre_page.find("h1", class_="documentFirstHeading").text
     post_infos_classificadas = mre_page.find("span", class_="documentPublished").find("span", class_="value").text
     update_infos_classificadas = mre_page.find("span", class_="documentModified").find("span", class_="value").text
+    print("INFOS CLASSIFICADAS:")
+    print(title_infos_classificadas)
     content_infos_classificadas = mre_page.find("div", {"id":"content-core"}).find_all("ol")
     for ol_infos_classificadas in content_infos_classificadas:
         ol_li_infos_classificadas = ol_infos_classificadas.find_all("li")
@@ -95,6 +106,7 @@ def infos_classificadas(): # check
             links_infos_classificadas = link_infos_classificadas.find("div", {"id":"parent-fieldname-text"}).find_all("a")
             for a_infos_classificadas in links_infos_classificadas:
                 list_links_infos_classificadas.append(a_infos_classificadas["href"])
+            print(list_links_infos_classificadas)
         
 
 def dados_abertos(): # ajustar erros - fix it later
@@ -140,7 +152,7 @@ def dados_abertos(): # ajustar erros - fix it later
     """
 
 
-def cgirc(): # check
+def cgirc(): # check!
     url = "https://www.gov.br/mre/pt-br/acesso-a-informacao/gestao-e-governanca/governanca/comite-de-governanca-riscos-e-controle-cgrc"
     mre_page = page_access(url)
     title_cgirc = mre_page.find("h1", class_="documentFirstHeading").text
@@ -151,9 +163,12 @@ def cgirc(): # check
     links_cgirc = mre_page.find("div", {"id":"content-core"}).find_all("a")
     for a_cgirc in links_cgirc:
         list_links_cgirc.append(a_cgirc["href"])
+    print("CGIRC:")
+    print(title_cgirc)
+    print(list_links_cgirc)
 
 
-def pei_mre(): # check
+def pei_mre(): # check!
     url = "https://www.gov.br/mre/pt-br/acesso-a-informacao/gestao-e-governanca/governanca/planejamento-estrategico-institucional-do-mre-pei-mre"
     mre_page = page_access(url)
     title_pei_mre = mre_page.find("h1", class_="documentFirstHeading").text
@@ -164,6 +179,9 @@ def pei_mre(): # check
     links_pei_mre = mre_page.find("div", {"id":"content-core"}).find_all("a")
     for a_pei_mre in links_pei_mre:
         list_links_pei_mre.append(a_pei_mre["href"])
+    print("PEI MRE:")
+    print(title_pei_mre)
+    print(list_links_pei_mre)
 
 
 def publicacoes_cargos(): # in progress - fix it later
@@ -253,7 +271,7 @@ def publicacoes_cargos(): # in progress - fix it later
             """
 
 
-def resenhas_peb(): # check
+def resenhas_peb(): # check!
     url = "https://www.gov.br/mre/pt-br/centrais-de-conteudo/publicacoes/resenhas-de-politica-exterior-do-brasil"
     mre_page = page_access(url)
     title_resenhas_peb = mre_page.find("h1", class_="documentFirstHeading").text
@@ -266,9 +284,12 @@ def resenhas_peb(): # check
         pdf = link.split(".")
         if pdf[-1] == "pdf":
             list_links_resenhas_peb.append(a_resenhas_peb["href"])
+    print("RESENHAS PEB:")
+    print(title_resenhas_peb)
+    print(list_links_resenhas_peb)
 
 
-def ocde_boletins(): # check
+def ocde_boletins(): # check!
     url = "https://www.gov.br/mre/pt-br/assuntos/politica-externa-comercial-e-economica/organizacoes-economicas-internacionais/brasil-na-ocde-boletim-informativo"
     mre_page = page_access(url)
     title_ocde_boletins = mre_page.find("h1", class_="documentFirstHeading").text
@@ -281,6 +302,9 @@ def ocde_boletins(): # check
         pdf = link.split(".")
         if pdf[-1] == "pdf":
             list_links_ocde_boletins.append(a_ocde_boletins["href"])
+    print("OCDE BOLETINS:")
+    print(title_ocde_boletins)
+    print(list_links_ocde_boletins)
 
 
 def main():
@@ -292,7 +316,7 @@ def main():
     # mre_alertas_consular = alertas_consular()
     # mre_noticias_consular = noticias_consular()
     # mre_infos_classificadas = infos_classificadas()
-    mre_dados_abertos = dados_abertos()
+    # mre_dados_abertos = dados_abertos()
     # mre_cgirc = cgirc()
     # mre_pei_mre = pei_mre()
     # mre_publicacoes_cargos = publicacoes_cargos()
