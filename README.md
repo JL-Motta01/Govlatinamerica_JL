@@ -8,7 +8,7 @@
 - [x] ajustar o script acesso_db
 - [x] ajustar o script diretorios
 - [x] ajustar o script internet_archive
-- [ ] ajustar a responsividade do template html (EM ANDAMENTO)
+- [x] ajustar a responsividade do template html (EM ANDAMENTO)
 
 # Git 
 
