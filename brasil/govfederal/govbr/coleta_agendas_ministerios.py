@@ -117,7 +117,15 @@ def acesso_ministerios ():
         "https://www.gov.br/infraestrutura/pt-br/acesso-a-informacao/agendas-de-autoridades",
         "https://www.gov.br/mme/pt-br/acesso-a-informacao/agendas-de-autoridades",
         "https://www.gov.br/defesa/pt-br/acesso-a-informacao/agenda-de-autoridades",
-        "https://www.gov.br/economia/pt-br/acesso-a-informacao/agendas-de-autoridades"
+        "https://www.gov.br/economia/pt-br/acesso-a-informacao/agendas-de-autoridades",
+        "https://www.gov.br/saude/pt-br/acesso-a-informacao/agenda-de-autoridades/",
+        "https://www.gov.br/mcti/pt-br/acesso-a-informacao/agenda-de-autoridades/",
+        "https://www.gov.br/mdh/pt-br/acesso-a-informacao/agenda-de-autoridades",
+        "https://www.gov.br/mcom/pt-br/agenda-de-autoridades/",
+        "https://www.gov.br/secretariageral/pt-br/acesso-a-informacao/agenda-de-autoridades",
+        "https://www.gov.br/cgu/pt-br/acesso-a-informacao/agenda-de-autoridades",
+        "https://www.gov.br/agu/pt-br/acesso-a-informacao/agenda-de-autoridades",
+        "https://www.gov.br/secretariadegoverno/pt-br"
         ]
     lista_agenda = []
     for ministerio in lista_ministerios:
@@ -128,7 +136,6 @@ def acesso_ministerios ():
         #     """Casa Civil"""
         #     print("Começando coleta: Agendas da Casa Civil")
         #     lista_link=drop_list(acesso_ministerio)
-        #     print(lista_link)
         #     coleta_agendas(lista_link,ministerio)
         
         # if ministerio==lista_ministerios[1]:
@@ -137,36 +144,86 @@ def acesso_ministerios ():
         #     lista_link=card_content(acesso_ministerio)
         #     coleta_agendas(lista_link,ministerio)
 
-        if ministerio==lista_ministerios[2]:
-            """MMA"""
-            print("Começando coleta: Agendas do MMA")
-            ag=card_content_secretaria(acesso_ministerio)
-            lista_link=correcao_agenda(ag)
+        # if ministerio==lista_ministerios[2]:
+        #     """MMA"""
+        #     print("Começando coleta: Agendas do MMA")
+        #     ag=card_content_secretaria(acesso_ministerio)
+        #     lista_link=correcao_agenda(ag)
+        #     coleta_agendas(lista_link,ministerio)
+
+        # if ministerio==lista_ministerios[3]:
+        #     """Infraestrutura"""
+        #     "Começando coleta: Agendas do ministério da Infraestrutura"
+        #     lista_link=normal_list(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
+
+        # if ministerio==lista_ministerios[4]:
+        #     """MME"""
+        #     "Começando coleta: Agendas do MME"
+        #     lista_link=drop_list(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
+
+        # if ministerio==lista_ministerios[5]:
+        #     """Ministério da defesa"""
+        #     "Começando coleta: Agendas do Ministério da defesa"
+        #     lista_link=drop_list(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
+
+        # if ministerio==lista_ministerios[6]:
+        #     """Ministério da economia"""
+        #     "Começando coleta: Agendas do Ministério da Economia"
+        #     #Caso não se enquadre, solicita revisão do ministério (Ministério da economia, atualmente fora do ar)
+        #     print("rever ministério: ", ministerio)
+
+        if ministerio==lista_ministerios[7]:
+            """Ministério da saúde"""
+            "Começando coleta: Agendas do Ministério da saúde"
+            lista_link=drop_list(acesso_ministerio)
             coleta_agendas(lista_link,ministerio)
 
-        if ministerio==lista_ministerios[3]:
-            """Infraestrutura"""
-            "Começando coleta: Agendas do ministério da Infraestrutura"
+        if ministerio==lista_ministerios[8]:
+            """Mcti"""
+            "Começando coleta: Agendas do Ministério da ciência e tecnologia"
+            lista_link=drop_list(acesso_ministerio)
+            coleta_agendas(lista_link,ministerio)
+
+        if ministerio==lista_ministerios[9]:
+            """MDH"""
+            "Começando coleta: Agendas do ministério da Mulher, da Família e dos Direitos Humanos"
             lista_link=normal_list(acesso_ministerio)
             coleta_agendas(lista_link,ministerio)
 
-        if ministerio==lista_ministerios[4]:
-            """MME"""
-            "Começando coleta: Agendas do MME"
+        if ministerio==lista_ministerios[10]:
+            """Ministério das comunicações"""
+            "Começando coleta: Agendas do Ministério ddas comunicações"
             lista_link=drop_list(acesso_ministerio)
             coleta_agendas(lista_link,ministerio)
 
-        if ministerio==lista_ministerios[5]:
-            """Ministério da defesa"""
-            "Começando coleta: Agendas do Ministério da defesa"
+        if ministerio==lista_ministerios[11]:
+            """secretaria-geral da união"""
+            "Começando coleta: Agendas da secretaria-geral da união"
             lista_link=drop_list(acesso_ministerio)
             coleta_agendas(lista_link,ministerio)
 
-        if ministerio==lista_ministerios[6]:
-            """Ministério da economia"""
-            "Começando coleta: Agendas do Ministério da Economia"
-            #Caso não se enquadre, solicita revisão do ministério (Ministério da economia, atualmente fora do ar)
-            print("rever ministério: ", ministerio)
+        if ministerio==lista_ministerios[12]:
+            """controladoria-geral da união"""
+            "Começando coleta: Agendas da controladoria-geral da união"
+            lista_link=lista_link_simples(acesso_ministerio)
+            coleta_agendas(lista_link,ministerio)
+
+        if ministerio==lista_ministerios[13]:
+            """advocacia geral da união"""
+            "Começando coleta: Agendas da advocacia geral da união"
+            lista_link=drop_list(acesso_ministerio)
+            coleta_agendas(lista_link,ministerio)
+
+        if ministerio==lista_ministerios[14]:
+            """secretaria de governo"""
+            "Começando coleta: Agendas da secretaria de governo"
+            lista_link=drop_list(acesso_ministerio)
+            coleta_agendas(lista_link,ministerio)
+
+        
 
 def card_content(acesso):
     #ministérios que direcionam para as agendas a partir de card contents (MRE)
@@ -210,6 +267,14 @@ def normal_list(acesso):
     agendas = acesso.find_all("a", class_="internal-link")
     lista_agenda = []
     for agenda in agendas:
+        lista_agenda.append(agenda["href"])
+    return lista_agenda
+
+def lista_link_simples(acesso):
+    #Ministérios que usam listas simples de links para as agendas (Ministério da infraestrutura)
+    agendas = acesso.find_all("a", class_="internal-link")
+    lista_agenda = []
+    for agenda in agendas[:-1]:
         lista_agenda.append(agenda["href"])
     return lista_agenda
 
