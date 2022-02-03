@@ -180,15 +180,22 @@ def card_content_secretaria(acesso):
     #ministérios que direcionam para as secretarias a partir de card contents (MMA)
     #Nesse caso, acessa cada secretaria e lista as agendas de seus membros, também em card contents
     lista_secretarias=[]
-    agendas=[]
-    secretarias = acesso.find_all("a", class_="govbr-card-content")
-    for secretaria in secretarias:
-        lista_secretarias.append(secretaria["href"])
-    for link in lista_secretarias:
-        acesso_agenda_reduzida = acessar_pagina(link)
-        corrige = acesso_agenda_reduzida.find_all("a", class_="govbr-card-content")                 
-        agendas.append(corrige)
-    return agendas
+    agendas_simples=[]
+    cards = acesso.find_all("a", class_="govbr-card-content")
+    agenda_ministro = cards[0]
+    skip_card = [cards[0],cards[8]]
+    agendas_simples.append(agenda_ministro["href"])
+    for item in cards:
+        if item in skip_card:
+            continue
+        else:
+            lista_secretarias.append(item["href"])
+    for secretaria in lista_secretarias:
+        cards_secretaria = acessar_pagina(secretaria)
+        membros = cards_secretaria.find_all("a", class_="govbr-card-content")
+        for membro in membros:
+            agendas_simples.append(membro["href"])
+    return agendas_simples
 
 def drop_list(acesso):
     #Ministérios com uso de drop-down-lists que contém os links para as agendas (Casa civil, MME e Ministério da defesa)
@@ -211,10 +218,16 @@ def correcao_agenda(agendas):
     #Neste caso, busca o link da agenda completa
     corrige_agenda = []
     for link in agendas:
-        acesso_agenda_reduzida = acessar_pagina(link)
-        link_agenda_completa = acesso_agenda_reduzida.find("div", class_="agenda-tile-footer").find("a")
-        agenda_completa =link_agenda_completa["href"]
-        corrige_agenda.append(agenda_completa)
+        try:
+            acesso_reduzido = acessar_pagina(link)
+            div_link = acesso_reduzido.find("div", class_="agenda-tile-footer")
+            link_completo = div_link.find_all("a")
+            for item in link_completo:
+                agenda_completa = item["href"]
+                print(agenda_completa)
+            corrige_agenda.append(agenda_completa)
+        except:
+            pass
     return corrige_agenda
 
 def coleta_agendas (lista,ministerio):
