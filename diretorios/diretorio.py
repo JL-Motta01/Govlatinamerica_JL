@@ -50,6 +50,7 @@ def diretorios_template(nome, ano="NA"):
             REFERENCIAS = DIR_ROOT + "/js/referencia.js"       
         print(f'{DIR_ROOT}/.env_dir')
         DIR_BD_FINAL = os.getenv("DIR_BD_FINAL")
+        DIR_BD_FINAL2 = os.getenv("DIR_BD_FINAL2")
         print(f'DIR BD FINAL: {DIR_BD_FINAL}')
         BASE_DADO = os.getenv(str(nome))
         print(f'BASE_DADO: {BASE_DADO}')
