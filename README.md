@@ -81,32 +81,32 @@ git pull origin main && conda activate env_govlatinamerica2 && conda env update 
 
 |Ministério|Notícias|Agenda|
 |----------|--------|------|
-|Planalto  | Específico |  Comum    |
-|Casa Civil| Comum | Comum |
-|MRE| Específico | Comum |
-|MMA| Específico | Comum |
-|Infraestrutura| Específico | Comum |
-|MME| Comum | Comum |
-|Economia| Comum | Sem agenda (fora do ar temporariamente) |
-|Defesa| Comum | Comum |
-|Saúde| Comum | |
-|Ciência| Comum | |
-|Mulher| Específico | |
-|Comunicações| Comum | |
-|Turismo| Comum | |
-|Desenvolvimento Regional| Comum | |
-|Biblioteca presidencia| Sem notícias | Sem agenda |
-|Secretaria-Geral| Específico | |
-|Controladoria-Geral da União| Específico | |
-|Advocacia-Geral da União| Específico | |
-|Cidadania (institucional)| Comum (>> dá problema a partir da 9ª notícia) | |  
-|Cidadania (desenvolvimento social)| Específico | |
-|Cidadania (esporte)| Específico | |
-|Secretaria de Governo| Comum | |
-|Educação| Comum | |
-|Ministério da Justiça e Segurança Pública| Comum | |
-|Gabinete de Segurança Institucional| Específico | |
-|MAPA| Comum | |
+|[Planalto](https://www.gov.br/planalto/pt-br) | Específico |  Comum    |
+|[Casa Civil](https://www.gov.br/casacivil/pt-br)| Comum | Comum |
+|[MRE](https://www.gov.br/mre/pt-br/)| Específico | Comum |
+|[MMA](https://www.gov.br/mma/pt-br)| Específico | Comum |
+|[Infraestrutura](https://www.gov.br)|Específico | Comum |
+|[MME](https://www.gov.br/mme/pt-br)| Comum | Comum |
+|[Economia](https://www.gov.br/economia/pt-br)| Comum | Sem agenda (fora do ar temporariamente) |
+|[Defesa](https://www.gov.br/defesa/pt-br)| Comum | Comum |
+|[Saúde](https://www.gov.br/saude/pt-br)| Comum | Comum |
+|[Ciência](https://www.gov.br/mcti/pt-br)| Comum | Comum |
+|[Mulher](https://www.gov.br/mdh/pt-br/)| Específico | Comum |
+|[Comunicações](https://www.gov.br/mcom/pt-br/)| Comum | Comum |
+|[Turismo](https://www.gov.br/turismo/pt-br)| Comum | Apenas agenda antiga / Agenda desconfiguada|
+|[Desenvolvimento Regional](https://www.gov.br/mdr/pt-br)| Comum | Apenas agenda antiga|
+|[Biblioteca presidencia](https://www.gov.br/planalto/pt-br/conheca-a-presidencia/acervo/biblioteca-da-presidencia)| Sem notícias | Sem agenda |
+|[Secretaria-Geral](https://www.gov.br/secretariageral/pt-br)| Específico | Comum |
+|[Controladoria-Geral da União](https://www.gov.br/cgu/pt-br)| Específico | Comum |
+|[Advocacia-Geral da União](https://www.gov.br/agu/pt-br)| Específico | Comum |
+|[Cidadania (institucional)](https://www.gov.br/cidadania/pt-br)| Comum (>> dá problema a partir da 9ª notícia) | Específico |  
+|[Cidadania (desenvolvimento social)](https://www.gov.br/cidadania/pt-br)| Específico | Específico |
+|[Cidadania (esporte)](https://www.gov.br/cidadania/pt-br)| Específico | Específico |
+|[Secretaria de Governo](https://www.gov.br/secretariadegoverno/pt-br)| Comum | Comum|
+|[Educação](https://www.gov.br/mec/pt-br)| Comum | Agenda antiga apenas |
+|[Ministério da Justiça e Segurança Pública](https://www.gov.br/mj/pt-br)| Comum | link específico |
+|[Gabinete de Segurança Institucional](https://www.gov.br/gsi/pt-br)| Específico | link específico|
+|[MAPA](https://www.gov.br/agricultura/pt-br/)| Comum | link específico|
 
 # Problemas no GIT
 
