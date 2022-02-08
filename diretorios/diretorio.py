@@ -23,7 +23,7 @@ def diretorios(nome, ano="NA"):
             ESTILO = DIR_TEMPLATE_HTML + "/css/style.css" 
             REFERENCIAS = DIR_TEMPLATE_HTML + "/js/referencia.js" 
         cria_dir_banco = os.makedirs(f'{DIR_BD_FINAL}/json', exist_ok = True) # makedirs cria diretório
-        DIR_BD = f'{DIR_BD_FINAL}/banco'
+        DIR_BD = f'{DIR_BD_FINAL}'
         cria_dir_html = os.makedirs(f'{DIR_BD_FINAL}/html', exist_ok = True)
         DIR_HTML = f'{DIR_BD_FINAL}/html'
         if ano != "NA":
