@@ -13,7 +13,7 @@ sys.path.append(DIR_PROJETO)
 from templates.diretorios.diretorio import diretorios
 
 def inserir_bd(dir_bd="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
-        print(f'ENV MINISTERIO: {dir_bd}')
+        print(f'DIR_BD: {dir_bd}')
         DIR_FINAL = diretorios(dir_bd)[0]
         print(DIR_FINAL)
         nome_bd_json = dir_bd 
@@ -27,7 +27,6 @@ def inserir_bd(dir_bd="NA", origem="NA", classificado="NA", titulo="NA", subtitu
         # try:
         if not verifica_bd:
             print("Não está na base")
-            print(f'ORIGEM: {origem}')
             db.insert({
                 "origem": origem, 
                 "classificado": classificado,
@@ -47,9 +46,9 @@ def inserir_bd(dir_bd="NA", origem="NA", classificado="NA", titulo="NA", subtitu
                 "tags": tags,
                 "paragrafos": paragrafos,
                 "dir_local": dir_local,
-                "extra_01": "NA", 
-                "extra_02": "NA",
-                "extra_03": "NA"
+                "extra_01": extra_01, 
+                "extra_02": extra_02,
+                "extra_03": extra_03
             })
         else:
             print("Já está na base")

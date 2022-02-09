@@ -17,9 +17,13 @@ print(f'DIR PROJETO: {DIR_PROJETO}')
 
 
 def html_consultar_json(sites="NA", template="NA"):
-    print("acessando função consultar")
-    lista_sites = sites
-    print(f'LISTA DE SITES: {lista_sites}')
+    print("Acessando função geradora dos HTML")
+    if str(sites):
+        lista_sites = [sites]
+        print(f'LISTA COM UM SITE: {lista_sites}')
+    else: 
+        lista_sites = sites
+        print(f'LISTA COM MAIS DE UM SITE: {lista_sites}')
     for site in lista_sites:
         if template == "ok":
             print("ok")
@@ -31,7 +35,7 @@ def html_consultar_json(sites="NA", template="NA"):
         dir_referencias = diretorio[3]
         dir_estilo = diretorio[4]
         print(f'dir_estilo: {dir_estilo}')
-        db = TinyDB(f'{dir_json}/{site}.json')
+        db = TinyDB(f'{dir_json}/json/{site}.json')
         myDBQuery = Query()
         for dado in iter(db):
             origem = dado['origem']
@@ -55,7 +59,7 @@ def html_consultar_json(sites="NA", template="NA"):
             extra_01 = dado['extra_01']
             extra_02 = dado['extra_02']
             extra_03 = dado['extra_03']
-            print(data)
+            print(f'DATA: {data}')
             if template == "ok":
                 dir_html_ano = diretorios_template(site, data[-4:])[2]
             else:
