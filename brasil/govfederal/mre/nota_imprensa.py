@@ -33,7 +33,7 @@ def notas_imprensa():
     MRE_NOTAS_IMPRENSA = "/001/mre-notas-imprensa/"
     DIR_FINAL = DIR_BD + "/" + MRE + MRE_NOTAS_IMPRENSA
     # print(DIR_FINAL)
-    anos = sorted(os.listdir(DIR_FINAL))[-5:-4]
+    anos = sorted(os.listdir(DIR_FINAL))[-7:-6]
     print(anos)
     for ano in anos:
         # print(ano)
@@ -42,33 +42,21 @@ def notas_imprensa():
         quebrados = links_quebrados()
         print(quebrados)
         for html in listar_html:
-            # print(html [0:13])
-            if html [0:13] in quebrados: 
-                print(html)
-            if html [:-5] in quebrados:
-                pass
-            DIR_COMPLETO = os.path.join(DIR_HTML, html)
-            print(DIR_COMPLETO)
-            extrair_infos = extrai_info(DIR_COMPLETO, ano[-4:])
-            # for quebrado in links_quebrados():
-                
-            #     if quebrado in html:
-            #        print(f'QUEBRADO:{html}')
-            #     elif quebrado == "mensagem-do-presidente-luiz-inacio-lula-da-silva.html":
-            #         print(f'QUEBRADO:{html}')
-            #     elif not quebrado in html: 
-            #         print(f'link_normal:{html}')
-                #     DIR_COMPLETO = os.path.join(DIR_HTML, html)
-                #     print(DIR_COMPLETO)
-                #   extrair_infos = extrai_info(DIR_COMPLETO, ano[-4:])
+            print(f'NOME HTML:{html}')
+            buscar = [quebrado for quebrado in quebrados if quebrado in html]
+            print(buscar)
+            if not buscar: 
+                DIR_COMPLETO = os.path.join(DIR_HTML, html)
+                print(f'DIR_COMPLETO:{DIR_COMPLETO}')
+                extrair_infos = extrai_info(DIR_COMPLETO, ano[-4:])
 
 
 def extrai_info(html, ano):
     bs = acessar_pagina_local(html)
-    try:
+    if ano is str:
         titulo = bs.find("title").text
-    except:
-        titulo = bs.find("h1")
+    else:
+        titulo = bs.find("h1").text
    
     if ano == "2012":
         print(f'TITULO: {titulo}')
@@ -78,7 +66,7 @@ def extrai_info(html, ano):
         lista_paragrafos = []
         for pf in div_pf: 
             lista_paragrafos.append(pf.text)
-    if (ano == "2011") or (ano == "2010") or (ano == "2009"):
+    if (ano == "2011") or (ano == "2010") or (ano == "2009") or (ano == "2008") or (ano == "2007"):
         
         print(f'TITULO: {titulo}')
         print(f'HTML: {html}') 
@@ -86,14 +74,23 @@ def extrai_info(html, ano):
             nota_numero = bs.find("div", {"id":"content"}).span.em.text
             print(f'NUMERO: {nota_numero}')
         except:
-            print("numero:na")    
-        data = bs.find("div",{"id":"parent-fieldname-text"})
-        print(f'DATA {ano}: {data.span.text}')
-        div_pf = bs.find("div",{"id":"parent-fieldname-text"}).find_all("p")
-        lista_paragrafos = []
-        for pf in div_pf: 
-            lista_paragrafos.append(pf.text)
-        print(lista_paragrafos)
+            print("numero:na") 
+        try:   
+            tag_data = bs.find("div",{"id":"parent-fieldname-text"})
+            data = tag_data.span.text
+            print(f'DATA {ano}: {data}')
+        except:
+            data = "NA"
+            print(f'DATA:{data}')
+        try:
+            div_pf = bs.find("div",{"id":"parent-fieldname-text"}).find_all("p")
+            paragrafos = []
+            for pf in div_pf: 
+                paragrafos.append(pf.text)
+            print(paragrafos)
+        except:
+            paragrafos = ["NA"]
+            print(f'PARAGRAFOS:{paragrafos}')
     print("#####")
         
    
