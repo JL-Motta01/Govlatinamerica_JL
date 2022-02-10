@@ -1,5 +1,5 @@
 from yattag import Doc, indent
-from tinydb import TinyDB, Query
+from tinydb import TinyDB, Query, where
 from dotenv import load_dotenv
 import os
 import sys
@@ -55,7 +55,7 @@ def html_consultar_json(sites="NA", template="NA"):
             autoria = dado['autoria']
             tags = dado['tags']
             paragrafos = dado['paragrafos']
-            dir_local = dado['dir_local']
+            dir_bd = dado['dir_bd']
             extra_01 = dado['extra_01']
             extra_02 = dado['extra_02']
             extra_03 = dado['extra_03']
@@ -64,12 +64,13 @@ def html_consultar_json(sites="NA", template="NA"):
                 dir_html_ano = diretorios_template(site, data[-4:])[2]
             else:
                dir_html_ano = diretorios(site, data[-4:])[2]
-            gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_local, extra_01, extra_02, extra_03)
-            
+            html = gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_bd, extra_01, extra_02, extra_03)
+            atualizar_banco = atualiza_json(html, site)
+
             print("#################")
             print("#################")
 
-def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_local="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
     doc, tag, text = Doc().tagtext()
     paragrafos_avisos = [f'Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com a instituição que produziu e/ou divulgou esta informação: {origem}']
     links = ["stylesheet"]
@@ -100,7 +101,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
             doc.asis(f'<meta name="local" content={local}>') 
             doc.asis(f'<meta name="autoria" content={autoria}>') 
             doc.asis(f'<meta name="tags" content="{tags}">') 
-            doc.asis(f'<meta name="dir_local" content="{dir_local}">') # meta tag >> dado sobre os dados / dados sobre a pag.
+            doc.asis(f'<meta name="dir_bd" content="{dir_bd}">') # meta tag >> dado sobre os dados / dados sobre a pag.
             
         with tag('body'):
             with tag('div', klass='container'):
@@ -233,9 +234,34 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
     result = doc.getvalue()
     print(f'DIR HTML ANO: {dir_html_ano}')
 
-    with open(f"{dir_html_ano}/{data[-4:]}-{data[3:5]}-{data[:2]}-{horario}-{titulo}.html", "w") as file:
-        file.write(result)
+    if "/" or ":" in titulo:
+        titulo_html = titulo.replace("/", "-").replace(":", "__").replace(" ", "_")
+    else: 
+        titulo_html = titulo
+    if ":" in horario:
+        horario_html = horario.replace(":", "_")
+    else: 
+        horario_html = horario
 
+    dir_arquivo = dir_html_ano
+    nome_arquivo = f'{data[-4:]}-{data[3:5]}-{data[:2]}-{horario_html}-{titulo_html}.html'
+    with open(f"{dir_html_ano}/{nome_arquivo}", "w") as file:
+        file.write(result)
+    return dir_arquivo, nome_arquivo, link
+
+def atualiza_json(html, nome, template="NA"):
+    dir_arquivo = html[0] 
+    nome_arquivo = html[1]
+    url = html[2]
+    if template == "ok":
+        dir_banco = diretorios_template(nome)[0]
+    else:
+        dir_banco = diretorios(nome)[0]
+    db = TinyDB(f'{dir_banco}/json/{nome}.json', ensure_ascii=False)
+    db.update_multiple([
+        ({"dir_arquivo": dir_arquivo}, where("link")==url),
+        ({"nome_arquivo": nome_arquivo}, where("link")==url),
+        ])
 
 def main():
     sites = ["CIDADANIA2", "MEC"]
