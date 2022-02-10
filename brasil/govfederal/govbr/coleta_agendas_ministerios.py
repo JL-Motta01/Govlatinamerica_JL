@@ -126,7 +126,10 @@ def acesso_ministerios ():
         "https://www.gov.br/cgu/pt-br/acesso-a-informacao/agenda-de-autoridades",
         "https://www.gov.br/agu/pt-br/acesso-a-informacao/agenda-de-autoridades",
         "https://www.gov.br/secretariadegoverno/pt-br",
-        "https://www.gov.br/gsi/pt-br/acesso-a-informacao/institucional/agendas-do-gsi"
+        "https://www.gov.br/gsi/pt-br/acesso-a-informacao/institucional/agendas-do-gsi",
+        "https://www.gov.br/mj/pt-br/acesso-a-informacao/agenda-de-autoridades",
+        "https://www.gov.br/agricultura/pt-br/acesso-a-informacao/agendas"
+
         ]
     lista_agenda = []
     for ministerio in lista_ministerios:
@@ -224,22 +227,22 @@ def acesso_ministerios ():
         #     lista_link=drop_list(acesso_ministerio)
         #     coleta_agendas(lista_link,ministerio)
             
-        if ministerio==lista_ministerios[15]:
-            """secretaria de governo"""
-            "Começando coleta: Agendas do GSI"
-            lista_link=drop_list(acesso_ministerio)
-            coleta_agendas(lista_link,ministerio)
+        # if ministerio==lista_ministerios[15]:
+        #     """GSI"""
+        #     "Começando coleta: Agendas do GSI"
+        #     lista_link=drop_list(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
         
-        if ministerio==lista_ministerios[16]:
-            """secretaria de governo"""
-            "Começando coleta: Agendas do Ministério da justiça"
-            lista_link=drop_list(acesso_ministerio)
-            coleta_agendas(lista_link,ministerio)
+        # if ministerio==lista_ministerios[16]:
+        #     """Ministério da justiça"""
+        #     "Começando coleta: Agendas do Ministério da justiça"
+        #     lista_link=coleta_mj(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
         
         if ministerio==lista_ministerios[17]:
-            """secretaria de governo"""
+            """Ministério da Agricultura"""
             "Começando coleta: Agendas do Ministério da Agricultura"
-            lista_link=drop_list(acesso_ministerio)
+            lista_link=coleta_mapa(acesso_ministerio)
             coleta_agendas(lista_link,ministerio)       
 
 def card_content(acesso):
@@ -319,19 +322,24 @@ def coleta_agendas (lista,ministerio):
         print("Coletando de:"+origem)
         coleta_compromissos(link,origem)
 
-def coleta_MJ (acesso):
+def coleta_mj (acesso):
     #Nesse caso, acessa cada secretaria e lista as agendas de seus membros, também em card contents
     lista_secretarias=[]
     agendas_simples=[]
-    cards = acesso.find_all("a", class_="internal-link")
-    agenda_ministro = cards[0]
-    skip_card = [cards[0],cards[15],cards[16],cards[17],cards[18],cards[19],cards[20]]
-    agendas_simples.append(agenda_ministro["href"])
-    for item in cards:
-        if item in skip_card:
+    ext_link=[]
+    l_geral = acesso.find_all("p", class_="callout")
+    for item in l_geral:
+         link = item.find("a")
+         ext_link.append(link["href"])
+    print(len(ext_link))
+    agenda_ministro = ext_link[0]
+    skip_link = [ext_link[0],ext_link[15],ext_link[16],ext_link[17],ext_link[18],ext_link[19],ext_link[20]]
+    agendas_simples.append(agenda_ministro)
+    for item in ext_link:
+        if item in skip_link:
             continue
         else:
-            lista_secretarias.append(item["href"])
+            lista_secretarias.append(item)
     for secretaria in lista_secretarias:
         cards_secretaria = acessar_pagina(secretaria)
         membros = cards_secretaria.find_all("a", class_="govbr-card-content")
@@ -339,13 +347,13 @@ def coleta_MJ (acesso):
             agendas_simples.append(membro["href"])
     return agendas_simples
 
-def coleta_MAPA (acesso):
+def coleta_mapa (acesso):
     #Nesse caso, acessa cada secretaria e lista as agendas de seus membros, também em card contents
     lista_secretarias=[]
     agendas_simples=[]
     cards = acesso.find_all("a", class_="govbr-card-content")
     agenda_ministro = cards[0]
-    skip_card = [cards[0],cards[8]]
+    skip_card = [cards[0],cards[15]]
     agendas_simples.append(agenda_ministro["href"])
     for item in cards:
         if item in skip_card:
@@ -353,11 +361,11 @@ def coleta_MAPA (acesso):
         else:
             lista_secretarias.append(item["href"])
     for secretaria in lista_secretarias:
-        cards_secretaria = acessar_pagina(secretaria)
-        membros = cards_secretaria.find_all("a", class_="govbr-card-content")
-        for membro in membros:
-            agendas_simples.append(membro["href"])
-    return agendas_simples
+        agendas = acessar_pagina(secretaria)
+        links = agendas.find("div", class_="list-item").find_all("a")
+        for item in links:
+            agendas_simples.append(item["href"])
+    return list(set(agendas_simples))
 
 def main ():
     """Função principal"""
