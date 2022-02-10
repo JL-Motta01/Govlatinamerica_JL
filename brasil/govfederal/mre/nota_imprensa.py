@@ -14,7 +14,7 @@ sys.path.append(DIR_PROJETO)
 from templates.diretorios.diretorio import diretorios
 # from templates.template_html.html_template import html_consultar
 from templates.acesso_bd.inserir_bd import inserir_bd
-
+from notas_imprensa_quebrados import links_quebrados
 
 def acessar_pagina_local(url):
     """responsavel por acessar as paginas html"""
@@ -39,21 +39,28 @@ def notas_imprensa():
         # print(ano)
         DIR_HTML = DIR_FINAL + ano
         listar_html = sorted(os.listdir(DIR_HTML))
+        quebrados = links_quebrados()
+        print(quebrados)
         for html in listar_html:
-            if "noticias_view" in html:
+            # print(html [0:13])
+            if html [0:13] in quebrados: 
+                print(html)
+            if html [:-5] in quebrados:
                 pass
-            elif "sitemap" in html:
-                pass
-            elif "index" in html: 
-                pass
-            elif "115914683" in html:
-                pass
-            elif "barra-gov-bv2-minimo" in html:
-                pass
-            else: 
-                DIR_COMPLETO = os.path.join(DIR_HTML, html)
-                #print(DIR_COMPLETO)
-                extrair_infos = extrai_info(DIR_COMPLETO, ano[-4:])
+            DIR_COMPLETO = os.path.join(DIR_HTML, html)
+            print(DIR_COMPLETO)
+            extrair_infos = extrai_info(DIR_COMPLETO, ano[-4:])
+            # for quebrado in links_quebrados():
+                
+            #     if quebrado in html:
+            #        print(f'QUEBRADO:{html}')
+            #     elif quebrado == "mensagem-do-presidente-luiz-inacio-lula-da-silva.html":
+            #         print(f'QUEBRADO:{html}')
+            #     elif not quebrado in html: 
+            #         print(f'link_normal:{html}')
+                #     DIR_COMPLETO = os.path.join(DIR_HTML, html)
+                #     print(DIR_COMPLETO)
+                #   extrair_infos = extrai_info(DIR_COMPLETO, ano[-4:])
 
 
 def extrai_info(html, ano):

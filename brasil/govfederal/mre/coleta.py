@@ -186,7 +186,8 @@ def pei_mre(): # check!
 
 def publicacoes_cargos(): # in progress - fix it later
     url_base = "https://www.gov.br/mre/pt-br/centrais-de-conteudo/publicacoes/discursos-artigos-e-entrevistas/"
-    subpages = ["presidente-da-republica/presidente-da-republica-federativa-do-brasil-", "vice-presidente/", "ministro-das-relacoes-exteriores/", "secretario-geral/", "diplomatas/", "outras-autoridades/"]
+    subpages = ["outras-autoridades/"]
+    # ["presidente-da-republica/presidente-da-republica-federativa-do-brasil-", "vice-presidente/", "ministro-das-relacoes-exteriores/", "secretario-geral/", "diplomatas/", "outras-autoridades/"]
     for pages in subpages:
         montagem_url = url_base + pages
         sub = ["discursos", "artigos", "entrevistas"]
@@ -209,7 +210,7 @@ def publicacoes_cargos(): # in progress - fix it later
                         domain += str(counter) 
                         counter += 30
                         list_url_publicacoes_cargos.append(domain)
-                    # print(f'GERANDO OS HTMLS: {list_url_publicacoes_cargos}')
+                    print(f'GERANDO OS HTMLS: {list_url_publicacoes_cargos}')
                     for url_publicacoes_cargos in list_url_publicacoes_cargos:
                         page = page_access(url_publicacoes_cargos)
                         content_publicacoes_cargos = page.find("div", {"id":"content-core"}).find_all("article")
@@ -218,7 +219,31 @@ def publicacoes_cargos(): # in progress - fix it later
                             # entrando
                             title_link_publicacoes_cargos = link_publicacoes_cargos.find("h1", class_="documentFirstHeading").text
                             print("ACESSOU O WHILE")
-                            print(title_link_publicacoes_cargos)
+                            print(f'TÍTULO: {title_link_publicacoes_cargos}')
+                            try:
+                                post_link_publicacoes_cargos = link_publicacoes_cargos.find("span", class_="documentPublished").find("span", class_="value").text
+                                print(f'DATA POST: {post_link_publicacoes_cargos}')
+                            except:
+                                post_link_publicacoes_cargos = "NA"
+                                print(f'DATA POST: {post_link_publicacoes_cargos}')
+                            try:
+                                update_link_publicacoes_cargos = link_publicacoes_cargos.find("span", class_="documentModified").find("span", class_="value").text
+                                print(f'DATA ATUALIZAÇÃO: {update_link_publicacoes_cargos}')
+                            except:
+                                update_link_publicacoes_cargos = "NA"
+                                print(f'DATA ATUALIZAÇÃO: {update_link_publicacoes_cargos}')
+                            content_link_publicacoes_cargos = link_publicacoes_cargos.find("div", {"id":"parent-fieldname-text"}).text
+                            print(f'CONTEÚDO: {content_link_publicacoes_cargos}')
+                            lista_tags_publicacoes_cargos = []
+                            try: 
+                                tags_publicacoes_cargos = link_publicacoes_cargos.find("div", {"id":"category"}).find_all("span")
+                                for span_publicacoes_cargos in tags_publicacoes_cargos:
+                                    lista_tags_publicacoes_cargos.append(span_publicacoes_cargos.text)
+                            except:
+                                lista_tags_publicacoes_cargos.append("notícia sem tag")
+                            if lista_tags_publicacoes_cargos[0] != 'notícia sem tag' :
+                                del lista_tags_publicacoes_cargos[0]
+                            print(f'TAGS: {lista_tags_publicacoes_cargos}')
                 except:
                     content_publicacoes_cargos = mre_page.find("div", {"id":"content-core"}).find_all("article")
                     for article_publicacoes_cargos in content_publicacoes_cargos:
@@ -319,7 +344,7 @@ def main():
     # mre_dados_abertos = dados_abertos()
     # mre_cgirc = cgirc()
     # mre_pei_mre = pei_mre()
-    # mre_publicacoes_cargos = publicacoes_cargos()
+    mre_publicacoes_cargos = publicacoes_cargos()
     # mre_resenhas_peb = resenhas_peb()
     # mre_ocde_boletins = ocde_boletins()
 
