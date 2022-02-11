@@ -33,7 +33,7 @@ def notas_imprensa():
     MRE_NOTAS_IMPRENSA = "/001/mre-notas-imprensa/"
     DIR_FINAL = DIR_BD + "/" + MRE + MRE_NOTAS_IMPRENSA
     # print(DIR_FINAL)
-    anos = sorted(os.listdir(DIR_FINAL))[-7:-6]
+    anos = sorted(os.listdir(DIR_FINAL))[-11:-10]
     print(anos)
     for ano in anos:
         # print(ano)
@@ -52,11 +52,24 @@ def notas_imprensa():
 
 
 def extrai_info(html, ano):
+    """
+    extrai e insere no banco as seguintes informações: 
+    origem, classificado, autoria, título, data, link, parágrafos, extra_01 (número da nota),
+    a função internet_archive atualiza o banco com as seguintes informações:
+    link_archive, data_archive, horario_archive, 
+    a função template_html atualiza o banco com as seguintes informações:
+    nome_arquivo, dir_bd, dir_arquivo,
+    """
     bs = acessar_pagina_local(html)
-    if ano is str:
-        titulo = bs.find("title").text
-    else:
-        titulo = bs.find("h1").text
+    origem = "Ministério das Relações Exteriores"
+    classificado = "notas de imprensa"
+    autoria = "Ministério das Relações Exteriores"
+    link = "NA"
+    try:
+        tag_titulo = bs.find("h1", {"class" : "documentFirstHeading"})
+        titulo = tag_titulo.span.text
+    except:
+        titulo = "NA"
    
     if ano == "2012":
         print(f'TITULO: {titulo}')
@@ -66,15 +79,18 @@ def extrai_info(html, ano):
         lista_paragrafos = []
         for pf in div_pf: 
             lista_paragrafos.append(pf.text)
-    if (ano == "2011") or (ano == "2010") or (ano == "2009") or (ano == "2008") or (ano == "2007"):
-        
+    anos = ["2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003"]
+    if ano in anos:
         print(f'TITULO: {titulo}')
         print(f'HTML: {html}') 
         try:
             nota_numero = bs.find("div", {"id":"content"}).span.em.text
+            extra_01 = nota_numero
             print(f'NUMERO: {nota_numero}')
         except:
-            print("numero:na") 
+            nota_numero = "NA"
+            extra_01 = nota_numero
+            print(f'NUMERO: {nota_numero}')
         try:   
             tag_data = bs.find("div",{"id":"parent-fieldname-text"})
             data = tag_data.span.text

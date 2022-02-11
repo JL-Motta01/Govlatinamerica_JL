@@ -20,6 +20,9 @@ def links_quebrados():
         ]
     return quebrados
 
+def teste():
+    pass
+
     def main():
         quebrados = links_quebrados()
 
