@@ -33,7 +33,7 @@ def notas_imprensa():
     MRE_NOTAS_IMPRENSA = "/001/mre-notas-imprensa/"
     DIR_FINAL = DIR_BD + "/" + MRE + MRE_NOTAS_IMPRENSA
     # print(DIR_FINAL)
-    anos = sorted(os.listdir(DIR_FINAL))[-11:-10]
+    anos = sorted(os.listdir(DIR_FINAL))[-17:-16]
     print(anos)
     for ano in anos:
         # print(ano)
@@ -67,7 +67,7 @@ def extrai_info(html, ano):
     link = "NA"
     try:
         tag_titulo = bs.find("h1", {"class" : "documentFirstHeading"})
-        titulo = tag_titulo.span.text
+        titulo = tag_titulo.span.text.strip()
     except:
         titulo = "NA"
    
@@ -79,7 +79,7 @@ def extrai_info(html, ano):
         lista_paragrafos = []
         for pf in div_pf: 
             lista_paragrafos.append(pf.text)
-    anos = ["2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003"]
+    anos = ["2011", "2010", "2009", "2008", "2007", "2006", "2005", "2004", "2003", "2002", "2001", "2000", "1999", "1998", "1997"]
     if ano in anos:
         print(f'TITULO: {titulo}')
         print(f'HTML: {html}') 
@@ -93,7 +93,7 @@ def extrai_info(html, ano):
             print(f'NUMERO: {nota_numero}')
         try:   
             tag_data = bs.find("div",{"id":"parent-fieldname-text"})
-            data = tag_data.span.text
+            data = tag_data.span.text.strip(" -")
             print(f'DATA {ano}: {data}')
         except:
             data = "NA"
@@ -102,7 +102,8 @@ def extrai_info(html, ano):
             div_pf = bs.find("div",{"id":"parent-fieldname-text"}).find_all("p")
             paragrafos = []
             for pf in div_pf: 
-                paragrafos.append(pf.text)
+                paragrafo = pf.text.replace("\n", "").strip()
+                paragrafos.append(paragrafo)
             print(paragrafos)
         except:
             paragrafos = ["NA"]
