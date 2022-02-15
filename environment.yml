@@ -1,0 +1,12 @@
+name: env_templates
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python
+  - tinydb
+  - python-dotenv
+  - yattag
+  - pip
+  - pip:
+    - -r requirements.txt
