@@ -12,7 +12,7 @@ lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
 DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
 from templates.diretorios.diretorio import diretorios
-# from templates.template_html.html_template import html_consultar
+from templates.template_html.html_template import html_consultar_json
 from templates.acesso_bd.inserir_bd import inserir_bd
 from notas_imprensa_quebrados import links_quebrados
 
@@ -109,6 +109,9 @@ def extrai_info(html, ano):
             paragrafos = ["NA"]
             print(f'PARAGRAFOS:{paragrafos}')
     print("#####")
+    env_dir_bd = "BD_MRE_NOTAS_IMPRENSA"
+    inserir_banco = inserir_bd(env_dir_bd = env_dir_bd, titulo = titulo)
+    gerar_html = html_consultar_json(env_dir_bd)
         
    
 def main():

@@ -1,0 +1,29 @@
+{
+    "_default": {
+        "1": {
+            "origem": "NA",
+            "classificado": "NA",
+            "categoria": "NA",
+            "autoria": "NA",
+            "titulo": "Visita de Estado do Presidente Fernando Henrique Cardoso ao Reino Unido - 2 a 5 de dezembro de 1997",
+            "subtitulo": "NA",
+            "data": "NA",
+            "horario": "NA",
+            "data_atualizado": "NA",
+            "horario_atualizado": "NA",
+            "link": "NA",
+            "link_archive": "NA",
+            "data_archive": "NA",
+            "horario_archive": "NA",
+            "local": "NA",
+            "tags": "NA",
+            "paragrafos": "NA",
+            "dir_bd": "None/BD_MRE_NOTAS_IMPRENSA.json",
+            "nome_arquivo": "NA",
+            "dir_arquivo": "NA",
+            "extra_01": "NA",
+            "extra_02": "NA",
+            "extra_03": "NA"
+        }
+    }
+}
