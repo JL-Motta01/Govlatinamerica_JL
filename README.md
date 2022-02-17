@@ -70,6 +70,8 @@ git pull origin main && conda activate env_govlatinamerica2 && conda env update 
   - [ ] inserir no banco de dados 
   - [ ] arquivar no internet archive nossos htmls locais
   - [ ] gerar htmls
+- [ ] SITE PLANALTO
+  -[ ] substituir downloads wget por requests
   
 
 

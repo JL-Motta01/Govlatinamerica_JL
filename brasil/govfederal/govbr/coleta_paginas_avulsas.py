@@ -4,7 +4,7 @@ from urllib.request import urlopen
 import urllib
 import urllib.request #realizar requisição da página html
 import os #para especificar o caminho do download
-import wget
+import requests
 import csv
 from tinydb import TinyDB,Query
 from urllib.parse import urlparse #realizar parseamento do html
@@ -129,17 +129,21 @@ def coleta_pdf(link,numero):
     db_planalto = db.contains((User.titulo==titulo)&(User.data==publicado_em))
     if not db_planalto:
         print("não está na base")
-        wget.download(url[:-5], f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_avulso/")
-        db.insert({
-            "origem": "Planalto",
-            "classificado": "PDFs avulsos",
-            "data":publicado_em[0],
-            "horario":publicado_em[1],
-            "atualizado em":atualizado_em,  
-            "titulo":titulo,
-            "subtitulo":subtitulo,
-            "link":url[:-5]
-        })
+        #wget.download(url[:-5], f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_avulso/")
+        link_pdf = requests.get(url[:-5])
+        local = f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_avulso/"
+        with open(f'{local}/{titulo}', "wb") as arq_pdf:
+            arq_pdf.write(link_pdf.content)
+        # db.insert({
+        #     "origem": "Planalto",
+        #     "classificado": "PDFs avulsos",
+        #     "data":publicado_em[0],
+        #     "horario":publicado_em[1],
+        #     "atualizado em":atualizado_em,  
+        #     "titulo":titulo,
+        #     "subtitulo":subtitulo,
+        #     "link":url[:-5]
+        # })
     else:
         print("está na base")
 

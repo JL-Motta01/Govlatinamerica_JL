@@ -10,9 +10,8 @@ dependencies:
   - python-dotenv
   - lxml
   - pip
-  - pip:
-    - wget
-    - waybackpy
+  - requests
+  - waybackpy
   
   
 prefix: ~/.conda/envs/env_govlatinamerica

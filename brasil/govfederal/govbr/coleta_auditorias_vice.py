@@ -4,7 +4,7 @@ from urllib.request import urlopen
 import urllib
 import urllib.request #realizar requisição da página html
 import os #para especificar o caminho do download
-import wget
+import requests
 import csv
 from tinydb import TinyDB,Query
 from urllib.parse import urlparse #realizar parseamento do html
@@ -31,7 +31,7 @@ def paginas_com_url_auditoria_vice ():
 
 def coleta_conteudo():
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos auditoria_vice"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_auditoria_vice.json", ensure_ascii=False)
+    db = TinyDB(f"{DIR_DADOS}/govlatinamerica/brasil/govfederal/govbr/bd/db_auditoria_vice.json", ensure_ascii=False)
     User = Query()
     for link in paginas_com_url_auditoria_vice():
         auditoria_vice = acessar_pagina(link)
@@ -46,7 +46,11 @@ def coleta_conteudo():
             db_planalto = db.contains(User.titulo==titulo)
             if not db_planalto:
                 print("não está na base")
-                wget.download(url, f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_auditoria_vice/")
+                #wget.download(url, f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_auditoria_vice/")
+                link_pdf = requests.get(url[:-5])
+                local = f"{DIR_DADOS}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_auditoria_vice/"
+                with open(f'{local}/{titulo}', "wb") as arq_pdf:
+                     arq_pdf.write(link_pdf.content)
                 db.insert({
                     "origem": "vice presidência",
                     "classificado": "Auditorias",
