@@ -55,6 +55,8 @@ def html_consultar_json(sites="NA", template="NA"):
             autoria = dado['autoria']
             tags = dado['tags']
             paragrafos = dado['paragrafos']
+            nome_arquivo = dado['nome_arquivo']
+            imagens = dado['imagens']
             dir_bd = dado['dir_bd']
             extra_01 = dado['extra_01']
             extra_02 = dado['extra_02']
@@ -64,13 +66,13 @@ def html_consultar_json(sites="NA", template="NA"):
                 dir_html_ano = diretorios_template(site, data[-4:])[2]
             else:
                dir_html_ano = diretorios(site, data[-4:])[2]
-            html = gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_bd, extra_01, extra_02, extra_03)
+            html = gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, nome_arquivo, imagens, dir_bd, extra_01, extra_02, extra_03)
             atualizar_banco = atualiza_json(html, site)
 
             print("#################")
             print("#################")
 
-def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", nome_arquivo="NA", imagens="NA", dir_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
     doc, tag, text = Doc().tagtext()
     paragrafos_avisos = [f'Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com a instituição que produziu e/ou divulgou esta informação: {origem}']
     links = ["stylesheet"]
@@ -100,6 +102,8 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
             doc.asis(f'<meta name="horario_atualizado" content="{horario_atualizado}">') 
             doc.asis(f'<meta name="local" content={local}>') 
             doc.asis(f'<meta name="autoria" content={autoria}>') 
+            doc.asis(f'<meta name="nome_arquivo" content={nome_arquivo}>') 
+            doc.asis(f'<meta name="imagens" content={imagens}>') 
             doc.asis(f'<meta name="tags" content="{tags}">') 
             doc.asis(f'<meta name="dir_bd" content="{dir_bd}">') # meta tag >> dado sobre os dados / dados sobre a pag.
             
@@ -122,6 +126,14 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                         for paragrafo in paragrafos:
                             with tag('p'):
                                 text(paragrafo)
+
+                if not 'NA' in imagens:
+                    with tag('div', klass='container'):
+                        with tag('h2'):
+                            text(f'Imagens')
+                        with tag('figure'):
+                            for imagem in imagens:
+                                doc.stag('img', src=imagem, klass='imagem')
 
 
                 with tag('div', klass='referencia', id='referencias'):
@@ -184,6 +196,12 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                                 text(f'Local: Não possui esta informação')
                             else: 
                                 text(f'Local: {local}')
+                    with tag('h3'):
+                        with tag('span', klass="infos"):
+                            if nome_arquivo == "NA":
+                                text(f'Nome do arquivo: Não possui esta informação')
+                            else: 
+                                text(f'Nome do arquivo: {nome_arquivo}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in tags:

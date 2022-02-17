@@ -12,14 +12,14 @@ DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
 from templates.diretorios.diretorio import diretorios
 
-def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_bd="NA", nome_arquivo="NA", dir_arquivo="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA",  nome_arquivo="NA", imagens="NA", dir_bd="NA", dir_arquivo="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
         print(f'ENV_DIR_BD: {env_dir_bd}')
         DIR_FINAL = diretorios(env_dir_bd)[0]
         print(DIR_FINAL)
         nome_bd_json = env_dir_bd 
         # excluir_json = os.remove(f'{DIR_FINAL}/{nome_bd_json}.json')
         db = TinyDB(f'{DIR_FINAL}/json/{nome_bd_json}.json', indent=4, ensure_ascii = False)
-        dir_bd = f'{DIR_FINAL}/{nome_bd_json}.json'
+        dir_bd = f'{DIR_FINAL}/json/{nome_bd_json}.json'
         User = Query()
         verifica_bd = db.contains((User.titulo == titulo)&(User.data == data)&(User.horario == horario))
         print(verifica_bd)
@@ -44,8 +44,9 @@ def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", sub
                 "local": local,
                 "tags": tags,
                 "paragrafos": paragrafos,
-                "dir_bd": dir_bd,
                 "nome_arquivo": nome_arquivo,
+                "imagens": imagens,
+                "dir_bd": dir_bd,
                 "dir_arquivo": dir_arquivo,
                 "extra_01": extra_01, 
                 "extra_02": extra_02,
@@ -57,7 +58,7 @@ def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", sub
             #pass
 
 def main():
-    inserir_banco = inserir_bd(env_dir_bd, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_bd, nome_arquivo, dir_arquivo, extra_01, extra_02, extra_03)
+    inserir_banco = inserir_bd(env_dir_bd, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, nome_arquivo, imagens, dir_bd, dir_arquivo, extra_01, extra_02, extra_03)
 
 if __name__=="__main__":
     main()

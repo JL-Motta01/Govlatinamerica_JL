@@ -26,12 +26,15 @@ def diretorios(nome, ano="NA"):
         DIR_BD = f'{DIR_BD_FINAL}'
         cria_dir_html = os.makedirs(f'{DIR_BD_FINAL}/html', exist_ok = True)
         DIR_HTML = f'{DIR_BD_FINAL}/html'
+        cria_dir_html_img = os.makedirs(f'{DIR_BD_FINAL}/html_img', exist_ok = True)        
         if ano != "NA":
             cria_dir_html_ano = os.makedirs(f'{DIR_BD_FINAL}/html/{ano}', exist_ok = True)
             DIR_HTML_ANO = f'{DIR_BD_FINAL}/html/{ano}'
+            DIR_HTML_IMG = f'{DIR_BD_FINAL}/html_img/{ano}'
         else:
-            DIR_HTML_ANO = "NA"
-        return (DIR_BD, DIR_HTML, DIR_HTML_ANO, REFERENCIAS, ESTILO)
+            DIR_HTML_ANO = f'{DIR_BD_FINAL}/html'
+            DIR_HTML_IMG = f'{DIR_BD_FINAL}/html_img'
+        return (DIR_BD, DIR_HTML, DIR_HTML_ANO, REFERENCIAS, ESTILO, DIR_HTML_IMG)
 
 def diretorios_template(nome, ano="NA"):
         """ para rodar o template html no computador local, substituir a variável DIR_BD_FINAL por DIR_CONFIG """
@@ -55,6 +58,7 @@ def diretorios_template(nome, ano="NA"):
         print(f'BASE_DADO: {BASE_DADO}')
         cria_dir_banco = os.makedirs(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/json', exist_ok = True)
         cria_dir_html = os.makedirs(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html', exist_ok = True)
+        cria_dir_html_img = os.makedirs(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html_img', exist_ok = True)
         if ano != "NA":
             cria_dir_html_ano = os.makedirs(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html/{ano}', exist_ok = True)
             dir_html_ano = f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html/{ano}'
@@ -62,5 +66,5 @@ def diretorios_template(nome, ano="NA"):
             dir_html_ano = "NA"
         print(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/json')
         print(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/{BASE_DADO}/json')
-        return (f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/json', f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html', dir_html_ano, REFERENCIAS, ESTILO)
+        return (f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/json', f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html', dir_html_ano, REFERENCIAS, ESTILO, f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html_img')
 
