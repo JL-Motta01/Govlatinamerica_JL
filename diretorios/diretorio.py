@@ -29,6 +29,7 @@ def diretorios(nome, ano="NA"):
         cria_dir_html_img = os.makedirs(f'{DIR_BD_FINAL}/html_img', exist_ok = True)        
         if ano != "NA":
             cria_dir_html_ano = os.makedirs(f'{DIR_BD_FINAL}/html/{ano}', exist_ok = True)
+            cria_dir_html_img = os.makedirs(f'{DIR_BD_FINAL}/html_img/{ano}', exist_ok = True)
             DIR_HTML_ANO = f'{DIR_BD_FINAL}/html/{ano}'
             DIR_HTML_IMG = f'{DIR_BD_FINAL}/html_img/{ano}'
         else:

@@ -39,6 +39,7 @@ def html_consultar_json(sites="NA", template="NA"):
         myDBQuery = Query()
         for dado in iter(db):
             origem = dado['origem']
+            sigla = dado['sigla']
             classificado = dado['classificado']
             titulo = dado['titulo']
             subtitulo = dado['subtitulo']
@@ -58,21 +59,22 @@ def html_consultar_json(sites="NA", template="NA"):
             nome_arquivo = dado['nome_arquivo']
             imagens = dado['imagens']
             dir_bd = dado['dir_bd']
+            codigo_bd = dado['codigo_bd']
             extra_01 = dado['extra_01']
             extra_02 = dado['extra_02']
             extra_03 = dado['extra_03']
             print(f'DATA: {data}')
             if template == "ok":
-                dir_html_ano = diretorios_template(site, data[-4:])[2]
+                dir_html_ano = diretorios_template(site, f'{data[-4:]}/{data[3:5]}/{data[:2]}')[2]
             else:
-               dir_html_ano = diretorios(site, data[-4:])[2]
-            html = gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, nome_arquivo, imagens, dir_bd, extra_01, extra_02, extra_03)
+               dir_html_ano = diretorios(site, f'{data[-4:]}/{data[3:5]}/{data[:2]}')[2]
+            html = gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, sigla, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, nome_arquivo, imagens, dir_bd, codigo_bd, extra_01, extra_02, extra_03)
             atualizar_banco = atualiza_json(html, site)
 
             print("#################")
             print("#################")
 
-def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", nome_arquivo="NA", imagens="NA", dir_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", sigla="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", nome_arquivo="NA", imagens="NA", dir_bd="NA", codigo_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
     doc, tag, text = Doc().tagtext()
     paragrafos_avisos = [f'Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com a instituição que produziu e/ou divulgou esta informação: {origem}']
     links = ["stylesheet"]
@@ -89,6 +91,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                 #doc.asis(f'<link rel={l} type="text/css" href="https://gl.githack.com/unesp-labri/sites/host-css-js/-/raw/master/fsp-css/style.css">')
             doc.asis(f'<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">')
             doc.asis(f'<meta name="origem" content="{origem}">') 
+            doc.asis(f'<meta name="sigla" content="{sigla}">')
             doc.asis(f'<meta name="classificado" content="{classificado}">') 
             doc.asis(f'<meta name="titulo" content={titulo}>') 
             doc.asis(f'<meta name="subtitulo" content={subtitulo}>')
@@ -106,7 +109,8 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
             doc.asis(f'<meta name="imagens" content={imagens}>') 
             doc.asis(f'<meta name="tags" content="{tags}">') 
             doc.asis(f'<meta name="dir_bd" content="{dir_bd}">') # meta tag >> dado sobre os dados / dados sobre a pag.
-            
+            doc.asis(f'<meta name="codigo_bd" content="{codigo_bd}">')
+
         with tag('body'):
             with tag('div', klass='container'):
                 with tag('article', klass="texto-conteudo", id="conteudo-principal"):
@@ -165,53 +169,53 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if classificado == "NA":
-                                text(f'Classificado como: Não possui esta informação')
+                                text(f'Classificado como: Informação Ausente')
                             else: 
                                 text(f'Classificado como: {classificado}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if data == "NA":
-                                text(f'Data: Não possui esta informação')
+                                text(f'Data: Informação Ausente')
                             text(f'Data: {data}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if horario == "NA":
-                                text(f'Horario: Não possui esta informação')
+                                text(f'Horario: Informação Ausente')
                             text(f'Horario: {horario}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if data_atualizado == "NA":
-                                text(f'Data de atualização: Não possui esta informação')
+                                text(f'Data de atualização: Informação Ausente')
                             else:
                                 text(f'Data de atualização: {data_atualizado}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if horario_atualizado == "NA":
-                                text(f'Horario de atualização: Não possui esta informação')
+                                text(f'Horario de atualização: Informação Ausente')
                             else:
                                 text(f'Horario de atualização: {horario_atualizado}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if local == "NA":
-                                text(f'Local: Não possui esta informação')
+                                text(f'Local: Informação Ausente')
                             else: 
                                 text(f'Local: {local}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if nome_arquivo == "NA":
-                                text(f'Nome do arquivo: Não possui esta informação')
+                                text(f'Nome do arquivo: Informação Ausente')
                             else: 
                                 text(f'Nome do arquivo: {nome_arquivo}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in tags:
-                                text(f'Tags: Não possui esta informação')
+                                text(f'Tags: Informação Ausente')
                             else: 
                                 text(f'Tags: {", ".join(tags)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in link:
-                                text(f'Endereço original: Não possui esta informação')
+                                text(f'Endereço original: Informação Ausente')
                             else: 
                                 text(f'Endereço original: ')
                                 with tag('a', href=link, target="_blank"):
@@ -219,7 +223,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in link_archive:
-                                text(f'Endereço no Internet Archive: Não possui esta informação')
+                                text(f'Endereço no Internet Archive: Informação Ausente')
                             else:  
                                 text(f'Endereço no Internet Archive: ')
                                 with tag('a', href=link, target="_blank"):
@@ -227,15 +231,21 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in data_archive:
-                                text(f'Arquivado no Internet Archive em: Não possui esta informação')
+                                text(f'Arquivado no Internet Archive em: Informação Ausente')
                             else:  
                                 text(f'Arquivado no Internet Archive em: {data_archive}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if "NA" in horario_archive:
-                                text(f'Arquivado no Internet Archive às: Não possui esta informação')
+                                text(f'Arquivado no Internet Archive às: Informação Ausente')
                             else:  
                                 text(f'Arquivado no Internet Archive às: {horario_archive[0]} ({horario_archive[1]})')
+                    with tag('h3'):
+                        with tag('span', klss="infos"):
+                            if "NA" in codigo_bd:
+                                text(f'Código Base de Dados: Informação ausente')
+                            else: 
+                                text(f'Código Base de Dados: {codigo_bd}')
 
                 
 
@@ -253,7 +263,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
     print(f'DIR HTML ANO: {dir_html_ano}')
 
     if "/" or ":" in titulo:
-        titulo_html = titulo.replace("/", "-").replace(":", "__").replace(" ", "_")
+        titulo_html = titulo.replace("/", "-").replace(":", "_").replace(" ", "_")
     else: 
         titulo_html = titulo
     if ":" in horario:
@@ -262,7 +272,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
         horario_html = horario
 
     dir_arquivo = dir_html_ano
-    nome_arquivo = f'{data[-4:]}-{data[3:5]}-{data[:2]}-{horario_html}-{titulo_html}.html'
+    nome_arquivo = f'{data[-4:]}-{data[3:5]}-{data[:2]}-{horario_html}-{sigla}-{titulo_html}.html'
     with open(f"{dir_html_ano}/{nome_arquivo}", "w") as file:
         file.write(result)
     return dir_arquivo, nome_arquivo, link

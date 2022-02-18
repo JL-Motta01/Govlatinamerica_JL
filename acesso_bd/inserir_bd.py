@@ -12,7 +12,7 @@ DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
 from templates.diretorios.diretorio import diretorios
 
-def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA",  nome_arquivo="NA", imagens="NA", dir_bd="NA", dir_arquivo="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+def inserir_bd(env_dir_bd="NA", origem="NA", sigla="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA",  nome_arquivo="NA", imagens="NA", dir_bd="NA", dir_arquivo="NA", codigo_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
         print(f'ENV_DIR_BD: {env_dir_bd}')
         DIR_FINAL = diretorios(env_dir_bd)[0]
         print(DIR_FINAL)
@@ -28,6 +28,7 @@ def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", sub
             print("Não está na base")
             db.insert({
                 "origem": origem, 
+                "sigla": sigla,
                 "classificado": classificado,
                 "categoria": categoria,
                 "autoria": autoria,
@@ -48,6 +49,7 @@ def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", sub
                 "imagens": imagens,
                 "dir_bd": dir_bd,
                 "dir_arquivo": dir_arquivo,
+                "codigo_bd": codigo_bd,
                 "extra_01": extra_01, 
                 "extra_02": extra_02,
                 "extra_03": extra_03
@@ -58,7 +60,7 @@ def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", sub
             #pass
 
 def main():
-    inserir_banco = inserir_bd(env_dir_bd, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, nome_arquivo, imagens, dir_bd, dir_arquivo, extra_01, extra_02, extra_03)
+    inserir_banco = inserir_bd(env_dir_bd, origem, sigla, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, nome_arquivo, imagens, dir_bd, dir_arquivo, codigo_bd, extra_01, extra_02, extra_03)
 
 if __name__=="__main__":
     main()
