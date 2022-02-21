@@ -118,8 +118,8 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                         with tag('h1'):
                             text(titulo)
                         with tag('h2', klass='subtitulo'):
-                            if subtitulo != 'NA':
-                                text(subtitulo)
+                            if subtitulo != ['NA']:
+                                text(subtitulo[0])
                                 
                     with tag('div', klass='corpo-noticia'):
                         with tag('p', id='negrito'):
