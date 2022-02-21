@@ -118,8 +118,8 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                         with tag('h1'):
                             text(titulo)
                         with tag('h2', klass='subtitulo'):
-                            if subtitulo != ['NA']:
-                                text(subtitulo[0])
+                            if subtitulo != 'NA':
+                                text(subtitulo)
                                 
                     with tag('div', klass='corpo-noticia'):
                         with tag('p', id='negrito'):
@@ -168,10 +168,10 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                                 text(f'Autoria: {", ".join(autoria)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if classificado == "NA":
+                            if classificado == ["NA"]:
                                 text(f'Classificado como: Informação Ausente')
                             else: 
-                                text(f'Classificado como: {classificado}')
+                                text(f'Classificado como: {", ".join(classificado)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if data == "NA":
@@ -184,22 +184,22 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                             text(f'Horario: {horario}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if data_atualizado == "NA":
+                            if data_atualizado == ["NA"]:
                                 text(f'Data de atualização: Informação Ausente')
                             else:
-                                text(f'Data de atualização: {data_atualizado}')
+                                text(f'Data de atualização: {", ".join(data_atualizado)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if horario_atualizado == "NA":
+                            if horario_atualizado == ["NA"]:
                                 text(f'Horario de atualização: Informação Ausente')
                             else:
-                                text(f'Horario de atualização: {horario_atualizado}')
+                                text(f'Horario de atualização: {", ".join(horario_atualizado)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if local == "NA":
+                            if local == ["NA"]:
                                 text(f'Local: Informação Ausente')
                             else: 
-                                text(f'Local: {local}')
+                                text(f'Local: {", ".join(local)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if nome_arquivo == "NA":
