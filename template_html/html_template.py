@@ -127,6 +127,8 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                                 text(f'{origem.title()}, {data}')
                             else: 
                                 text(f'{", ".join(autoria)}, {data}')
+                        if local != 'NA':
+                            text(f'{", ".join(local)}')
                         for paragrafo in paragrafos:
                             with tag('p'):
                                 text(paragrafo)
@@ -172,6 +174,12 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                                 text(f'Classificado como: Informação Ausente')
                             else: 
                                 text(f'Classificado como: {", ".join(classificado)}')
+                    with tag('h3'):
+                        with tag('span', klass="infos"):
+                            if categoria == ["NA"]:
+                                text(f'Categoria: Informação Ausente')
+                            else: 
+                                text(f'Categoria: {", ".join(categoria)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
                             if data == "NA":
