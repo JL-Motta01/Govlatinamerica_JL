@@ -153,6 +153,8 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                         with tag('span', id='negrito'):
                             text(f'{titulo}, ')
                         text(f'{data}. ')
+                        if categoria != ['NA']:
+                            text(f'{categoria}. ')
                         text(f'Disponível em: {link}. ')
                         text(f'Acesso em: ')
                         with tag('span', id='dateAndTime'):
