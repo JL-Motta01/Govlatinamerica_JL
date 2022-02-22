@@ -12,14 +12,22 @@ DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
 sys.path.append(DIR_PROJETO) 
 from templates.diretorios.diretorio import diretorios
 
+<<<<<<< HEAD
+def inserir_bd(env_dir_bd="NA", origem="NA", sigla="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA",  nome_arquivo="NA", imagens="NA", dir_bd="NA", dir_arquivo="NA", codigo_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+=======
 def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_bd="NA", nome_arquivo="NA", dir_arquivo="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
+>>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
         print(f'ENV_DIR_BD: {env_dir_bd}')
         DIR_FINAL = diretorios(env_dir_bd)[0]
         print(DIR_FINAL)
         nome_bd_json = env_dir_bd 
         # excluir_json = os.remove(f'{DIR_FINAL}/{nome_bd_json}.json')
         db = TinyDB(f'{DIR_FINAL}/json/{nome_bd_json}.json', indent=4, ensure_ascii = False)
+<<<<<<< HEAD
+        dir_bd = f'{DIR_FINAL}/json/{nome_bd_json}.json'
+=======
         dir_bd = f'{DIR_FINAL}/{nome_bd_json}.json'
+>>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
         User = Query()
         verifica_bd = db.contains((User.titulo == titulo)&(User.data == data)&(User.horario == horario))
         print(verifica_bd)
@@ -28,6 +36,10 @@ def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", sub
             print("Não está na base")
             db.insert({
                 "origem": origem, 
+<<<<<<< HEAD
+                "sigla": sigla,
+=======
+>>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
                 "classificado": classificado,
                 "categoria": categoria,
                 "autoria": autoria,
@@ -44,9 +56,17 @@ def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", sub
                 "local": local,
                 "tags": tags,
                 "paragrafos": paragrafos,
+<<<<<<< HEAD
+                "nome_arquivo": nome_arquivo,
+                "imagens": imagens,
+                "dir_bd": dir_bd,
+                "dir_arquivo": dir_arquivo,
+                "codigo_bd": codigo_bd,
+=======
                 "dir_bd": dir_bd,
                 "nome_arquivo": nome_arquivo,
                 "dir_arquivo": dir_arquivo,
+>>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
                 "extra_01": extra_01, 
                 "extra_02": extra_02,
                 "extra_03": extra_03
@@ -57,7 +77,11 @@ def inserir_bd(env_dir_bd="NA", origem="NA", classificado="NA", titulo="NA", sub
             #pass
 
 def main():
+<<<<<<< HEAD
+    inserir_banco = inserir_bd(env_dir_bd, origem, sigla, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, nome_arquivo, imagens, dir_bd, dir_arquivo, codigo_bd, extra_01, extra_02, extra_03)
+=======
     inserir_banco = inserir_bd(env_dir_bd, origem, classificado, titulo, subtitulo, link, link_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_bd, nome_arquivo, dir_arquivo, extra_01, extra_02, extra_03)
+>>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
 
 if __name__=="__main__":
     main()

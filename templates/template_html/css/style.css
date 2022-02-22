@@ -195,3 +195,8 @@ h4{
 #negrito{
   font-weight: bold;
 }
+
+#img{
+  align-content: center;
+  width: fit-content;
+}
