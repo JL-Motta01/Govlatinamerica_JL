@@ -13,6 +13,8 @@
 
 # Sincronizar com o GitLab (na pasta raiz GOVLATINAMERICA)
 
+git pull origin main && conda activate env_govlatinamerica2 && conda env update --prune
+
 ```
 git add .
 git commit -m "comentário"
@@ -20,25 +22,7 @@ git pull origin main
 git push origin main
 ```
 
-# Verificar atualizações do ambiente virtual
-
-```
-git pull origin main && conda activate env_govlatinamerica2 && conda env update --prune
-```
-
-# Pendências
-
-- [x] documentar criação do ambiente virtual 
-- [x] habilitar ambiente virtual na estação remota 
-- [x] instalação do vscode 
-- [x] indicar onde colocar os dados coletados 
-- [x] separação da coleta dos ministérios restantes (em andamento)
-- [ ] construir classes para abrigar as partes similares dos sites (em andamento)
-- [x] salvar informações em um banco json (em andamento)
-- [x] separar data de horário
-- [x] colocar mais de um parâmetro de verificação antes de inserir no json (ex: título, data e horário)
-- [x] indicar categorias do Ministério da Cidadania (esporte, institucional e desenvolvimento social)
-- [ ] gerar HTMLs a partir do BD json (template construído, falta escalar)
+ # Pendências
 - [x] definir variáveis de ambiente 
 - [x] resolver questões de importação
 - [x] deixar mais genérico o template html
