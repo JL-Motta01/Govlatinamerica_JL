@@ -110,7 +110,7 @@ def extrai_info(html, ano):
             print(f'PARAGRAFOS:{paragrafos}')
     print("#####")
     env_dir_bd = "BD_MRE_NOTAS_IMPRENSA"
-    inserir_banco = inserir_bd(env_dir_bd = env_dir_bd, titulo = titulo)
+    inserir_banco = inserir_bd(env_dir_bd = env_dir_bd, titulo = titulo, data=data, paragrafos=paragrafos, extra_01=extra_01, origem=origem, autoria=autoria, classificado=classificado)
     gerar_html = html_consultar_json(env_dir_bd)
         
    
