@@ -56,14 +56,10 @@ def html_consultar_json(sites="NA", template="NA"):
             autoria = dado['autoria']
             tags = dado['tags']
             paragrafos = dado['paragrafos']
-<<<<<<< HEAD
             nome_arquivo = dado['nome_arquivo']
             imagens = dado['imagens']
             dir_bd = dado['dir_bd']
             codigo_bd = dado['codigo_bd']
-=======
-            dir_bd = dado['dir_bd']
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
             extra_01 = dado['extra_01']
             extra_02 = dado['extra_02']
             extra_03 = dado['extra_03']
@@ -71,23 +67,14 @@ def html_consultar_json(sites="NA", template="NA"):
             if template == "ok":
                 dir_html_ano = diretorios_template(site, f'{data[-4:]}/{data[3:5]}/{data[:2]}')[2]
             else:
-<<<<<<< HEAD
                dir_html_ano = diretorios(site, f'{data[-4:]}/{data[3:5]}/{data[:2]}')[2]
             html = gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, sigla, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, nome_arquivo, imagens, dir_bd, codigo_bd, extra_01, extra_02, extra_03)
-=======
-               dir_html_ano = diretorios(site, data[-4:])[2]
-            html = gerar_html(dir_html_ano, dir_referencias, dir_estilo, dir_html, origem, classificado, titulo, subtitulo, link, link_archive, data_archive, horario_archive, categoria, data, horario, data_atualizado, horario_atualizado, local, autoria, tags, paragrafos, dir_bd, extra_01, extra_02, extra_03)
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
             atualizar_banco = atualiza_json(html, site)
 
             print("#################")
             print("#################")
 
-<<<<<<< HEAD
 def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", sigla="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", nome_arquivo="NA", imagens="NA", dir_bd="NA", codigo_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
-=======
-def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_html="NA", origem="NA", classificado="NA", titulo="NA", subtitulo="NA", link="NA", link_archive="NA", data_archive="NA", horario_archive="NA", categoria="NA", data="NA", horario="NA", data_atualizado="NA", horario_atualizado="NA", local="NA", autoria="NA", tags="NA", paragrafos="NA", dir_bd="NA", extra_01="NA", extra_02="NA", extra_03="NA"):
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
     doc, tag, text = Doc().tagtext()
     paragrafos_avisos = [f'Este texto deve ser utilizado somente para fins acadêmicos. Para qualquer outro fim entrar em contato com a instituição que produziu e/ou divulgou esta informação: {origem}']
     links = ["stylesheet"]
@@ -122,12 +109,8 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
             doc.asis(f'<meta name="imagens" content={imagens}>') 
             doc.asis(f'<meta name="tags" content="{tags}">') 
             doc.asis(f'<meta name="dir_bd" content="{dir_bd}">') # meta tag >> dado sobre os dados / dados sobre a pag.
-<<<<<<< HEAD
             doc.asis(f'<meta name="codigo_bd" content="{codigo_bd}">')
 
-=======
-            
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
         with tag('body'):
             with tag('div', klass='container'):
                 with tag('article', klass="texto-conteudo", id="conteudo-principal"):
@@ -170,9 +153,11 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                         with tag('span', id='negrito'):
                             text(f'{titulo}, ')
                         text(f'{data}. ')
-                        if categoria != ['NA']:
+                        if not "NA" in categoria:
                             text(f'{categoria}. ')
-                        text(f'Disponível em: {link}. ')
+                        if not link == 'NA': 
+                            text(f'Disponível em: {link}. ') 
+                            
                         text(f'Acesso em: ')
                         with tag('span', id='dateAndTime'):
                             text(f'Acesso em: ')
@@ -189,13 +174,13 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                                 text(f'Autoria: {", ".join(autoria)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if classificado == ["NA"]:
+                            if classificado == ["NA"] or classificado == "NA":
                                 text(f'Classificado como: Informação Ausente')
                             else: 
                                 text(f'Classificado como: {", ".join(classificado)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if categoria == ["NA"]:
+                            if categoria == ["NA"] or categoria == "NA":
                                 text(f'Categoria: Informação Ausente')
                             else: 
                                 text(f'Categoria: {", ".join(categoria)}')
@@ -208,22 +193,23 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
                         with tag('span', klass="infos"):
                             if horario == "NA":
                                 text(f'Horario: Informação Ausente')
-                            text(f'Horario: {horario}')
+                            else: 
+                                text(f'Horario: {horario}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if data_atualizado == ["NA"]:
+                            if data_atualizado == ["NA"] or data_atualizado == "NA":
                                 text(f'Data de atualização: Informação Ausente')
                             else:
                                 text(f'Data de atualização: {", ".join(data_atualizado)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if horario_atualizado == ["NA"]:
+                            if horario_atualizado == ["NA"] or horario_atualizado == "NA":
                                 text(f'Horario de atualização: Informação Ausente')
                             else:
                                 text(f'Horario de atualização: {", ".join(horario_atualizado)}')
                     with tag('h3'):
                         with tag('span', klass="infos"):
-                            if local == ["NA"]:
+                            if local == ["NA"] or local == "NA":
                                 text(f'Local: Informação Ausente')
                             else: 
                                 text(f'Local: {", ".join(local)}')
@@ -290,11 +276,7 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
     print(f'DIR HTML ANO: {dir_html_ano}')
 
     if "/" or ":" in titulo:
-<<<<<<< HEAD
         titulo_html = titulo.replace("/", "-").replace(":", "_").replace(" ", "_")
-=======
-        titulo_html = titulo.replace("/", "-").replace(":", "__").replace(" ", "_")
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
     else: 
         titulo_html = titulo
     if ":" in horario:
@@ -303,11 +285,10 @@ def gerar_html(dir_html_ano="NA", dir_referencias="NA", dir_estilo="NA", dir_htm
         horario_html = horario
 
     dir_arquivo = dir_html_ano
-<<<<<<< HEAD
-    nome_arquivo = f'{data[-4:]}-{data[3:5]}-{data[:2]}-{horario_html}-{sigla}-{titulo_html}.html'
-=======
-    nome_arquivo = f'{data[-4:]}-{data[3:5]}-{data[:2]}-{horario_html}-{titulo_html}.html'
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
+    if horario_html == "NA":
+        nome_arquivo = f'{data[-4:]}-{data[3:5]}-{data[:2]}-{sigla}-{titulo_html}.html'
+    else:
+        nome_arquivo = f'{data[-4:]}-{data[3:5]}-{data[:2]}-{horario_html}-{sigla}-{titulo_html}.html'
     with open(f"{dir_html_ano}/{nome_arquivo}", "w") as file:
         file.write(result)
     return dir_arquivo, nome_arquivo, link

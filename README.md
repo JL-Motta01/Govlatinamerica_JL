@@ -48,12 +48,14 @@ git push origin main
 - [ ] TRATAMENTO DAS NOTAS DE IMPRENSA DE 1997 A 2013
   - [ ] verificar problema de encode de 2013
   - [x] verificar todas as informações importantes contidas no html (título, data, parágrafos, número da nota quando houver...)
+  - [ ] corrigir problema na autoria
+  - [ ] verificar se variáveis do json estão em conformidade com os templates
   - [ ] substituir as quebras de linha (\n) por espaço em cada parágrafo
-  - [ ] necessidade de tratar especificamente as datas e os parágrafos de cada ano (mudança de estrutura html)
-  - [ ] selecionar todas as tags importantes
-  - [ ] inserir no banco de dados 
+  - [x] necessidade de tratar especificamente as datas e os parágrafos de cada ano (mudança de estrutura html)
+  - [ ] inserir no banco de dados (em andamento)
+  - [ ] gerar htmls (em andamento)
   - [ ] arquivar no internet archive nossos htmls locais
-  - [ ] gerar htmls
+  
 - [ ] SITE PLANALTO
   -[ ] substituir downloads wget por requests
   

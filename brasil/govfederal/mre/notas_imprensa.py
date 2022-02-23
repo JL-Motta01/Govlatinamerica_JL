@@ -33,7 +33,7 @@ def notas_imprensa():
     MRE_NOTAS_IMPRENSA = "/001/mre-notas-imprensa/"
     DIR_FINAL = DIR_BD + "/" + MRE + MRE_NOTAS_IMPRENSA
     # print(DIR_FINAL)
-    anos = sorted(os.listdir(DIR_FINAL))[-17:-16]
+    anos = sorted(os.listdir(DIR_FINAL))
     print(anos)
     for ano in anos:
         # print(ano)
@@ -62,8 +62,8 @@ def extrai_info(html, ano):
     """
     bs = acessar_pagina_local(html)
     origem = "Ministério das Relações Exteriores"
-    classificado = "notas de imprensa"
-    autoria = "Ministério das Relações Exteriores"
+    classificado = ["notas de imprensa"]
+    autoria = ["Ministério das Relações Exteriores"]
     link = "NA"
     try:
         tag_titulo = bs.find("h1", {"class" : "documentFirstHeading"})
@@ -109,8 +109,10 @@ def extrai_info(html, ano):
             paragrafos = ["NA"]
             print(f'PARAGRAFOS:{paragrafos}')
     print("#####")
+    sigla = "MRE_NOTAS_IMPRENSA"
+    codigo_bd = "bd/003/001/001/001/002/001"
     env_dir_bd = "BD_MRE_NOTAS_IMPRENSA"
-    inserir_banco = inserir_bd(env_dir_bd = env_dir_bd, titulo = titulo, data=data, paragrafos=paragrafos, extra_01=extra_01, origem=origem, autoria=autoria, classificado=classificado)
+    inserir_banco = inserir_bd(env_dir_bd = env_dir_bd, titulo = titulo, data=data, paragrafos=paragrafos, extra_01=extra_01, origem=origem, autoria=autoria, classificado=classificado, sigla=sigla, codigo_bd=codigo_bd)
     gerar_html = html_consultar_json(env_dir_bd)
         
    

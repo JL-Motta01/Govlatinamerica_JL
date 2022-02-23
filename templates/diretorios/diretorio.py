@@ -26,18 +26,12 @@ def diretorios(nome, ano="NA"):
         DIR_BD = f'{DIR_BD_FINAL}'
         cria_dir_html = os.makedirs(f'{DIR_BD_FINAL}/html', exist_ok = True)
         DIR_HTML = f'{DIR_BD_FINAL}/html'
-<<<<<<< HEAD
         cria_dir_html_img = os.makedirs(f'{DIR_BD_FINAL}/html_img', exist_ok = True)        
         if ano != "NA":
             cria_dir_html_ano = os.makedirs(f'{DIR_BD_FINAL}/html/{ano}', exist_ok = True)
             cria_dir_html_img = os.makedirs(f'{DIR_BD_FINAL}/html_img/{ano}', exist_ok = True)
             DIR_HTML_ANO = f'{DIR_BD_FINAL}/html/{ano}'
             DIR_HTML_IMG = f'{DIR_BD_FINAL}/html_img/{ano}'
-=======
-        if ano != "NA":
-            cria_dir_html_ano = os.makedirs(f'{DIR_BD_FINAL}/html/{ano}', exist_ok = True)
-            DIR_HTML_ANO = f'{DIR_BD_FINAL}/html/{ano}'
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
         else:
             DIR_HTML_ANO = f'{DIR_BD_FINAL}/html'
             DIR_HTML_IMG = f'{DIR_BD_FINAL}/html_img'
@@ -65,10 +59,7 @@ def diretorios_template(nome, ano="NA"):
         print(f'BASE_DADO: {BASE_DADO}')
         cria_dir_banco = os.makedirs(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/json', exist_ok = True)
         cria_dir_html = os.makedirs(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html', exist_ok = True)
-<<<<<<< HEAD
         cria_dir_html_img = os.makedirs(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html_img', exist_ok = True)
-=======
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
         if ano != "NA":
             cria_dir_html_ano = os.makedirs(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html/{ano}', exist_ok = True)
             dir_html_ano = f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html/{ano}'
@@ -76,9 +67,5 @@ def diretorios_template(nome, ano="NA"):
             dir_html_ano = "NA"
         print(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/json')
         print(f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/{BASE_DADO}/json')
-<<<<<<< HEAD
         return (f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/json', f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html', dir_html_ano, REFERENCIAS, ESTILO, f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html_img')
-=======
-        return (f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/json', f'{DIR_ROOT}/exemplos/{NOME_PROJETO}/html', dir_html_ano, REFERENCIAS, ESTILO)
->>>>>>> ae4a163ee176e7956175c7bc34db61b45c20e284
 
