@@ -21,10 +21,13 @@ def links_quebrados():
     return quebrados
 
 def teste():
-    pass
+    quebrados = links_quebrados()
+    for index, quebrado in enumerate (quebrados, start=1):
+       print(index, quebrado) 
 
-    def main():
-        quebrados = links_quebrados()
+def main():
+    # quebrados = links_quebrados()
+    teste_tmp = teste()
 
 
 if __name__ == "__main__":
