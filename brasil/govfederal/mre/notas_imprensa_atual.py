@@ -14,10 +14,16 @@ def extrair_info():
     notas = bs.find_all("article")
     #print(notas)
     for nota in notas:
-        titulo = nota.find("h2").text
+        titulo = nota.find("h2").text.strip()
         data = nota.find_all("span", class_="summary-view-icon")[0].text.strip()
+        horario = nota.find_all("span", class_="summary-view-icon")[1].text.strip()
+        num_nota = nota.find("span", class_="subtitle").text.strip()
+        link = nota.a["href"]
         print(titulo)
         print(data)
+        print (horario)
+        print(num_nota)
+        print(link)
 #//*[@id="content-core"]/article[1]/div/h2/a
 #informações importantes: n° da nota, título, data, horário e link para conteúdo
 
