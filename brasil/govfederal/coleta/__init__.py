@@ -1,1 +1,0 @@
-__all__ = ["coleta_noticias", "teste"]
