@@ -110,6 +110,7 @@ def coleta_compromissos(ag,origem):
             print("Dia vazio na agenda")
             
 def acesso_ministerios ():
+    
     lista_ministerios = [
         "https://www.gov.br/casacivil/pt-br/acesso-a-informacao/agendas-da-casa-civil",
         "https://www.gov.br/mre/pt-br/acesso-a-informacao/agenda-de-autoridades",
@@ -125,41 +126,41 @@ def acesso_ministerios ():
         "https://www.gov.br/secretariageral/pt-br/acesso-a-informacao/agenda-de-autoridades",
         "https://www.gov.br/cgu/pt-br/acesso-a-informacao/agenda-de-autoridades",
         "https://www.gov.br/agu/pt-br/acesso-a-informacao/agenda-de-autoridades",
-        "https://www.gov.br/secretariadegoverno/pt-br",
-        "https://www.gov.br/gsi/pt-br/acesso-a-informacao/institucional/agendas-do-gsi",
-        "https://www.gov.br/mj/pt-br/acesso-a-informacao/agenda-de-autoridades",
-        "https://www.gov.br/agricultura/pt-br/acesso-a-informacao/agendas"
-
+        "https://www.gov.br/secretariadegoverno/pt-br"
+        # "https://www.gov.br/gsi/pt-br/acesso-a-informacao/institucional/agendas-do-gsi",
+        # "https://www.gov.br/mj/pt-br/acesso-a-informacao/agenda-de-autoridades",
+        # "https://www.gov.br/agricultura/pt-br/acesso-a-informacao/agendas"
         ]
+
     lista_agenda = []
     for ministerio in lista_ministerios:
         acesso_ministerio = acessar_pagina(ministerio)
         """Teste para ministerios difereines"""
 
-        if ministerio==lista_ministerios[0]:
-            """Casa Civil"""
-            print("Começando coleta: Agendas da Casa Civil")
-            lista_link=drop_list(acesso_ministerio)
-            coleta_agendas(lista_link,ministerio)
+        # if ministerio==lista_ministerios[0]:
+        #     """Casa Civil"""
+        #     print("Começando coleta: Agendas da Casa Civil")
+        #     lista_link=drop_list(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
         
-        if ministerio==lista_ministerios[1]:
-            """MRE"""
-            print("Começando coleta: Agendas do MRE")
-            lista_link=card_content(acesso_ministerio)
-            coleta_agendas(lista_link,ministerio)
+        # if ministerio==lista_ministerios[1]:
+        #     """MRE"""
+        #     print("Começando coleta: Agendas do MRE")
+        #     lista_link=card_content(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
 
-        if ministerio==lista_ministerios[2]:
-            """MMA"""
-            print("Começando coleta: Agendas do MMA")
-            ag=card_content_secretaria(acesso_ministerio)
-            lista_link=correcao_agenda(ag)
-            coleta_agendas(lista_link,ministerio)
+        # if ministerio==lista_ministerios[2]:
+        #     """MMA"""
+        #     print("Começando coleta: Agendas do MMA")
+        #     ag=card_content_secretaria(acesso_ministerio)
+        #     lista_link=correcao_agenda(ag)
+        #     coleta_agendas(lista_link,ministerio)
 
-        if ministerio==lista_ministerios[3]:
-            """Infraestrutura"""
-            "Começando coleta: Agendas do ministério da Infraestrutura"
-            lista_link=normal_list(acesso_ministerio)
-            coleta_agendas(lista_link,ministerio)
+        # if ministerio==lista_ministerios[3]:
+        #     """Infraestrutura"""
+        #     "Começando coleta: Agendas do ministério da Infraestrutura"
+        #     lista_link=normal_list(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
 
         if ministerio==lista_ministerios[4]:
             """MME"""
@@ -227,23 +228,23 @@ def acesso_ministerios ():
             lista_link=drop_list(acesso_ministerio)
             coleta_agendas(lista_link,ministerio)
             
-        if ministerio==lista_ministerios[15]:
-            """GSI"""
-            "Começando coleta: Agendas do GSI"
-            lista_link=drop_list(acesso_ministerio)
-            coleta_agendas(lista_link,ministerio)
+        # if ministerio==lista_ministerios[15]:
+        #     """GSI"""
+        #     "Começando coleta: Agendas do GSI"
+        #     lista_link=drop_list(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
         
-        if ministerio==lista_ministerios[16]:
-            """Ministério da justiça"""
-            "Começando coleta: Agendas do Ministério da justiça"
-            lista_link=coleta_mj(acesso_ministerio)
-            coleta_agendas(lista_link,ministerio)
+        # if ministerio==lista_ministerios[16]:
+        #     """Ministério da justiça"""
+        #     "Começando coleta: Agendas do Ministério da justiça"
+        #     lista_link=coleta_mj(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)
         
-        if ministerio==lista_ministerios[17]:
-            """Ministério da Agricultura"""
-            "Começando coleta: Agendas do Ministério da Agricultura"
-            lista_link=coleta_mapa(acesso_ministerio)
-            coleta_agendas(lista_link,ministerio)       
+        # if ministerio==lista_ministerios[17]:
+        #     """Ministério da Agricultura"""
+        #     "Começando coleta: Agendas do Ministério da Agricultura"
+        #     lista_link=coleta_mapa(acesso_ministerio)
+        #     coleta_agendas(lista_link,ministerio)       
 
 def card_content(acesso):
     #ministérios que direcionam para as agendas a partir de card contents (MRE)
