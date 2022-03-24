@@ -35,6 +35,9 @@
 - [x] ver caminho do css no govlatinamerica
 - [x] apontar sites para coleta
 - [ ] verificar diretórios em que os arquivos HTML's e Jsons são salvos
+
+## Ministério das Relações Exteriores
+
 - [ ] TRATAMENTO DAS NOTAS DE IMPRENSA DE 1997 A 2013
   - [ ] verificar problema de encode de 2013
   - [x] verificar todas as informações importantes contidas no html (título, data, parágrafos, número da nota quando houver...)
@@ -44,3 +47,8 @@
   - [ ] inserir no banco de dados 
   - [ ] arquivar no internet archive nossos htmls locais
   - [ ] gerar htmls
+- [ ] coleta das notas de imprensa atuais
+    - [ ] entrar no link e extrair os parágrafos
+    - [ ] percorrer todas as páginas disponíveis e extrair as notas
+    - [ ] inserir as informações no banco json 
+    - [ ] gerar os htmls
