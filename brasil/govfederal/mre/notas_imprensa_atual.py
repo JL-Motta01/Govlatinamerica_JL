@@ -1,5 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
+from dotenv import load_dotenv
+from tinydb import TinyDB, Query
+import lxml
+import os
+import sys 
+DIR_PWD = os.environ["PWD"] 
+lista_dir_atual = DIR_PWD.split("/")
+NOME_PROJETO = lista_dir_atual[lista_dir_atual.index("codigo")+1]
+lista_dir_atual_02 = DIR_PWD.split(NOME_PROJETO)
+DIR_PROJETO = lista_dir_atual_02[0]+NOME_PROJETO
+sys.path.append(DIR_PROJETO) 
+if NOME_PROJETO == "templates":
+    from diretorios.diretorio import diretorios, diretorios_template 
+else:
+    from templates.diretorios.diretorio import diretorios, diretorios_template 
+print(f'DIR PROJETO: {DIR_PROJETO}')
+from templates.acesso_bd.inserir_bd import inserir_bd
+from templates.template_html.html_template import html_consultar_json
+
 
 def acessar_pagina(url):
     html = requests.get(url)
@@ -8,6 +27,12 @@ def acessar_pagina(url):
     return bs
 
 def extrair_info():
+    sigla = "MRE_NOTAS_IMPRENSA"
+    codigo_bd = "bd/003/001/001/001/002/001"
+    env_dir_bd = "BD_MRE_NOTAS_IMPRENSA"
+    classificado = ["notas de imprensa"]
+    origem = "Ministério das Relações Exteriores"
+    autoria = ["Ministério das Relações Exteriores"]
     bs = acessar_pagina("https://www.gov.br/mre/pt-br/canais_atendimento/imprensa/notas-a-imprensa/")
     tag_h1 = bs.find("h1").text
     print(tag_h1)
@@ -18,12 +43,14 @@ def extrair_info():
         data = nota.find_all("span", class_="summary-view-icon")[0].text.strip()
         horario = nota.find_all("span", class_="summary-view-icon")[1].text.strip()
         num_nota = nota.find("span", class_="subtitle").text.strip()
+        num_nota = num_nota.split()[-1]
         link = nota.a["href"]
         print(titulo)
         print(data)
         print (horario)
         print(num_nota)
         print(link)
+        inserir_banco = inserir_bd(env_dir_bd=env_dir_bd, titulo=titulo, data=data, horario=horario, extra_01=num_nota, origem=origem, autoria=autoria, classificado=classificado, sigla=sigla, codigo_bd=codigo_bd)
 #//*[@id="content-core"]/article[1]/div/h2/a
 #informações importantes: n° da nota, título, data, horário e link para conteúdo
 
