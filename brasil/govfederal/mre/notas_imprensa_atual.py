@@ -21,12 +21,14 @@ from templates.template_html.html_template import html_consultar_json
 
 
 def acessar_pagina(url):
+    """Responsável por acessar as páginas enviadas a ele"""
     html = requests.get(url)
     bs = BeautifulSoup(html.text, "html.parser")
     # print(bs)
     return bs
 
 def extrair_info():
+    """Responsável por extrair as informações solicitadas"""
     sigla = "MRE_NOTAS_IMPRENSA"
     codigo_bd = "bd/003/001/001/001/002/001"
     env_dir_bd = "BD_MRE_NOTAS_IMPRENSA"
@@ -50,7 +52,21 @@ def extrair_info():
         print (horario)
         print(num_nota)
         print(link)
-        inserir_banco = inserir_bd(env_dir_bd=env_dir_bd, titulo=titulo, data=data, horario=horario, extra_01=num_nota, origem=origem, autoria=autoria, classificado=classificado, sigla=sigla, codigo_bd=codigo_bd)
+        acessar_nota = acessar_pagina(link)
+        tag_p = acessar_nota.find_all("p")
+        paragrafos = [paragrafo.text.strip() for paragrafo in tag_p]
+        # paragrafos = filter(None,paragrafos)
+        for p in paragrafos:
+            if p == "Notícias":
+                paragrafos.remove(p)
+            if "NOTA À IMPRENSA Nº" in p:
+                paragrafos.remove(p)
+        print(paragrafos)
+        # paragrafos_final = []
+        # for paragrafo in paragrafos:
+        #     paragrafos_final.append(paragrafo.text)
+        # print(paragrafos_final)
+        #inserir_banco = inserir_bd(env_dir_bd=env_dir_bd, titulo=titulo, data=data, horario=horario, extra_01=num_nota, origem=origem, autoria=autoria, classificado=classificado, sigla=sigla, codigo_bd=codigo_bd)
 #//*[@id="content-core"]/article[1]/div/h2/a
 #informações importantes: n° da nota, título, data, horário e link para conteúdo
 
