@@ -47,8 +47,3 @@
   - [ ] inserir no banco de dados 
   - [ ] arquivar no internet archive nossos htmls locais
   - [ ] gerar htmls
-- [ ] coleta das notas de imprensa atuais
-    - [ ] entrar no link e extrair os parágrafos
-    - [ ] percorrer todas as páginas disponíveis e extrair as notas
-    - [ ] inserir as informações no banco json 
-    - [ ] gerar os htmls
