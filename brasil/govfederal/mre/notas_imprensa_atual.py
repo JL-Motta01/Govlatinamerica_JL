@@ -40,6 +40,7 @@ def paginas_info():
     return paginas_info
 
 def extrair_info(url):
+    print("ENTROU NA NOTÍCIA")
     """Responsável por extrair as informações solicitadas"""
     sigla = "MRE_NOTAS_IMPRENSA"
     codigo_bd = "bd/003/001/001/001/002/001"
@@ -49,9 +50,9 @@ def extrair_info(url):
     autoria = ["Ministério das Relações Exteriores"]
     bs = acessar_pagina(url)
     tag_h1 = bs.find("h1").text
-    print(tag_h1)
+    print(f'Tag_h1: {tag_h1}')
     notas = bs.find_all("article")
-    #print(notas)
+    print(f'Links: {notas}')
     for nota in notas:
         titulo = nota.find("h2").text.strip()
         data = nota.find_all("span", class_="summary-view-icon")[0].text.strip()
@@ -62,11 +63,11 @@ def extrair_info(url):
         except:
             num_nota = "NA"
         link = nota.a["href"]
-        print(titulo)
-        print(data)
-        print (horario)
-        print(num_nota)
-        print(link)
+        print(f'titulo: {titulo}')
+        print(f'data: {data}')
+        print (f'horario: {horario}')
+        print(f'num_nota: {num_nota}')
+        print(f'link: {link}')
         acessar_nota = acessar_pagina(link)
         tag_p = acessar_nota.find_all("p")
         paragrafos = [unicodedata.normalize("NFKD",paragrafo.get_text(strip=True)) for paragrafo in tag_p]
