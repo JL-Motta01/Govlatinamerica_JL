@@ -72,14 +72,15 @@ git pull origin main && conda activate env_govlatinamerica2 && conda env update 
   - [ ] gerar htmls
 
 
+## non-fast-forward
 
-  # Integração 
-
-- Notícias
-- Agenda
-- HTML
-
-|Ministério|Notícias|Agenda|
+```
+git add --all .
+git commit -m "resolvendo conflitos no arquivo html template e teste de internet archive"
+git pull origin main
+git push origin main
+git subtree pull --prefix=templates templates main
+git subtree push --prefix=templates templates main
 |----------|--------|------|
 |[Planalto](https://www.gov.br/planalto/pt-br) | Específico |  Comum    |
 |[Casa Civil](https://www.gov.br/casacivil/pt-br)| Comum | Comum |
