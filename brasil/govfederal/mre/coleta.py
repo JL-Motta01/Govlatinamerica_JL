@@ -2,9 +2,8 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
 
-def page_access(url):
+def acessar_pagina(url):
     html = urlopen(url)  
-    global bsoup
     bsoup = BeautifulSoup(html, "html.parser")
     return bsoup
 

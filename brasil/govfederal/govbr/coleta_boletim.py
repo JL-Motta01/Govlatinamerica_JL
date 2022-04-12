@@ -4,7 +4,7 @@ from urllib.request import urlopen
 import urllib
 import urllib.request #realizar requisição da página html
 import os #para especificar o caminho do download
-import wget
+import requests
 import csv
 from tinydb import TinyDB,Query
 from urllib.parse import urlparse #realizar parseamento do html
@@ -48,7 +48,7 @@ def coleta_link():
 
 def coleta_conteudo():
     """Responsável por coletar título, parágrafo, Tags, atualização e data dos boletim"""
-    db = TinyDB(f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/db_boletim.json", ensure_ascii=False)
+    db = TinyDB(f"{DIR_DADOS}/govlatinamerica/brasil/govfederal/govbr/bd/db_boletim.json", ensure_ascii=False)
     User = Query()
     for link in coleta_link():
         boletim = acessar_pagina(link)
@@ -66,17 +66,21 @@ def coleta_conteudo():
         db_planalto = db.contains((User.titulo==titulo)&(User.data==publicado_em))
         if not db_planalto:
             print("não está na base")
-            wget.download(url[:-5], f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_boletim/")
-            db.insert({
-                "origem": "Planalto",
-                "classificado": "Notas e classificados",
-                "data":publicado_em[0],
-                "horario":publicado_em[1],
-                "atualizado em":atualizado_em,
-                "link":url[:-5],  
-                "titulo":titulo,
-                "subtítulo":subtitulo
-            })
+            #wget.download(url[:-5], f"{DIR_LOCAL}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_boletim/")
+            link_pdf = requests.get(url[:-5])
+            local = f"{DIR_DADOS}/govlatinamerica/brasil/govfederal/govbr/bd/pdf_boletim/"
+            with open(f'{local}/{titulo}', "wb") as arq_pdf:
+                arq_pdf.write(link_pdf.content)
+            # db.insert({
+            #     "origem": "Planalto",
+            #     "classificado": "Notas e classificados",
+            #     "data":publicado_em[0],
+            #     "horario":publicado_em[1],
+            #     "atualizado em":atualizado_em,
+            #     "link":url[:-5],  
+            #     "titulo":titulo,
+            #     "subtítulo":subtitulo
+            # })
         else:
             print("está na base")
 

@@ -5,9 +5,10 @@
 # Pendências 
 
 - [x] ajustar o script html_template
-- [ ] ajustar o script acesso_db
-- [ ] ajustar o script diretorios
-- [ ] ajustar o script internet_archive
+- [x] ajustar o script acesso_db
+- [x] ajustar o script diretorios
+- [x] ajustar o script internet_archive
+- [x] ajustar a responsividade do template html (EM ANDAMENTO)
 
 # Git 
 

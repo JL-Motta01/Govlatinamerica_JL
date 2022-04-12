@@ -37,10 +37,10 @@ infos{
 
 h3{
   font-size: 1.6rem;
+  line-height: 1.1em;
   font-family: 'Roboto', sans-serif;
   font-weight: lighter;
   text-align: left;
-  line-height: 0.5;
   margin-left: 35%;
 }
 
@@ -194,4 +194,9 @@ h4{
 
 #negrito{
   font-weight: bold;
+}
+
+#img{
+  align-content: center;
+  width: fit-content;
 }

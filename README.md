@@ -109,7 +109,16 @@ git subtree push --prefix=templates templates main
 |[Gabinete de Segurança Institucional](https://www.gov.br/gsi/pt-br)| Específico | link específico|
 |[MAPA](https://www.gov.br/agricultura/pt-br/)| Comum | link específico|
 
-# Problemas no GIT
+# Próximas atividades
+
+## Ministério das Relações Exteriores
+
+- [ ] coleta das notas de imprensa atuais
+    - [x] entrar no link e extrair os parágrafos
+    - [x] retirar parágrafos desnecessários, parágrafos em branco e caracteres /xa0
+    - [ ] percorrer todas as páginas disponíveis e extrair as notas
+    - [ ] inserir as informações no banco json 
+    - [ ] gerar os htmls
 
 ## non-fast-forward
 

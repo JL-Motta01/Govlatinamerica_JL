@@ -7,12 +7,28 @@ def links_quebrados():
         "barra-gov-bv2-minimo",
         "contact-info",
         "mensagem-do-ministro-celso-amorim-a-secretaria-de",
-        "mensagem-do-presidente-luiz-inacio-lula-da-silva",
+        "mensagem-do-presidente-luiz-inacio-lula-da-silva.html",
         "message-from-minister-celso-amorim-to-the",
         "retencao-de-carga-no-porto-de-roterda-do-generico",
         "11591468396-visita-ao-brasil-do-ministro-dos-negocios",
         "barra-gov-bv2-minimo",
         "contact-info"
-        "mensagem-do-ministro-celso-amorim-a-secretaria-de"
+        "mensagem-do-ministro-celso-amorim-a-secretaria-de",
+        "reuniao-de-cupula-da-asa-isla-margarita-venezuela",
+        "the-minister-of-foreign-affairs-of-cyprus-markos",
+        "visita-ao-brasil-do-presidente-de-el-salvador"
         ]
     return quebrados
+
+def teste():
+    quebrados = links_quebrados()
+    for index, quebrado in enumerate (quebrados, start=1):
+       print(index, quebrado) 
+
+def main():
+    # quebrados = links_quebrados()
+    teste_tmp = teste()
+
+
+if __name__ == "__main__":
+    main()
