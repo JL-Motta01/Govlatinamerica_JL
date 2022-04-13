@@ -49,7 +49,7 @@ def extrair_info(url):
     origem = "Ministério das Relações Exteriores"
     autoria = ["Ministério das Relações Exteriores"]
     bs = acessar_pagina(url)
-    tag_h1 = bs.find("h1").text
+    tag_h1 = bs.find("h1", class_="DocumentFirstHeading").text
     print(f'Tag_h1: {tag_h1}')
     notas = bs.find_all("article")
     print(f'Links: {notas}')
@@ -69,18 +69,21 @@ def extrair_info(url):
         print(f'num_nota: {num_nota}')
         print(f'link: {link}')
         acessar_nota = acessar_pagina(link)
-        tag_p = acessar_nota.find_all("p")
-        paragrafos = [unicodedata.normalize("NFKD",paragrafo.get_text(strip=True)) for paragrafo in tag_p]
-        
-        for p in paragrafos.copy():
-            if p == "Notícias":
-                paragrafos.remove(p)
-            if "NOTA À IMPRENSA Nº" in p:
-                paragrafos.remove(p)
-        paragrafos = filter(None,paragrafos)
-           
-        print(paragrafos)
-        # paragrafos_final = []
+        try:
+            tag_p = acessar_nota.find_all("p")
+            paragrafos = [unicodedata.normalize("NFKD",paragrafo.get_text(strip=True)) for paragrafo in tag_p]
+            
+            for p in paragrafos.copy():
+                if p == "Notícias":
+                    paragrafos.remove(p)
+                if "NOTA À IMPRENSA Nº" in p:
+                    paragrafos.remove(p)
+            paragrafos = filter(None,paragrafos)
+            
+            print(paragrafos)
+        except:
+            pass
+            # paragrafos_final = []
         # for paragrafo in paragrafos:
         #     paragrafos_final.append(paragrafo.text)
         # print(paragrafos_final)
